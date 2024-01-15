@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('sempros', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('role1_id');
-            $table->foreignId('role2_id')->nullable();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignUuid('judul_id');
+            $table->date('tanggal_seminar');
+            $table->foreignUuid('penguji1_id');
+            $table->foreignUuid('penguji2_id');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('sempros');
     }
 };
