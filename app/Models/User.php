@@ -48,9 +48,14 @@ class User extends Authenticatable
     ];
 
 
-    public function role(): HasMany
+    public function role1(): HasMany
     {
-        return $this->hasMany(Role::class);
+        return $this->hasMany(Role::class, 'role1_id');
+    }
+
+    public function role2(): HasMany
+    {
+        return $this->hasMany(Role::class, 'role2_id');
     }
 
     public function judul(): HasMany

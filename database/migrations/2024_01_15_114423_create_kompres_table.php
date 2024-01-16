@@ -15,6 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('judul_id');
             $table->date('tanggal_seminar');
+            $table->time('jam');
+            $table->string('ruang');
             $table->foreignUuid('penguji1_id');
             $table->foreignUuid('penguji2_id');
             $table->string('status');
