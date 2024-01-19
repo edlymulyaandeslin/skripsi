@@ -12,14 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sempros', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('judul_id');
-            $table->date('tanggal_seminar');
-            $table->time('jam');
-            $table->string('ruang');
-            $table->foreignUuid('penguji1_id');
-            $table->foreignUuid('penguji2_id');
-            $table->string('status');
+            $table->id();
+            $table->foreignId('judul_id');
+            $table->date('tanggal_seminar')->nullable();
+            $table->time('jam')->nullable();
+            $table->string('ruang')->nullable();
+            $table->foreignId('team_penguji_id')->nullable();
+            $table->integer('nilai1')->nullable();
+            $table->integer('nilai2')->nullable();
+            $table->integer('nilai3')->nullable();
+            $table->integer('nilai4')->nullable();
+            $table->integer('nilai5')->nullable();
+            $table->string('status')->default('diajukan');
             $table->timestamps();
         });
     }

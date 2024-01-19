@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
-use Illuminate\Http\Request;
+use App\Models\TeamPenguji;
+use App\Http\Requests\StoreTeamPengujiRequest;
+use App\Http\Requests\UpdateTeamPengujiRequest;
 
-class RoleController extends Controller
+class TeamPengujiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +27,7 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTeamPengujiRequest $request)
     {
         //
     }
@@ -34,7 +35,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Role $role)
+    public function show(TeamPenguji $teamPenguji)
     {
         //
     }
@@ -42,7 +43,7 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Role $role)
+    public function edit(TeamPenguji $teamPenguji)
     {
         //
     }
@@ -50,7 +51,7 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(UpdateTeamPengujiRequest $request, TeamPenguji $teamPenguji)
     {
         //
     }
@@ -58,7 +59,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role)
+    public function destroy(TeamPenguji $teamPenguji)
     {
         //
     }

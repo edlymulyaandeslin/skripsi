@@ -3,6 +3,15 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Judul;
+use App\Models\Kompre;
+use App\Models\Logbook;
+use App\Models\Role;
+use App\Models\Sempro;
+use App\Models\TeamPembimbing;
+use App\Models\TeamPenguji;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +21,39 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'role_id' => 1,
+            'nim_or_nidn' => 83,
+            'name' => 'Edly Mulya Andeslin',
+            'email' => 'edlymulyaandeslin@gmail.com',
+        ]);
+
+        User::factory(9)->create();
+
+        Judul::factory(5)->create();
+
+        Logbook::factory(5)->create();
+
+        Sempro::factory(5)->create();
+
+        Kompre::factory(5)->create();
+
+        TeamPenguji::factory(5)->create();
+
+        TeamPembimbing::factory(5)->create();
+
+        Role::create([
+            'name' => 'admin',
+        ]);
+        Role::create([
+            'name' => 'koordinator',
+        ]);
+        Role::create([
+            'name' => 'dosen',
+        ]);
+        Role::create([
+            'name' => 'mahasiswa',
+        ]);
     }
 }

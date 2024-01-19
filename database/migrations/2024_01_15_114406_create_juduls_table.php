@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('juduls', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('mahasiswa_id');
+            $table->id();
+            $table->foreignId('mahasiswa_id');
             $table->string('judul');
-            $table->text('deskripsi');
-            $table->foreignUuid('pembimbing_id');
-            $table->string('status');
+            $table->text('latar_belakang');
+            $table->foreignid('team_pembimbing_id');
+            $table->string('status')->default('diajukan');
             $table->timestamps();
         });
     }

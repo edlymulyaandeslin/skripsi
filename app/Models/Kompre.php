@@ -9,20 +9,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Kompre extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     public function judul(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'judul_id');
+        return $this->belongsTo(Judul::class, 'judul_id');
     }
 
-    public function penguji1(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'penguji1_id');
-    }
 
-    public function penguji2(): BelongsTo
+    public function teamPenguji(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'penguji2_id');
+        return $this->belongsTo(TeamPenguji::class, 'team_penguji_id');
     }
 }

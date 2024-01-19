@@ -7,6 +7,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -19,7 +20,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     // protected $fillable = [
     //     'name',
@@ -48,28 +49,13 @@ class User extends Authenticatable
     ];
 
 
-    public function role1(): HasMany
+    public function role(): BelongsTo
     {
-        return $this->hasMany(Role::class, 'role1_id');
-    }
-
-    public function role2(): HasMany
-    {
-        return $this->hasMany(Role::class, 'role2_id');
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
     public function judul(): HasMany
     {
         return $this->hasMany(Judul::class);
-    }
-
-    public function sempro(): HasMany
-    {
-        return $this->hasMany(Sempro::class);
-    }
-
-    public function kompre(): HasMany
-    {
-        return $this->hasMany(Kompre::class);
     }
 }

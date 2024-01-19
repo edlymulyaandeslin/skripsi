@@ -10,7 +10,7 @@ class Role extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
 
     public function user(): BelongsTo
