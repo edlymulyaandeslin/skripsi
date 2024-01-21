@@ -18,9 +18,10 @@ class JudulFactory extends Factory
     {
         return [
             'mahasiswa_id' => mt_rand(1, 10),
-            'judul' => fake()->title(),
+            'judul' => fake()->jobTitle(),
             'latar_belakang' => fake()->paragraph(4),
-            'team_pembimbing_id' => mt_rand(1, 10),
+            'pembimbing1_id' => 0,
+            'pembimbing2_id' => 0,
         ];
     }
 }

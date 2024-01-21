@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('juduls', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mahasiswa_id');
+            $table->foreignId('mahasiswa_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('judul');
             $table->text('latar_belakang');
-            $table->foreignid('team_pembimbing_id');
+            $table->foreignId('pembimbing1_id')->default(0);
+            $table->foreignId('pembimbing2_id')->default(0);
             $table->string('status')->default('diajukan');
             $table->timestamps();
         });

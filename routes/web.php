@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('dashboard', [
+        'title' => 'E - Skripsi'
+    ]);
 });
 
 Route::resource('/judul', JudulController::class);
@@ -32,10 +34,11 @@ Route::resource('/sempro', SemproController::class);
 Route::resource('/kompre', KompreController::class);
 
 // route manajemen users
-// Route::resource('/mahasiswa', KompreController::class);
-// Route::resource('/koordinator', KompreController::class);
-// Route::resource('/dosen', KompreController::class);
+Route::prefix('manajemen')->group(function () {
+    // Route::resource('/mahasiswa', KompreController::class);
+    // Route::resource('/koordinator', KompreController::class);
+    // Route::resource('/dosen', KompreController::class);
 
-// route manajemen pembimbing dan penguji
-Route::resource('/teampembimbing', TeamPembimbingController::class);
-Route::resource('/teampenguji', TeamPengujiController::class);
+    // route manajemen pembimbing dan penguji
+    Route::resource('/teampenguji', TeamPengujiController::class);
+});

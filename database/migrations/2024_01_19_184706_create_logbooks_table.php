@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('logbooks', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('judul_id');
+            $table->foreignId('judul_id')->constrained()->cascadeOnDelete();
             $table->text('deskripsi');
             $table->string('status')->default('diajukan');
             $table->timestamps();

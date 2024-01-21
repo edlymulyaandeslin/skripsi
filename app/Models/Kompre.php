@@ -17,7 +17,7 @@ class Kompre extends Model
     }
 
 
-    public function teamPenguji(): BelongsTo
+    public function teampenguji(): BelongsTo
     {
         return $this->belongsTo(TeamPenguji::class, 'team_penguji_id');
     }

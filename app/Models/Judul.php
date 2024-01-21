@@ -18,9 +18,14 @@ class Judul extends Model
         return $this->belongsTo(User::class, 'mahasiswa_id');
     }
 
-    public function teamPembimbing(): BelongsTo
+    public function pembimbing1(): BelongsTo
     {
-        return $this->belongsTo(TeamPembimbing::class, 'team_pembimbing_id');
+        return $this->belongsTo(User::class, 'pembimbing1_id');
+    }
+
+    public function pembimbing2(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'pembimbing2_id');
     }
 
     public function logbook(): HasMany

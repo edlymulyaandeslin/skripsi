@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Judul;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JudulController extends Controller
 {
@@ -12,7 +14,11 @@ class JudulController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('judul.index', [
+            'title' => 'E - Skripsi | Judul',
+            'listjudul' => Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2'])->latest()->get(),
+        ]);
     }
 
     /**
@@ -20,7 +26,9 @@ class JudulController extends Controller
      */
     public function create()
     {
-        //
+        return view('judul.create', [
+            'title' => 'Judul | Create'
+        ]);
     }
 
     /**
@@ -28,38 +36,68 @@ class JudulController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'judul' => 'required',
+            'latar_belakang' => 'required'
+        ]);
+
+        $validateData['mahasiswa_id'] = 1;
+
+        Judul::create($validateData);
+
+        return redirect('/judul');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Judul $judul)
+    public function show($id)
     {
-        //
+        $judul = Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2'])->where('id', $id)->get();
+
+        return response()->json($judul);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Judul $judul)
+    public function edit($id)
     {
-        //
+        return view('judul.edit', [
+            'title' => 'Judul | Edit',
+            'judul' => Judul::with(['mahasiswa',  'pembimbing1', 'pembimbing2'])->find($id),
+            'dosens' => User::where('role_id', 3)->get()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Judul $judul)
+    public function update(Request $request, $id)
     {
-        //
+
+        $rules = [
+            'judul' => 'required',
+            'latar_belakang' => 'required',
+            'pembimbing1_id' => 'required',
+            'pembimbing2_id' => 'required',
+            'status' => 'required'
+        ];
+
+        $validateData = $request->validate($rules);
+
+        Judul::where('id', $id)->update($validateData);
+
+        return redirect('/judul');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Judul $judul)
+    public function destroy($id)
     {
-        //
+        Judul::destroy($id);
+
+        return redirect('/judul');
     }
 }

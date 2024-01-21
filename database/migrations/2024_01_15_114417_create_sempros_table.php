@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sempros', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('judul_id');
+            $table->foreignId('judul_id')->constrained()->cascadeOnDelete();
             $table->date('tanggal_seminar')->nullable();
             $table->time('jam')->nullable();
             $table->string('ruang')->nullable();

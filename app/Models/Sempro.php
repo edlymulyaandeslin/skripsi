@@ -16,7 +16,7 @@ class Sempro extends Model
         return $this->belongsTo(Judul::class, 'judul_id');
     }
 
-    public function teamPenguji(): BelongsTo
+    public function teampenguji(): BelongsTo
     {
         return $this->belongsTo(TeamPenguji::class, 'team_penguji_id');
     }

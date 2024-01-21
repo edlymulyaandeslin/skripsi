@@ -17,12 +17,12 @@ class TeamPengujiFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->title(),
-            'penguji1_id' => mt_rand(1, 10),
-            'penguji2_id' => mt_rand(1, 10),
-            'penguji3_id' => mt_rand(1, 10),
-            'penguji4_id' => mt_rand(1, 10),
-            'penguji5_id' => mt_rand(1, 10),
+            'name' => fake()->jobTitle(),
+            'penguji1' => fake()->name(),
+            'penguji2' => fake()->name(),
+            'penguji3' => fake()->name(),
+            'penguji4' => fake()->name(),
+            'penguji5' => fake()->name(),
         ];
     }
 }

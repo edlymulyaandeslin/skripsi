@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'edlymulyaandeslin@gmail.com',
         ]);
 
-        User::factory(9)->create();
+        User::factory(14)->create();
 
         Judul::factory(5)->create();
 
@@ -41,7 +41,6 @@ class DatabaseSeeder extends Seeder
 
         TeamPenguji::factory(5)->create();
 
-        TeamPembimbing::factory(5)->create();
 
         Role::create([
             'name' => 'admin',

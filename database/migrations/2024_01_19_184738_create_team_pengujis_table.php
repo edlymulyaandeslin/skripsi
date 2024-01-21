@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('team_pengujis', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('penguji1_id');
-            $table->foreignId('penguji2_id');
-            $table->foreignId('penguji3_id');
-            $table->foreignId('penguji4_id');
-            $table->foreignId('penguji5_id');
+            $table->string('penguji1');
+            $table->string('penguji2')->nullable();
+            $table->string('penguji3')->nullable();
+            $table->string('penguji4')->nullable();
+            $table->string('penguji5')->nullable();
             $table->timestamps();
         });
     }
