@@ -6,10 +6,8 @@
         <div class="col-md-6">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Update Detail</h6>
-                    <p>id judul: {{ $judul->id }}</p>
-                    <p>id mahasiswa: {{ $judul->mahasiswa_id }}</p>
                     <form action="/judul/{{ $judul->id }}" method="POST">
-                        @method('put')
+                        @method('patch')
                         @csrf
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control @error('judul') is-invalid @enderror" id="floatingInput"
@@ -34,7 +32,7 @@
                                 name="pembimbing1_id">
                                 <option selected value="{{ 0 }}">Pilih</option>
                                 @foreach ($dosens as $dosen)
-                                    @if (old('pembimbing1_id', $judul->pembimbing1_id) == $dosen->id && $judul->pembimbing2_id !== 0)
+                                    @if (old('pembimbing1_id', $judul->pembimbing1_id) == $dosen->id && $judul->pembimbing1_id !== 0)
                                         <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
                                     @else
                                         <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>

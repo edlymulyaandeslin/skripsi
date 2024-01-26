@@ -6,7 +6,13 @@
             <div class="bg-light rounded h-100 p-4 d-flex flex-column">
                 <h3>List Judul Skripsi</h3>
 
-                <div class="d-flex justify-content-between my-3">
+                @if (session()->has('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                <div class="d-flex justify-content-between mb-3 mt-1">
                     <div class="col-md-5">
                         <form>
                             <input type="text" placeholder="search" class="form-control">
@@ -163,18 +169,17 @@
                 let judulUrl = $(this).data('url');
                 $.get(judulUrl, function(data) {
                     $('#judulView').modal('show');
-                    $('#mahasiswa').val(data[0].mahasiswa.name);
-                    $('#judul').val(data[0].judul);
-                    $('#latar_belakang').val(data[0].latar_belakang);
-                    $('#status').val(data[0].status);
+                    $('#mahasiswa').val(data.mahasiswa.name);
+                    $('#judul').val(data.judul);
+                    $('#latar_belakang').val(data.latar_belakang);
+                    $('#status').val(data.status);
+                    console.log(data)
+                    data.pembimbing1 !== null ? $('#pembimbing1').val(data.pembimbing1.name) :
+                        $('#pembimbing1').val('-');
 
-                    data[0].pembimbing1 !== 0 ? $('#pembimbing1').val(data[0].pembimbing1.name) :
-                        $(
-                            '#pembimbing1').val('-');
+                    data.pembimbing2 !== null ? $('#pembimbing2').val(data.pembimbing2.name) :
+                        $('#pembimbing2').val('-');
 
-                    data[0].pembimbing2 !== 0 ? $('#pembimbing2').val(data[0].pembimbing2.name) :
-                        $(
-                            '#pembimbing2').val('-');
                 })
             })
         })

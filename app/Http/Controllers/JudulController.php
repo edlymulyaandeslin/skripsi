@@ -45,7 +45,7 @@ class JudulController extends Controller
 
         Judul::create($validateData);
 
-        return redirect('/judul');
+        return redirect('/judul')->with('success', 'Judul has been created');
     }
 
     /**
@@ -53,7 +53,7 @@ class JudulController extends Controller
      */
     public function show($id)
     {
-        $judul = Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2'])->where('id', $id)->get();
+        $judul = Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])->find($id);
 
         return response()->json($judul);
     }
@@ -88,7 +88,7 @@ class JudulController extends Controller
 
         Judul::where('id', $id)->update($validateData);
 
-        return redirect('/judul');
+        return redirect('/judul')->with('success', 'Judul has been updated');
     }
 
     /**
@@ -98,6 +98,6 @@ class JudulController extends Controller
     {
         Judul::destroy($id);
 
-        return redirect('/judul');
+        return redirect('/judul')->with('success', 'Judul has been deleted');
     }
 }

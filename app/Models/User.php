@@ -54,7 +54,7 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-    public function juduls(): HasMany
+    public function judul(): HasMany
     {
         return $this->hasMany(Judul::class, 'mahasiswa_id', 'id');
     }
