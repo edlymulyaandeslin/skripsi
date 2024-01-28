@@ -21,4 +21,9 @@ class Kompre extends Model
     {
         return $this->belongsTo(TeamPenguji::class, 'team_penguji_id');
     }
+
+    public function nilaikompre(): BelongsTo
+    {
+        return $this->belongsTo(NilaiKompre::class, 'kompre_id');
+    }
 }

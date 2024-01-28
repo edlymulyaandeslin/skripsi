@@ -7,6 +7,8 @@ namespace Database\Seeders;
 use App\Models\Judul;
 use App\Models\Kompre;
 use App\Models\Logbook;
+use App\Models\NilaiKompre;
+use App\Models\NilaiSempro;
 use App\Models\Role;
 use App\Models\Sempro;
 use App\Models\TeamPembimbing;
@@ -31,13 +33,17 @@ class DatabaseSeeder extends Seeder
 
         User::factory(14)->create();
 
-        Judul::factory(5)->create();
+        Judul::factory(1)->create();
 
         Logbook::factory(5)->create();
 
-        Sempro::factory(5)->create();
+        Sempro::factory(1)->create();
 
-        Kompre::factory(5)->create();
+        NilaiSempro::factory(1)->create();
+
+        Kompre::factory(1)->create();
+
+        NilaiKompre::factory(1)->create();
 
         TeamPenguji::factory(5)->create();
 

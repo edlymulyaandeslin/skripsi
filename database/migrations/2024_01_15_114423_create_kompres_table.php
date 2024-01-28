@@ -18,11 +18,6 @@ return new class extends Migration
             $table->time('jam')->nullable();
             $table->string('ruang')->nullable();
             $table->foreignId('team_penguji_id')->nullable();
-            $table->integer('nilai1')->nullable();
-            $table->integer('nilai2')->nullable();
-            $table->integer('nilai3')->nullable();
-            $table->integer('nilai4')->nullable();
-            $table->integer('nilai5')->nullable();
             $table->string('status')->default('diajukan');
             $table->timestamps();
         });

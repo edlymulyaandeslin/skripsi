@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Sempro extends Model
 {
@@ -19,5 +20,11 @@ class Sempro extends Model
     public function teampenguji(): BelongsTo
     {
         return $this->belongsTo(TeamPenguji::class, 'team_penguji_id');
+    }
+
+
+    public function nilaisempro(): HasOne
+    {
+        return $this->HasOne(NilaiSempro::class, 'sempro_id');
     }
 }

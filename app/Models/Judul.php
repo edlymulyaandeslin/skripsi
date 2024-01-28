@@ -30,16 +30,16 @@ class Judul extends Model
 
     public function logbook(): HasMany
     {
-        return $this->hasMany(Logbook::class);
+        return $this->hasMany(Logbook::class, 'judul_id');
     }
 
     public function sempro(): HasMany
     {
-        return $this->hasMany(Sempro::class);
+        return $this->hasMany(Sempro::class, 'judul_id');
     }
 
     public function kompre(): HasMany
     {
-        return $this->hasMany(Kompre::class);
+        return $this->hasMany(Kompre::class, 'judul_id');
     }
 }

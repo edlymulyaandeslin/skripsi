@@ -29,15 +29,18 @@
                     class="fa fa-book-open me-2"></i>Logbook</a>
 
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle {{ Request::is('sempro*') ? 'active' : '' }}"
+                <a href="#"
+                    class="nav-link dropdown-toggle {{ Request::is('sempro*') || Request::is('nilai/sempro*') ? 'active' : '' }}"
                     data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Sempro</a>
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="/sempro/create"
-                        class="nav-item nav-link {{ Request::is('sempro/create*') ? 'active' : '' }}">Daftar
+                        class="nav-item nav-link {{ Request::is('sempro/create') ? 'active' : '' }}">Daftar
                         Sempro</a>
-                    <a href="/sempro" class="nav-item nav-link {{ Request::is('sempro*') ? 'active' : '' }}">Mahasiswa
+                    <a href="/sempro"
+                        class="nav-item nav-link {{ Request::is('sempro*') && !Request::is('sempro/create') ? 'active' : '' }}">Mahasiswa
                         Sempro</a>
-                    <a href="/sempro" class="nav-item nav-link {{ Request::is('sempro*') ? 'active' : '' }}">Penilaian
+                    <a href="/nilai/sempro"
+                        class="nav-item nav-link {{ Request::is('nilai/sempro*') ? 'active' : '' }}">Penilaian
                         Sempro</a>
                 </div>
             </div>

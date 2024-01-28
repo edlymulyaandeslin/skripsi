@@ -56,6 +56,6 @@ class User extends Authenticatable
 
     public function judul(): HasMany
     {
-        return $this->hasMany(Judul::class, 'mahasiswa_id', 'id');
+        return $this->hasMany(Judul::class, 'mahasiswa_id');
     }
 }

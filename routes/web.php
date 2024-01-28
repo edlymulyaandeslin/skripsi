@@ -3,8 +3,9 @@
 use App\Http\Controllers\JudulController;
 use App\Http\Controllers\KompreController;
 use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\NilaiKompreController;
+use App\Http\Controllers\NilaiSemproController;
 use App\Http\Controllers\SemproController;
-use App\Http\Controllers\TeamPembimbingController;
 use App\Http\Controllers\TeamPengujiController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,9 +30,14 @@ Route::resource('/judul', JudulController::class);
 
 Route::resource('/logbook', LogbookController::class);
 
+Route::resource('/nilai/sempro', NilaiSemproController::class);
+
 Route::resource('/sempro', SemproController::class);
 
+
 Route::resource('/kompre', KompreController::class);
+
+Route::resource('/nilai/kompre', NilaiKompreController::class);
 
 // route manajemen users
 Route::prefix('manajemen')->group(function () {

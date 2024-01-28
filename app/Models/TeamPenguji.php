@@ -13,11 +13,11 @@ class TeamPenguji extends Model
 
     public function sempro(): HasMany
     {
-        return $this->hasMany(Sempro::class);
+        return $this->hasMany(Sempro::class, 'team_penguji_id');
     }
 
     public function kompre(): HasMany
     {
-        return $this->hasMany(Kompre::class);
+        return $this->hasMany(Kompre::class, 'team_penguji_id');
     }
 }

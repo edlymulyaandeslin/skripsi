@@ -2,19 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Role extends Model
+class NilaiSempro extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-
-    public function user(): BelongsTo
+    public function sempro(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'role_id');
+        return $this->belongsTo(Sempro::class, 'sempro_id');
     }
 }

@@ -17,7 +17,7 @@ class LogbookFactory extends Factory
     public function definition(): array
     {
         return [
-            'judul_id' => mt_rand(1, 5),
+            'judul_id' => 1,
             'deskripsi' => fake()->paragraph(2),
         ];
     }

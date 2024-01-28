@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
-            <h3>List Mahasiswa Sempro</h3>
+            <h3>Penilaian Mahasiswa Sempro</h3>
 
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">
@@ -26,11 +26,13 @@
                             <th scope="col">No</th>
                             <th scope="col">Mahasiswa</th>
                             <th scope="col">Judul</th>
-                            <th scope="col">Tanggal Seminar</th>
-                            <th scope="col">Jam</th>
-                            <th scope="col">Ruang</th>
-                            <th scope="col">Team Penguji</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Nilai 1</th>
+                            <th scope="col">Nilai 2</th>
+                            <th scope="col">Nilai 3</th>
+                            <th scope="col">Nilai 4</th>
+                            <th scope="col">Nilai 5</th>
+                            <th scope="col">Rata-rata</th>
+                            <th scope="col">Prediket</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
@@ -40,17 +42,30 @@
                                 <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
                                 <td>{{ $sempro->judul->mahasiswa->name }}</td>
                                 <td>{{ $sempro->judul->judul }}</td>
-                                <td>{{ $sempro->tanggal_seminar ? Carbon\Carbon::parse($sempro->tanggal_seminar)->format('d F Y') : '-' }}
+                                <td>{{ $sempro->nilaisempro->nilai1 ?? '-' }}</td>
+                                <td>{{ $sempro->nilaisempro->nilai2 ?? '-' }}</td>
+                                <td>{{ $sempro->nilaisempro->nilai3 ?? '-' }}</td>
+                                <td>{{ $sempro->nilaisempro->nilai4 ?? '-' }}</td>
+                                <td>{{ $sempro->nilaisempro->nilai5 ?? '-' }}</td>
+                                <td>{{ $nilai = ($sempro->nilaisempro->nilai1 + $sempro->nilaisempro->nilai1 + $sempro->nilaisempro->nilai3 + $sempro->nilaisempro->nilai4 + $sempro->nilaisempro->nilai5) / 5 }}
                                 </td>
-                                <td>{{ $sempro->jam ?? '-' }}</td>
-                                <td>{{ $sempro->ruang ?? '-' }}</td>
-                                <td>{{ $sempro->teampenguji->name ?? '-' }}</td>
-                                <td class="text-center">
-                                    <span
-                                        class="bg-{{ $sempro->status == 'diterima' ? 'success' : ($sempro->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-4 ">
-                                        {{ $sempro->status }}
-                                    </span>
-                                </td>
+                                @if ($nilai >= 95)
+                                    <td>A+</td>
+                                @elseif ($nilai >= 90)
+                                    <td>A</td>
+                                @elseif ($nilai >= 85)
+                                    <td>B+</td>
+                                @elseif ($nilai >= 80)
+                                    <td>B</td>
+                                @elseif ($nilai >= 75)
+                                    <td>B-</td>
+                                @elseif ($nilai >= 70)
+                                    <td>C</td>
+                                @elseif ($nilai >= 60)
+                                    <td>D</td>
+                                @else
+                                    <td>E</td>
+                                @endif
                                 <td>
                                     <div>
                                         <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="dropdown"
