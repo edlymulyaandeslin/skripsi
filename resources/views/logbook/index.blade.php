@@ -130,6 +130,13 @@
                             </div>
                         </div>
 
+                        <h1 class="modal-header modal-title fs-5">Catatan</h1>
+                        <hr>
+
+                        <div class="mb-3">
+                            <textarea id="notes" class="form-control" disabled rows="4"></textarea>
+                        </div>
+
                         <h1 class="modal-header modal-title fs-5">Pembimbing</h1>
                         <hr>
                         <div class="row">
@@ -173,6 +180,7 @@
                     $('#judul').val(data.judul.judul);
                     $('#deskripsi').val(data.deskripsi);
                     $('#status').val(data.status);
+                    data.notes ? $('#notes').val(data.notes) : $('#notes').val('Belum ada catatan');
 
                     data.judul.pembimbing1 !== null ? $('#pembimbing1').val(data.judul.pembimbing1
                         .name) : $('#pembimbing1').val('-');

@@ -32,7 +32,30 @@ class NilaiSemproController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'sempro_id' => 'required',
+        ];
+        if ($request->filled('nilai1')) {
+            $rules['nilai1'] = 'required';
+        }
+        if ($request->filled('nilai2')) {
+            $rules['nilai2'] = 'required';
+        }
+        if ($request->filled('nilai3')) {
+            $rules['nilai3'] = 'required';
+        }
+        if ($request->filled('nilai4')) {
+            $rules['nilai4'] = 'required';
+        }
+        if ($request->filled('nilai5')) {
+            $rules['nilai5'] = 'required';
+        }
+
+        $validateData = $request->validate($rules);
+
+        NilaiSempro::create($validateData);
+
+        return redirect('/nilai/sempro')->with('success', 'Nilai sempro berhasil diinputkan');
     }
 
     /**
@@ -46,17 +69,43 @@ class NilaiSemproController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(NilaiSempro $nilaiSempro)
+    public function edit($id)
     {
-        //
+        return view('sempro.nilai.edit', [
+            'title' => 'Input Nilai',
+            'sempro' => Sempro::with('judul', 'nilaisempro')->find($id),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, NilaiSempro $nilaiSempro)
+    public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'sempro_id' => 'required',
+        ];
+        if ($request->filled('nilai1')) {
+            $rules['nilai1'] = 'required|numeric|min:0|max:25';
+        }
+        if ($request->filled('nilai2')) {
+            $rules['nilai2'] = 'required|numeric|min:0|max:15';
+        }
+        if ($request->filled('nilai3')) {
+            $rules['nilai3'] = 'required|numeric|min:0|max:10';
+        }
+        if ($request->filled('nilai4')) {
+            $rules['nilai4'] = 'required|numeric|min:0|max:25';
+        }
+        if ($request->filled('nilai5')) {
+            $rules['nilai5'] = 'required|numeric|min:0|max:25';
+        }
+
+        $validateData = $request->validate($rules);
+
+        NilaiSempro::where('id', $id)->update($validateData);
+
+        return redirect('/nilai/sempro')->with('success', 'Nilai sempro berhasil diinputkan');
     }
 
     /**

@@ -77,8 +77,6 @@ class JudulController extends Controller
     {
 
         $rules = [
-            'judul' => 'required',
-            'latar_belakang' => 'required',
             'pembimbing1_id' => 'required',
             'pembimbing2_id' => 'required',
             'status' => 'required'

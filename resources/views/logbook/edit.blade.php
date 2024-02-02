@@ -10,8 +10,9 @@
                     @method('patch')
                     @csrf
                     <div class="form-floating mb-3">
-                        <select class="form-select @error('judul_id') is-invalid @enderror" id="floatingSelect"
-                            name="judul_id">
+                        {{-- <input type="hidden" value="{{ $logbook->judul->id }}" name="judul_id"> --}}
+                        <select class="form-select @error('judul_id') is-invalid @enderror" id="floatingSelect" name="judul_id"
+                            disabled>
                             <option selected value="{{ null }}">Pilih</option>
                             @foreach ($juduls as $judul)
                                 @if (old('judul_id', $logbook->judul_id) == $judul->id)
@@ -29,9 +30,18 @@
 
                     <div class="form-floating mb-3">
                         <textarea class="form-control @error('deskripsi') is-invalid @enderror" placeholder="Latar Belakang"
-                            id="floatingTextarea" style="height: 150px;" name="deskripsi">{{ old('deskripsi', $logbook->deskripsi) }}</textarea>
+                            id="floatingTextarea" style="height: 150px;" name="deskripsi" readonly>{{ old('deskripsi', $logbook->deskripsi) }}</textarea>
                         <label for="deskripsi">Deskripsi</label>
                         @error('deskripsi')
+                            <p class="text-danger pt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control @error('notes') is-invalid @enderror" placeholder="Catatan" id="floatingTextarea"
+                            style="height: 150px;" name="notes">{{ old('notes', $logbook->notes) }}</textarea>
+                        <label for="notes">Catatan</label>
+                        @error('notes')
                             <p class="text-danger pt-1">{{ $message }}</p>
                         @enderror
                     </div>

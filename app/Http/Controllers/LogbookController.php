@@ -74,11 +74,14 @@ class LogbookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = [
-            'judul_id' => 'required',
-            'deskripsi' => 'required',
-            'status' => 'required'
-        ];
+        $rules = [];
+
+        if ($request->filled('notes')) {
+            $rules['notes'] = 'required';
+        }
+        if ($request->filled('status')) {
+            $rules['status'] = 'required';
+        }
 
         $validateData = $request->validate($rules);
 

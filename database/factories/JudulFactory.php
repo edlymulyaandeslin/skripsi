@@ -22,6 +22,7 @@ class JudulFactory extends Factory
             'latar_belakang' => fake()->paragraph(4),
             'pembimbing1_id' => 0,
             'pembimbing2_id' => 0,
+            'status' => 'diterima',
         ];
     }
 }

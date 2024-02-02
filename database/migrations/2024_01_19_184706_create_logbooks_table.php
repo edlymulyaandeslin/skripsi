@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('judul_id')->constrained()->cascadeOnDelete();
             $table->text('deskripsi');
+            $table->text('notes')->nullable();
             $table->string('status')->default('diajukan');
             $table->timestamps();
         });

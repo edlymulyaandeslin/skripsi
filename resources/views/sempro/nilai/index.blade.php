@@ -42,12 +42,12 @@
                                 <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
                                 <td>{{ $sempro->judul->mahasiswa->name }}</td>
                                 <td>{{ $sempro->judul->judul }}</td>
-                                <td>{{ $sempro->nilaisempro->nilai1 ?? '-' }}</td>
-                                <td>{{ $sempro->nilaisempro->nilai2 ?? '-' }}</td>
-                                <td>{{ $sempro->nilaisempro->nilai3 ?? '-' }}</td>
-                                <td>{{ $sempro->nilaisempro->nilai4 ?? '-' }}</td>
-                                <td>{{ $sempro->nilaisempro->nilai5 ?? '-' }}</td>
-                                <td>{{ $nilai = ($sempro->nilaisempro->nilai1 + $sempro->nilaisempro->nilai1 + $sempro->nilaisempro->nilai3 + $sempro->nilaisempro->nilai4 + $sempro->nilaisempro->nilai5) / 5 }}
+                                <td>{{ $sempro->nilaisempro->nilai1 ?? 0 }}</td>
+                                <td>{{ $sempro->nilaisempro->nilai2 ?? 0 }}</td>
+                                <td>{{ $sempro->nilaisempro->nilai3 ?? 0 }}</td>
+                                <td>{{ $sempro->nilaisempro->nilai4 ?? 0 }}</td>
+                                <td>{{ $sempro->nilaisempro->nilai5 ?? 0 }}</td>
+                                <td>{{ $sempro->nilaisempro ? ($nilai = $sempro->nilaisempro->nilai1 + $sempro->nilaisempro->nilai2 + $sempro->nilaisempro->nilai3 + $sempro->nilaisempro->nilai4 + $sempro->nilaisempro->nilai5) : ($nilai = 0) }}
                                 </td>
                                 @if ($nilai >= 95)
                                     <td>A+</td>
@@ -81,7 +81,7 @@
                                             </li>
 
                                             <li>
-                                                <a class="dropdown-item" href="/sempro/{{ $sempro->id }}/edit">
+                                                <a class="dropdown-item" href="/nilai/sempro/{{ $sempro->id }}/edit">
                                                     <i class="bi bi-pencil-square text-warning"></i>
                                                     Update
                                                 </a>
@@ -92,7 +92,7 @@
                                             </li>
 
                                             <li>
-                                                <form action="/sempro/{{ $sempro->id }}" method="POST">
+                                                <form action="/nilai/sempro/{{ $sempro->id }}" method="POST">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit" class="dropdown-item"
