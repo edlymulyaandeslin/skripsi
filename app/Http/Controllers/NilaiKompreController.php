@@ -107,7 +107,7 @@ class NilaiKompreController extends Controller
 
         NilaiKompre::where('id', $id)->update($validateData);
 
-        return redirect('/nilai/sempro')->with('success', 'Nilai sempro berhasil diinputkan');
+        return redirect('/nilai/kompre')->with('success', 'Nilai sempro berhasil diupdate!!');
     }
 
     /**

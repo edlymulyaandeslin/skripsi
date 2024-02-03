@@ -58,7 +58,7 @@
                         class="nav-item nav-link {{ Request::is('kompre*') && !Request::is('kompre/create') ? 'active' : '' }}">Mahasiswa
                         Kompre</a>
                     <a href="/nilai/kompre"
-                        class="nav-item nav-link {{ Request::is('/nilai/kompre*') ? 'active' : '' }}">Penilaian
+                        class="nav-item nav-link {{ Request::is('nilai/kompre*') ? 'active' : '' }}">Penilaian
                         Kompre</a>
                 </div>
             </div>

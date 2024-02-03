@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Kompre extends Model
 {
@@ -21,8 +22,8 @@ class Kompre extends Model
         return $this->belongsTo(TeamPenguji::class, 'team_penguji_id');
     }
 
-    public function nilaikompre(): BelongsTo
+    public function nilaikompre(): HasOne
     {
-        return $this->belongsTo(NilaiKompre::class, 'kompre_id');
+        return $this->hasOne(NilaiKompre::class, 'kompre_id');
     }
 }
