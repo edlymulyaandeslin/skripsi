@@ -15,7 +15,7 @@ class NilaiSemproController extends Controller
     {
         return view('sempro.nilai.index', [
             'title' => 'E - Skripsi | Nilai Sempro',
-            'sempros' => Sempro::with('judul', 'judul.mahasiswa', 'teampenguji', 'nilaisempro')->latest()->get(),
+            'sempros' => Sempro::with('judul', 'judul.mahasiswa', 'teampenguji', 'nilaisempro')->where('status', 'diterima')->latest()->get(),
         ]);
     }
 
@@ -36,19 +36,19 @@ class NilaiSemproController extends Controller
             'sempro_id' => 'required',
         ];
         if ($request->filled('nilai1')) {
-            $rules['nilai1'] = 'required';
+            $rules['nilai1'] = 'required|numeric|min:0|max:25';
         }
         if ($request->filled('nilai2')) {
-            $rules['nilai2'] = 'required';
+            $rules['nilai2'] = 'required|numeric|min:0|max:15';
         }
         if ($request->filled('nilai3')) {
-            $rules['nilai3'] = 'required';
+            $rules['nilai3'] = 'required|numeric|min:0|max:10';
         }
         if ($request->filled('nilai4')) {
-            $rules['nilai4'] = 'required';
+            $rules['nilai4'] = 'required|numeric|min:0|max:25';
         }
         if ($request->filled('nilai5')) {
-            $rules['nilai5'] = 'required';
+            $rules['nilai5'] = 'required|numeric|min:0|max:25';
         }
 
         $validateData = $request->validate($rules);
@@ -61,9 +61,11 @@ class NilaiSemproController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(NilaiSempro $nilaiSempro)
+    public function show($id)
     {
-        //
+        $nilaiSempro = Sempro::with(['judul', 'judul.mahasiswa', 'teampenguji', 'nilaisempro'])->find($id);
+
+        return response()->json($nilaiSempro);
     }
 
     /**

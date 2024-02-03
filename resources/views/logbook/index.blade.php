@@ -36,60 +36,64 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($logbooks as $logbook)
-                            <tr key="{{ $logbook->id }}" class="text-center">
-                                <th scope="row">{{ $loop->index + 1 }}</th>
-                                <td class="text-start">{{ $logbook->judul->mahasiswa->name }}</td>
-                                <td class="text-start">{{ $logbook->judul->judul }}</td>
-                                <td>{{ $logbook->deskripsi }}</td>
-                                <td>{{ $logbook->created_at->format('d F Y') }}</td>
-                                <td>
-                                    <span
-                                        class="bg-{{ $logbook->status == 'diterima' ? 'success' : ($logbook->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-4 ">
-                                        {{ $logbook->status }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <div>
-                                        <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="bi bi-list"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="javascript:void(0)" id="show-logbook"
-                                                    data-url="{{ route('logbook.show', $logbook->id) }}"
-                                                    class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                    Show</a>
-                                            </li>
+                        @if ($logbooks->count() !== 0)
+                            @foreach ($logbooks as $logbook)
+                                <tr key="{{ $logbook->id }}" class="text-center">
+                                    <th scope="row">{{ $loop->index + 1 }}</th>
+                                    <td class="text-start">{{ $logbook->judul->mahasiswa->name }}</td>
+                                    <td class="text-start">{{ $logbook->judul->judul }}</td>
+                                    <td>{{ $logbook->deskripsi }}</td>
+                                    <td>{{ $logbook->created_at->format('d F Y') }}</td>
+                                    <td>
+                                        <span
+                                            class="bg-{{ $logbook->status == 'diterima' ? 'success' : ($logbook->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-4 ">
+                                            {{ $logbook->status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <button type="button" class="btn btn-sm btn-outline-dark"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-list"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="javascript:void(0)" id="show-logbook"
+                                                        data-url="{{ route('logbook.show', $logbook->id) }}"
+                                                        class="dropdown-item"><i class="bi bi-search text-info"></i>
+                                                        Show</a>
+                                                </li>
 
-                                            <li>
-                                                <a class="dropdown-item" href="/logbook/{{ $logbook->id }}/edit">
-                                                    <i class="bi bi-pencil-square text-warning"></i>
-                                                    Update
-                                                </a>
-                                            </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="/logbook/{{ $logbook->id }}/edit">
+                                                        <i class="bi bi-pencil-square text-warning"></i>
+                                                        Update
+                                                    </a>
+                                                </li>
 
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
 
-                                            <li>
-                                                <form action="/logbook/{{ $logbook->id }}" method="POST">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item"
-                                                        onclick="return confirm('Yakin ingin menghapus data ini?')"><i
-                                                            class="bi bi-trash-fill text-danger"></i>
-                                                        Delete</button>
-                                                </form>
-                                            </li>
+                                                <li>
+                                                    <form action="/logbook/{{ $logbook->id }}" method="POST">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button type="submit" class="dropdown-item"
+                                                            onclick="return confirm('Yakin ingin menghapus data ini?')"><i
+                                                                class="bi bi-trash-fill text-danger"></i>
+                                                            Delete</button>
+                                                    </form>
+                                                </li>
 
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <td colspan="7" class="text-center">No Data</td>
+                        @endif
 
                     </tbody>
                 </table>

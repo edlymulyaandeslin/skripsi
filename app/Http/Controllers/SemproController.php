@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Judul;
+use App\Models\Kompre;
 use App\Models\Sempro;
 use App\Models\TeamPenguji;
 use App\Models\User;
@@ -26,9 +27,23 @@ class SemproController extends Controller
      */
     public function create()
     {
+
+        // find data sempro berdasarkan id mahasiswa yg login dan statusnya != ditolak
+        $sempro = Sempro::with(['judul'])
+            ->whereHas('judul', function ($query) {
+                $query->where('mahasiswa_id', auth()->user()->id);
+            })
+            ->where('status', '!=', 'ditolak')
+            ->get();
+
+        // cek apakah sudah pernah mengajukan sempro atau tidak
+        if ($sempro->count() !== 0) {
+            return redirect('/sempro')->with('success', 'Anda hanya dapat mengajukan seminar  proposal 1x !!');
+        }
+
         return view('sempro.create', [
             'title' => 'Sempro | Create',
-            'juduls' => Judul::with('mahasiswa')->where('status', 'diterima')->latest()->get()
+            'juduls' => Judul::with('mahasiswa')->where('status', 'diterima')->where('mahasiswa_id', auth()->user()->id)->latest()->get()
         ]);
     }
 
@@ -51,7 +66,7 @@ class SemproController extends Controller
      */
     public function show($id)
     {
-        $sempro = Sempro::with('judul', 'judul.mahasiswa', 'teampenguji')->find($id);
+        $sempro = Sempro::with(['judul', 'judul.mahasiswa', 'teampenguji'])->find($id);
 
         return response()->json($sempro);
     }
@@ -107,7 +122,13 @@ class SemproController extends Controller
      */
     public function destroy($id)
     {
+        $judul = Judul::whereHas('sempro', function ($query) use ($id) {
+            $query->where('id', $id);
+        })->first();
+
         Sempro::destroy($id);
+
+        Kompre::where('judul_id', $judul->id)->delete();
 
         return redirect('/sempro')->with('success', 'Sempro has been deleted!');
     }

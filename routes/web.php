@@ -32,16 +32,19 @@ Route::resource('/judul', JudulController::class)->middleware('auth');
 Route::resource('/logbook', LogbookController::class)->middleware('auth');
 
 Route::resource('/sempro', SemproController::class)->middleware('auth');
-
 Route::resource('/nilai/sempro', NilaiSemproController::class)->names([
+    'show' => 'nilai.sempro.show',
     'store' => 'nilai.sempro.store',
     'update' => 'nilai.sempro.update',
 ])->middleware('auth');
 
 
 Route::resource('/kompre', KompreController::class)->middleware('auth');
-
-Route::resource('/nilai/kompre', NilaiKompreController::class)->middleware('auth');
+Route::resource('/nilai/kompre', NilaiKompreController::class)->names([
+    'show' => 'nilai.kompre.show',
+    'store' => 'nilai.kompre.store',
+    'update' => 'nilai.kompre.update',
+])->middleware('auth');
 
 // route manajemen users
 Route::prefix('manajemen')->group(function () {

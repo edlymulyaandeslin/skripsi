@@ -18,11 +18,11 @@ class NilaiKompreFactory extends Factory
     {
         return [
             'kompre_id' => 1,
-            'nilai1' => fake()->numberBetween(1, 100),
-            'nilai2' => fake()->numberBetween(1, 100),
-            'nilai3' => fake()->numberBetween(1, 100),
-            'nilai4' => fake()->numberBetween(1, 100),
-            'nilai5' => fake()->numberBetween(1, 100),
+            'nilai1' => fake()->numberBetween(0, 25),
+            'nilai2' => fake()->numberBetween(0, 15),
+            'nilai3' => fake()->numberBetween(0, 10),
+            'nilai4' => fake()->numberBetween(0, 25),
+            'nilai5' => fake()->numberBetween(0, 25),
         ];
     }
 }

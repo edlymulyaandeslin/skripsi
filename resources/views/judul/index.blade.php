@@ -35,60 +35,64 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($listjudul as $judul)
-                            <tr key="{{ $judul->id }}">
-                                <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
-                                <td>{{ $judul->mahasiswa->name }}</td>
-                                <td>{{ $judul->judul }}</td>
-                                <td>{{ $judul->pembimbing1->name ?? '-' }}</td>
-                                <td>{{ $judul->pembimbing2->name ?? '-' }}</td>
-                                <td class="text-center">
-                                    <span
-                                        class="bg-{{ $judul->status == 'diterima' ? 'success' : ($judul->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-4 ">
-                                        {{ $judul->status }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <div>
-                                        <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="bi bi-list"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="javascript:void(0)" id="show-judul"
-                                                    data-url="{{ route('judul.show', $judul->id) }}"
-                                                    class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                    Show</a>
-                                            </li>
+                        @if ($listjudul->count() !== 0)
+                            @foreach ($listjudul as $judul)
+                                <tr key="{{ $judul->id }}">
+                                    <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
+                                    <td>{{ $judul->mahasiswa->name }}</td>
+                                    <td>{{ $judul->judul }}</td>
+                                    <td>{{ $judul->pembimbing1->name ?? '-' }}</td>
+                                    <td>{{ $judul->pembimbing2->name ?? '-' }}</td>
+                                    <td class="text-center">
+                                        <span
+                                            class="bg-{{ $judul->status == 'diterima' ? 'success' : ($judul->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-4 ">
+                                            {{ $judul->status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <button type="button" class="btn btn-sm btn-outline-dark"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-list"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="javascript:void(0)" id="show-judul"
+                                                        data-url="{{ route('judul.show', $judul->id) }}"
+                                                        class="dropdown-item"><i class="bi bi-search text-info"></i>
+                                                        Show</a>
+                                                </li>
 
-                                            <li>
-                                                <a class="dropdown-item" href="/judul/{{ $judul->id }}/edit">
-                                                    <i class="bi bi-pencil-square text-warning"></i>
-                                                    Update
-                                                </a>
-                                            </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="/judul/{{ $judul->id }}/edit">
+                                                        <i class="bi bi-pencil-square text-warning"></i>
+                                                        Update
+                                                    </a>
+                                                </li>
 
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
 
-                                            <li>
-                                                <form action="/judul/{{ $judul->id }}" method="POST">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item"
-                                                        onclick="return confirm('Yakin ingin menghapus data ini?')"><i
-                                                            class="bi bi-trash-fill text-danger"></i>
-                                                        Delete</button>
-                                                </form>
-                                            </li>
+                                                <li>
+                                                    <form action="/judul/{{ $judul->id }}" method="POST">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button type="submit" class="dropdown-item"
+                                                            onclick="return confirm('Yakin ingin menghapus data ini?')"><i
+                                                                class="bi bi-trash-fill text-danger"></i>
+                                                            Delete</button>
+                                                    </form>
+                                                </li>
 
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <td colspan="7" class="text-center">No Data</td>
+                        @endif
 
                     </tbody>
                 </table>
@@ -167,11 +171,12 @@
                 let judulUrl = $(this).data('url');
                 $.get(judulUrl, function(data) {
                     $('#judulView').modal('show');
+                    console.log(data)
                     $('#mahasiswa').val(data.mahasiswa.name);
                     $('#judul').val(data.judul);
                     $('#latar_belakang').val(data.latar_belakang);
                     $('#status').val(data.status);
-                    console.log(data)
+
                     data.pembimbing1 !== null ? $('#pembimbing1').val(data.pembimbing1.name) :
                         $('#pembimbing1').val('-');
 

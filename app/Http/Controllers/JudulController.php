@@ -41,7 +41,7 @@ class JudulController extends Controller
             'latar_belakang' => 'required'
         ]);
 
-        $validateData['mahasiswa_id'] = 1;
+        $validateData['mahasiswa_id'] = auth()->user()->id;
 
         Judul::create($validateData);
 
@@ -66,7 +66,8 @@ class JudulController extends Controller
         return view('judul.edit', [
             'title' => 'Judul | Edit',
             'judul' => Judul::with(['mahasiswa',  'pembimbing1', 'pembimbing2'])->find($id),
-            'dosens' => User::where('role_id', 3)->get()
+            'dosens' => User::where('role_id', 3)->get(),
+            'alljudul' => Judul::all()
         ]);
     }
 

@@ -19,6 +19,7 @@ class LogbookFactory extends Factory
         return [
             'judul_id' => 1,
             'deskripsi' => fake()->paragraph(2),
+            'status' => 'diterima'
         ];
     }
 }

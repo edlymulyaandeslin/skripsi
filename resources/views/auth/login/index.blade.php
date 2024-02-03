@@ -92,9 +92,9 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="remember"
-                                            value="{{ old('remember') ? 'checked' : '' }}">
-                                        <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                                        <input type="checkbox" class="form-check-input" name="remember_token"
+                                            {{ old('remember_token') ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="remember_token">Remember me</label>
                                     </div>
                                     <a href="">Forgot Password</a>
                                 </div>

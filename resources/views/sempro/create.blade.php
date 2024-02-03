@@ -5,7 +5,7 @@
         {{-- form --}}
         <div class="col-md-6">
             <div class="bg-light rounded h-100 p-4">
-                <h4 class="mb-4">Detail Seminar Proposal</h4>
+                <h4 class="mb-4">Daftar Seminar Proposal</h4>
                 <form action="/sempro" method="post">
                     @csrf
                     <div class="form-floating mb-3">

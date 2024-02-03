@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
-            <h3>Penilaian Mahasiswa Sempro</h3>
+            <h3>Penilaian Mahasiswa Komprehensif</h3>
 
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">
@@ -38,18 +38,18 @@
                     </thead>
                     <tbody>
 
-                        @if ($sempros->count() !== 0)
-                            @foreach ($sempros as $sempro)
-                                <tr key="{{ $sempro->id }}" class="text-center">
+                        @if ($kompres->count() !== 0)
+                            @foreach ($kompres as $kompre)
+                                <tr key="{{ $kompre->id }}" class="text-center">
                                     <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
-                                    <td>{{ $sempro->judul->mahasiswa->name }}</td>
-                                    <td>{{ $sempro->judul->judul }}</td>
-                                    <td>{{ $sempro->nilaisempro->nilai1 ?? 0 }}</td>
-                                    <td>{{ $sempro->nilaisempro->nilai2 ?? 0 }}</td>
-                                    <td>{{ $sempro->nilaisempro->nilai3 ?? 0 }}</td>
-                                    <td>{{ $sempro->nilaisempro->nilai4 ?? 0 }}</td>
-                                    <td>{{ $sempro->nilaisempro->nilai5 ?? 0 }}</td>
-                                    <td>{{ $sempro->nilaisempro ? ($nilai = $sempro->nilaisempro->nilai1 + $sempro->nilaisempro->nilai2 + $sempro->nilaisempro->nilai3 + $sempro->nilaisempro->nilai4 + $sempro->nilaisempro->nilai5) : ($nilai = 0) }}
+                                    <td>{{ $kompre->judul->mahasiswa->name }}</td>
+                                    <td>{{ $kompre->judul->judul }}</td>
+                                    <td>{{ $kompre->nilaikompre->nilai1 ?? 0 }}</td>
+                                    <td>{{ $kompre->nilaikompre->nilai2 ?? 0 }}</td>
+                                    <td>{{ $kompre->nilaikompre->nilai3 ?? 0 }}</td>
+                                    <td>{{ $kompre->nilaikompre->nilai4 ?? 0 }}</td>
+                                    <td>{{ $kompre->nilaikompre->nilai5 ?? 0 }}</td>
+                                    <td>{{ $kompre->nilaikompre ? ($nilai = $kompre->nilaikompre->nilai1 + $kompre->nilaikompre->nilai2 + $kompre->nilaikompre->nilai3 + $kompre->nilaikompre->nilai4 + $kompre->nilaikompre->nilai5) : ($nilai = 0) }}
                                     </td>
                                     @if ($nilai >= 95)
                                         <td>A+</td>
@@ -76,34 +76,18 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <a href="javascript:void(0)" id="show-nilaisempro"
-                                                        data-url="{{ route('nilai.sempro.show', $sempro->id) }}}}"
+                                                    <a href="javascript:void(0)" id="show-nilaikompre"
+                                                        data-url="{{ route('nilai.kompre.show', $kompre->id) }}}}"
                                                         class="dropdown-item"><i class="bi bi-search text-info"></i>
                                                         Show</a>
                                                 </li>
 
                                                 <li>
-                                                    <a class="dropdown-item" href="/nilai/sempro/{{ $sempro->id }}/edit">
+                                                    <a class="dropdown-item" href="/nilai/kompre/{{ $kompre->id }}/edit">
                                                         <i class="bi bi-pencil-square text-warning"></i>
                                                         Update
                                                     </a>
                                                 </li>
-
-                                                {{-- <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-
-                                            <li>
-                                                <form action="/nilai/sempro/{{ $sempro->id }}" method="POST">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item"
-                                                        onclick="return confirm('Yakin ingin menghapus data ini?')"><i
-                                                            class="bi bi-trash-fill text-danger"></i>
-                                                        Delete</button>
-                                                </form>
-                                            </li> --}}
-
                                             </ul>
                                         </div>
                                     </td>
@@ -120,7 +104,7 @@
     </div>
 
     <!-- Modal show -->
-    <div class="modal fade" id="nilaisemproView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="nilaikompreView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -181,23 +165,23 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('body').on('click', '#show-nilaisempro', function() {
+            $('body').on('click', '#show-nilaikompre', function() {
 
                 let judulUrl = $(this).data('url');
                 $.get(judulUrl, function(data) {
-                    $('#nilaisemproView').modal('show');
+                    $('#nilaikompreView').modal('show');
 
                     console.log(data)
                     $('#mahasiswa').val(data.judul.mahasiswa.name);
 
                     $('#judul').val(data.judul.judul);
 
-                    if (data.nilaisempro !== null) {
-                        $('#nilai1').val(data.nilaisempro.nilai1)
-                        $('#nilai2').val(data.nilaisempro.nilai2)
-                        $('#nilai3').val(data.nilaisempro.nilai3)
-                        $('#nilai4').val(data.nilaisempro.nilai4)
-                        $('#nilai5').val(data.nilaisempro.nilai5)
+                    if (data.nilaikompre !== null) {
+                        $('#nilai1').val(data.nilaikompre.nilai1)
+                        $('#nilai2').val(data.nilaikompre.nilai2)
+                        $('#nilai3').val(data.nilaikompre.nilai3)
+                        $('#nilai4').val(data.nilaikompre.nilai4)
+                        $('#nilai5').val(data.nilaikompre.nilai5)
                     } else {
                         $('#nilai1').val('-')
                         $('#nilai2').val('-')
@@ -207,10 +191,10 @@
                     }
 
                     let ratarata = 0
-                    data.nilaisempro ? ratarata = data.nilaisempro.nilai1 + data.nilaisempro
+                    data.nilaikompre ? ratarata = data.nilaikompre.nilai1 + data.nilaikompre
                         .nilai2 + data
-                        .nilaisempro.nilai3 + data.nilaisempro.nilai4 +
-                        data.nilaisempro.nilai5 : ratarata = 0
+                        .nilaikompre.nilai3 + data.nilaikompre.nilai4 +
+                        data.nilaikompre.nilai5 : ratarata = 0
 
                     $('#ratarata').val(ratarata);
 

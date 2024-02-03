@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kompre;
 use App\Models\NilaiKompre;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,10 @@ class NilaiKompreController extends Controller
      */
     public function index()
     {
-        //
+        return view('kompre.nilai.index', [
+            'title' => 'E - Skripsi | Nilai Sempro',
+            'kompres' => Kompre::with('judul', 'judul.mahasiswa', 'teampenguji', 'nilaikompre')->where('status', 'diterima')->latest()->get(),
+        ]);
     }
 
     /**
@@ -28,31 +32,82 @@ class NilaiKompreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'kompre_id' => 'required',
+        ];
+        if ($request->filled('nilai1')) {
+            $rules['nilai1'] = 'required|numeric|min:0|max:25';
+        }
+        if ($request->filled('nilai2')) {
+            $rules['nilai2'] = 'required|numeric|min:0|max:15';
+        }
+        if ($request->filled('nilai3')) {
+            $rules['nilai3'] = 'required|numeric|min:0|max:10';
+        }
+        if ($request->filled('nilai4')) {
+            $rules['nilai4'] = 'required|numeric|min:0|max:25';
+        }
+        if ($request->filled('nilai5')) {
+            $rules['nilai5'] = 'required|numeric|min:0|max:25';
+        }
+
+        $validateData = $request->validate($rules);
+
+        NilaiKompre::create($validateData);
+
+        return redirect('/nilai/kompre')->with('success', 'Nilai kompre berhasil diinputkan');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(NilaiKompre $nilaiKompre)
+    public function show($id)
     {
-        //
+        $nilaikompre = Kompre::with(['judul', 'judul.mahasiswa', 'teampenguji', 'nilaikompre'])->find($id);
+
+        return response()->json($nilaikompre);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(NilaiKompre $nilaiKompre)
+    public function edit($id)
     {
-        //
+        return view('kompre.nilai.edit', [
+            'title' => 'Input Nilai',
+            'kompre' => Kompre::with('judul', 'nilaikompre')->find($id),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, NilaiKompre $nilaiKompre)
+    public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'kompre_id' => 'required',
+        ];
+        if ($request->filled('nilai1')) {
+            $rules['nilai1'] = 'required|numeric|min:0|max:25';
+        }
+        if ($request->filled('nilai2')) {
+            $rules['nilai2'] = 'required|numeric|min:0|max:15';
+        }
+        if ($request->filled('nilai3')) {
+            $rules['nilai3'] = 'required|numeric|min:0|max:10';
+        }
+        if ($request->filled('nilai4')) {
+            $rules['nilai4'] = 'required|numeric|min:0|max:25';
+        }
+        if ($request->filled('nilai5')) {
+            $rules['nilai5'] = 'required|numeric|min:0|max:25';
+        }
+
+        $validateData = $request->validate($rules);
+
+        NilaiKompre::where('id', $id)->update($validateData);
+
+        return redirect('/nilai/sempro')->with('success', 'Nilai sempro berhasil diinputkan');
     }
 
     /**

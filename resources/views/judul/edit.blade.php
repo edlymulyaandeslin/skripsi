@@ -33,7 +33,8 @@
                                 <option selected value="{{ 0 }}">Pilih</option>
                                 @foreach ($dosens as $dosen)
                                     @if (old('pembimbing1_id', $judul->pembimbing1_id) == $dosen->id && $judul->pembimbing1_id !== 0)
-                                        <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                        <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}
+                                        </option>
                                     @else
                                         <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
                                     @endif
@@ -51,9 +52,11 @@
                                 <option selected value="{{ 0 }}">Pilih</option>
                                 @foreach ($dosens as $dosen)
                                     @if (old('pembimbing2_id', $judul->pembimbing2_id) == $dosen->id && $judul->pembimbing2_id !== 0)
-                                        <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                        <option value="{{ $dosen->id }}" class="d-flex" selected>{{ $dosen->name }}
+                                        </option>
                                     @else
-                                        <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
+                                        <option value="{{ $dosen->id }}">{{ $dosen->name }}
+                                        </option>
                                     @endif
                                 @endforeach
                             </select>

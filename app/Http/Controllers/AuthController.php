@@ -19,7 +19,7 @@ class AuthController extends Controller
             'password' => 'required|min:8'
         ]);
 
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
+        if (Auth::attempt($credentials, $request->filled('remember_token'))) {
             $request->session()->regenerate();
 
             return redirect()->intended('/');

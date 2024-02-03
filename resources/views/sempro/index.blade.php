@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
-            <h3>List Mahasiswa Sempro</h3>
+            <h3>Mahasiswa Seminar Proposal</h3>
 
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">
@@ -35,63 +35,67 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($sempros as $sempro)
-                            <tr key="{{ $sempro->id }}" class="text-center">
-                                <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
-                                <td>{{ $sempro->judul->mahasiswa->name }}</td>
-                                <td>{{ $sempro->judul->judul }}</td>
-                                <td>{{ $sempro->tanggal_seminar ? Carbon\Carbon::parse($sempro->tanggal_seminar)->format('d F Y') : '-' }}
-                                </td>
-                                <td>{{ $sempro->jam ?? '-' }}</td>
-                                <td>{{ $sempro->ruang ?? '-' }}</td>
-                                <td>{{ $sempro->teampenguji->name ?? '-' }}</td>
-                                <td class="text-center">
-                                    <span
-                                        class="bg-{{ $sempro->status == 'diterima' ? 'success' : ($sempro->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-4 ">
-                                        {{ $sempro->status }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <div>
-                                        <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="bi bi-list"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="javascript:void(0)" id="show-sempro"
-                                                    data-url="{{ route('sempro.show', $sempro->id) }}"
-                                                    class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                    Show</a>
-                                            </li>
+                        @if ($sempros->count() !== 0)
+                            @foreach ($sempros as $sempro)
+                                <tr key="{{ $sempro->id }}" class="text-center">
+                                    <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
+                                    <td>{{ $sempro->judul->mahasiswa->name }}</td>
+                                    <td>{{ $sempro->judul->judul }}</td>
+                                    <td>{{ $sempro->tanggal_seminar ? Carbon\Carbon::parse($sempro->tanggal_seminar)->format('d F Y') : '-' }}
+                                    </td>
+                                    <td>{{ $sempro->jam ?? '-' }}</td>
+                                    <td>{{ $sempro->ruang ?? '-' }}</td>
+                                    <td>{{ $sempro->teampenguji->name ?? '-' }}</td>
+                                    <td class="text-center">
+                                        <span
+                                            class="bg-{{ $sempro->status == 'diterima' ? 'success' : ($sempro->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-4 ">
+                                            {{ $sempro->status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <button type="button" class="btn btn-sm btn-outline-dark"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-list"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="javascript:void(0)" id="show-sempro"
+                                                        data-url="/sempro/{{ $sempro->id }}" class="dropdown-item"><i
+                                                            class="bi bi-search text-info"></i>
+                                                        Show</a>
+                                                </li>
 
-                                            <li>
-                                                <a class="dropdown-item" href="/sempro/{{ $sempro->id }}/edit">
-                                                    <i class="bi bi-pencil-square text-warning"></i>
-                                                    Update
-                                                </a>
-                                            </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="/sempro/{{ $sempro->id }}/edit">
+                                                        <i class="bi bi-pencil-square text-warning"></i>
+                                                        Update
+                                                    </a>
+                                                </li>
 
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
 
-                                            <li>
-                                                <form action="/sempro/{{ $sempro->id }}" method="POST">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item"
-                                                        onclick="return confirm('Yakin ingin menghapus data ini?')"><i
-                                                            class="bi bi-trash-fill text-danger"></i>
-                                                        Delete</button>
-                                                </form>
-                                            </li>
+                                                <li>
+                                                    <form action="/sempro/{{ $sempro->id }}" method="POST">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button type="submit" class="dropdown-item"
+                                                            onclick="return confirm('Yakin ingin menghapus data ini?')"><i
+                                                                class="bi bi-trash-fill text-danger"></i>
+                                                            Delete</button>
+                                                    </form>
+                                                </li>
 
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <td colspan="9" class="text-center">No Data</td>
+                        @endif
 
                     </tbody>
                 </table>
@@ -194,6 +198,7 @@
                 $.get(judulUrl, function(data) {
                     $('#semproView').modal('show');
 
+                    console.log(data)
                     $('#mahasiswa').val(data.judul.mahasiswa.name);
 
                     $('#judul').val(data.judul.judul);

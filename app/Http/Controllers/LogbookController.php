@@ -28,7 +28,7 @@ class LogbookController extends Controller
     {
         return view('logbook.create', [
             'title' => 'Logbook | Create',
-            'juduls' => Judul::where('status', 'diterima')->latest()->get()
+            'juduls' => Judul::with('mahasiswa')->where('status', 'diterima')->where('mahasiswa_id', auth()->user()->id)->latest()->get()
         ]);
     }
 

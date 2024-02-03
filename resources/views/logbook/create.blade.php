@@ -13,7 +13,7 @@
                             name="judul_id">
                             <option selected value="{{ null }}">Pilih</option>
                             @foreach ($juduls as $judul)
-                                @if (old('judul_id') == $judul->id)
+                                @if (old('judul_id') === $judul->id)
                                     <option value="{{ $judul->id }}" selected>{{ $judul->judul }}</option>
                                 @else
                                     <option value="{{ $judul->id }}">{{ $judul->judul }}</option>

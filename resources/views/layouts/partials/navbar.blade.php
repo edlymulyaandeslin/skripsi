@@ -10,8 +10,8 @@
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <img class="rounded-circle me-lg-2"
-                    src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&bold=true" alt=""
-                    style="width: 40px; height: 40px;">
+                    src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&background=3498db&color=ecf0f1"
+                    alt="" style="width: 40px; height: 40px;">
                 <span class="d-none d-lg-inline-flex">{{ auth()->user()->name }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
