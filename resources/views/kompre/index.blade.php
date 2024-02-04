@@ -160,21 +160,15 @@
                                     <label for="penguji2" class="form-label">Penguji 2</label>
                                     <input type="text" id="penguji2" class="form-control" disabled>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="penguji3" class="form-label">Penguji 3</label>
-                                    <input type="text" id="penguji3" class="form-control" disabled>
-                                </div>
+
                             </div>
                             <div class="col-md-6">
 
                                 <div class="mb-3">
-                                    <label for="penguji4" class="form-label">Penguji 4</label>
-                                    <input type="text" id="penguji4" class="form-control" disabled>
+                                    <label for="penguji3" class="form-label">Penguji 3</label>
+                                    <input type="text" id="penguji3" class="form-control" disabled>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="penguji5" class="form-label">Penguji 5</label>
-                                    <input type="text" id="penguji5" class="form-control" disabled>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -215,16 +209,11 @@
                         $('#penguji1').val(data.teampenguji.penguji1);
                         $('#penguji2').val(data.teampenguji.penguji2);
                         $('#penguji3').val(data.teampenguji.penguji3);
-                        $('#penguji4').val(data.teampenguji.penguji4);
-                        $('#penguji5').val(data.teampenguji.penguji5);
                     } else {
                         $('#teampenguji').text('-');
                         $('#penguji1').val('-');
                         $('#penguji2').val('-');
                         $('#penguji3').val('-');
-                        $('#penguji4').val('-');
-                        $('#penguji5').val('-');
-
                     }
 
 

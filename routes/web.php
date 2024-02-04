@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\JudulController;
 use App\Http\Controllers\KompreController;
+use App\Http\Controllers\KoordinatorController;
 use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\NilaiKompreController;
@@ -48,10 +50,10 @@ Route::resource('/nilai/kompre', NilaiKompreController::class)->names([
 ])->middleware('auth');
 
 // route manajemen users
-Route::prefix('manajemen')->group(function () {
+Route::middleware('auth')->prefix('manajemen')->group(function () {
     Route::resource('/mahasiswa', MahasiswaController::class);
-    // Route::resource('/koordinator', KompreController::class);
-    // Route::resource('/dosen', KompreController::class);
+    Route::resource('/koordinator', KoordinatorController::class);
+    Route::resource('/dosen', DosenController::class);
 
     // route manajemen pembimbing dan penguji
     Route::resource('/teampenguji', TeamPengujiController::class);

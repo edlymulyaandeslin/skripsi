@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <h4>Halo User</h4>
+        <h4>Halo {{ auth()->user()->name }}</h4>
         <h3>Selamat Datang di Aplikasi E Skripsi</h3>
         <p>
             E Skripsi adalah aplikasi yang membantu untuk memantau kinerja dari mahasiswa atau siswa yang mengikuti

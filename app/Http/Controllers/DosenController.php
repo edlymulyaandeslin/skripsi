@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MahasiswaController extends Controller
+class DosenController extends Controller
 {
     public function index()
     {
-        return view('mahasiswa.index', [
-            'title' => 'E - Skripsi | Mahasiswa',
-            'mahasiswas' => User::where('role_id', 4)->latest()->get()
+        return view('dosen.index', [
+            'title' => 'E - Skripsi | dosen',
+            'dosens' => User::where('role_id', 3)->latest()->get()
         ]);
     }
 
     public function create()
     {
-        return view('mahasiswa.create', [
-            'title' => 'E - Skripsi | Tambah Mahasiswa'
+        return view('dosen.create', [
+            'title' => 'E - Skripsi | Tambah dosen'
         ]);
     }
 
@@ -29,31 +29,32 @@ class MahasiswaController extends Controller
             'name' => 'required|max:255',
             'password' => 'required|min:8|max:255'
         ], [
-            'nim_or_nidn.required' => 'The nim field is required.',
-            'nim_or_nidn.min' => 'The nim field must be at least 5 characters.',
-            'nim_or_nidn.max' => 'The nim field must not be greater than 8 characters.',
+            'nim_or_nidn.required' => 'The nidn field is required.',
+            'nim_or_nidn.min' => 'The nidn field must be at least 5 characters.',
+            'nim_or_nidn.max' => 'The nidn field must not be greater than 8 characters.',
         ]);
 
         $validateData['password'] = bcrypt($validateData['password']);
-        $validateData['role_id'] = 4;
+
+        $validateData['role_id'] = 3;
 
         User::create($validateData);
 
-        return redirect('/manajemen/mahasiswa')->with('success', 'Mahasiswa baru ditambahkan');
+        return redirect('/manajemen/dosen')->with('success', 'dosen baru ditambahkan');
     }
 
     public function show($id)
     {
-        $mahasiswa = User::with(['judul', 'judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro', 'judul.kompre'])->find($id);
+        $dosen = User::with(['judul', 'judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro', 'judul.kompre'])->find($id);
 
-        return response()->json($mahasiswa);
+        return response()->json($dosen);
     }
 
     public function edit($id)
     {
-        return view('mahasiswa.edit', [
-            'title' => 'Mahasiswa | Edit',
-            'mahasiswa' => User::find($id)
+        return view('dosen.edit', [
+            'title' => 'dosen | Edit',
+            'dosen' => User::find($id)
         ]);
     }
 
@@ -65,9 +66,9 @@ class MahasiswaController extends Controller
         ];
 
         $customMessage = [
-            'nim_or_nidn.required' => 'The nim field is required.',
-            'nim_or_nidn.min' => 'The nim field min 5.',
-            'nim_or_nidn.max' => 'The nim field max 8.',
+            'nim_or_nidn.required' => 'The nidn field is required.',
+            'nim_or_nidn.min' => 'The nidn field min 5.',
+            'nim_or_nidn.max' => 'The nidn field max 8.',
         ];
 
         if ($request->filled('password')) {
@@ -82,12 +83,12 @@ class MahasiswaController extends Controller
 
         User::where('id', $id)->update($validateData);
 
-        return redirect('/manajemen/mahasiswa')->with('success', 'Mahasiswa berhasil di update');
+        return redirect('/manajemen/dosen')->with('success', 'dosen berhasil di update');
     }
     public function destroy($id)
     {
         User::destroy($id);
 
-        return redirect('/manajemen/mahasiswa')->with('success', 'Mahasiswa berhasil di hapus');
+        return redirect('/manajemen/dosen')->with('success', 'dosen berhasil di hapus');
     }
 }
