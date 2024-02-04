@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\TeamPenguji;
-use App\Http\Requests\StoreTeamPengujiRequest;
-use App\Http\Requests\UpdateTeamPengujiRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TeamPengujiController extends Controller
 {
@@ -15,6 +14,10 @@ class TeamPengujiController extends Controller
      */
     public function index()
     {
+        $title = 'Delete Team Penguji!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         return view('manajemen.teampenguji.index', [
             'title' => 'E - Skripsi | Team Penguji',
             'listteampenguji' => TeamPenguji::latest()->get()
@@ -51,7 +54,9 @@ class TeamPengujiController extends Controller
 
         TeamPenguji::create($validateData);
 
-        return redirect('/manajemen/teampenguji')->with('success', 'Team Penguji Berhasil di Buat!!');
+        Alert::success('Success!', 'Testing Team Successfully Created');
+
+        return redirect('/manajemen/teampenguji');
     }
 
     /**
@@ -102,7 +107,9 @@ class TeamPengujiController extends Controller
 
         TeamPenguji::where('id', $id)->update($validateData);
 
-        return redirect('/manajemen/teampenguji')->with('success', 'Team Penguji Berhasil di Update!!');
+        Alert::success('Success!', 'Testing Team Successfully Updated');
+
+        return redirect('/manajemen/teampenguji');
     }
 
     /**
@@ -112,6 +119,8 @@ class TeamPengujiController extends Controller
     {
         TeamPenguji::destroy($id);
 
-        return redirect('/manajemen/teampenguji')->with('success', 'Team Penguji Berhasil di Hapus!!');
+        Alert::success('Success!', 'Testing Team Successfully deleted');
+
+        return redirect('/manajemen/teampenguji');
     }
 }

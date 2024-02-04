@@ -6,8 +6,8 @@ use App\Models\Judul;
 use App\Models\Kompre;
 use App\Models\Sempro;
 use App\Models\TeamPenguji;
-use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SemproController extends Controller
 {
@@ -16,6 +16,11 @@ class SemproController extends Controller
      */
     public function index()
     {
+        // confirm delete judul
+        $title = 'Delete Seminar Proposal!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         return view('sempro.index', [
             'title' => 'E - Skripsi | Sempro',
             'sempros' => Sempro::with(['judul', 'judul.mahasiswa', 'teampenguji'])->latest()->get()
@@ -38,7 +43,8 @@ class SemproController extends Controller
 
         // cek apakah sudah pernah mengajukan sempro atau tidak
         if ($sempro->count() !== 0) {
-            return redirect('/sempro')->with('success', 'Anda hanya dapat mengajukan seminar  proposal 1x !!');
+            Alert::info('Info!', 'You can only submit a seminar proposal 1x');
+            return redirect('/sempro');
         }
 
         return view('sempro.create', [
@@ -58,7 +64,9 @@ class SemproController extends Controller
 
         Sempro::create($validateData);
 
-        return redirect('/sempro')->with('success', 'Sempro has been added!');
+        Alert::success('success!', 'Sempro has been added');
+
+        return redirect('/sempro');
     }
 
     /**
@@ -114,7 +122,9 @@ class SemproController extends Controller
 
         Sempro::where('id', $id)->update($validateData);
 
-        return redirect('/sempro')->with('success', 'Sempro has been updated!');
+        Alert::success('success!', 'Sempro has been updated');
+
+        return redirect('/sempro');
     }
 
     /**
@@ -130,6 +140,8 @@ class SemproController extends Controller
 
         Kompre::where('judul_id', $judul->id)->delete();
 
-        return redirect('/sempro')->with('success', 'Sempro has been deleted!');
+        Alert::success('success!', 'Sempro has been deleted');
+
+        return redirect('/sempro');
     }
 }

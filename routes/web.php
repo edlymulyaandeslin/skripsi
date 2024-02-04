@@ -43,6 +43,7 @@ Route::resource('/nilai/sempro', NilaiSemproController::class)->names([
 
 
 Route::resource('/kompre', KompreController::class)->middleware('auth');
+
 Route::resource('/nilai/kompre', NilaiKompreController::class)->names([
     'show' => 'nilai.kompre.show',
     'store' => 'nilai.kompre.store',

@@ -6,6 +6,7 @@ use App\Models\Judul;
 use App\Models\Kompre;
 use App\Models\TeamPenguji;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KompreController extends Controller
 {
@@ -14,6 +15,11 @@ class KompreController extends Controller
      */
     public function index()
     {
+        // confirm delete judul
+        $title = 'Delete Seminar Komprehensif!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         return view('kompre.index', [
             'title' => 'E - Skripsi | Kompre',
             'kompres' => Kompre::with(['judul', 'judul.mahasiswa', 'teampenguji'])->latest()->get()
@@ -37,7 +43,10 @@ class KompreController extends Controller
 
         // cek apakah sudah pernah mengajukan kompre atau tidak
         if ($kompre->count() !== 0) {
-            return redirect('/kompre')->with('success', 'Anda hanya dapat mengajukan seminar  komprehensif 1x !!');
+
+            Alert::info('Info!', 'You can only submit a comprehensive seminar 1x');
+
+            return redirect('/kompre');
         }
 
         return view('kompre.create', [
@@ -62,7 +71,9 @@ class KompreController extends Controller
 
         Kompre::create($validateData);
 
-        return redirect('/kompre')->with('success', 'Berhasil mengajukan seminar komprehensif');
+        Alert::success('Success!', 'Successfully applied for a comprehensive seminar');
+
+        return redirect('/kompre');
     }
 
     /**
@@ -119,16 +130,20 @@ class KompreController extends Controller
 
         Kompre::where('id', $id)->update($validateData);
 
-        return redirect('/kompre')->with('success', 'Komprehensif has been updated!');
+        Alert::success('Success!', 'Komprehensif has been updated!');
+
+        return redirect('/kompre');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Kompre $kompre)
+    public function destroy($id)
     {
-        Kompre::destroy($kompre->id);
+        Kompre::destroy($id);
 
-        return redirect('/kompre')->with('success', 'Komprehensif has been deleted!');
+        Alert::success('Success!', 'Komprehensif has been deleted!');
+
+        return redirect('/kompre');
     }
 }

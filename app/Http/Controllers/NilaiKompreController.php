@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kompre;
 use App\Models\NilaiKompre;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class NilaiKompreController extends Controller
 {
@@ -55,7 +56,9 @@ class NilaiKompreController extends Controller
 
         NilaiKompre::create($validateData);
 
-        return redirect('/nilai/kompre')->with('success', 'Nilai kompre berhasil diinputkan');
+        Alert::success('Success!', 'Value entered successfully');
+
+        return redirect('/nilai/kompre');
     }
 
     /**
@@ -107,7 +110,9 @@ class NilaiKompreController extends Controller
 
         NilaiKompre::where('id', $id)->update($validateData);
 
-        return redirect('/nilai/kompre')->with('success', 'Nilai sempro berhasil diupdate!!');
+        Alert::success('Success!', 'Value updated successfully');
+
+        return redirect('/nilai/kompre');
     }
 
     /**

@@ -4,11 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DosenController extends Controller
 {
     public function index()
+
     {
+        // confirm delete judul
+        $title = 'Delete Dosen!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         return view('manajemen.dosen.index', [
             'title' => 'E - Skripsi | dosen',
             'dosens' => User::where('role_id', 3)->latest()->get()
@@ -25,11 +33,12 @@ class DosenController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'nim_or_nidn' => 'required|min:5|max:8',
+            'nim_or_nidn' => 'required|min:5|max:8|unique:users,nim_or_nidn',
             'name' => 'required|max:255',
             'password' => 'required|min:8|max:255'
         ], [
             'nim_or_nidn.required' => 'The nidn field is required.',
+            'nim_or_nidn.unique' => 'The nidn has already been taken.',
             'nim_or_nidn.min' => 'The nidn field must be at least 5 characters.',
             'nim_or_nidn.max' => 'The nidn field must not be greater than 8 characters.',
         ]);
@@ -40,7 +49,9 @@ class DosenController extends Controller
 
         User::create($validateData);
 
-        return redirect('/manajemen/dosen')->with('success', 'dosen baru ditambahkan');
+        Alert::success('Success!', 'New lecturer added');
+
+        return redirect('/manajemen/dosen');
     }
 
     public function show($id)
@@ -61,15 +72,17 @@ class DosenController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'nim_or_nidn' => 'required|min:5|max:8',
             'name' => 'required|max:255',
         ];
 
-        $customMessage = [
-            'nim_or_nidn.required' => 'The nidn field is required.',
-            'nim_or_nidn.min' => 'The nidn field min 5.',
-            'nim_or_nidn.max' => 'The nidn field max 8.',
-        ];
+        $customMessage = [];
+
+        if ($request->filled('nim_or_nidn')) {
+            $rules['nim_or_nidn'] = ['min:5', 'max:8',  Rule::unique('users', 'nim_or_nidn')->ignore($id)];
+            $customMessage['nim_or_nidn.unique'] = 'The nidn has already been taken.';
+            $customMessage['nim_or_nidn.min'] = 'The nidn field min 5.';
+            $customMessage['nim_or_nidn.max'] = 'The nidn field max 8.';
+        }
 
         if ($request->filled('password')) {
             $rules['password'] = 'required|min:8|max:255';
@@ -83,12 +96,16 @@ class DosenController extends Controller
 
         User::where('id', $id)->update($validateData);
 
-        return redirect('/manajemen/dosen')->with('success', 'dosen berhasil di update');
+        Alert::success('Success!', 'lecturer successfully updated');
+
+        return redirect('/manajemen/dosen');
     }
     public function destroy($id)
     {
         User::destroy($id);
 
-        return redirect('/manajemen/dosen')->with('success', 'dosen berhasil di hapus');
+        Alert::success('Success!', 'lecturer successfully deleted');
+
+        return redirect('/manajemen/dosen');
     }
 }

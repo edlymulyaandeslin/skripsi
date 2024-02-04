@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
@@ -22,10 +23,14 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $request->filled('remember_token'))) {
             $request->session()->regenerate();
 
+            Alert::success('Login Success')->toToast();
+
             return redirect()->intended('/');
         }
 
-        return back()->with('error', 'Login gagal');
+        Alert::error('Login Failed')->toToast();
+
+        return back();
     }
 
     public function logout(Request $request)
@@ -35,6 +40,8 @@ class AuthController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        Alert::success('Logout success')->toToast();
 
         return redirect('/auth/login');
     }

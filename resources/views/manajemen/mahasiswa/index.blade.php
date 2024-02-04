@@ -5,12 +5,6 @@
         <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
             <h3>Mahasiswa Skripsi</h3>
 
-            @if (session()->has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <div class="d-flex justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
                     <form>
@@ -72,15 +66,9 @@
                                                 </li>
 
                                                 <li>
-                                                    <form action="/manajemen/mahasiswa/{{ $mahasiswa->id }}"
-                                                        method="POST">
-                                                        @method('delete')
-                                                        @csrf
-                                                        <button type="submit" class="dropdown-item"
-                                                            onclick="return confirm('Yakin ingin menghapus data ini?')"><i
-                                                                class="bi bi-trash-fill text-danger"></i>
-                                                            Delete</button>
-                                                    </form>
+                                                    <a href="{{ route('mahasiswa.destroy', $mahasiswa->id) }}"
+                                                        class="dropdown-item" data-confirm-delete="true"><i
+                                                            class="bi bi-trash-fill text-danger"></i> Delete</a>
                                                 </li>
 
                                             </ul>

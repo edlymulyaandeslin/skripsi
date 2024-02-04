@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Judul;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class JudulController extends Controller
 {
@@ -14,6 +14,10 @@ class JudulController extends Controller
      */
     public function index()
     {
+        // confirm delete judul
+        $title = 'Delete Judul!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
 
         return view('judul.index', [
             'title' => 'E - Skripsi | Judul',
@@ -45,7 +49,9 @@ class JudulController extends Controller
 
         Judul::create($validateData);
 
-        return redirect('/judul')->with('success', 'Judul has been created');
+        Alert::success('success', 'Judul has been created');
+
+        return redirect('/judul');
     }
 
     /**
@@ -87,7 +93,9 @@ class JudulController extends Controller
 
         Judul::where('id', $id)->update($validateData);
 
-        return redirect('/judul')->with('success', 'Judul has been updated');
+        Alert::success('success!', 'Judul has been updated');
+
+        return redirect('/judul');
     }
 
     /**
@@ -95,8 +103,11 @@ class JudulController extends Controller
      */
     public function destroy($id)
     {
+
         Judul::destroy($id);
 
-        return redirect('/judul')->with('success', 'Judul has been deleted');
+        Alert::success('success!', 'Judul has been deleted');
+
+        return redirect('/judul');
     }
 }

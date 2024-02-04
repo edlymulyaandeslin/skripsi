@@ -5,12 +5,6 @@
         <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
             <h3>Penilaian Mahasiswa Sempro</h3>
 
-            @if (session()->has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <div class="d-flex justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
                     <form>
@@ -88,21 +82,6 @@
                                                         Update
                                                     </a>
                                                 </li>
-
-                                                {{-- <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-
-                                            <li>
-                                                <form action="/nilai/sempro/{{ $sempro->id }}" method="POST">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item"
-                                                        onclick="return confirm('Yakin ingin menghapus data ini?')"><i
-                                                            class="bi bi-trash-fill text-danger"></i>
-                                                        Delete</button>
-                                                </form>
-                                            </li> --}}
 
                                             </ul>
                                         </div>

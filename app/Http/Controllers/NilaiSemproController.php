@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\NilaiSempro;
 use App\Models\Sempro;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class NilaiSemproController extends Controller
 {
@@ -55,7 +56,9 @@ class NilaiSemproController extends Controller
 
         NilaiSempro::create($validateData);
 
-        return redirect('/nilai/sempro')->with('success', 'Nilai sempro berhasil diinputkan');
+        Alert::success('Success!', 'Value entered successfully');
+
+        return redirect('/nilai/sempro');
     }
 
     /**
@@ -107,7 +110,9 @@ class NilaiSemproController extends Controller
 
         NilaiSempro::where('id', $id)->update($validateData);
 
-        return redirect('/nilai/sempro')->with('success', 'Nilai sempro berhasil diinputkan');
+        Alert::success('Success!', 'Value updated successfully');
+
+        return redirect('/nilai/sempro');
     }
 
     /**

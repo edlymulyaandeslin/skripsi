@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Logbook;
-use App\Http\Requests\StoreLogbookRequest;
-use App\Http\Requests\UpdateLogbookRequest;
 use App\Models\Judul;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LogbookController extends Controller
 {
@@ -15,6 +14,11 @@ class LogbookController extends Controller
      */
     public function index()
     {
+        // confirm delete judul
+        $title = 'Delete Logbook!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         return view('logbook.index', [
             'title' => 'E - Skripsi | Logbook',
             'logbooks' => Logbook::with(['judul', 'judul.mahasiswa'])->latest()->get()
@@ -44,7 +48,9 @@ class LogbookController extends Controller
 
         Logbook::create($validateData);
 
-        return redirect('/logbook')->with('success', 'Logbook has been added!');
+        Alert::success('success!', 'Logbook has been added');
+
+        return redirect('/logbook');
     }
 
     /**
@@ -87,7 +93,9 @@ class LogbookController extends Controller
 
         Logbook::where('id', $id)->update($validateData);
 
-        return redirect('/logbook')->with('success', 'Logbook has been updated!');
+        Alert::success('success!', 'Logbook has been updated');
+
+        return redirect('/logbook');
     }
 
     /**
@@ -97,6 +105,8 @@ class LogbookController extends Controller
     {
         Logbook::destroy($id);
 
-        return redirect('/logbook')->with('success', 'Logbook has been deleted!');
+        Alert::success('success!', 'Logbook has been deleted');
+
+        return redirect('/logbook');
     }
 }
