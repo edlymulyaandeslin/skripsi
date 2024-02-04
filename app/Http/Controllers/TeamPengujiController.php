@@ -15,7 +15,7 @@ class TeamPengujiController extends Controller
      */
     public function index()
     {
-        return view('teampenguji.index', [
+        return view('manajemen.teampenguji.index', [
             'title' => 'E - Skripsi | Team Penguji',
             'listteampenguji' => TeamPenguji::latest()->get()
         ]);
@@ -26,7 +26,7 @@ class TeamPengujiController extends Controller
      */
     public function create()
     {
-        return view('teampenguji.create', [
+        return view('manajemen.teampenguji.create', [
             'title' => 'Team Penguji | Create',
             'listpenguji' => User::where('role_id', 3)->get()
         ]);
@@ -69,7 +69,7 @@ class TeamPengujiController extends Controller
      */
     public function edit($id)
     {
-        return view('teampenguji.edit', [
+        return view('manajemen.teampenguji.edit', [
             'title' => 'Team Penguji | Edit',
             'teampenguji' => TeamPenguji::find($id),
             'dosens' => User::where('role_id', 3)->get()

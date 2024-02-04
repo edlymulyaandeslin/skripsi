@@ -9,7 +9,7 @@ class KoordinatorController extends Controller
 {
     public function index()
     {
-        return view('koordinator.index', [
+        return view('manajemen.koordinator.index', [
             'title' => 'E - Skripsi | Koordinator',
             'koordinators' => User::where('role_id', 2)->latest()->get()
         ]);
@@ -17,7 +17,7 @@ class KoordinatorController extends Controller
 
     public function create()
     {
-        return view('koordinator.create', [
+        return view('manajemen.koordinator.create', [
             'title' => 'E - Skripsi | Tambah koordinator'
         ]);
     }
@@ -52,7 +52,7 @@ class KoordinatorController extends Controller
 
     public function edit($id)
     {
-        return view('koordinator.edit', [
+        return view('manajemen.koordinator.edit', [
             'title' => 'koordinator | Edit',
             'koordinator' => User::find($id)
         ]);

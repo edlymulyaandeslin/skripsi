@@ -9,7 +9,7 @@ class DosenController extends Controller
 {
     public function index()
     {
-        return view('dosen.index', [
+        return view('manajemen.dosen.index', [
             'title' => 'E - Skripsi | dosen',
             'dosens' => User::where('role_id', 3)->latest()->get()
         ]);
@@ -17,7 +17,7 @@ class DosenController extends Controller
 
     public function create()
     {
-        return view('dosen.create', [
+        return view('manajemen.dosen.create', [
             'title' => 'E - Skripsi | Tambah dosen'
         ]);
     }
@@ -52,7 +52,7 @@ class DosenController extends Controller
 
     public function edit($id)
     {
-        return view('dosen.edit', [
+        return view('manajemen.dosen.edit', [
             'title' => 'dosen | Edit',
             'dosen' => User::find($id)
         ]);

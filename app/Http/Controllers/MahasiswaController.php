@@ -9,7 +9,7 @@ class MahasiswaController extends Controller
 {
     public function index()
     {
-        return view('mahasiswa.index', [
+        return view('manajemen.mahasiswa.index', [
             'title' => 'E - Skripsi | Mahasiswa',
             'mahasiswas' => User::where('role_id', 4)->latest()->get()
         ]);
@@ -17,7 +17,7 @@ class MahasiswaController extends Controller
 
     public function create()
     {
-        return view('mahasiswa.create', [
+        return view('manajemen.mahasiswa.create', [
             'title' => 'E - Skripsi | Tambah Mahasiswa'
         ]);
     }
@@ -51,7 +51,7 @@ class MahasiswaController extends Controller
 
     public function edit($id)
     {
-        return view('mahasiswa.edit', [
+        return view('manajemen.mahasiswa.edit', [
             'title' => 'Mahasiswa | Edit',
             'mahasiswa' => User::find($id)
         ]);
