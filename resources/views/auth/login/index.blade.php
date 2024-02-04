@@ -60,22 +60,11 @@
                             @endif
                             <form action="/auth/login" method="post">
                                 @csrf
-                                {{-- <div class="form-floating mb-3">
-                                    <input type="email"
-                                        class="form-control @error('email')
-                                        is-invalid
-                                    @enderror"
-                                        name="email" placeholder="name@example.com" value="{{ old('email') }}">
-                                    <label for="floatingInput">Email address</label>
-                                    @error('email')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div> --}}
 
                                 <div class="form-floating mb-4">
                                     <input type="number"
                                         class="form-control @error('nim_or_nidn') is-invalid @enderror"
-                                        name="nim_or_nidn" placeholder="Password">
+                                        name="nim_or_nidn" placeholder="NIM Or NIDN" value="{{ old('nim_or_nidn') }}">
                                     <label for="nim_or_nidn">NIM atau NIDN</label>
                                     @error('nim_or_nidn')
                                         <p class="text-danger">{{ $message }}</p>

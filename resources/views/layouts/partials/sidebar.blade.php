@@ -67,13 +67,13 @@
                 <a href="#" class="nav-link dropdown-toggle {{ Request::is('manajemen*') ? 'active' : '' }}"
                     data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Manajemen</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="manajemen/mahasiswa"
+                    <a href="/manajemen/mahasiswa"
                         class="nav-item nav-link {{ Request::is('manajemen/mahasiswa*') ? 'active' : '' }}">Mahasiswa</a>
-                    <a href="manajemen/koordinator"
+                    <a href="/manajemen/koordinator"
                         class="nav-item nav-link {{ Request::is('manajemen/koordinator*') ? 'active' : '' }}">Koordinator</a>
-                    <a href="manajemen/dosen"
+                    <a href="/manajemen/dosen"
                         class="nav-item nav-link {{ Request::is('manajemen/dosen*') ? 'active' : '' }}">Dosen</a>
-                    <a href="manajemen/teampenguji"
+                    <a href="/manajemen/teampenguji"
                         class="nav-item nav-link {{ Request::is('manajemen/teampenguji*') ? 'active' : '' }}">Team
                         Penguji</a>
                 </div>

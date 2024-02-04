@@ -15,10 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('penguji1');
-            $table->string('penguji2')->nullable();
-            $table->string('penguji3')->nullable();
-            $table->string('penguji4')->nullable();
-            $table->string('penguji5')->nullable();
+            $table->string('penguji2');
+            $table->string('penguji3');
             $table->timestamps();
         });
     }

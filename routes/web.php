@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JudulController;
 use App\Http\Controllers\KompreController;
 use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\NilaiKompreController;
 use App\Http\Controllers\NilaiSemproController;
 use App\Http\Controllers\SemproController;
@@ -48,7 +49,7 @@ Route::resource('/nilai/kompre', NilaiKompreController::class)->names([
 
 // route manajemen users
 Route::prefix('manajemen')->group(function () {
-    // Route::resource('/mahasiswa', KompreController::class);
+    Route::resource('/mahasiswa', MahasiswaController::class);
     // Route::resource('/koordinator', KompreController::class);
     // Route::resource('/dosen', KompreController::class);
 

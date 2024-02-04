@@ -21,8 +21,6 @@ class TeamPengujiFactory extends Factory
             'penguji1' => fake()->name(),
             'penguji2' => fake()->name(),
             'penguji3' => fake()->name(),
-            'penguji4' => fake()->name(),
-            'penguji5' => fake()->name(),
         ];
     }
 }
