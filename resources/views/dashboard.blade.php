@@ -5,12 +5,10 @@
         <h4>Halo {{ auth()->user()->name }}</h4>
         <h3>Selamat Datang di Aplikasi E Skripsi</h3>
         <p>
-            E Skripsi adalah aplikasi yang membantu untuk memantau kinerja dari mahasiswa atau siswa yang mengikuti
-            magang dikantor yang bersangkutan. pengguna aplikasi ini dibedakan menjadi beberapa level yaitu sebagai
-            mahasiswa/ siswa yang merupakan default level ketika mendaftar melalui aplikasi.selanjutnya
-            level pembimbing dan koordinator yang ditambahkan oleh admin ketika aplikasi ini baru
-            diluncurkan. Aplikasi ini juga memiliki beberapa fitur utama yang akan berbeda setiap level
-            dimana selanjutnya akan dijelaskan pada petunjuk penggunaan aplikasi.
+            Aplikasi E Skripsi adalah sebuah platform yang dirancang untuk memantau dan memfasilitasi kinerja mahasiswa atau
+            siswa yang sedang menjalani magang di sebuah kantor atau lembaga terkait. Aplikasi ini membagi pengguna menjadi
+            beberapa level, yakni mahasiswa/siswa (level default), pembimbing, dan koordinator. Setiap level memiliki akses
+            dan fitur yang berbeda sesuai dengan peran masing-masing.
         </p>
         <h5 class="my-3">Petunjuk Penggunaan Aplikasi</h5>
         <div class="col-md-10 offset-1 mt-3">
@@ -25,14 +23,23 @@
                     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <ol>
-                                <li>Melakukan pengajuan judul projek</li>
-                                <li>Ketika judul anda diterima, anda dapat mengajukan logbook setelah melakukan
-                                    bimbingan ke mentor</li>
-                                <li> Untuk dapat mengakses pengajuan presentasi, anda harus memiliki riwayat logbook
-                                    yang sudah disetujui mentor minimal 2 kali</li>
-                                <li>Anda dapat melihat jadwal presentasi yang disetujui pada fitur show yang ada pada
-                                    kolom action pada menu aplikasi</li>
-                                <li>Presentasi akan diapprove oleh koordinator atau mentor</li>
+                                <li>Lakukan pengajuan judul projek.</li>
+                                <li>Setelah judul diterima, ajukan logbook setelah melakukan bimbingan dengan pembimbing.
+                                </li>
+                                <li>Untuk mengajukan seminar proposal, pastikan telah memiliki riwayat logbook yang diaccept
+                                    minimal 1 kali.</li>
+                                <li>Akses jadwal Seminar Proposal melalui fitur "show" pada kolom action dalam submenu
+                                    sempro pada aplikasi.</li>
+                                <li>Seminar proposal akan diapprove oleh koordinator atau mentor.</li>
+                                <li>Setelah Seminar Proposal, ajukan logbook komprehensif setelah melakukan bimbingan dengan
+                                    pembimbing.</li>
+                                <li>Untuk mengajukan seminar komprehensif, pastikan telah memiliki riwayat logbook yang
+                                    diaccept minimal 1 kali dan lulus seminar proposal.</li>
+                                <li>Akses jadwal Seminar Komprehensif melalui fitur "show" pada kolom action dalam submenu
+                                    kompre pada
+                                    aplikasi.</li>
+                                <li>Seminar komprehensif akan diapprove oleh koordinator atau mentor.</li>
+
                             </ol>
                         </div>
                     </div>
@@ -41,20 +48,27 @@
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Sebagai Pembimbing
+                            Sebagai Dosen
                         </button>
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <ol>
-                                <li>Anda dapat melihat semua mahasiswa yang bimbingan dengan anda pada sub-menu
-                                    mahasiswa</li>
-                                <li>Anda dapat melihat semua judul yang diajukan mahasiswa pada menu pengajuan judul
+                                <span class="fw-bold">Pembimbing</span>
+                                <li>Lihat daftar semua mahasiswa yang sedang dalam bimbingan pada sub-menu mahasiswa.</li>
+                                <li>Periksa judul-judul yang diajukan oleh mahasiswa pada menu pengajuan judul.
                                 </li>
-                                <li>Anda dapat melakukan approve atau reject untuk logbook yang diajukan mahasiswa pada
-                                    kolom action di menu logbook</li>
-                                <li>Anda dapat melakukan approve atau reject untuk presentasi yang diajukan mahasiswa
-                                    pada kolom action di menu presentasi</li>
+                                <li>Lakukan approve atau reject untuk logbook yang diajukan mahasiswa pada kolom action di
+                                    menu logbook.</li>
+                                <li>Lakukan approve atau reject untuk presentasi yang diajukan mahasiswa pada kolom action
+                                    di menu presentasi.</li>
+                            </ol>
+                            <ol>
+                                <span class="fw-bold">Penguji</span>
+                                <li>Lihat daftar semua judul dan mahasiswa yang akan diuji pada sub-menu uji.</li>
+
+                                <li>Lakukan penilaian untuk presentasi yang telah dilakukan mahasiswa pada kolom action
+                                    di menu penilaian.</li>
                             </ol>
                         </div>
                     </div>
@@ -69,11 +83,11 @@
                     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <ol>
-                                <li>Dapat menambah pembimbing baru</li>
-                                <li>Setelah mahasiswa mengajukan judul anda dapat melakukan approve atau reject judul
-                                    yang diajukan pada kolom action di menu pengajuan judul</li>
-                                <li>Setelah mahasiswa mengajukan presentasi anda dapat melakukan approve atau reject
-                                    presentasi pada kolom action di menu presentasi</li>
+                                <li>Tambahkan dosen baru ke dalam sistem.</li>
+                                <li>Setelah mahasiswa mengajukan judul, lakukan approve atau reject pada kolom action di
+                                    menu pengajuan judul.</li>
+                                <li>Setelah mahasiswa mengajukan presentasi, lakukan approve atau reject pada kolom action
+                                    di menu presentasi.</li>
                             </ol>
                         </div>
                     </div>
