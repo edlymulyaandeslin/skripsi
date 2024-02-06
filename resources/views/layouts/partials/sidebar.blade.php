@@ -5,9 +5,13 @@
         </a>
         <div class="d-flex align-items-center ms-4 mb-4">
             <div class="position-relative">
-                <img class="rounded-circle"
-                    src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&background=3498db&color=ecf0f1"
-                    alt="" style="width: 40px; height: 40px;">
+                @if (auth()->user()->foto_profil)
+                    <img src="{{ asset('storage/' . auth()->user()->foto_profil) }}" style="width: 40px; height: 40px;"
+                        class="rounded-circle" alt="404">
+                @else
+                    <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&background=3498db&color=ecf0f1"
+                        style="width: 40px; height: 40px;" class="img-fluid rounded-1" alt="404">
+                @endif
                 <div
                     class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                 </div>
@@ -64,7 +68,8 @@
             </div>
 
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle {{ Request::is('manajemen*') ? 'active' : '' }}"
+                <a href="#"
+                    class="nav-link dropdown-toggle {{ Request::is('manajemen*') && !Request::is('manajemen/profile*') ? 'active' : '' }}"
                     data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Manajemen</a>
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="/manajemen/mahasiswa"

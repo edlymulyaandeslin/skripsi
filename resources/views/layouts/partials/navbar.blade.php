@@ -9,13 +9,17 @@
     <div class="navbar-nav align-items-center ms-auto">
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <img class="rounded-circle me-lg-2"
-                    src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&background=3498db&color=ecf0f1"
-                    alt="" style="width: 40px; height: 40px;">
+                @if (auth()->user()->foto_profil)
+                    <img src="{{ asset('storage/' . auth()->user()->foto_profil) }}" style="width: 40px; height: 40px;"
+                        class="rounded-circle" alt="404">
+                @else
+                    <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&background=3498db&color=ecf0f1"
+                        style="width: 40px; height: 40px;" class="img-fluid rounded-1" alt="404">
+                @endif
                 <span class="d-none d-lg-inline-flex">{{ auth()->user()->name }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                <a href="#" class="dropdown-item">Profile</a>
+                <a href="/manajemen/profile/{{ auth()->user()->id }}" class="dropdown-item">Profile</a>
                 <form action="/auth/logout" method="post">
                     @csrf
                     <button type="submit" class="dropdown-item">Log Out</button>

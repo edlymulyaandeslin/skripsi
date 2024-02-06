@@ -9,6 +9,7 @@ use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\NilaiKompreController;
 use App\Http\Controllers\NilaiSemproController;
+use App\Http\Controllers\ProfileUpdate;
 use App\Http\Controllers\SemproController;
 use App\Http\Controllers\TeamPengujiController;
 use Illuminate\Support\Facades\Route;
@@ -43,7 +44,6 @@ Route::resource('/nilai/sempro', NilaiSemproController::class)->names([
 
 
 Route::resource('/kompre', KompreController::class)->middleware('auth');
-
 Route::resource('/nilai/kompre', NilaiKompreController::class)->names([
     'show' => 'nilai.kompre.show',
     'store' => 'nilai.kompre.store',
@@ -52,18 +52,30 @@ Route::resource('/nilai/kompre', NilaiKompreController::class)->names([
 
 // route manajemen users
 Route::middleware('auth')->prefix('manajemen')->group(function () {
+    // route manajemen mahasiswa
     Route::resource('/mahasiswa', MahasiswaController::class);
+
+    // route manajemen koordinator
     Route::resource('/koordinator', KoordinatorController::class);
+
+    // route manajemen dosen
     Route::resource('/dosen', DosenController::class);
 
     // route manajemen pembimbing dan penguji
     Route::resource('/teampenguji', TeamPengujiController::class);
+
+    // route profile update
+    Route::get('/profile/{id}', [ProfileUpdate::class, 'index'])->middleware('auth');
+    Route::get('/profile/{id}/edit', [ProfileUpdate::class, 'edit'])->middleware('auth');
+    Route::patch('/profile/{id}', [ProfileUpdate::class, 'update'])->middleware('auth');
 });
 
 // route authenticate
 Route::prefix('auth')->group(function () {
+    // route login
     route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
     route::post('/login', [AuthController::class, 'authenticate']);
 
+    // route logout
     route::post('/logout', [AuthController::class, 'logout']);
 });
