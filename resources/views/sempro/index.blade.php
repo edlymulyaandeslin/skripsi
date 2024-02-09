@@ -40,7 +40,7 @@
                                     <td>{{ $sempro->ruang ?? '-' }}</td>
                                     <td>
                                         <span
-                                            class="bg-{{ $sempro->status == 'diterima' ? 'success' : ($sempro->status == 'lulus' ? 'primary' : ($sempro->status == 'tidak lulus' ? 'danger' : 'warning')) }} rounded text-white px-4 ">
+                                            class="bg-{{ $sempro->status == 'diterima' ? 'success' : ($sempro->status == 'lulus' ? 'primary' : ($sempro->status == 'tidak lulus' ? 'danger' : 'warning')) }} rounded text-white px-3 py-1">
                                             {{ $sempro->status }}
                                         </span>
                                     </td>
@@ -93,7 +93,7 @@
     <!-- Modal show -->
     <div class="modal fade" id="semproView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail</h1>
@@ -163,7 +163,7 @@
                         <h1 class="modal-title fs-5 mb-3 border-bottom">Persyaratan</h1>
 
                         <div class="mb-3">
-                            <label for="krs" class="form-label">Krs</label>
+                            <label for="krs" class="form-label">KRS</label>
                             <a href="#" id="krs" class="form-control">Download</a>
 
                         </div>

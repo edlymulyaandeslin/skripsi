@@ -48,48 +48,124 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-select @error('team_penguji_id') is-invalid @enderror" id="floatingSelect"
-                            name="team_penguji_id">
-                            <option value="{{ null }}" selected>Pilih</option>
-                            @foreach ($teampenguji as $team)
-                                @if (old('team_penguji_id', $kompre->team_penguji_id) === $team->id)
-                                    <option value="{{ $team->id }}" selected>{{ $team->name }}</option>
+                        <select class="form-select @error('penguji1_id') is-invalid @enderror" name="penguji1_id">
+                            <option selected value="{{ 0 }}">Pilih</option>
+                            @foreach ($dosens as $dosen)
+                                @if (old('penguji1_id', $kompre->penguji1_id) == $dosen->id)
+                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                @elseif($kompre->judul->pembimbing1_id == $dosen->id || $kompre->judul->pembimbing2_id == $dosen->id)
+                                    <option style="background-color: #7f8fa6" class="text-white"
+                                        value="{{ $dosen->id }}" disabled>
+                                        {{ $dosen->name }} (pembimbing)
+                                    </option>
                                 @else
-                                    <option value="{{ $team->id }}">{{ $team->name }}</option>
+                                    <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
                                 @endif
                             @endforeach
                         </select>
-                        <label for="floatingSelect">Team Penguji</label>
-                        @error('team_penguji_id')
+                        <label for="">Penguji 1</label>
+                        @error('penguji1_id')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-select @error('status') is-invalid @enderror" id="floatingSelect"
-                            name="status">
+                        <select class="form-select @error('penguji2_id') is-invalid @enderror" name="penguji2_id">
+                            <option selected value="{{ 0 }}">Pilih</option>
+                            @foreach ($dosens as $dosen)
+                                @if (old('penguji2_id', $kompre->penguji2_id) == $dosen->id)
+                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                @elseif($kompre->judul->pembimbing1_id == $dosen->id || $kompre->judul->pembimbing2_id == $dosen->id)
+                                    <option style="background-color: #7f8fa6" class="text-white"
+                                        value="{{ $dosen->id }}" disabled>
+                                        {{ $dosen->name }} (pembimbing)
+                                    </option>
+                                @else
+                                    <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <label for="">Penguji 2</label>
+                        @error('penguji2_id')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select @error('penguji3_id') is-invalid @enderror" name="penguji3_id">
+                            <option selected value="{{ 0 }}">Pilih</option>
+                            @foreach ($dosens as $dosen)
+                                @if (old('penguji3_id', $kompre->penguji3_id) == $dosen->id)
+                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                @elseif($kompre->judul->pembimbing1_id == $dosen->id || $kompre->judul->pembimbing2_id == $dosen->id)
+                                    <option style="background-color: #7f8fa6" class="text-white"
+                                        value="{{ $dosen->id }}" disabled>
+                                        {{ $dosen->name }} (pembimbing)
+                                    </option>
+                                @else
+                                    <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <label for="">Penguji 3</label>
+                        @error('penguji3_id')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select @error('status') is-invalid @enderror" name="status" id="status">
                             <option selected disabled>Pilih</option>
                             @if ($kompre->status == 'diajukan')
                                 <option value="diajukan" selected>Diajukan</option>
                                 <option value="diterima">Diterima</option>
-                                <option value="ditolak">Ditolak</option>
+                                <option value="lulus">Lulus</option>
+                                <option value="tidak lulus">Tidak Lulus</option>
+                                <option value="perbaikan">Perbaikan</option>
                             @elseif($kompre->status == 'diterima')
                                 <option value="diajukan">Diajukan</option>
                                 <option value="diterima" selected>Diterima</option>
-                                <option value="ditolak">Ditolak</option>
-                            @elseif($kompre->status == 'ditolak')
+                                <option value="lulus">Lulus</option>
+                                <option value="tidak lulus">Tidak Lulus</option>
+                                <option value="perbaikan">Perbaikan</option>
+                            @elseif($kompre->status == 'lulus')
                                 <option value="diajukan">Diajukan</option>
                                 <option value="diterima">Diterima</option>
-                                <option value="ditolak" selected>Ditolak</option>
+                                <option value="lulus" selected>Lulus</option>
+                                <option value="tidak lulus">Tidak Lulus</option>
+                                <option value="perbaikan">Perbaikan</option>
+                            @elseif($kompre->status == 'tidak lulus')
+                                <option value="diajukan">Diajukan</option>
+                                <option value="diterima">Diterima</option>
+                                <option value="lulus">Lulus</option>
+                                <option value="tidak lulus" selected>Tidak Lulus</option>
+                                <option value="perbaikan">Perbaikan</option>
+                            @elseif($kompre->status == 'perbaikan')
+                                <option value="diajukan">Diajukan</option>
+                                <option value="diterima">Diterima</option>
+                                <option value="lulus">Lulus</option>
+                                <option value="tidak lulus">Tidak Lulus</option>
+                                <option value="perbaikan" selected>Perbaikan</option>
                             @else
                                 <option value="diajukan">Diajukan</option>
                                 <option value="diterima">Diterima</option>
-                                <option value="ditolak">Ditolak</option>
+                                <option value="lulus">Lulus</option>
+                                <option value="tidak lulus">Tidak Lulus</option>
+                                <option value="perbaikan">Perbaikan</option>
                             @endif
                         </select>
                         <label for="status">Status</label>
                         @error('status')
                             <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="form-floating mb-3 d-none" id="notes">
+                        <textarea class="form-control @error('notes') is-invalid @enderror" placeholder="Catatan" style="height: 150px;"
+                            name="notes">{{ old('notes', $kompre->notes) }}</textarea>
+                        <label for="notes">Catatan</label>
+                        @error('notes')
+                            <p class="text-danger pt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -99,10 +175,26 @@
         </div>
         {{-- end form --}}
 
-        {{-- feature --}}
-        <div class="col-md-6 d-flex justify-content-center align-items-center">
-            Isi Deskripsi Seminar Proposal
-        </div>
-        {{-- end feature --}}
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('#status').change(function() {
+                var selectedStatus = $(this).val();
+                if (selectedStatus === 'perbaikan') {
+                    $('#notes').removeClass('d-none');
+                } else {
+                    $('#notes').addClass('d-none');
+                }
+            });
+
+            // Untuk memastikan status saat halaman dimuat
+            var initialStatus = $('#status').val();
+            if (initialStatus === 'perbaikan') {
+                $('#notes').removeClass('d-none');
+            }
+        });
+    </script>
 @endsection

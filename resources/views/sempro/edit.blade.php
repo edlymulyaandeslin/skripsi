@@ -52,6 +52,11 @@
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji1_id', $sempro->penguji1_id) == $dosen->id)
                                     <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                @elseif($sempro->judul->pembimbing1_id == $dosen->id || $sempro->judul->pembimbing2_id == $dosen->id)
+                                    <option style="background-color: #7f8fa6" class="text-white"
+                                        value="{{ $dosen->id }}" disabled>
+                                        {{ $dosen->name }} (pembimbing)
+                                    </option>
                                 @else
                                     <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
                                 @endif
@@ -69,6 +74,11 @@
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji2_id', $sempro->penguji2_id) == $dosen->id)
                                     <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                @elseif($sempro->judul->pembimbing1_id == $dosen->id || $sempro->judul->pembimbing2_id == $dosen->id)
+                                    <option style="background-color: #7f8fa6" class="text-white"
+                                        value="{{ $dosen->id }}" disabled>
+                                        {{ $dosen->name }} (pembimbing)
+                                    </option>
                                 @else
                                     <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
                                 @endif
@@ -86,6 +96,11 @@
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji3_id', $sempro->penguji3_id) == $dosen->id)
                                     <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                @elseif($sempro->judul->pembimbing1_id == $dosen->id || $sempro->judul->pembimbing2_id == $dosen->id)
+                                    <option style="background-color: #7f8fa6" class="text-white"
+                                        value="{{ $dosen->id }}" disabled>
+                                        {{ $dosen->name }} (pembimbing)
+                                    </option>
                                 @else
                                     <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
                                 @endif
@@ -167,8 +182,7 @@
         $(document).ready(function() {
             $('#status').change(function() {
                 var selectedStatus = $(this).val();
-                if (selectedStatus === 'lulus' || selectedStatus === 'tidak lulus' || selectedStatus ===
-                    'perbaikan') {
+                if (selectedStatus === 'perbaikan') {
                     $('#notes').removeClass('d-none');
                 } else {
                     $('#notes').addClass('d-none');
@@ -177,7 +191,7 @@
 
             // Untuk memastikan status saat halaman dimuat
             var initialStatus = $('#status').val();
-            if (initialStatus === 'lulus' || initialStatus === 'tidak lulus') {
+            if (initialStatus === 'perbaikan') {
                 $('#notes').removeClass('d-none');
             }
         });

@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
-            <h3>Penilaian Mahasiswa Sempro</h3>
+            <h3>Penilaian Seminar Proposal</h3>
 
             <div class="d-flex justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
@@ -35,16 +35,13 @@
                                     <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
                                     <td>{{ $sempro->judul->mahasiswa->name }}</td>
                                     <td>{{ $sempro->judul->judul }}</td>
-                                    <td>{{ $nilai1 = $sempro->nilaisempro->nilai1 + $sempro->nilaisempro->nilai2 + $sempro->nilaisempro->nilai3 + $sempro->nilaisempro->nilai4 + $sempro->nilaisempro->nilai5 }}
+                                    <td>{{ $sempro->nilaisempro ? ($nilai1 = $sempro->nilaisempro->nilai1 + $sempro->nilaisempro->nilai2 + $sempro->nilaisempro->nilai3 + $sempro->nilaisempro->nilai4 + $sempro->nilaisempro->nilai5) : ($nilai1 = 0) }}
                                     </td>
-                                    <td>{{ $nilai2 = $sempro->nilaisempro->nilai6 + $sempro->nilaisempro->nilai7 + $sempro->nilaisempro->nilai8 + $sempro->nilaisempro->nilai9 + $sempro->nilaisempro->nilai10 }}
+                                    <td>{{ $sempro->nilaisempro ? ($nilai2 = $sempro->nilaisempro->nilai6 + $sempro->nilaisempro->nilai7 + $sempro->nilaisempro->nilai8 + $sempro->nilaisempro->nilai9 + $sempro->nilaisempro->nilai10) : ($nilai2 = 0) }}
                                     </td>
-                                    <td>{{ $nilai3 = $sempro->nilaisempro->nilai11 + $sempro->nilaisempro->nilai12 + $sempro->nilaisempro->nilai13 + $sempro->nilaisempro->nilai14 + $sempro->nilaisempro->nilai15 }}
+                                    <td>{{ $sempro->nilaisempro ? ($nilai3 = $sempro->nilaisempro->nilai11 + $sempro->nilaisempro->nilai12 + $sempro->nilaisempro->nilai13 + $sempro->nilaisempro->nilai14 + $sempro->nilaisempro->nilai15) : ($nilai3 = 0) }}
                                     </td>
                                     <td>{{ number_format(($nilai1 + $nilai2 + $nilai3) / 3, 2) }}</td>
-
-                                    {{-- <td>{{ $sempro->nilaisempro ? ($nilai = ) : ($nilai = 0) }}
-                                    </td> --}}
 
                                     <td>
                                         <div>

@@ -39,7 +39,7 @@
                                     <td>{{ $judul->created_at->format('d M Y') }}</td>
                                     <td class="text-center">
                                         <span
-                                            class="bg-{{ $judul->status == 'diterima' ? 'success' : ($judul->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-4 ">
+                                            class="bg-{{ $judul->status == 'diterima' ? 'success' : ($judul->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-3 py-1">
                                             {{ $judul->status }}
                                         </span>
                                     </td>
@@ -92,7 +92,7 @@
     <!-- Modal show -->
     <div class="modal fade" id="judulView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail</h1>

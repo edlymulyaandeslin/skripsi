@@ -42,9 +42,9 @@ class SemproController extends Controller
             ->where('status', '!=', 'tidak lulus')
             ->get();
 
-        // find judul logbook status acc proposal
+        // find judul berdasarkan logbook dengan status acc proposal
         $juduls = Judul::withCount(['logbook as acc_proposal_count' => function ($query) {
-            $query->where('status', 'acc proposal');
+            $query->where('status', 'acc proposal')->where('kategori', 'proposal');
         }])->with(['mahasiswa', 'mahasiswa.dokumen', 'logbook'])->whereHas('logbook', function ($query) {
             $query->where('status', 'acc proposal');
         })->where('mahasiswa_id', auth()->user()->id)
@@ -114,11 +114,7 @@ class SemproController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = [
-            'penguji1_id' => 'required',
-            'penguji2_id' => 'required',
-            'penguji3_id' => 'required',
-        ];
+        $rules = [];
 
         if ($request->input('tanggal_seminar')) {
             $rules['tanggal_seminar'] = 'required|date';
@@ -132,8 +128,18 @@ class SemproController extends Controller
             $rules['ruang'] = 'required';
         }
 
+        if ($request->filled('penguji1_id') || $request->filled('penguji2_id') || $request->filled('penguji3_id')) {
+            $rules['penguji1_id'] = 'required';
+            $rules['penguji2_id'] = 'required';
+            $rules['penguji3_id'] = 'required';
+        }
+
         if ($request->input('status')) {
             $rules['status'] = 'required';
+        }
+
+        if ($request->filled('notes')) {
+            $rules['notes'] = 'required';
         }
 
         if ($request->file('pembayaran')) {
@@ -141,7 +147,6 @@ class SemproController extends Controller
         }
 
         $validateData = $request->validate($rules);
-
 
         if ($request->file('pembayaran')) {
             if ($request->oldPembayaran) {

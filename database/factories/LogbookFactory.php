@@ -18,8 +18,9 @@ class LogbookFactory extends Factory
     {
         return [
             'judul_id' => 1,
-            'target_bimbingan' => fake()->paragraph(2),
-            'status' => 'diterima'
+            'kategori' => 'proposal',
+            'target_bimbingan' => fake()->text(10),
+            'status' => 'acc proposal'
         ];
     }
 }

@@ -5,11 +5,8 @@
         {{-- form --}}
         <div class="col-md-12">
             @if ($dokumen == null)
-                <div style="background-color: #fbc531" class="text-white py-3 rounded-1 px-3 fst-italic">Data kamu
-                    belum
-                    lengkap, silakan
-                    lengkapi terlebih
-                    dahulu <a href="/manajemen/dokumen">klik disini</a></div>
+                <div style="background-color: #f9ca24" class="text-white py-3 rounded-1 px-3 fst-italic">Data kamu belum
+                    lengkap, silakan lengkapi terlebih dahulu <a href="/manajemen/dokumen">klik disini</a></div>
             @elseif ($sempro->count() != 0)
                 <div class="bg-light rounded h-100 p-4">
 

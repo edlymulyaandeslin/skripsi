@@ -34,7 +34,7 @@
                                     <td>{{ $dosen->name }}</td>
                                     <td>
                                         <span
-                                            class="bg-{{ $dosen->status == 'active' ? 'success' : 'danger' }} text-white px-4 rounded">
+                                            class="bg-{{ $dosen->status == 'active' ? 'success' : 'danger' }} text-white px-3 py-1 rounded">
                                             {{ $dosen->status }}
                                         </span>
                                     </td>

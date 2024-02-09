@@ -73,7 +73,7 @@
 
                     <div class="mb-3">
                         <label>Catatan</label>
-                        <textarea name="notes1" class="form-control" rows="4" placeholder="Write..">{{ $sempro->nilaisempro->notes1 }}</textarea>
+                        <textarea name="notes1" class="form-control" rows="4" placeholder="Write..">{{ $sempro->nilaisempro->notes1 ?? '' }}</textarea>
                         @error('notes1')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -155,7 +155,7 @@
                     </div>
                     <div class="mb-3">
                         <label>Catatan</label>
-                        <textarea name="notes2" class="form-control" rows="4" placeholder="Write..">{{ $sempro->nilaisempro->notes2 }}</textarea>
+                        <textarea name="notes2" class="form-control" rows="4" placeholder="Write..">{{ $sempro->nilaisempro->notes2 ?? '' }}</textarea>
                         @error('notes2')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -236,7 +236,7 @@
                     </div>
                     <div class="mb-3">
                         <label>Catatan</label>
-                        <textarea name="notes3" class="form-control" rows="4" placeholder="Write..">{{ $sempro->nilaisempro->notes3 }}</textarea>
+                        <textarea name="notes3" class="form-control" rows="4" placeholder="Write..">{{ $sempro->nilaisempro->notes3 ?? '' }}</textarea>
                         @error('notes3')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -246,5 +246,6 @@
                 </form>
             </div>
         </div>
+
     </div>
 @endsection

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('file_proposal')->nullable();
             $table->text('hasil')->nullable();
             $table->enum('kategori', ['proposal', 'komprehensif'])->nullable();
-            $table->enum('status', ['diajukan', 'ditolak', 'diterima', 'acc proposal'])->default('diajukan');
+            $table->enum('status', ['diajukan', 'ditolak', 'diterima', 'acc proposal', 'acc komprehensif'])->default('diajukan');
             $table->timestamps();
         });
     }

@@ -45,7 +45,8 @@ class LogbookController extends Controller
         $validateData = $request->validate([
             'judul_id' => 'required',
             'target_bimbingan' => 'required',
-            'file_proposal' => 'required|file|mimes:pdf|max:5000'
+            'file_proposal' => 'required|file|mimes:pdf|max:5000',
+            'kategori' => 'required'
         ]);
 
         $originalName = mt_rand(1, 99999) . '_' . $request->file('file_proposal')->getClientOriginalName();
@@ -85,13 +86,12 @@ class LogbookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = [];
+        $rules = [
+            'status' => 'required',
+        ];
 
         if ($request->filled('hasil')) {
             $rules['hasil'] = 'required';
-        }
-        if ($request->filled('status')) {
-            $rules['status'] = 'required';
         }
 
         $validateData = $request->validate($rules);

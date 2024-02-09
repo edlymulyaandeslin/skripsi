@@ -16,7 +16,7 @@ class NilaiSemproController extends Controller
     {
         return view('sempro.nilai.index', [
             'title' => 'E - Skripsi | Nilai Sempro',
-            'sempros' => Sempro::with('judul', 'judul.mahasiswa', 'penguji1', 'penguji2', 'penguji3', 'nilaisempro')->where('status', '!=', 'diajukan')->latest()->get(),
+            'sempros' => Sempro::with('judul', 'judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2', 'penguji1', 'penguji2', 'penguji3', 'nilaisempro')->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get(),
         ]);
     }
 

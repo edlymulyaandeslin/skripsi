@@ -47,6 +47,28 @@
                         @enderror
                     </div>
 
+                    <div class="form-floating mb-3">
+                        <select class="form-select @error('kategori') is-invalid @enderror" id="floatingSelect"
+                            name="kategori">
+                            <option selected value="{{ null }}">Pilih</option>
+                            @if (old('kategori') == 'proposal')
+                                <option value="proposal" selected>Proposal</option>
+                                <option value="komprehensif">Komprehensif</option>
+                            @elseif(old('kategori') == 'komprehensif')
+                                <option value="proposal">Proposal</option>
+                                <option value="komprehensif" selected>Komprehensif</option>
+                            @else
+                                <option value="proposal">Proposal</option>
+                                <option value="komprehensif">Komprehensif</option>
+                            @endif
+                        </select>
+                        <label for="floatingSelect">Kategori<span class="text-danger">*</span></label>
+                        <small>Kategori bimbingan misal : proposal atau komprehensif</small>
+                        @error('kategori')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>
             </div>

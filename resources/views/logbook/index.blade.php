@@ -23,6 +23,7 @@
                             <th scope="col">No</th>
                             <th scope="col">NIM</th>
                             <th scope="col">Mahasiswa</th>
+                            <th scope="col">Kategori Bimbingan</th>
                             <th scope="col">Judul</th>
                             <th scope="col">Target Bimbingan</th>
                             <th scope="col">Tanggal Bimbingan</th>
@@ -37,12 +38,13 @@
                                     <th scope="row">{{ $loop->index + 1 }}</th>
                                     <td>{{ $logbook->judul->mahasiswa->nim_or_nidn }}</td>
                                     <td>{{ $logbook->judul->mahasiswa->name }}</td>
+                                    <td>{{ $logbook->kategori }}</td>
                                     <td>{{ $logbook->judul->judul }}</td>
                                     <td>{{ $logbook->target_bimbingan }}</td>
                                     <td>{{ $logbook->created_at->format('d F Y') }}</td>
                                     <td>
                                         <p
-                                            class="bg-{{ $logbook->status == 'diterima' ? 'success' : ($logbook->status == 'ditolak' ? 'danger' : ($logbook->status == 'acc proposal' ? 'primary' : 'warning')) }} rounded text-white px-4 ">
+                                            class="bg-{{ $logbook->status == 'diterima' ? 'success' : ($logbook->status == 'ditolak' ? 'danger' : ($logbook->status == 'acc proposal' || $logbook->status == 'acc komprehensif' ? 'primary' : 'warning')) }} rounded text-white px-3 py-1">
                                             {{ $logbook->status }}
                                         </p>
                                     </td>
@@ -95,7 +97,7 @@
     <!-- Modal show -->
     <div class="modal fade" id="logbookView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail Log Book</h1>
@@ -112,6 +114,11 @@
                             <div class="mb-3">
                                 <label for="judul" class="form-label">Judul</label>
                                 <input type="text" id="judul" class="form-control" disabled>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="kategori" class="form-label">Kategori Bimbingan</label>
+                                <input type="text" id="kategori" class="form-control" disabled>
                             </div>
 
                             <div class="mb-3">
@@ -179,6 +186,8 @@
                     $('#logbookView').modal('show');
 
                     $('#mahasiswa').val(data.judul.mahasiswa.name);
+
+                    $('#kategori').val(data.kategori);
 
                     $('#judul').val(data.judul.judul);
 
