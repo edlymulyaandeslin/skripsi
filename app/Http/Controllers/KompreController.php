@@ -33,7 +33,6 @@ class KompreController extends Controller
     {
 
         // find data kompre berdasarkan id mahasiswa yg login dan statusnya != ditolak
-
         $kompre = Kompre::with(['judul'])
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
@@ -49,14 +48,18 @@ class KompreController extends Controller
             return redirect('/kompre');
         }
 
+        // find judul yang diterima dan sudah lulus sempro
+        $juduls = Judul::with(['mahasiswa', 'sempro'])
+            ->whereHas('sempro', function ($query) {
+                $query->where('status', 'lulus');
+            })
+            ->where('status', 'diterima')
+            ->where('mahasiswa_id', auth()->user()->id)
+            ->get();
+
         return view('kompre.create', [
             'title' => 'Kompre | Create',
-            'juduls' => Judul::with(['mahasiswa', 'sempro'])
-                ->whereHas('sempro', function ($query) {
-                    $query->where('status', 'diterima');
-                })
-                ->where('mahasiswa_id', auth()->user()->id)
-                ->get()
+            'juduls' => $juduls
         ]);
     }
 

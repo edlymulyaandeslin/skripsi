@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('team_pengujis', function (Blueprint $table) {
+        Schema::create('dokumens', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('penguji1');
-            $table->string('penguji2');
-            $table->string('penguji3');
+            $table->foreignId('mahasiswa_id')->constrained('users')->cascadeOnDelete();
+            $table->string('krs')->nullable();
+            $table->string('transkip_nilai')->nullable();
+            $table->string('hadir_seminar')->nullable();
+            $table->string('lembar_bimbingan')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('team_pengujis');
+        Schema::dropIfExists('dokumens');
     }
 };

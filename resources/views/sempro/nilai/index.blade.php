@@ -20,13 +20,10 @@
                             <th scope="col">No</th>
                             <th scope="col">Mahasiswa</th>
                             <th scope="col">Judul</th>
-                            <th scope="col">Nilai 1</th>
-                            <th scope="col">Nilai 2</th>
-                            <th scope="col">Nilai 3</th>
-                            <th scope="col">Nilai 4</th>
-                            <th scope="col">Nilai 5</th>
+                            <th scope="col">Penilaian Penguji 1</th>
+                            <th scope="col">Penilaian Penguji 2</th>
+                            <th scope="col">Penilaian Penguji 3</th>
                             <th scope="col">Rata-rata</th>
-                            <th scope="col">Prediket</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
@@ -38,30 +35,17 @@
                                     <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
                                     <td>{{ $sempro->judul->mahasiswa->name }}</td>
                                     <td>{{ $sempro->judul->judul }}</td>
-                                    <td>{{ $sempro->nilaisempro->nilai1 ?? 0 }}</td>
-                                    <td>{{ $sempro->nilaisempro->nilai2 ?? 0 }}</td>
-                                    <td>{{ $sempro->nilaisempro->nilai3 ?? 0 }}</td>
-                                    <td>{{ $sempro->nilaisempro->nilai4 ?? 0 }}</td>
-                                    <td>{{ $sempro->nilaisempro->nilai5 ?? 0 }}</td>
-                                    <td>{{ $sempro->nilaisempro ? ($nilai = $sempro->nilaisempro->nilai1 + $sempro->nilaisempro->nilai2 + $sempro->nilaisempro->nilai3 + $sempro->nilaisempro->nilai4 + $sempro->nilaisempro->nilai5) : ($nilai = 0) }}
+                                    <td>{{ $nilai1 = $sempro->nilaisempro->nilai1 + $sempro->nilaisempro->nilai2 + $sempro->nilaisempro->nilai3 + $sempro->nilaisempro->nilai4 + $sempro->nilaisempro->nilai5 }}
                                     </td>
-                                    @if ($nilai >= 95)
-                                        <td>A+</td>
-                                    @elseif ($nilai >= 90)
-                                        <td>A</td>
-                                    @elseif ($nilai >= 85)
-                                        <td>B+</td>
-                                    @elseif ($nilai >= 80)
-                                        <td>B</td>
-                                    @elseif ($nilai >= 75)
-                                        <td>B-</td>
-                                    @elseif ($nilai >= 70)
-                                        <td>C</td>
-                                    @elseif ($nilai >= 60)
-                                        <td>D</td>
-                                    @else
-                                        <td>E</td>
-                                    @endif
+                                    <td>{{ $nilai2 = $sempro->nilaisempro->nilai6 + $sempro->nilaisempro->nilai7 + $sempro->nilaisempro->nilai8 + $sempro->nilaisempro->nilai9 + $sempro->nilaisempro->nilai10 }}
+                                    </td>
+                                    <td>{{ $nilai3 = $sempro->nilaisempro->nilai11 + $sempro->nilaisempro->nilai12 + $sempro->nilaisempro->nilai13 + $sempro->nilaisempro->nilai14 + $sempro->nilaisempro->nilai15 }}
+                                    </td>
+                                    <td>{{ number_format(($nilai1 + $nilai2 + $nilai3) / 3, 2) }}</td>
+
+                                    {{-- <td>{{ $sempro->nilaisempro ? ($nilai = ) : ($nilai = 0) }}
+                                    </td> --}}
+
                                     <td>
                                         <div>
                                             <button type="button" class="btn btn-sm btn-outline-dark"
@@ -99,12 +83,12 @@
     </div>
 
     <!-- Modal show -->
-    <div class="modal fade" id="nilaisemproView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade " id="nilaisemproView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail Penilaian</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -119,7 +103,9 @@
                                 <label for="judul" class="form-label">Judul</label>
                                 <input type="text" id="judul" class="form-control" disabled />
                             </div>
-
+                        </div>
+                        <div class="col-md-4">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Penguji 1</h1>
                             <div class="mb-3">
                                 <label for="nilai1" class="form-label">Nilai 1</label>
                                 <input type="text" id="nilai1" class="form-control" disabled />
@@ -141,12 +127,82 @@
                                 <input type="text" id="nilai5" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="ratarata" class="form-label">Rata-rata</label>
-                                <input type="text" id="ratarata" class="form-control" disabled />
+                                <label for="total1" class="form-label">Total</label>
+                                <input type="text" id="total1" class="form-control" disabled />
                             </div>
-
+                            <div class="mb-3">
+                                <label for="notes1" class="form-label">Catatan</label>
+                                <textarea id="notes1" class="form-control" disabled></textarea>
+                            </div>
                         </div>
-
+                        <div class="col-md-4">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Penguji 2</h1>
+                            <div class="mb-3">
+                                <label for="nilai6" class="form-label">Nilai 6</label>
+                                <input type="text" id="nilai6" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai7" class="form-label">Nilai 7</label>
+                                <input type="text" id="nilai7" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai8" class="form-label">Nilai 8</label>
+                                <input type="text" id="nilai8" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai9" class="form-label">Nilai 9</label>
+                                <input type="text" id="nilai9" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai10" class="form-label">Nilai 10</label>
+                                <input type="text" id="nilai10" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="total2" class="form-label">Total</label>
+                                <input type="text" id="total2" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="notes2" class="form-label">Catatan</label>
+                                <textarea id="notes2" class="form-control" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Penguji 3</h1>
+                            <div class="mb-3">
+                                <label for="nilai11" class="form-label">Nilai 11</label>
+                                <input type="text" id="nilai11" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai12" class="form-label">Nilai 12</label>
+                                <input type="text" id="nilai12" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai13" class="form-label">Nilai 13</label>
+                                <input type="text" id="nilai13" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai14" class="form-label">Nilai 14</label>
+                                <input type="text" id="nilai14" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai15" class="form-label">Nilai 15</label>
+                                <input type="text" id="nilai15" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="total3" class="form-label">Total</label>
+                                <input type="text" id="total3" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="notes3" class="form-label">Catatan</label>
+                                <textarea id="notes3" class="form-control" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4 offset-8">
+                            <div class="w-30">
+                                <label for="rata-rata">Rata rata</label>
+                                <input type="text" id="rata-rata" class="form-control" disabled />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -154,6 +210,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 @endsection
 
@@ -177,39 +234,62 @@
                         $('#nilai3').val(data.nilaisempro.nilai3)
                         $('#nilai4').val(data.nilaisempro.nilai4)
                         $('#nilai5').val(data.nilaisempro.nilai5)
+                        $('#nilai6').val(data.nilaisempro.nilai6)
+                        $('#nilai7').val(data.nilaisempro.nilai7)
+                        $('#nilai8').val(data.nilaisempro.nilai8)
+                        $('#nilai9').val(data.nilaisempro.nilai9)
+                        $('#nilai10').val(data.nilaisempro.nilai10)
+                        $('#nilai11').val(data.nilaisempro.nilai11)
+                        $('#nilai12').val(data.nilaisempro.nilai12)
+                        $('#nilai13').val(data.nilaisempro.nilai13)
+                        $('#nilai14').val(data.nilaisempro.nilai14)
+                        $('#nilai15').val(data.nilaisempro.nilai15)
                     } else {
                         $('#nilai1').val('-')
                         $('#nilai2').val('-')
                         $('#nilai3').val('-')
                         $('#nilai4').val('-')
                         $('#nilai5').val('-')
+                        $('#nilai6').val('-')
+                        $('#nilai7').val('-')
+                        $('#nilai8').val('-')
+                        $('#nilai9').val('-')
+                        $('#nilai10').val('-')
+                        $('#nilai11').val('-')
+                        $('#nilai12').val('-')
+                        $('#nilai13').val('-')
+                        $('#nilai14').val('-')
+                        $('#nilai15').val('-')
                     }
 
-                    let ratarata = 0
-                    data.nilaisempro ? ratarata = data.nilaisempro.nilai1 + data.nilaisempro
+                    let total1 = 0
+                    data.nilaisempro ? total1 = data.nilaisempro.nilai1 + data.nilaisempro
                         .nilai2 + data
                         .nilaisempro.nilai3 + data.nilaisempro.nilai4 +
-                        data.nilaisempro.nilai5 : ratarata = 0
+                        data.nilaisempro.nilai5 : total1 = 0;
 
-                    $('#ratarata').val(ratarata);
+                    let total2 = 0
+                    data.nilaisempro ? total2 = data.nilaisempro.nilai6 + data.nilaisempro
+                        .nilai7 + data
+                        .nilaisempro.nilai8 + data.nilaisempro.nilai9 +
+                        data.nilaisempro.nilai10 : total2 = 0;
 
-                    if (data.teampenguji !== null) {
-                        $('#teampenguji').text(data.teampenguji.name);
-                        $('#penguji1').val(data.teampenguji.penguji1);
-                        $('#penguji2').val(data.teampenguji.penguji2);
-                        $('#penguji3').val(data.teampenguji.penguji3);
-                        $('#penguji4').val(data.teampenguji.penguji4);
-                        $('#penguji5').val(data.teampenguji.penguji5);
-                    } else {
-                        $('#teampenguji').text('-');
-                        $('#penguji1').val('-');
-                        $('#penguji2').val('-');
-                        $('#penguji3').val('-');
-                        $('#penguji4').val('-');
-                        $('#penguji5').val('-');
-                    }
+                    let total3 = 0
+                    data.nilaisempro ? total3 = data.nilaisempro.nilai11 + data.nilaisempro
+                        .nilai12 + data
+                        .nilaisempro.nilai13 + data.nilaisempro.nilai14 +
+                        data.nilaisempro.nilai15 : total3 = 0;
 
+                    $('#total1').val(total1);
+                    $('#total2').val(total2);
+                    $('#total3').val(total3);
 
+                    $('#notes1').val(data.nilaisempro.notes1);
+                    $('#notes2').val(data.nilaisempro.notes2);
+                    $('#notes3').val(data.nilaisempro.notes3);
+
+                    let ratarata = (total1 + total2 + total3) / 3;
+                    $('#rata-rata').val(ratarata.toFixed(2));
                 })
             })
         })

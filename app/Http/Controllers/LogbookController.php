@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Logbook;
 use App\Models\Judul;
+use App\Models\Logbook;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class LogbookController extends Controller
@@ -43,8 +44,12 @@ class LogbookController extends Controller
     {
         $validateData = $request->validate([
             'judul_id' => 'required',
-            'deskripsi' => 'required'
+            'target_bimbingan' => 'required',
+            'file_proposal' => 'required|file|mimes:pdf|max:5000'
         ]);
+
+        $originalName = mt_rand(1, 99999) . '_' . $request->file('file_proposal')->getClientOriginalName();
+        $validateData['file_proposal'] = $request->file('file_proposal')->storeAs('logbook', $originalName);
 
         Logbook::create($validateData);
 
@@ -82,8 +87,8 @@ class LogbookController extends Controller
     {
         $rules = [];
 
-        if ($request->filled('notes')) {
-            $rules['notes'] = 'required';
+        if ($request->filled('hasil')) {
+            $rules['hasil'] = 'required';
         }
         if ($request->filled('status')) {
             $rules['status'] = 'required';
@@ -103,7 +108,13 @@ class LogbookController extends Controller
      */
     public function destroy($id)
     {
-        Logbook::destroy($id);
+        $logbook = Logbook::find($id);
+
+        if ($logbook->file_proposal) {
+            Storage::delete($logbook->file_proposal);
+        }
+
+        $logbook->destroy($id);
 
         Alert::success('success!', 'Logbook has been deleted');
 

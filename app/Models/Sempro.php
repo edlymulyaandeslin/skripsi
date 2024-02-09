@@ -17,11 +17,20 @@ class Sempro extends Model
         return $this->belongsTo(Judul::class, 'judul_id');
     }
 
-    public function teampenguji(): BelongsTo
+    public function penguji1(): BelongsTo
     {
-        return $this->belongsTo(TeamPenguji::class, 'team_penguji_id');
+        return $this->belongsTo(User::class, 'penguji1_id');
     }
 
+    public function penguji2(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'penguji2_id');
+    }
+
+    public function penguji3(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'penguji3_id');
+    }
 
     public function nilaisempro(): HasOne
     {

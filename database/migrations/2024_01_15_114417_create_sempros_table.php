@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('sempros', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('judul_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('judul_id')->constrained('juduls')->cascadeOnDelete();
             $table->date('tanggal_seminar')->nullable();
             $table->time('jam')->nullable();
             $table->string('ruang')->nullable();
-            $table->foreignId('team_penguji_id')->nullable();
-            $table->text('notes')->nullable();
-            $table->string('status')->default('diajukan');
+            $table->foreignId('penguji1_id')->default(0);
+            $table->foreignId('penguji2_id')->default(0);
+            $table->foreignId('penguji3_id')->default(0);
+            $table->enum('status', ['diajukan', 'diterima', 'lulus', 'tidak lulus', 'perbaikan'])->default('diajukan');
+            $table->string('pembayaran')->nullable();
             $table->timestamps();
         });
     }

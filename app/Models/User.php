@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -57,5 +58,10 @@ class User extends Authenticatable
     public function judul(): HasMany
     {
         return $this->hasMany(Judul::class, 'mahasiswa_id');
+    }
+
+    public function dokumen(): HasOne
+    {
+        return $this->hasOne(Dokumen::class, 'mahasiswa_id');
     }
 }

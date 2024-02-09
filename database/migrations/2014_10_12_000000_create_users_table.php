@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->string('no_hp')->nullable();
             $table->integer('angkatan')->nullable();
-            $table->string('status')->default('active');
+            $table->enum('status', ['active', 'deactive'])->default('active');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

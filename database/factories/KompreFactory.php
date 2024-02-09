@@ -21,7 +21,6 @@ class KompreFactory extends Factory
             'tanggal_seminar' => fake()->date(),
             'jam' => fake()->time(),
             'ruang' => fake()->locale(),
-            'team_penguji_id' => mt_rand(1, 5)
         ];
     }
 }

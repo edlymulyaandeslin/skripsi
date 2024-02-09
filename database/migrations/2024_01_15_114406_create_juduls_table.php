@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('latar_belakang');
             $table->foreignId('pembimbing1_id')->default(0);
             $table->foreignId('pembimbing2_id')->default(0);
-            $table->string('status')->default('diajukan');
+            $table->enum('status', ['diajukan', 'diterima', 'ditolak'])->default('diajukan');
             $table->timestamps();
         });
     }

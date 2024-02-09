@@ -29,19 +29,19 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <textarea class="form-control @error('deskripsi') is-invalid @enderror" placeholder="Latar Belakang"
-                            id="floatingTextarea" style="height: 150px;" name="deskripsi" readonly>{{ old('deskripsi', $logbook->deskripsi) }}</textarea>
-                        <label for="deskripsi">Deskripsi</label>
-                        @error('deskripsi')
+                        <textarea class="form-control @error('target_bimbingan') is-invalid @enderror" placeholder="Latar Belakang"
+                            id="floatingTextarea" style="height: 150px;" name="target_bimbingan" readonly>{{ old('target_bimbingan', $logbook->target_bimbingan) }}</textarea>
+                        <label for="target_bimbingan">Target Bimbingan</label>
+                        @error('target_bimbingan')
                             <p class="text-danger pt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div class="form-floating mb-3">
-                        <textarea class="form-control @error('notes') is-invalid @enderror" placeholder="Catatan" id="floatingTextarea"
-                            style="height: 150px;" name="notes">{{ old('notes', $logbook->notes) }}</textarea>
-                        <label for="notes">Catatan</label>
-                        @error('notes')
+                        <textarea class="form-control @error('hasil') is-invalid @enderror" placeholder="hasil" id="floatingTextarea"
+                            style="height: 150px;" name="hasil">{{ old('hasil', $logbook->hasil) }}</textarea>
+                        <label for="hasil">Hasil Bimbingan</label>
+                        @error('hasil')
                             <p class="text-danger pt-1">{{ $message }}</p>
                         @enderror
                     </div>
@@ -52,18 +52,27 @@
                             <option selected disabled>Pilih</option>
                             @if ($logbook->status == 'diajukan')
                                 <option value="diajukan" selected>Diajukan</option>
+                                <option value="acc proposal">Acc Proposal</option>
+                                <option value="diterima">Diterima</option>
+                                <option value="ditolak">Ditolak</option>
+                            @elseif($logbook->status == 'acc proposal')
+                                <option value="diajukan">Diajukan</option>
+                                <option value="acc proposal" selected>Acc Proposal</option>
                                 <option value="diterima">Diterima</option>
                                 <option value="ditolak">Ditolak</option>
                             @elseif($logbook->status == 'diterima')
                                 <option value="diajukan">Diajukan</option>
+                                <option value="acc proposal">Acc Proposal</option>
                                 <option value="diterima" selected>Diterima</option>
                                 <option value="ditolak">Ditolak</option>
                             @elseif($logbook->status == 'ditolak')
                                 <option value="diajukan">Diajukan</option>
+                                <option value="acc proposal">Acc Proposal</option>
                                 <option value="diterima">Diterima</option>
                                 <option value="ditolak" selected>Ditolak</option>
                             @else
                                 <option value="diajukan">Diajukan</option>
+                                <option value="acc proposal">Acc Proposal</option>
                                 <option value="diterima">Diterima</option>
                                 <option value="ditolak">Ditolak</option>
                             @endif

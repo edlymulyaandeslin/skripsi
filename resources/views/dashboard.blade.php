@@ -4,19 +4,21 @@
     <div class="row">
         <h4>Halo {{ auth()->user()->name }}</h4>
         <h3>Selamat Datang di Aplikasi E Skripsi</h3>
-        <p>
-            Aplikasi E Skripsi adalah sebuah platform yang dirancang untuk memantau dan memfasilitasi kinerja mahasiswa atau
-            siswa yang sedang menjalani magang di sebuah kantor atau lembaga terkait. Aplikasi ini membagi pengguna menjadi
-            beberapa level, yakni mahasiswa/siswa (level default), pembimbing, dan koordinator. Setiap level memiliki akses
-            dan fitur yang berbeda sesuai dengan peran masing-masing.
-        </p>
+        <p class="text-break">
+            Aplikasi E-Skripsi adalah platform inovatif yang memberikan dukungan terintegrasi bagi mahasiswa, dosen
+            pembimbing, dan koordinator akademik dalam proses penyusunan skripsi. Mahasiswa dapat mengakses sumber daya,
+            mengunggah dokumen, dan berkomunikasi dengan dosen pembimbing, sementara dosen pembimbing dapat melacak progres,
+            memberikan bimbingan, dan mengevaluasi dokumen skripsi. Koordinator akademik dapat mengelola data mahasiswa,
+            mengawasi proses penyusunan skripsi, dan memfasilitasi koordinasi. Dengan aplikasi ini, diharapkan proses
+            akademik menjadi lebih efisien, transparan, dan dapat menghasilkan karya ilmiah berkualitas.</p>
+
         <h5 class="my-3">Petunjuk Penggunaan Aplikasi</h5>
         <div class="col-md-10 offset-1 mt-3">
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                            aria-expanded="true" aria-controls="collapseOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             Sebagai Mahasiswa
                         </button>
                     </h2>

@@ -13,12 +13,25 @@ return new class extends Migration
     {
         Schema::create('nilai_sempros', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sempro_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('sempro_id')->constrained('sempros')->cascadeOnDelete();
             $table->integer('nilai1')->default(0);
             $table->integer('nilai2')->default(0);
             $table->integer('nilai3')->default(0);
             $table->integer('nilai4')->default(0);
             $table->integer('nilai5')->default(0);
+            $table->text('notes1')->nullable();
+            $table->integer('nilai6')->default(0);
+            $table->integer('nilai7')->default(0);
+            $table->integer('nilai8')->default(0);
+            $table->integer('nilai9')->default(0);
+            $table->integer('nilai10')->default(0);
+            $table->text('notes2')->nullable();
+            $table->integer('nilai11')->default(0);
+            $table->integer('nilai12')->default(0);
+            $table->integer('nilai13')->default(0);
+            $table->integer('nilai14')->default(0);
+            $table->integer('nilai15')->default(0);
+            $table->text('notes3')->nullable();
             $table->timestamps();
         });
     }

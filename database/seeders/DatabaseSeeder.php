@@ -45,8 +45,6 @@ class DatabaseSeeder extends Seeder
 
         NilaiKompre::factory(1)->create();
 
-        TeamPenguji::factory(5)->create();
-
 
         Role::create([
             'name' => 'admin',

@@ -6,7 +6,9 @@ use App\Models\Judul;
 use App\Models\Kompre;
 use App\Models\Sempro;
 use App\Models\TeamPenguji;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class SemproController extends Controller
@@ -23,7 +25,7 @@ class SemproController extends Controller
 
         return view('sempro.index', [
             'title' => 'E - Skripsi | Sempro',
-            'sempros' => Sempro::with(['judul', 'judul.mahasiswa', 'teampenguji'])->latest()->get()
+            'sempros' => Sempro::with(['judul', 'judul.mahasiswa'])->latest()->get()
         ]);
     }
 
@@ -32,24 +34,31 @@ class SemproController extends Controller
      */
     public function create()
     {
-
         // find data sempro berdasarkan id mahasiswa yg login dan statusnya != ditolak
         $sempro = Sempro::with(['judul'])
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
-            ->where('status', '!=', 'ditolak')
+            ->where('status', '!=', 'tidak lulus')
             ->get();
 
-        // cek apakah sudah pernah mengajukan sempro atau tidak
-        if ($sempro->count() !== 0) {
-            Alert::info('Info!', 'You can only submit a seminar proposal 1x');
-            return redirect('/sempro');
-        }
+        // find judul logbook status acc proposal
+        $juduls = Judul::withCount(['logbook as acc_proposal_count' => function ($query) {
+            $query->where('status', 'acc proposal');
+        }])->with(['mahasiswa', 'mahasiswa.dokumen', 'logbook'])->whereHas('logbook', function ($query) {
+            $query->where('status', 'acc proposal');
+        })->where('mahasiswa_id', auth()->user()->id)
+            ->having('acc_proposal_count', '>=', 2)
+            ->latest()
+            ->get();
+
+        $dokumen = auth()->user()->dokumen;
 
         return view('sempro.create', [
             'title' => 'Sempro | Create',
-            'juduls' => Judul::with('mahasiswa')->where('status', 'diterima')->where('mahasiswa_id', auth()->user()->id)->latest()->get()
+            'juduls' => $juduls,
+            'sempro' => $sempro,
+            'dokumen' => $dokumen
         ]);
     }
 
@@ -60,7 +69,16 @@ class SemproController extends Controller
     {
         $validateData = $request->validate([
             'judul_id' => 'required',
+            'pembayaran' => 'required|file|mimes:pdf|max:2048',
         ]);
+
+        $pembayaran = 'document_' . str()->random(10) . '.' . $request->file('pembayaran')->extension();
+        $validateData['pembayaran'] = $request->file('pembayaran')->storeAs('post-pembayaran', $pembayaran);
+
+        Sempro::where('status', 'tidak lulus')->get()->each(function ($sempro) {
+            Storage::delete($sempro->pembayaran);
+            $sempro->delete();
+        });
 
         Sempro::create($validateData);
 
@@ -74,7 +92,7 @@ class SemproController extends Controller
      */
     public function show($id)
     {
-        $sempro = Sempro::with(['judul', 'judul.mahasiswa', 'teampenguji'])->find($id);
+        $sempro = Sempro::with(['judul', 'judul.mahasiswa.dokumen', 'penguji1', 'penguji2', 'penguji3'])->find($id);
 
         return response()->json($sempro);
     }
@@ -87,7 +105,7 @@ class SemproController extends Controller
         return view('sempro.edit', [
             'title' => 'Sempro | Edit',
             'sempro' => Sempro::with('judul')->find($id),
-            'teampenguji' => TeamPenguji::latest()->get()
+            'dosens' => User::where('role_id', 3)->latest()->get()
         ]);
     }
 
@@ -96,7 +114,11 @@ class SemproController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = [];
+        $rules = [
+            'penguji1_id' => 'required',
+            'penguji2_id' => 'required',
+            'penguji3_id' => 'required',
+        ];
 
         if ($request->input('tanggal_seminar')) {
             $rules['tanggal_seminar'] = 'required|date';
@@ -110,15 +132,25 @@ class SemproController extends Controller
             $rules['ruang'] = 'required';
         }
 
-        if ($request->input('team_penguji_id')) {
-            $rules['team_penguji_id'] = 'required';
-        }
-
         if ($request->input('status')) {
             $rules['status'] = 'required';
         }
 
+        if ($request->file('pembayaran')) {
+            $rules['pembayaran'] = 'required|file|mimes:pdf|max:2048';
+        }
+
         $validateData = $request->validate($rules);
+
+
+        if ($request->file('pembayaran')) {
+            if ($request->oldPembayaran) {
+                Storage::delete($request->oldPembayaran);
+            }
+
+            $pembayaran = 'document_' . str()->random(10) . '.' . $request->file('pembayaran')->extension();
+            $validateData['pembayaran'] = $request->file('pembayaran')->storeAs('post-pembayaran', $pembayaran);
+        }
 
         Sempro::where('id', $id)->update($validateData);
 
@@ -136,7 +168,13 @@ class SemproController extends Controller
             $query->where('id', $id);
         })->first();
 
-        Sempro::destroy($id);
+        $sempro = Sempro::find($id);
+
+        if ($sempro->pembayaran) {
+            Storage::delete($sempro->pembayaran);
+        }
+
+        $sempro->destroy($id);
 
         Kompre::where('judul_id', $judul->id)->delete();
 

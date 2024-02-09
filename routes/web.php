@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\JudulController;
 use App\Http\Controllers\KompreController;
@@ -40,7 +41,7 @@ Route::resource('/nilai/sempro', NilaiSemproController::class)->names([
     'show' => 'nilai.sempro.show',
     'store' => 'nilai.sempro.store',
     'update' => 'nilai.sempro.update',
-])->middleware('auth');
+])->except(['create', 'destroy'])->middleware('auth');
 
 
 Route::resource('/kompre', KompreController::class)->middleware('auth');
@@ -61,13 +62,14 @@ Route::middleware('auth')->prefix('manajemen')->group(function () {
     // route manajemen dosen
     Route::resource('/dosen', DosenController::class);
 
-    // route manajemen pembimbing dan penguji
-    Route::resource('/teampenguji', TeamPengujiController::class);
-
     // route profile update
     Route::get('/profile/{id}', [ProfileUpdate::class, 'index'])->middleware('auth');
     Route::get('/profile/{id}/edit', [ProfileUpdate::class, 'edit'])->middleware('auth');
     Route::patch('/profile/{id}', [ProfileUpdate::class, 'update'])->middleware('auth');
+
+    Route::resource('/dokumen', DokumenController::class)->names([
+        'destroy' => 'dokumen.reset'
+    ])->middleware('auth');
 });
 
 // route authenticate

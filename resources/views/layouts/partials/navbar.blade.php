@@ -14,15 +14,18 @@
                         class="rounded-circle" alt="404">
                 @else
                     <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&background=3498db&color=ecf0f1"
-                        style="width: 40px; height: 40px;" class="img-fluid rounded-1" alt="404">
+                        style="width: 40px; height: 40px;" class="img-fluid rounded-circle" alt="404">
                 @endif
                 <span class="d-none d-lg-inline-flex">{{ auth()->user()->name }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                <a href="/manajemen/profile/{{ auth()->user()->id }}" class="dropdown-item">Profile</a>
+                <a href="/manajemen/profile/{{ auth()->user()->id }}" class="dropdown-item"><i class="fa fa-user"></i>
+                    Profile</a>
+                <a href="/manajemen/dokumen" class="dropdown-item"><i class="fa fa-file-alt"></i> Lengkapi
+                    Dokumen</a>
                 <form action="/auth/logout" method="post">
                     @csrf
-                    <button type="submit" class="dropdown-item">Log Out</button>
+                    <button type="submit" class="dropdown-item"><i class="fa fa-sign-out-alt"></i> Log Out</button>
                 </form>
             </div>
         </div>

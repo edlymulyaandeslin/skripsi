@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Judul;
 use App\Models\User;
+use App\Models\Judul;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class JudulController extends Controller
@@ -21,7 +22,7 @@ class JudulController extends Controller
 
         return view('judul.index', [
             'title' => 'E - Skripsi | Judul',
-            'listjudul' => Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2'])->latest()->get(),
+            'listjudul' => Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])->latest()->get(),
         ]);
     }
 
@@ -82,16 +83,28 @@ class JudulController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $judul = Judul::find($id);
+
+        $mahasiswaId = $judul->mahasiswa_id;
 
         $rules = [
             'pembimbing1_id' => 'required',
             'pembimbing2_id' => 'required',
-            'status' => 'required'
+            'status' => 'required',
         ];
 
         $validateData = $request->validate($rules);
 
-        Judul::where('id', $id)->update($validateData);
+        $judul->update($validateData);
+
+        // jika 1 judul diterima maka yang lain akan ditolak
+        if ($judul->status == 'diterima') {
+            Judul::where('mahasiswa_id', $mahasiswaId)->whereNotIn('id', [$judul->id])->update([
+                'status' => 'ditolak',
+                'pembimbing1_id' => 0,
+                'pembimbing2_id' => 0
+            ]);
+        }
 
         Alert::success('success!', 'Judul has been updated');
 
@@ -103,8 +116,26 @@ class JudulController extends Controller
      */
     public function destroy($id)
     {
+        $judul = Judul::find($id);
 
-        Judul::destroy($id);
+        $logbook = $judul->logbook;
+
+        $sempros = $judul->sempro;
+
+        foreach ($logbook as $log) {
+            if ($log->file_proposal) {
+                Storage::delete($log->file_proposal);
+            }
+        }
+
+        foreach ($sempros as $sempro) {
+            if ($sempro->pembayaran) {
+                Storage::delete($sempro->pembayaran);
+            }
+        }
+
+
+        $judul->delete();
 
         Alert::success('success!', 'Judul has been deleted');
 

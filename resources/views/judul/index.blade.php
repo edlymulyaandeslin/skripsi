@@ -20,10 +20,10 @@
                     <thead>
                         <tr class="text-center">
                             <th scope="col">No</th>
+                            <th scope="col">NIM</th>
                             <th scope="col">Mahasiswa</th>
                             <th scope="col">Judul</th>
-                            <th scope="col">Pembimbing 1</th>
-                            <th scope="col">Pembimbing 2</th>
+                            <th scope="col">tanggal pengajuan</th>
                             <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                         </tr>
@@ -31,12 +31,12 @@
                     <tbody>
                         @if ($listjudul->count() !== 0)
                             @foreach ($listjudul as $judul)
-                                <tr key="{{ $judul->id }}">
-                                    <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
+                                <tr key="{{ $judul->id }}" class="text-center">
+                                    <th scope="row">{{ $loop->index + 1 }}</th>
+                                    <td>{{ $judul->mahasiswa->nim_or_nidn }}</td>
                                     <td>{{ $judul->mahasiswa->name }}</td>
                                     <td>{{ $judul->judul }}</td>
-                                    <td>{{ $judul->pembimbing1->name ?? '-' }}</td>
-                                    <td>{{ $judul->pembimbing2->name ?? '-' }}</td>
+                                    <td>{{ $judul->created_at->format('d M Y') }}</td>
                                     <td class="text-center">
                                         <span
                                             class="bg-{{ $judul->status == 'diterima' ? 'success' : ($judul->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-4 ">

@@ -18,12 +18,11 @@
                     <thead>
                         <tr class="text-center">
                             <th scope="col">No</th>
+                            <th scope="col">NIM</th>
                             <th scope="col">Mahasiswa</th>
                             <th scope="col">Judul</th>
                             <th scope="col">Tanggal Seminar</th>
-                            <th scope="col">Jam</th>
-                            <th scope="col">Ruang</th>
-                            <th scope="col">Team Penguji</th>
+                            <th scope="col">Ruang Seminar</th>
                             <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                         </tr>
@@ -32,17 +31,16 @@
                         @if ($sempros->count() !== 0)
                             @foreach ($sempros as $sempro)
                                 <tr key="{{ $sempro->id }}" class="text-center">
-                                    <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
+                                    <th scope="row">{{ $loop->index + 1 }}</th>
+                                    <td>{{ $sempro->judul->mahasiswa->nim_or_nidn }}</td>
                                     <td>{{ $sempro->judul->mahasiswa->name }}</td>
                                     <td>{{ $sempro->judul->judul }}</td>
-                                    <td>{{ $sempro->tanggal_seminar ? Carbon\Carbon::parse($sempro->tanggal_seminar)->format('d F Y') : '-' }}
+                                    <td>{{ $sempro->tanggal_seminar ? Carbon\Carbon::parse($sempro->tanggal_seminar)->formatLocalized('%d %b %Y') : '-' }}
                                     </td>
-                                    <td>{{ $sempro->jam ?? '-' }}</td>
                                     <td>{{ $sempro->ruang ?? '-' }}</td>
-                                    <td>{{ $sempro->teampenguji->name ?? '-' }}</td>
-                                    <td class="text-center">
+                                    <td>
                                         <span
-                                            class="bg-{{ $sempro->status == 'diterima' ? 'success' : ($sempro->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-4 ">
+                                            class="bg-{{ $sempro->status == 'diterima' ? 'success' : ($sempro->status == 'lulus' ? 'primary' : ($sempro->status == 'tidak lulus' ? 'danger' : 'warning')) }} rounded text-white px-4 ">
                                             {{ $sempro->status }}
                                         </span>
                                     </td>
@@ -135,12 +133,16 @@
                             </div>
                         </div>
 
-                        <h1 class="modal-header modal-title fs-5">Team Penguji</h1>
-                        <span id="teampenguji" class="text-center h5 m-0 p-0"></span>
-                        <hr>
+                        <h1 class="modal-title fs-5 mb-3 border-bottom">Catatan</h1>
+
+                        <div class="mb-3">
+                            <textarea id="notes" class="form-control" disabled rows="4"></textarea>
+                        </div>
+
+                        <h1 class="modal-title fs-5 mb-3 border-bottom">Penguji</h1>
+
                         <div class="row">
                             <div class="col-md-6">
-
                                 <div class="mb-3">
                                     <label for="penguji1" class="form-label">Penguji 1</label>
                                     <input type="text" id="penguji1" class="form-control" disabled>
@@ -149,17 +151,37 @@
                                     <label for="penguji2" class="form-label">Penguji 2</label>
                                     <input type="text" id="penguji2" class="form-control" disabled>
                                 </div>
-
                             </div>
                             <div class="col-md-6">
-
                                 <div class="mb-3">
                                     <label for="penguji3" class="form-label">Penguji 3</label>
                                     <input type="text" id="penguji3" class="form-control" disabled>
                                 </div>
-
                             </div>
+                        </div>
 
+                        <h1 class="modal-title fs-5 mb-3 border-bottom">Persyaratan</h1>
+
+                        <div class="mb-3">
+                            <label for="krs" class="form-label">Krs</label>
+                            <a href="#" id="krs" class="form-control">Download</a>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="transkipnilai" class="form-label">Transkip Nilai</label>
+                            <a href="#" id="transkipnilai" class="form-control">Download</a>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hadirseminar" class="form-label">Hadir Seminar</label>
+                            <a href="#" id="hadirseminar" class="form-control">Download</a>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lembarbimbingan" class="form-label">Lembar Bimbingan</label>
+                            <a href="#" id="lembarbimbingan" class="form-control">Download</a>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pembayaran" class="form-label">Pembayaran</label>
+                            <a href="#" id="pembayaran" class="form-control">Download</a>
                         </div>
 
                     </div>
@@ -186,26 +208,45 @@
 
                     $('#judul').val(data.judul.judul);
 
-                    data.tanggal_seminar ? $('#tanggal_seminar').val(data.tanggal_seminar) : $(
+                    let date = new Date(data.tanggal_seminar);
+
+                    data.tanggal_seminar ? $('#tanggal_seminar').val(date.toLocaleDateString(
+                        'id-ID', {
+                            day: '2-digit',
+                            month: 'long',
+                            year: 'numeric'
+                        })) : $(
                         '#tanggal_seminar').val('-');
 
-                    data.jam ? $('#jam').val(data.jam) : $('#jam').val('-');
+                    data.jam ? $('#jam').val(data.jam.split(':').slice(0, 2).join(':') + ' WIB') :
+                        $(
+                            '#jam')
+                        .val('-');
 
                     data.ruang ? $('#ruang').val(data.ruang) : $('#ruang').val('-');
 
+                    data.notes ? $('#notes').val(data.notes) : $('#notes').val('-');
+
                     $('#status').val(data.status);
 
-                    if (data.teampenguji !== null) {
-                        $('#teampenguji').text(data.teampenguji.name);
-                        $('#penguji1').val(data.teampenguji.penguji1);
-                        $('#penguji2').val(data.teampenguji.penguji2);
-                        $('#penguji3').val(data.teampenguji.penguji3);
-                    } else {
-                        $('#teampenguji').text('-');
-                        $('#penguji1').val('-');
-                        $('#penguji2').val('-');
-                        $('#penguji3').val('-');
-                    }
+
+
+                    data.penguji1 ? $('#penguji1').val(data.penguji1.name) : $('#penguji1').val(
+                        '-');
+                    data.penguji2 ? $('#penguji2').val(data.penguji2.name) : $('#penguji2').val(
+                        '-');
+                    data.penguji3 ? $('#penguji3').val(data.penguji3.name) : $('#penguji3').val(
+                        '-');
+
+
+                    $('#krs').attr('href', 'storage/' + data.judul.mahasiswa.dokumen.krs);
+                    $('#transkipnilai').attr('href', 'storage/' + data.judul.mahasiswa.dokumen
+                        .transkip_nilai);
+                    $('#hadirseminar').attr('href', 'storage/' + data.judul.mahasiswa.dokumen
+                        .hadir_seminar);
+                    $('#lembarbimbingan').attr('href', 'storage/' + data.judul.mahasiswa.dokumen
+                        .lembar_bimbingan);
+                    $('#pembayaran').attr('href', 'storage/' + data.pembayaran);
 
 
                 })

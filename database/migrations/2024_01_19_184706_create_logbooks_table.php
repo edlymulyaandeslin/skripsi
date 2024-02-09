@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('logbooks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('judul_id')->constrained()->cascadeOnDelete();
-            $table->text('deskripsi');
-            $table->text('notes')->nullable();
-            $table->string('status')->default('diajukan');
+            $table->foreignId('judul_id')->constrained('juduls')->cascadeOnDelete();
+            $table->text('target_bimbingan');
+            $table->string('file_proposal')->nullable();
+            $table->text('hasil')->nullable();
+            $table->enum('kategori', ['proposal', 'komprehensif'])->nullable();
+            $table->enum('status', ['diajukan', 'ditolak', 'diterima', 'acc proposal'])->default('diajukan');
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@
                         class="rounded-circle" alt="404">
                 @else
                     <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&background=3498db&color=ecf0f1"
-                        style="width: 40px; height: 40px;" class="img-fluid rounded-1" alt="404">
+                        style="width: 40px; height: 40px;" class="img-fluid rounded-circle" alt="404">
                 @endif
                 <div
                     class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
@@ -25,7 +25,7 @@
         <div class="navbar-nav w-100">
             <a href="/" class="nav-item nav-link {{ Request::is('/*') ? 'active' : '' }}"><i
                     class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-
+            {{-- @if (auth()->user()->dokumen != null) --}}
             <a href="{{ route('judul.index') }}"
                 class="nav-item nav-link {{ Request::is('judul*') ? 'active' : '' }} "><i
                     class="fa fa-book me-2"></i>Judul</a>
@@ -69,7 +69,7 @@
 
             <div class="nav-item dropdown">
                 <a href="#"
-                    class="nav-link dropdown-toggle {{ Request::is('manajemen*') && !Request::is('manajemen/profile*') ? 'active' : '' }}"
+                    class="nav-link dropdown-toggle {{ Request::is('manajemen*') && !Request::is(['manajemen/profile*', 'manajemen/dokumen*']) ? 'active' : '' }}"
                     data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Manajemen</a>
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="/manajemen/mahasiswa"
@@ -78,9 +78,6 @@
                         class="nav-item nav-link {{ Request::is('manajemen/koordinator*') ? 'active' : '' }}">Koordinator</a>
                     <a href="/manajemen/dosen"
                         class="nav-item nav-link {{ Request::is('manajemen/dosen*') ? 'active' : '' }}">Dosen</a>
-                    <a href="/manajemen/teampenguji"
-                        class="nav-item nav-link {{ Request::is('manajemen/teampenguji*') ? 'active' : '' }}">Team
-                        Penguji</a>
                 </div>
             </div>
 
@@ -96,6 +93,12 @@
                         Kompre</a>
                 </div>
             </div>
+            {{-- @else
+                <a href="{{ route('dokumen.index') }}"
+                    class="nav-item nav-link {{ Request::is('manajemen/*') ? 'active' : '' }} "><i
+                        class="fa fa-book me-2"></i>Dokumen</a>
+            @endif --}}
+
         </div>
     </nav>
 </div>

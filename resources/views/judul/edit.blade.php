@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         {{-- form --}}
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Update Detail</h6>
                     <form action="/judul/{{ $judul->id }}" method="POST">
@@ -28,8 +28,7 @@
                         </div>
 
                         <div class="form-floating mb-3">
-                            <select class="form-select @error('pembimbing1_id') is-invalid @enderror" id="floatingSelect"
-                                name="pembimbing1_id">
+                            <select class="form-select @error('pembimbing1_id') is-invalid @enderror" name="pembimbing1_id">
                                 <option selected value="{{ 0 }}">Pilih</option>
                                 @foreach ($dosens as $dosen)
                                     @if (old('pembimbing1_id', $judul->pembimbing1_id) == $dosen->id && $judul->pembimbing1_id !== 0)
@@ -47,8 +46,7 @@
                         </div>
 
                         <div class="form-floating mb-3">
-                            <select class="form-select @error('pembimbing2_id') is-invalid @enderror" id="floatingSelect"
-                                name="pembimbing2_id">
+                            <select class="form-select @error('pembimbing2_id') is-invalid @enderror" name="pembimbing2_id">
                                 <option selected value="{{ 0 }}">Pilih</option>
                                 @foreach ($dosens as $dosen)
                                     @if (old('pembimbing2_id', $judul->pembimbing2_id) == $dosen->id && $judul->pembimbing2_id !== 0)
@@ -67,8 +65,7 @@
                         </div>
 
                         <div class="form-floating mb-3">
-                            <select class="form-select @error('status') is-invalid @enderror" id="floatingSelect"
-                                name="status">
+                            <select class="form-select @error('status') is-invalid @enderror" name="status">
                                 <option selected disabled>Pilih</option>
                                 @if ($judul->status == 'diajukan')
                                     <option value="diajukan" selected>Diajukan</option>
@@ -101,10 +98,5 @@
         </div>
         {{-- end form --}}
 
-        {{-- feature --}}
-        <div class="col-md-6 d-flex justify-content-center align-items-center">
-            Update Detail
-        </div>
-        {{-- end feature --}}
     </div>
 @endsection

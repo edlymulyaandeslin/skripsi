@@ -21,9 +21,10 @@
                     <thead>
                         <tr class="text-center">
                             <th scope="col">No</th>
+                            <th scope="col">NIM</th>
                             <th scope="col">Mahasiswa</th>
                             <th scope="col">Judul</th>
-                            <th scope="col">Deskripsi</th>
+                            <th scope="col">Target Bimbingan</th>
                             <th scope="col">Tanggal Bimbingan</th>
                             <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
@@ -34,15 +35,16 @@
                             @foreach ($logbooks as $logbook)
                                 <tr key="{{ $logbook->id }}" class="text-center">
                                     <th scope="row">{{ $loop->index + 1 }}</th>
-                                    <td class="text-start">{{ $logbook->judul->mahasiswa->name }}</td>
-                                    <td class="text-start">{{ $logbook->judul->judul }}</td>
-                                    <td>{{ $logbook->deskripsi }}</td>
+                                    <td>{{ $logbook->judul->mahasiswa->nim_or_nidn }}</td>
+                                    <td>{{ $logbook->judul->mahasiswa->name }}</td>
+                                    <td>{{ $logbook->judul->judul }}</td>
+                                    <td>{{ $logbook->target_bimbingan }}</td>
                                     <td>{{ $logbook->created_at->format('d F Y') }}</td>
                                     <td>
-                                        <span
-                                            class="bg-{{ $logbook->status == 'diterima' ? 'success' : ($logbook->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-4 ">
+                                        <p
+                                            class="bg-{{ $logbook->status == 'diterima' ? 'success' : ($logbook->status == 'ditolak' ? 'danger' : ($logbook->status == 'acc proposal' ? 'primary' : 'warning')) }} rounded text-white px-4 ">
                                             {{ $logbook->status }}
-                                        </span>
+                                        </p>
                                     </td>
                                     <td>
                                         <div>
@@ -109,12 +111,19 @@
 
                             <div class="mb-3">
                                 <label for="judul" class="form-label">Judul</label>
-                                <input type="text" id="judul" class="form-control" disabled />
+                                <input type="text" id="judul" class="form-control" disabled>
                             </div>
 
                             <div class="mb-3">
-                                <label for="deskripsi" class="form-label">Deskripsi</label>
-                                <textarea id="deskripsi" class="form-control" disabled rows="4"></textarea>
+                                <label for="target_bimbingan" class="form-label">Target Bimbingan</label>
+                                <textarea id="target_bimbingan" class="form-control" disabled rows="4"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="file_proposal" class="form-label">File Bimbingan</label>
+                                <a href="#" id="file_proposal" class="form-control"></i>
+                                </a>
+
                             </div>
 
                             <div class="mb-3">
@@ -123,11 +132,11 @@
                             </div>
                         </div>
 
-                        <h1 class="modal-header modal-title fs-5">Catatan</h1>
+                        <h1 class="modal-header modal-title fs-5">Hasil Bimbingan</h1>
                         <hr>
 
                         <div class="mb-3">
-                            <textarea id="notes" class="form-control" disabled rows="4"></textarea>
+                            <textarea id="hasil" class="form-control" disabled rows="4"></textarea>
                         </div>
 
                         <h1 class="modal-header modal-title fs-5">Pembimbing</h1>
@@ -170,10 +179,19 @@
                     $('#logbookView').modal('show');
 
                     $('#mahasiswa').val(data.judul.mahasiswa.name);
+
                     $('#judul').val(data.judul.judul);
-                    $('#deskripsi').val(data.deskripsi);
+
+                    $('#target_bimbingan').val(data.target_bimbingan);
+
+                    data.file_proposal ? $('#file_proposal').attr('href', 'storage/' + data
+                        .file_proposal).html('<i class="bi bi-download"></i> Download') : $(
+                        '#file_proposal').attr('href', '#').html('Tidak ada file.');
+
                     $('#status').val(data.status);
-                    data.notes ? $('#notes').val(data.notes) : $('#notes').val('Belum ada catatan');
+
+                    data.hasil ? $('#hasil').val(data.hasil) : $(
+                        '#hasil').val('Belum ada catatan');
 
                     data.judul.pembimbing1 !== null ? $('#pembimbing1').val(data.judul.pembimbing1
                         .name) : $('#pembimbing1').val('-');
