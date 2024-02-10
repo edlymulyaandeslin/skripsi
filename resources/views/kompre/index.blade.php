@@ -91,7 +91,7 @@
     </div>
 
     <!-- Modal show -->
-    <div class="modal fade" id="semproView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="kompreView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
@@ -201,7 +201,7 @@
 
                 let judulUrl = $(this).data('url');
                 $.get(judulUrl, function(data) {
-                    $('#semproView').modal('show');
+                    $('#kompreView').modal('show');
 
                     console.log(data)
                     $('#mahasiswa').val(data.judul.mahasiswa.name);

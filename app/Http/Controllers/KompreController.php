@@ -21,9 +21,45 @@ class KompreController extends Controller
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
+        // admin atau koordinator
+        if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
+            $kompres = Kompre::with(['judul', 'judul.mahasiswa'])->latest()->get();
+            return view('kompre.index', [
+                'title' => 'E - Skripsi | Kompre',
+                'kompres' => $kompres,
+            ]);
+        }
+
+        // dosen
+        if (auth()->user()->role_id === 3) {
+            $kompres = Kompre::with(['judul', 'judul.mahasiswa'])
+                ->whereHas('judul', function ($query) {
+                    $query->where('pembimbing1_id', auth()->user()->id)
+                        ->orWhere('pembimbing2_id', auth()->user()->id);
+                })
+                ->orWhere(function ($query) {
+                    $query->where('penguji1_id', auth()->user()->id)
+                        ->orWhere('penguji2_id', auth()->user()->id)
+                        ->orWhere('penguji3_id', auth()->user()->id);
+                })
+                ->latest()->get();
+
+            return view('kompre.index', [
+                'title' => 'E - Skripsi | Kompre',
+                'kompres' => $kompres,
+            ]);
+        }
+
+        // mahasiswa
+        $kompres = Kompre::with(['judul', 'judul.mahasiswa'])
+            ->whereHas('judul', function ($query) {
+                $query->where('mahasiswa_id', auth()->user()->id);
+            })
+            ->latest()->get();
+
         return view('kompre.index', [
             'title' => 'E - Skripsi | Kompre',
-            'kompres' => Kompre::with(['judul', 'judul.mahasiswa'])->latest()->get()
+            'kompres' => $kompres,
         ]);
     }
 
@@ -32,6 +68,9 @@ class KompreController extends Controller
      */
     public function create()
     {
+        // akses mahasiswa
+        $this->authorize('create', Kompre::class);
+
         // find data kompre berdasarkan id mahasiswa yg login dan statusnya != ditolak
         $kompre = Kompre::with(['judul'])
             ->whereHas('judul', function ($query) {
@@ -69,6 +108,9 @@ class KompreController extends Controller
      */
     public function store(Request $request)
     {
+        //akses mahasiswa
+        $this->authorize('create', Kompre::class);
+
         $validateData = $request->validate([
             'judul_id' => 'required',
             'pembayaran' => 'required|file|mimes:pdf|max:2048',
@@ -104,6 +146,9 @@ class KompreController extends Controller
      */
     public function edit(Kompre $kompre)
     {
+        // akses koordinator
+        $this->authorize('update', $kompre);
+
         return view('kompre.edit', [
             'title' => 'Kompre | Edit',
             'kompre' => $kompre->load('judul'),
@@ -116,6 +161,7 @@ class KompreController extends Controller
      */
     public function update(Request $request, Kompre $kompre)
     {
+
         $rules = [];
 
         if ($request->input('tanggal_seminar')) {
@@ -175,6 +221,8 @@ class KompreController extends Controller
      */
     public function destroy(Kompre $kompre)
     {
+        // akses mahasiswa
+        $this->authorize('delete', $kompre);
 
         if ($kompre->pembayaran) {
             Storage::delete($kompre->pembayaran);

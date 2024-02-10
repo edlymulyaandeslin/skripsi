@@ -29,7 +29,7 @@ class KomprePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->role_id === 4;
     }
 
     /**
@@ -37,7 +37,7 @@ class KomprePolicy
      */
     public function update(User $user, Kompre $kompre): bool
     {
-        //
+        return $user->role_id === 2;
     }
 
     /**
@@ -45,7 +45,7 @@ class KomprePolicy
      */
     public function delete(User $user, Kompre $kompre): bool
     {
-        //
+        return $user->id === $kompre->judul->mahasiswa_id;
     }
 
     /**

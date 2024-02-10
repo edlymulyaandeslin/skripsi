@@ -60,9 +60,6 @@ class NilaiSemproController extends Controller
 
     public function store(Request $request)
     {
-        // akses sesuai pembimbing dan penguji
-        // $this->authorize('create', NilaiSempro::class);
-
         $rules = [
             'sempro_id' => 'required',
         ];
@@ -201,10 +198,10 @@ class NilaiSemproController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, NilaiSempro $nilaisempro)
     {
         // akses sesuai pembimbing dan penguji
-        $this->authorize('update', NilaiSempro::class);
+        $this->authorize('update', $nilaisempro);
 
         $rules = [
             'sempro_id' => 'required',

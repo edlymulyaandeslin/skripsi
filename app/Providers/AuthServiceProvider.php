@@ -5,12 +5,16 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gate;
 
 use App\Models\Judul;
+use App\Models\Kompre;
 use App\Models\Logbook;
+use App\Models\NilaiKompre;
 use App\Models\NilaiSempro;
 use App\Models\Sempro;
 use App\Models\User;
 use App\Policies\JudulPolicy;
+use App\Policies\KomprePolicy;
 use App\Policies\LogbookPolicy;
+use App\Policies\NilaiKomprePolicy;
 use App\Policies\NilaiSemproPolicy;
 use App\Policies\SemproPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -27,7 +31,9 @@ class AuthServiceProvider extends ServiceProvider
         Judul::class => JudulPolicy::class,
         Logbook::class => LogbookPolicy::class,
         Sempro::class => SemproPolicy::class,
-        NilaiSempro::class => NilaiSemproPolicy::class
+        NilaiSempro::class => NilaiSemproPolicy::class,
+        Kompre::class => KomprePolicy::class,
+        NilaiKompre::class => NilaiKomprePolicy::class
     ];
 
     /**

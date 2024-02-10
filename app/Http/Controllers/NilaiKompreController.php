@@ -12,9 +12,47 @@ class NilaiKompreController extends Controller
 
     public function index()
     {
+        // admin dan koordinator
+        if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
+            $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
+                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get();
+
+            return view('kompre.nilai.index', [
+                'title' => 'E - Skripsi | Nilai Kompre',
+                'kompres' => $kompres,
+            ]);
+        }
+
+        // dosen
+        if (auth()->user()->role_id === 3) {
+            $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
+                ->whereHas('judul', function ($query) {
+                    $query->where('pembimbing1_id', auth()->user()->id)
+                        ->orWhere('pembimbing2_id', auth()->user()->id);
+                })
+                ->orWhere(function ($query) {
+                    $query->where('penguji1_id', auth()->user()->id)
+                        ->orWhere('penguji2_id', auth()->user()->id)
+                        ->orWhere('penguji3_id', auth()->user()->id);
+                })
+                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get();
+
+            return view('kompre.nilai.index', [
+                'title' => 'E - Skripsi | Nilai Kompre',
+                'kompres' => $kompres,
+            ]);
+        }
+
+        // mahasiswa
+        $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
+            ->whereHas('judul', function ($query) {
+                $query->where('mahasiswa_id', auth()->user()->id);
+            })
+            ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get();
+
         return view('kompre.nilai.index', [
-            'title' => 'E - Skripsi | Nilai kompre',
-            'kompres' => Kompre::with('judul', 'judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2', 'penguji1', 'penguji2', 'penguji3', 'nilaikompre')->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get(),
+            'title' => 'E - Skripsi | Nilai Kompre',
+            'kompres' => $kompres,
         ]);
     }
 
@@ -148,16 +186,22 @@ class NilaiKompreController extends Controller
     }
 
 
-    public function edit(Kompre $kompre)
+    public function edit(Kompre $kompre, NilaiKompre $nilaikompre)
     {
+        // akses sesuai pembimbing dan penguji
+        $this->authorize('update', $nilaikompre);
+
         return view('kompre.nilai.edit', [
             'title' => 'Input Nilai',
             'kompre' => $kompre->load('judul', 'judul.pembimbing1', 'judul.pembimbing2', 'nilaikompre', 'penguji1', 'penguji2', 'penguji3'),
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, NilaiKompre $nilaikompre)
     {
+        // akses sesuai pembimbing dan penguji
+        $this->authorize('update', $nilaikompre);
+
         $rules = [
             'kompre_id' => 'required',
         ];
