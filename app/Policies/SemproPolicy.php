@@ -2,24 +2,24 @@
 
 namespace App\Policies;
 
-use App\Models\Logbook;
+use App\Models\Sempro;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class LogbookPolicy
+class SemproPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->role_id !== 2;
+        //
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Logbook $logbook): bool
+    public function view(User $user, Sempro $sempro): bool
     {
         //
     }
@@ -35,23 +35,23 @@ class LogbookPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Logbook $logbook): bool
+    public function update(User $user, Sempro $sempro): bool
     {
-        return $user->id === $logbook->judul->pembimbing1_id || $user->id === $logbook->judul->pembimbing2_id;
+        return $user->role_id === 2;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Logbook $logbook): bool
+    public function delete(User $user, Sempro $sempro): bool
     {
-        return $user->id === $logbook->judul->mahasiswa_id;
+        return $user->id === $sempro->judul->mahasiswa_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Logbook $logbook): bool
+    public function restore(User $user, Sempro $sempro): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class LogbookPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Logbook $logbook): bool
+    public function forceDelete(User $user, Sempro $sempro): bool
     {
         //
     }

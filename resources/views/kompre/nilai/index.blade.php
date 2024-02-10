@@ -20,9 +20,11 @@
                             <th scope="col">No</th>
                             <th scope="col">Mahasiswa</th>
                             <th scope="col">Judul</th>
-                            <th scope="col">Penilaian Penguji 1</th>
-                            <th scope="col">Penilaian Penguji 2</th>
-                            <th scope="col">Penilaian Penguji 3</th>
+                            <th scope="col">Pembimbing 1</th>
+                            <th scope="col">Pembimbing 2</th>
+                            <th scope="col">Penguji 1</th>
+                            <th scope="col">Penguji 2</th>
+                            <th scope="col">Penguji 3</th>
                             <th scope="col">Rata-rata</th>
                             <th scope="col">Aksi</th>
                         </tr>
@@ -35,13 +37,19 @@
                                     <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
                                     <td>{{ $kompre->judul->mahasiswa->name }}</td>
                                     <td>{{ $kompre->judul->judul }}</td>
-                                    <td>{{ $kompre->nilaikompre ? ($nilai1 = $kompre->nilaikompre->nilai1 + $kompre->nilaikompre->nilai2 + $kompre->nilaikompre->nilai3 + $kompre->nilaikompre->nilai4 + $kompre->nilaikompre->nilai5) : ($nilai1 = 0) }}
+                                    <td>{{ $kompre->nilaikompre ? ($nilaiPem1 = $kompre->nilaikompre->nilai1_pem1 + $kompre->nilaikompre->nilai2_pem1 + $kompre->nilaikompre->nilai3_pem1 + $kompre->nilaikompre->nilai4_pem1 + $kompre->nilaikompre->nilai5_pem1 + $kompre->nilaikompre->nilai6_pem1 + $kompre->nilaikompre->nilai7_pem1) : ($nilaiPem1 = 0) }}
                                     </td>
-                                    <td>{{ $kompre->nilaikompre ? ($nilai2 = $kompre->nilaikompre->nilai6 + $kompre->nilaikompre->nilai7 + $kompre->nilaikompre->nilai8 + $kompre->nilaikompre->nilai9 + $kompre->nilaikompre->nilai10) : ($nilai2 = 0) }}
+                                    <td>{{ $kompre->nilaikompre ? ($nilaiPem2 = $kompre->nilaikompre->nilai1_pem2 + $kompre->nilaikompre->nilai2_pem2 + $kompre->nilaikompre->nilai3_pem2 + $kompre->nilaikompre->nilai4_pem2 + $kompre->nilaikompre->nilai5_pem2 + $kompre->nilaikompre->nilai6_pem2 + $kompre->nilaikompre->nilai7_pem2) : ($nilaiPem2 = 0) }}
                                     </td>
-                                    <td>{{ $kompre->nilaikompre ? ($nilai3 = $kompre->nilaikompre->nilai11 + $kompre->nilaikompre->nilai12 + $kompre->nilaikompre->nilai13 + $kompre->nilaikompre->nilai14 + $kompre->nilaikompre->nilai15) : ($nilai3 = 0) }}
+                                    <td>{{ $kompre->nilaikompre ? ($nilaiPenguji1 = $kompre->nilaikompre->nilai1_peng1 + $kompre->nilaikompre->nilai2_peng1 + $kompre->nilaikompre->nilai3_peng1 + $kompre->nilaikompre->nilai4_peng1 + $kompre->nilaikompre->nilai5_peng1) : ($nilaiPenguji1 = 0) }}
                                     </td>
-                                    <td>{{ number_format(($nilai1 + $nilai2 + $nilai3) / 3, 2) }}</td>
+                                    <td>{{ $kompre->nilaikompre ? ($nilaiPenguji2 = $kompre->nilaikompre->nilai1_peng2 + $kompre->nilaikompre->nilai2_peng2 + $kompre->nilaikompre->nilai3_peng2 + $kompre->nilaikompre->nilai4_peng2 + $kompre->nilaikompre->nilai5_peng2) : ($nilaiPenguji2 = 0) }}
+                                    </td>
+                                    <td>{{ $kompre->nilaikompre ? ($nilaiPenguji3 = $kompre->nilaikompre->nilai1_peng3 + $kompre->nilaikompre->nilai2_peng3 + $kompre->nilaikompre->nilai3_peng3 + $kompre->nilaikompre->nilai4_peng3 + $kompre->nilaikompre->nilai5_peng3) : ($nilaiPenguji3 = 0) }}
+                                    </td>
+                                    <td>
+                                        {{ number_format(($nilaiPenguji1 + $nilaiPenguji2 + $nilaiPenguji3 + $nilaiPem1 + $nilaiPem2) / 5, 2) }}
+                                    </td>
 
                                     <td>
                                         <div>
@@ -85,7 +93,7 @@
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail Penilaian</h1>
+                    <h1 class="modal-title fs-5">Detail Penilaian</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -101,31 +109,33 @@
                                 <input type="text" id="judul" class="form-control" disabled />
                             </div>
                         </div>
+                        <hr>
                         <div class="col-md-4">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Penguji 1</h1>
+                            <h1 class="modal-title fs-5">Penguji 1</h1>
                             <div class="mb-3">
-                                <label for="nilai1" class="form-label">Nilai 1</label>
-                                <input type="text" id="nilai1" class="form-control" disabled />
+                                <label for="nilai1_peng1" class="form-label">Menjawab Latar Belakang Masalah</label>
+                                <input type="text" id="nilai1_peng1" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="nilai2" class="form-label">Nilai 2</label>
-                                <input type="text" id="nilai2" class="form-control" disabled />
+                                <label for="nilai2_peng1" class="form-label">Menguasai Teori Pendukung TA</label>
+                                <input type="text" id="nilai2_peng1" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="nilai3" class="form-label">Nilai 3</label>
-                                <input type="text" id="nilai3" class="form-control" disabled />
+                                <label for="nilai3_peng1" class="form-label">Menguasai Materi Terkait Tools
+                                    Pemodelan</label>
+                                <input type="text" id="nilai3_peng1" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="nilai4" class="form-label">Nilai 4</label>
-                                <input type="text" id="nilai4" class="form-control" disabled />
+                                <label for="nilai4_peng1" class="form-label">Pemaparan Cara Menjawab</label>
+                                <input type="text" id="nilai4_peng1" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="nilai5" class="form-label">Nilai 5</label>
-                                <input type="text" id="nilai5" class="form-control" disabled />
+                                <label for="nilai5_peng1" class="form-label">Komunikasi Interpersonal</label>
+                                <input type="text" id="nilai5_peng1" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="total1" class="form-label">Total</label>
-                                <input type="text" id="total1" class="form-control" disabled />
+                                <label for="totalPenguji1" class="form-label">Total</label>
+                                <input type="text" id="totalPenguji1" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
                                 <label for="notes1" class="form-label">Catatan</label>
@@ -133,30 +143,30 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Penguji 2</h1>
+                            <h1 class="modal-title fs-5">Penguji 2</h1>
                             <div class="mb-3">
-                                <label for="nilai6" class="form-label">Nilai 6</label>
-                                <input type="text" id="nilai6" class="form-control" disabled />
+                                <label for="nilai1_peng2" class="form-label">Menjawab Latar Belakang Masalah</label>
+                                <input type="text" id="nilai1_peng2" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="nilai7" class="form-label">Nilai 7</label>
-                                <input type="text" id="nilai7" class="form-control" disabled />
+                                <label for="nilai2_peng2" class="form-label">Menguasai Teori Pendukung TA</label>
+                                <input type="text" id="nilai2_peng2" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="nilai8" class="form-label">Nilai 8</label>
-                                <input type="text" id="nilai8" class="form-control" disabled />
+                                <label for="nilai3_peng2" class="form-label">Menguasai Materi Terkait Tools</label>
+                                <input type="text" id="nilai3_peng2" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="nilai9" class="form-label">Nilai 9</label>
-                                <input type="text" id="nilai9" class="form-control" disabled />
+                                <label for="nilai4_peng2" class="form-label">Pemaparan Cara Menjawab</label>
+                                <input type="text" id="nilai4_peng2" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="nilai10" class="form-label">Nilai 10</label>
-                                <input type="text" id="nilai10" class="form-control" disabled />
+                                <label for="nilai5_peng2" class="form-label">Komunikasi Interpersonal</label>
+                                <input type="text" id="nilai5_peng2" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="total2" class="form-label">Total</label>
-                                <input type="text" id="total2" class="form-control" disabled />
+                                <label for="totalPenguji2" class="form-label">Total</label>
+                                <input type="text" id="totalPenguji2" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
                                 <label for="notes2" class="form-label">Catatan</label>
@@ -164,41 +174,116 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Penguji 3</h1>
+                            <h1 class="modal-title fs-5">Penguji 3</h1>
                             <div class="mb-3">
-                                <label for="nilai11" class="form-label">Nilai 11</label>
-                                <input type="text" id="nilai11" class="form-control" disabled />
+                                <label for="nilai1_peng3" class="form-label">Menjawab Latar Belakang Masalah</label>
+                                <input type="text" id="nilai1_peng3" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="nilai12" class="form-label">Nilai 12</label>
-                                <input type="text" id="nilai12" class="form-control" disabled />
+                                <label for="nilai2_peng3" class="form-label">Menguasai Teori Pendukung TA</label>
+                                <input type="text" id="nilai2_peng3" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="nilai13" class="form-label">Nilai 13</label>
-                                <input type="text" id="nilai13" class="form-control" disabled />
+                                <label for="nilai3_peng3" class="form-label">Menguasai Materi Terkait Tools</label>
+                                <input type="text" id="nilai3_peng3" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="nilai14" class="form-label">Nilai 14</label>
-                                <input type="text" id="nilai14" class="form-control" disabled />
+                                <label for="nilai4_peng3" class="form-label">Pemaparan Cara Menjawab</label>
+                                <input type="text" id="nilai4_peng3" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="nilai15" class="form-label">Nilai 15</label>
-                                <input type="text" id="nilai15" class="form-control" disabled />
+                                <label for="nilai5_peng3" class="form-label">Komunikasi Interpersonal</label>
+                                <input type="text" id="nilai5_peng3" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="total3" class="form-label">Total</label>
-                                <input type="text" id="total3" class="form-control" disabled />
+                                <label for="totalPenguji3" class="form-label">Total</label>
+                                <input type="text" id="totalPenguji3" class="form-control" disabled />
                             </div>
                             <div class="mb-3">
                                 <label for="notes3" class="form-label">Catatan</label>
                                 <textarea id="notes3" class="form-control" disabled></textarea>
                             </div>
                         </div>
-                        <div class="col-md-4 offset-8">
-                            <div class="w-30">
-                                <label for="rata-rata">Rata rata</label>
-                                <input type="text" id="rata-rata" class="form-control" disabled />
+                        <hr>
+                        <div class="col-md-4">
+                            <h1 class="modal-title fs-5">Pembimbing 1</h1>
+                            <div class="mb-3">
+                                <label for="nilai1_pem1" class="form-label">Kemampuan Memilih Tema</label>
+                                <input type="text" id="nilai1_pem1" class="form-control" disabled />
                             </div>
+                            <div class="mb-3">
+                                <label for="nilai2_pem1" class="form-label">Cara menyajikan pertanyaan penelitian/problem
+                                    statement</label>
+                                <input type="text" id="nilai2_pem1" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai3_pem1" class="form-label">Problem Solving</label>
+                                <input type="text" id="nilai3_pem1" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai4_pem1" class="form-label">Pemilihan model atau metode</label>
+                                <input type="text" id="nilai4_pem1" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai5_pem1" class="form-label">Rencana implementasi
+                                    simulasi/komputasi</label>
+                                <input type="text" id="nilai5_pem1" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai6_pem1" class="form-label">Kemandirian dalam penyusunal proposal</label>
+                                <input type="text" id="nilai6_pem1" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai7_pem1" class="form-label">Proses bimbingan</label>
+                                <input type="text" id="nilai7_pem1" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="totalPem1" class="form-label">Total</label>
+                                <input type="text" id="totalPem1" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <h1 class="modal-title fs-5">Pembimbing 2</h1>
+                            <div class="mb-3">
+                                <label for="nilai1_pem2" class="form-label">Kemampuan Memilih Tema</label>
+                                <input type="text" id="nilai1_pem2" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai2_pem2" class="form-label">Cara menyajikan pertanyaan penelitian/problem
+                                    statement</label>
+                                <input type="text" id="nilai2_pem2" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai3_pem2" class="form-label">Problem Solving</label>
+                                <input type="text" id="nilai3_pem2" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai4_pem2" class="form-label">Pemilihan model atau metode</label>
+                                <input type="text" id="nilai4_pem2" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai5_pem2" class="form-label">Rencana implementasi
+                                    simulasi/komputasi</label>
+                                <input type="text" id="nilai5_pem2" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai6_pem2" class="form-label">Kemandirian dalam penyusunal proposal</label>
+                                <input type="text" id="nilai6_pem2" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nilai7_pem2" class="form-label">Proses bimbingan</label>
+                                <input type="text" id="nilai7_pem2" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="totalPem2" class="form-label">Total</label>
+                                <input type="text" id="totalPem2" class="form-control" disabled />
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-md-4">
+                            <h1 class="modal-title fs-5">Rata Rata Nilai</h1>
+                            <input type="text" id="rata-rata" class="form-control" disabled />
                         </div>
                     </div>
                 </div>
@@ -225,68 +310,130 @@
 
                     $('#judul').val(data.judul.judul);
 
-                    if (data.nilaikompre !== null) {
-                        $('#nilai1').val(data.nilaikompre.nilai1)
-                        $('#nilai2').val(data.nilaikompre.nilai2)
-                        $('#nilai3').val(data.nilaikompre.nilai3)
-                        $('#nilai4').val(data.nilaikompre.nilai4)
-                        $('#nilai5').val(data.nilaikompre.nilai5)
-                        $('#nilai6').val(data.nilaikompre.nilai6)
-                        $('#nilai7').val(data.nilaikompre.nilai7)
-                        $('#nilai8').val(data.nilaikompre.nilai8)
-                        $('#nilai9').val(data.nilaikompre.nilai9)
-                        $('#nilai10').val(data.nilaikompre.nilai10)
-                        $('#nilai11').val(data.nilaikompre.nilai11)
-                        $('#nilai12').val(data.nilaikompre.nilai12)
-                        $('#nilai13').val(data.nilaikompre.nilai13)
-                        $('#nilai14').val(data.nilaikompre.nilai14)
-                        $('#nilai15').val(data.nilaikompre.nilai15)
+                    if (data.nilaikompre != null) {
+                        $('#nilai1_peng1').val(data.nilaikompre.nilai1_peng1)
+                        $('#nilai2_peng1').val(data.nilaikompre.nilai2_peng1)
+                        $('#nilai3_peng1').val(data.nilaikompre.nilai3_peng1)
+                        $('#nilai4_peng1').val(data.nilaikompre.nilai4_peng1)
+                        $('#nilai5_peng1').val(data.nilaikompre.nilai5_peng1)
+
+                        $('#nilai1_peng2').val(data.nilaikompre.nilai1_peng2)
+                        $('#nilai2_peng2').val(data.nilaikompre.nilai2_peng2)
+                        $('#nilai3_peng2').val(data.nilaikompre.nilai3_peng2)
+                        $('#nilai4_peng2').val(data.nilaikompre.nilai4_peng2)
+                        $('#nilai5_peng2').val(data.nilaikompre.nilai5_peng2)
+
+                        $('#nilai1_peng3').val(data.nilaikompre.nilai1_peng3)
+                        $('#nilai2_peng3').val(data.nilaikompre.nilai2_peng3)
+                        $('#nilai3_peng3').val(data.nilaikompre.nilai3_peng3)
+                        $('#nilai4_peng3').val(data.nilaikompre.nilai4_peng3)
+                        $('#nilai5_peng3').val(data.nilaikompre.nilai5_peng3)
+
+                        $('#nilai1_pem1').val(data.nilaikompre.nilai1_pem1)
+                        $('#nilai2_pem1').val(data.nilaikompre.nilai2_pem1)
+                        $('#nilai3_pem1').val(data.nilaikompre.nilai3_pem1)
+                        $('#nilai4_pem1').val(data.nilaikompre.nilai4_pem1)
+                        $('#nilai5_pem1').val(data.nilaikompre.nilai5_pem1)
+                        $('#nilai6_pem1').val(data.nilaikompre.nilai6_pem1)
+                        $('#nilai7_pem1').val(data.nilaikompre.nilai7_pem1)
+
+                        $('#nilai1_pem2').val(data.nilaikompre.nilai1_pem2)
+                        $('#nilai2_pem2').val(data.nilaikompre.nilai2_pem2)
+                        $('#nilai3_pem2').val(data.nilaikompre.nilai3_pem2)
+                        $('#nilai4_pem2').val(data.nilaikompre.nilai4_pem2)
+                        $('#nilai5_pem2').val(data.nilaikompre.nilai5_pem2)
+                        $('#nilai6_pem2').val(data.nilaikompre.nilai6_pem2)
+                        $('#nilai7_pem2').val(data.nilaikompre.nilai7_pem2)
+
+                        $('#notes1').val(data.nilaikompre.notes1);
+                        $('#notes2').val(data.nilaikompre.notes2);
+                        $('#notes3').val(data.nilaikompre.notes3);
+
                     } else {
-                        $('#nilai1').val('-')
-                        $('#nilai2').val('-')
-                        $('#nilai3').val('-')
-                        $('#nilai4').val('-')
-                        $('#nilai5').val('-')
-                        $('#nilai6').val('-')
-                        $('#nilai7').val('-')
-                        $('#nilai8').val('-')
-                        $('#nilai9').val('-')
-                        $('#nilai10').val('-')
-                        $('#nilai11').val('-')
-                        $('#nilai12').val('-')
-                        $('#nilai13').val('-')
-                        $('#nilai14').val('-')
-                        $('#nilai15').val('-')
+                        $('#nilai1_peng1').val('-')
+                        $('#nilai2_peng1').val('-')
+                        $('#nilai3_peng1').val('-')
+                        $('#nilai4_peng1').val('-')
+                        $('#nilai5_peng1').val('-')
+
+                        $('#nilai1_peng2').val('-')
+                        $('#nilai2_peng2').val('-')
+                        $('#nilai3_peng2').val('-')
+                        $('#nilai4_peng2').val('-')
+                        $('#nilai5_peng2').val('-')
+
+                        $('#nilai1_peng3').val('-')
+                        $('#nilai2_peng3').val('-')
+                        $('#nilai3_peng3').val('-')
+                        $('#nilai4_peng3').val('-')
+                        $('#nilai5_peng3').val('-')
+
+                        $('#nilai1_pem1').val('-')
+                        $('#nilai2_pem1').val('-')
+                        $('#nilai3_pem1').val('-')
+                        $('#nilai4_pem1').val('-')
+                        $('#nilai5_pem1').val('-')
+                        $('#nilai6_pem1').val('-')
+                        $('#nilai7_pem1').val('-')
+
+                        $('#nilai1_pem2').val('-')
+                        $('#nilai2_pem2').val('-')
+                        $('#nilai3_pem2').val('-')
+                        $('#nilai4_pem2').val('-')
+                        $('#nilai5_pem2').val('-')
+                        $('#nilai6_pem2').val('-')
+                        $('#nilai7_pem2').val('-')
+
+                        $('#notes1').val('-');
+                        $('#notes2').val('-');
+                        $('#notes3').val('-');
                     }
 
-                    let total1 = 0
-                    data.nilaikompre ? total1 = data.nilaikompre.nilai1 + data.nilaikompre
-                        .nilai2 + data
-                        .nilaikompre.nilai3 + data.nilaikompre.nilai4 +
-                        data.nilaikompre.nilai5 : total1 = 0;
+                    // perhitungan total nilai
+                    let totalPenguji1 = 0
+                    data.nilaikompre ? totalPenguji1 =
+                        data.nilaikompre.nilai1_peng1 + data.nilaikompre.nilai2_peng1 +
+                        data.nilaikompre.nilai3_peng1 + data.nilaikompre.nilai4_peng1 +
+                        data.nilaikompre.nilai5_peng1 : totalPenguji1 = 0;
 
-                    let total2 = 0
-                    data.nilaikompre ? total2 = data.nilaikompre.nilai6 + data.nilaikompre
-                        .nilai7 + data
-                        .nilaikompre.nilai8 + data.nilaikompre.nilai9 +
-                        data.nilaikompre.nilai10 : total2 = 0;
+                    let totalPenguji2 = 0
+                    data.nilaikompre ? totalPenguji2 =
+                        data.nilaikompre.nilai1_peng2 + data.nilaikompre.nilai2_peng2 +
+                        data.nilaikompre.nilai3_peng2 + data.nilaikompre.nilai4_peng2 +
+                        data.nilaikompre.nilai5_peng2 : totalPenguji2 = 0;
 
-                    let total3 = 0
-                    data.nilaikompre ? total3 = data.nilaikompre.nilai11 + data.nilaikompre
-                        .nilai12 + data
-                        .nilaikompre.nilai13 + data.nilaikompre.nilai14 +
-                        data.nilaikompre.nilai15 : total3 = 0;
+                    let totalPenguji3 = 0
+                    data.nilaikompre ? totalPenguji3 =
+                        data.nilaikompre.nilai1_peng3 + data.nilaikompre.nilai2_peng3 +
+                        data.nilaikompre.nilai3_peng3 + data.nilaikompre.nilai4_peng3 +
+                        data.nilaikompre.nilai5_peng3 : totalPenguji3 = 0;
 
-                    $('#total1').val(total1);
-                    $('#total2').val(total2);
-                    $('#total3').val(total3);
+                    let totalPem1 = 0
+                    data.nilaikompre ? totalPem1 =
+                        data.nilaikompre.nilai1_pem1 + data.nilaikompre.nilai2_pem1 +
+                        data.nilaikompre.nilai3_pem1 + data.nilaikompre.nilai4_pem1 +
+                        data.nilaikompre.nilai5_pem1 + data.nilaikompre.nilai6_pem1 +
+                        data.nilaikompre.nilai7_pem1 : totalPem1 = 0;
 
-                    $('#notes1').val(data.nilaikompre.notes1);
-                    $('#notes2').val(data.nilaikompre.notes2);
-                    $('#notes3').val(data.nilaikompre.notes3);
+                    let totalPem2 = 0
+                    data.nilaikompre ? totalPem2 =
+                        data.nilaikompre.nilai1_pem2 + data.nilaikompre.nilai2_pem2 +
+                        data.nilaikompre.nilai3_pem2 + data.nilaikompre.nilai4_pem2 +
+                        data.nilaikompre.nilai5_pem2 + data.nilaikompre.nilai6_pem2 +
+                        data.nilaikompre.nilai7_pem2 : totalPem2 = 0;
 
-                    let ratarata = (total1 + total2 + total3) / 3;
-                    $('#rata-rata').val(ratarata.toFixed(2));
+                    // memasukkan nilai kedalam field
+                    $('#totalPenguji1').val(totalPenguji1);
+                    $('#totalPenguji2').val(totalPenguji2);
+                    $('#totalPenguji3').val(totalPenguji3);
+                    $('#totalPem1').val(totalPem1);
+                    $('#totalPem2').val(totalPem2);
+
+                    let ratarata = (totalPenguji1 + totalPenguji2 + totalPenguji3 + totalPem1 +
+                        totalPem2) / 5;
+                    ratarata != 0 ? $('#rata-rata').val(ratarata.toFixed(2)) :
+                        $('#rata-rata').val('0.00');
+
                 })
             })
         })

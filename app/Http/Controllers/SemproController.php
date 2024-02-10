@@ -23,9 +23,42 @@ class SemproController extends Controller
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
+        if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
+            $sempros = Sempro::with(['judul', 'judul.mahasiswa'])->latest()->get();
+            return view('sempro.index', [
+                'title' => 'E - Skripsi | Sempro',
+                'sempros' => $sempros,
+            ]);
+        }
+
+        if (auth()->user()->role_id === 3) {
+            $sempros = Sempro::with(['judul', 'judul.mahasiswa'])
+                ->whereHas('judul', function ($query) {
+                    $query->where('pembimbing1_id', auth()->user()->id)
+                        ->orWhere('pembimbing2_id', auth()->user()->id);
+                })
+                ->orWhere(function ($query) {
+                    $query->where('penguji1_id', auth()->user()->id)
+                        ->orWhere('penguji2_id', auth()->user()->id)
+                        ->orWhere('penguji3_id', auth()->user()->id);
+                })
+                ->latest()->get();
+
+            return view('sempro.index', [
+                'title' => 'E - Skripsi | Sempro',
+                'sempros' => $sempros,
+            ]);
+        }
+
+        $sempros = Sempro::with(['judul', 'judul.mahasiswa'])
+            ->whereHas('judul', function ($query) {
+                $query->where('mahasiswa_id', auth()->user()->id);
+            })
+            ->latest()->get();
+
         return view('sempro.index', [
             'title' => 'E - Skripsi | Sempro',
-            'sempros' => Sempro::with(['judul', 'judul.mahasiswa'])->latest()->get()
+            'sempros' => $sempros,
         ]);
     }
 
@@ -34,6 +67,9 @@ class SemproController extends Controller
      */
     public function create()
     {
+        // akses mahasiswa
+        $this->authorize('create', Sempro::class);
+
         // find data sempro berdasarkan id mahasiswa yg login dan statusnya != ditolak
         $sempro = Sempro::with(['judul'])
             ->whereHas('judul', function ($query) {
@@ -67,6 +103,9 @@ class SemproController extends Controller
      */
     public function store(Request $request)
     {
+        // akses mahasiswa
+        $this->authorize('create', Sempro::class);
+
         $validateData = $request->validate([
             'judul_id' => 'required',
             'pembayaran' => 'required|file|mimes:pdf|max:2048',
@@ -90,21 +129,24 @@ class SemproController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Sempro $sempro)
     {
-        $sempro = Sempro::with(['judul', 'judul.mahasiswa.dokumen', 'penguji1', 'penguji2', 'penguji3'])->find($id);
+        $sempros = $sempro->load(['judul', 'judul.mahasiswa.dokumen', 'penguji1', 'penguji2', 'penguji3']);
 
-        return response()->json($sempro);
+        return response()->json($sempros);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Sempro $sempro)
     {
+        // akses koordinator
+        $this->authorize('update', $sempro);
+
         return view('sempro.edit', [
             'title' => 'Sempro | Edit',
-            'sempro' => Sempro::with('judul')->find($id),
+            'sempro' => $sempro->load('judul'),
             'dosens' => User::where('role_id', 3)->latest()->get()
         ]);
     }
@@ -112,7 +154,7 @@ class SemproController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Sempro $sempro)
     {
         $rules = [];
 
@@ -157,7 +199,11 @@ class SemproController extends Controller
             $validateData['pembayaran'] = $request->file('pembayaran')->storeAs('post-pembayaran', $pembayaran);
         }
 
-        Sempro::where('id', $id)->update($validateData);
+        $sempro->update($validateData);
+
+        if ($sempro->status != 'perbaikan') {
+            $sempro->update(['notes' => null]);
+        }
 
         Alert::success('success!', 'Sempro has been updated');
 
@@ -167,19 +213,23 @@ class SemproController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Sempro $sempro)
     {
-        $judul = Judul::whereHas('sempro', function ($query) use ($id) {
-            $query->where('id', $id);
+        // akses mahasiswa
+        $this->authorize('delete', $sempro);
+
+        $semproId = $sempro->id;
+
+        $judul = Judul::whereHas('sempro', function ($query) use ($semproId) {
+            $query->where('id', $semproId);
         })->first();
 
-        $sempro = Sempro::find($id);
 
         if ($sempro->pembayaran) {
             Storage::delete($sempro->pembayaran);
         }
 
-        $sempro->destroy($id);
+        $sempro->delete();
 
         Kompre::where('judul_id', $judul->id)->delete();
 

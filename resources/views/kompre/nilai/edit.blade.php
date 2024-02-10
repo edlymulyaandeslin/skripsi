@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
-        {{-- form --}}
-        <div class="col-md-4">
+    <div class="row g-4">
+
+        {{-- form nilai penguji 1 --}}
+        <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Nilai Seminar Komprehensif</h4>
-                <h6>Penguji 1 : {{ $kompre->penguji1->name }}</h6>
+                <h6>Penguji 1 : {{ $kompre->penguji1->name ?? '' }}</h6>
                 <form
                     action="{{ $kompre->nilaikompre !== null ? route('nilai.kompre.update', $kompre->nilaikompre->id) : route('nilai.kompre.store') }} "
                     method="post">
@@ -26,47 +27,47 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai1" class="form-control"
-                            value="{{ old('nilai1', $kompre->nilaikompre->nilai1 ?? null) }}">
-                        <label>Nilai 1</label>
+                        <input type="number" name="nilai1_peng1" class="form-control"
+                            value="{{ old('nilai1_peng1', $kompre->nilaikompre->nilai1_peng1 ?? null) }}">
+                        <label>Menjawab Latar Belakang Masalah</label>
                         <small class="fw-bold ms-2">0 - 25</small>
-                        @error('nilai1')
+                        @error('nilai1_peng1')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai2" class="form-control"
-                            value="{{ old('nilai2', $kompre->nilaikompre->nilai2 ?? null) }}">
-                        <label>Nilai 2</label>
+                        <input type="number" name="nilai2_peng1" class="form-control"
+                            value="{{ old('nilai2_peng1', $kompre->nilaikompre->nilai2_peng1 ?? null) }}">
+                        <label>Menguasai Teori Pendukung TA</label>
                         <small class="fw-bold ms-2">0 - 15</small>
-                        @error('nilai2')
+                        @error('nilai2_peng1')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai3" class="form-control"
-                            value="{{ old('nilai3', $kompre->nilaikompre->nilai3 ?? null) }}">
-                        <label>Nilai 3</label>
+                        <input type="number" name="nilai3_peng1" class="form-control"
+                            value="{{ old('nilai3_peng1', $kompre->nilaikompre->nilai3_peng1 ?? null) }}">
+                        <label>Menguasai Materi Terkait Tools Pemodelan</label>
                         <small class="fw-bold ms-2">0 - 10</small>
-                        @error('nilai3')
+                        @error('nilai3_peng1')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai4" class="form-control"
-                            value="{{ old('nilai4', $kompre->nilaikompre->nilai4 ?? null) }}">
-                        <label>Nilai 4</label>
+                        <input type="number" name="nilai4_peng1" class="form-control"
+                            value="{{ old('nilai4_peng1', $kompre->nilaikompre->nilai4_peng1 ?? null) }}">
+                        <label>Pemaparan Cara Menjawab</label>
                         <small class="fw-bold ms-2">0 - 25</small>
-                        @error('nilai4')
+                        @error('nilai4_peng1')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai5" class="form-control"
-                            value="{{ old('nilai5', $kompre->nilaikompre->nilai5 ?? null) }}">
-                        <label>Nilai 5</label>
+                        <input type="number" name="nilai5_peng1" class="form-control"
+                            value="{{ old('nilai5_peng1', $kompre->nilaikompre->nilai5_peng1 ?? null) }}">
+                        <label>Komunikasi Interpersonal</label>
                         <small class="fw-bold ms-2">0 - 25</small>
-                        @error('nilai5')
+                        @error('nilai5_peng1')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
@@ -83,13 +84,13 @@
                 </form>
             </div>
         </div>
-        {{-- end form --}}
+        {{-- end form nilai penguji 1 --}}
 
-        {{-- form --}}
-        <div class="col-md-4">
+        {{-- form nilai penguji 2 --}}
+        <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Nilai Seminar Komprehensif</h4>
-                <h6>Penguji 2 : {{ $kompre->penguji2->name }}</h6>
+                <h6>Penguji 2 : {{ $kompre->penguji2->name ?? '' }}</h6>
                 <form
                     action="{{ $kompre->nilaikompre !== null ? route('nilai.kompre.update', $kompre->nilaikompre->id) : route('nilai.kompre.store') }} "
                     method="post">
@@ -109,47 +110,47 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai6" class="form-control"
-                            value="{{ old('nilai6', $kompre->nilaikompre->nilai6 ?? null) }}">
-                        <label>Nilai 6</label>
+                        <input type="number" name="nilai1_peng2" class="form-control"
+                            value="{{ old('nilai1_peng2', $kompre->nilaikompre->nilai1_peng2 ?? null) }}">
+                        <label>Menjawab Latar Belakang Masalah</label>
                         <small class="fw-bold ms-2">0 - 25</small>
-                        @error('nilai6')
+                        @error('nilai1_peng2')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai7" class="form-control"
-                            value="{{ old('nilai7', $kompre->nilaikompre->nilai7 ?? null) }}">
-                        <label>Nilai 7</label>
+                        <input type="number" name="nilai2_peng2" class="form-control"
+                            value="{{ old('nilai2_peng2', $kompre->nilaikompre->nilai2_peng2 ?? null) }}">
+                        <label>Menguasai Teori Pendukung TA</label>
                         <small class="fw-bold ms-2">0 - 15</small>
-                        @error('nilai7')
+                        @error('nilai2_peng2')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai8" class="form-control"
-                            value="{{ old('nilai8', $kompre->nilaikompre->nilai8 ?? null) }}">
-                        <label>Nilai 8</label>
+                        <input type="number" name="nilai3_peng2" class="form-control"
+                            value="{{ old('nilai3_peng2', $kompre->nilaikompre->nilai3_peng2 ?? null) }}">
+                        <label>Menguasai Materi Terkait Tools Pemodelan</label>
                         <small class="fw-bold ms-2">0 - 10</small>
-                        @error('nilai8')
+                        @error('nilai3_peng2')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai9" class="form-control"
-                            value="{{ old('nilai9', $kompre->nilaikompre->nilai9 ?? null) }}">
-                        <label>Nilai 9</label>
+                        <input type="number" name="nilai4_peng2" class="form-control"
+                            value="{{ old('nilai4_peng2', $kompre->nilaikompre->nilai4_peng2 ?? null) }}">
+                        <label>Pemaparan Cara Menjawab</label>
                         <small class="fw-bold ms-2">0 - 25</small>
-                        @error('nilai9')
+                        @error('nilai4_peng2')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai10" class="form-control"
-                            value="{{ old('nilai10', $kompre->nilaikompre->nilai10 ?? null) }}">
-                        <label>Nilai 10</label>
+                        <input type="number" name="nilai5_peng2" class="form-control"
+                            value="{{ old('nilai5_peng2', $kompre->nilaikompre->nilai5_peng2 ?? null) }}">
+                        <label>Komunikasi Interpersonal</label>
                         <small class="fw-bold ms-2">0 - 25</small>
-                        @error('nilai10')
+                        @error('nilai5_peng2')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
@@ -165,12 +166,13 @@
                 </form>
             </div>
         </div>
-        {{-- end form --}}
+        {{-- end form nilai penguji 2 --}}
 
-        <div class="col-md-4">
+        {{-- form nilai penguji 3 --}}
+        <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Nilai Seminar Komprehensif</h4>
-                <h6>Penguji 3 : {{ $kompre->penguji3->name }}</h6>
+                <h6>Penguji 3 : {{ $kompre->penguji3->name ?? '' }}</h6>
                 <form
                     action="{{ $kompre->nilaikompre !== null ? route('nilai.kompre.update', $kompre->nilaikompre->id) : route('nilai.kompre.store') }} "
                     method="post">
@@ -190,47 +192,47 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai11" class="form-control"
-                            value="{{ old('nilai11', $kompre->nilaikompre->nilai11 ?? null) }}">
-                        <label>Nilai 11</label>
+                        <input type="number" name="nilai1_peng3" class="form-control"
+                            value="{{ old('nilai1_peng3', $kompre->nilaikompre->nilai1_peng3 ?? null) }}">
+                        <label>Menjawab Latar Belakang Masalah</label>
                         <small class="fw-bold ms-2">0 - 25</small>
-                        @error('nilai11')
+                        @error('nilai1_peng3')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai12" class="form-control"
-                            value="{{ old('nilai12', $kompre->nilaikompre->nilai12 ?? null) }}">
-                        <label>Nilai 12</label>
+                        <input type="number" name="nilai2_peng3" class="form-control"
+                            value="{{ old('nilai2_peng3', $kompre->nilaikompre->nilai2_peng3 ?? null) }}">
+                        <label>Menguasai Teori Pendukung TA</label>
                         <small class="fw-bold ms-2">0 - 15</small>
-                        @error('nilai12')
+                        @error('nilai2_peng3')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai13" class="form-control"
-                            value="{{ old('nilai13', $kompre->nilaikompre->nilai13 ?? null) }}">
-                        <label>Nilai 13</label>
+                        <input type="number" name="nilai3_peng3" class="form-control"
+                            value="{{ old('nilai3_peng3', $kompre->nilaikompre->nilai3_peng3 ?? null) }}">
+                        <label>Menguasai Materi Terkait Tools</label>
                         <small class="fw-bold ms-2">0 - 10</small>
-                        @error('nilai13')
+                        @error('nilai3_peng3')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai14" class="form-control"
-                            value="{{ old('nilai14', $kompre->nilaikompre->nilai14 ?? null) }}">
-                        <label>Nilai 14</label>
+                        <input type="number" name="nilai4_peng3" class="form-control"
+                            value="{{ old('nilai4_peng3', $kompre->nilaikompre->nilai4_peng3 ?? null) }}">
+                        <label>Pemaparan Cara Menjawab</label>
                         <small class="fw-bold ms-2">0 - 25</small>
-                        @error('nilai14')
+                        @error('nilai4_peng3')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="nilai15" class="form-control"
-                            value="{{ old('nilai15', $kompre->nilaikompre->nilai15 ?? null) }}">
-                        <label>Nilai 15</label>
+                        <input type="number" name="nilai5_peng3" class="form-control"
+                            value="{{ old('nilai5_peng3', $kompre->nilaikompre->nilai5_peng3 ?? null) }}">
+                        <label>Komunikasi Interpersonal</label>
                         <small class="fw-bold ms-2">0 - 25</small>
-                        @error('nilai15')
+                        @error('nilai5_peng3')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
@@ -246,6 +248,193 @@
                 </form>
             </div>
         </div>
+        {{-- end form nilai penguji 3 --}}
+
+        {{-- form nilai pembimbing1  --}}
+        <div class="col-md-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h4 class="mb-4">Nilai Seminar Komprehensif</h4>
+                <h6>Pembimbing 1 : {{ $kompre->judul->pembimbing1->name ?? '' }}</h6>
+                <form
+                    action="{{ $kompre->nilaikompre !== null ? route('nilai.kompre.update', $kompre->nilaikompre->id) : route('nilai.kompre.store') }} "
+                    method="post">
+                    @if ($kompre->nilaikompre !== null)
+                        @method('patch')
+                    @endif
+                    @csrf
+                    <div class="form-floating mb-3">
+                        <input type="hidden" name="kompre_id" value="{{ $kompre->id }}">
+                        <select class="form-select @error('judul_id') is-invalid @enderror" name="judul_id" disabled>
+                            <option value="{{ $kompre->judul->id }}" selected>{{ $kompre->judul->judul }}</option>
+                        </select>
+                        <label>Judul</label>
+                        @error('judul_id')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai1_pem1" class="form-control"
+                            value="{{ old('nilai1_pem1', $kompre->nilaikompre->nilai1_pem1 ?? null) }}">
+                        <label>Kemampuan Memilih Tema</label>
+                        <small class="fw-bold ms-2">0 - 15</small>
+                        @error('nilai1_pem1')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai2_pem1" class="form-control"
+                            value="{{ old('nilai2_pem1', $kompre->nilaikompre->nilai2_pem1 ?? null) }}">
+                        <label>Cara menyajikan pertanyaan penelitian/problem statement</label>
+                        <small class="fw-bold ms-2">0 - 15</small>
+                        @error('nilai2_pem1')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai3_pem1" class="form-control"
+                            value="{{ old('nilai3_pem1', $kompre->nilaikompre->nilai3_pem1 ?? null) }}">
+                        <label>Problem Solving</label>
+                        <small class="fw-bold ms-2">0 - 10</small>
+                        @error('nilai3_pem1')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai4_pem1" class="form-control"
+                            value="{{ old('nilai4_pem1', $kompre->nilaikompre->nilai4_pem1 ?? null) }}">
+                        <label>Pemilihan model atau metode</label>
+                        <small class="fw-bold ms-2">0 - 10</small>
+                        @error('nilai4_pem1')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai5_pem1" class="form-control"
+                            value="{{ old('nilai5_pem1', $kompre->nilaikompre->nilai5_pem1 ?? null) }}">
+                        <label>Rencana implementasi simulasi/komputasi</label>
+                        <small class="fw-bold ms-2">0 - 10</small>
+                        @error('nilai5_pem1')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai6_pem1" class="form-control"
+                            value="{{ old('nilai6_pem1', $kompre->nilaikompre->nilai6_pem1 ?? null) }}">
+                        <label>Kemandirian dalam penyusunal Komprehensif</label>
+                        <small class="fw-bold ms-2">0 - 20</small>
+                        @error('nilai6_pem1')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai7_pem1" class="form-control"
+                            value="{{ old('nilai7_pem1', $kompre->nilaikompre->nilai7_pem1 ?? null) }}">
+                        <label>Proses bimbingan</label>
+                        <small class="fw-bold ms-2">0 - 20</small>
+                        @error('nilai7_pem1')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Input</button>
+                </form>
+            </div>
+        </div>
+        {{-- end form nilai  pembimbing1  --}}
+
+        {{-- form nilai pembimbing2  --}}
+        <div class="col-md-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h4 class="mb-4">Nilai Seminar Komprehensif</h4>
+                <h6>Pembimbing 2 : {{ $kompre->judul->pembimbing2->name ?? '' }}</h6>
+                <form
+                    action="{{ $kompre->nilaikompre !== null ? route('nilai.kompre.update', $kompre->nilaikompre->id) : route('nilai.kompre.store') }} "
+                    method="post">
+                    @if ($kompre->nilaikompre !== null)
+                        @method('patch')
+                    @endif
+                    @csrf
+                    <div class="form-floating mb-3">
+                        <input type="hidden" name="kompre_id" value="{{ $kompre->id }}">
+                        <select class="form-select @error('judul_id') is-invalid @enderror" name="judul_id" disabled>
+                            <option value="{{ $kompre->judul->id }}" selected>{{ $kompre->judul->judul }}</option>
+                        </select>
+                        <label>Judul</label>
+                        @error('judul_id')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai1_pem2" class="form-control"
+                            value="{{ old('nilai1_pem2', $kompre->nilaikompre->nilai1_pem2 ?? null) }}">
+                        <label>Kemampuan Memilih Tema</label>
+                        <small class="fw-bold ms-2">0 - 15</small>
+                        @error('nilai1_pem2')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai2_pem2" class="form-control"
+                            value="{{ old('nilai2_pem2', $kompre->nilaikompre->nilai2_pem2 ?? null) }}">
+                        <label>Cara menyajikan pertanyaan penelitian/problem statement</label>
+                        <small class="fw-bold ms-2">0 - 15</small>
+                        @error('nilai2_pem2')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai3_pem2" class="form-control"
+                            value="{{ old('nilai3_pem2', $kompre->nilaikompre->nilai3_pem2 ?? null) }}">
+                        <label>Problem Solving</label>
+                        <small class="fw-bold ms-2">0 - 10</small>
+                        @error('nilai3_pem2')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai4_pem2" class="form-control"
+                            value="{{ old('nilai4_pem2', $kompre->nilaikompre->nilai4_pem2 ?? null) }}">
+                        <label>Pemilihan model atau metode</label>
+                        <small class="fw-bold ms-2">0 - 10</small>
+                        @error('nilai4_pem2')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai5_pem2" class="form-control"
+                            value="{{ old('nilai5_pem2', $kompre->nilaikompre->nilai5_pem2 ?? null) }}">
+                        <label>Rencana implementasi simulasi/komputasi</label>
+                        <small class="fw-bold ms-2">0 - 10</small>
+                        @error('nilai5_pem2')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai6_pem2" class="form-control"
+                            value="{{ old('nilai6_pem2', $kompre->nilaikompre->nilai6_pem2 ?? null) }}">
+                        <label>Kemandirian dalam penyusunal Komprehensif</label>
+                        <small class="fw-bold ms-2">0 - 20</small>
+                        @error('nilai6_pem2')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="nilai7_pem2" class="form-control"
+                            value="{{ old('nilai7_pem2', $kompre->nilaikompre->nilai7_pem2 ?? null) }}">
+                        <label>Proses bimbingan</label>
+                        <small class="fw-bold ms-2">0 - 20</small>
+                        @error('nilai7_pem2')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Input</button>
+                </form>
+            </div>
+        </div>
+        {{-- end form nilai  pembimbing2  --}}
 
     </div>
 @endsection

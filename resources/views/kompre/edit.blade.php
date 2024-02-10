@@ -3,20 +3,19 @@
 @section('content')
     <div class="row">
         {{-- form --}}
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
-                <h4 class="mb-4">Update Seminar Proposal</h4>
+                <h4 class="mb-4">Update Seminar Komprehensif</h4>
                 <form action="/kompre/{{ $kompre->id }}" method="post">
                     @method('patch')
                     @csrf
                     <div class="form-floating mb-3">
                         <input type="hidden" name="judul_id" value="{{ $kompre->judul->id }}">
-                        <select class="form-select @error('judul_id') is-invalid @enderror" id="floatingSelect"
-                            name="judul_id" disabled>
+                        <select class="form-select @error('judul_id') is-invalid @enderror" name="judul_id" disabled>
                             <option value="{{ $kompre->judul->id }}" selected>{{ $kompre->judul->judul }}</option>
 
                         </select>
-                        <label for="floatingSelect">Judul</label>
+                        <label for="">Judul</label>
                         @error('judul_id')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -25,7 +24,7 @@
                     <div class="form-floating mb-3">
                         <input type="date" name="tanggal_seminar" class="form-control"
                             value="{{ $kompre->tanggal_seminar }}">
-                        <label for="floatingSelect">Tanggal Seminar</label>
+                        <label for="#">Tanggal Seminar</label>
                         @error('tanggal_seminar')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -33,7 +32,7 @@
 
                     <div class="form-floating mb-3">
                         <input type="time" name="jam" class="form-control" value="{{ $kompre->jam }}">
-                        <label for="floatingSelect">Jam</label>
+                        <label for="#">Jam</label>
                         @error('jam')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -41,7 +40,7 @@
 
                     <div class="form-floating mb-3">
                         <input type="text" name="ruang" class="form-control" value="{{ $kompre->ruang }}">
-                        <label for="floatingSelect">Ruang</label>
+                        <label for="#">Ruang</label>
                         @error('ruang')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -53,10 +52,15 @@
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji1_id', $kompre->penguji1_id) == $dosen->id)
                                     <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
-                                @elseif($kompre->judul->pembimbing1_id == $dosen->id || $kompre->judul->pembimbing2_id == $dosen->id)
+                                @elseif($kompre->judul->pembimbing1_id == $dosen->id)
                                     <option style="background-color: #7f8fa6" class="text-white"
                                         value="{{ $dosen->id }}" disabled>
-                                        {{ $dosen->name }} (pembimbing)
+                                        {{ $dosen->name }} (pembimbing 1)
+                                    </option>
+                                @elseif($kompre->judul->pembimbing2_id == $dosen->id)
+                                    <option style="background-color: #7f8fa6" class="text-white"
+                                        value="{{ $dosen->id }}" disabled>
+                                        {{ $dosen->name }} (pembimbing 2)
                                     </option>
                                 @else
                                     <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
@@ -75,10 +79,15 @@
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji2_id', $kompre->penguji2_id) == $dosen->id)
                                     <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
-                                @elseif($kompre->judul->pembimbing1_id == $dosen->id || $kompre->judul->pembimbing2_id == $dosen->id)
+                                @elseif($kompre->judul->pembimbing1_id == $dosen->id)
                                     <option style="background-color: #7f8fa6" class="text-white"
                                         value="{{ $dosen->id }}" disabled>
-                                        {{ $dosen->name }} (pembimbing)
+                                        {{ $dosen->name }} (pembimbing 1)
+                                    </option>
+                                @elseif($kompre->judul->pembimbing2_id == $dosen->id)
+                                    <option style="background-color: #7f8fa6" class="text-white"
+                                        value="{{ $dosen->id }}" disabled>
+                                        {{ $dosen->name }} (pembimbing 2)
                                     </option>
                                 @else
                                     <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
@@ -97,10 +106,15 @@
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji3_id', $kompre->penguji3_id) == $dosen->id)
                                     <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
-                                @elseif($kompre->judul->pembimbing1_id == $dosen->id || $kompre->judul->pembimbing2_id == $dosen->id)
+                                @elseif($kompre->judul->pembimbing1_id == $dosen->id)
                                     <option style="background-color: #7f8fa6" class="text-white"
                                         value="{{ $dosen->id }}" disabled>
-                                        {{ $dosen->name }} (pembimbing)
+                                        {{ $dosen->name }} (pembimbing 1)
+                                    </option>
+                                @elseif($kompre->judul->pembimbing2_id == $dosen->id)
+                                    <option style="background-color: #7f8fa6" class="text-white"
+                                        value="{{ $dosen->id }}" disabled>
+                                        {{ $dosen->name }} (pembimbing 2)
                                     </option>
                                 @else
                                     <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>

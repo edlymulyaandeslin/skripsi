@@ -20,17 +20,42 @@ class JudulController extends Controller
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
+        // jika dia admin atau koordinator tampilkan semua judul
+        if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
+            return view('judul.index', [
+                'title' => 'E - Skripsi | Judul',
+                'listjudul' => Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])->whereIn('status', ['diajukan', 'diterima'])->latest()->get(),
+            ]);
+        }
+
+        // jika dia dosen tampilkan berdasarkan dia sebagai pembimbing
+        if (auth()->user()->role_id == 3) {
+            $listjudul = Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])->where(function ($query) {
+                $query->orWhere('pembimbing1_id', auth()->user()->id)
+                    ->orWhere('pembimbing2_id', auth()->user()->id);
+            })->get();
+
+            return view('judul.index', [
+                'title' => 'E - Skripsi | Judul',
+                'listjudul' => $listjudul,
+            ]);
+        }
+
+        // jika dia mahasiswa tampilkan judul yang dimiliki mahasiswa tersebut mahasiswa
         return view('judul.index', [
             'title' => 'E - Skripsi | Judul',
-            'listjudul' => Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])->latest()->get(),
+            'listjudul' => Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])->where('mahasiswa_id', auth()->user()->id)->latest()->get(),
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Judul $judul)
     {
+        // akses mahasiswa
+        $this->authorize('create', $judul);
+
         return view('judul.create', [
             'title' => 'Judul | Create'
         ]);
@@ -41,6 +66,9 @@ class JudulController extends Controller
      */
     public function store(Request $request)
     {
+        // akses mahasiswa
+        $this->authorize('create', Judul::class);
+
         $validateData = $request->validate([
             'judul' => 'required',
             'latar_belakang' => 'required'
@@ -58,9 +86,9 @@ class JudulController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Judul $judul)
     {
-        $judul = Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])->find($id);
+        $judul = $judul->load(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook']);
 
         return response()->json($judul);
     }
@@ -68,11 +96,14 @@ class JudulController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Judul $judul)
     {
+        // akses koordinator
+        $this->authorize('update', $judul);
+
         return view('judul.edit', [
             'title' => 'Judul | Edit',
-            'judul' => Judul::with(['mahasiswa',  'pembimbing1', 'pembimbing2'])->find($id),
+            'judul' => $judul->load(['mahasiswa',  'pembimbing1', 'pembimbing2']),
             'dosens' => User::where('role_id', 3)->get(),
             'alljudul' => Judul::all()
         ]);
@@ -81,9 +112,10 @@ class JudulController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Judul $judul)
     {
-        $judul = Judul::find($id);
+        // akses koordinator
+        $this->authorize('update', $judul);
 
         $mahasiswaId = $judul->mahasiswa_id;
 
@@ -114,9 +146,10 @@ class JudulController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Judul $judul)
     {
-        $judul = Judul::find($id);
+        // akses mahasiswa
+        $this->authorize('delete', $judul);
 
         $logbook = $judul->logbook;
 
@@ -133,7 +166,6 @@ class JudulController extends Controller
                 Storage::delete($sempro->pembayaran);
             }
         }
-
 
         $judul->delete();
 

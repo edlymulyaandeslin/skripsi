@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\TeamPembimbing;
+use App\Models\NilaiKompre;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class TeamPembimbingPolicy
+class NilaiKomprePolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class TeamPembimbingPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, TeamPembimbing $teamPembimbing): bool
+    public function view(User $user, NilaiKompre $nilaiKompre): bool
     {
         //
     }
@@ -35,7 +35,7 @@ class TeamPembimbingPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, TeamPembimbing $teamPembimbing): bool
+    public function update(User $user, NilaiKompre $nilaiKompre): bool
     {
         //
     }
@@ -43,7 +43,7 @@ class TeamPembimbingPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, TeamPembimbing $teamPembimbing): bool
+    public function delete(User $user, NilaiKompre $nilaiKompre): bool
     {
         //
     }
@@ -51,7 +51,7 @@ class TeamPembimbingPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, TeamPembimbing $teamPembimbing): bool
+    public function restore(User $user, NilaiKompre $nilaiKompre): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class TeamPembimbingPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, TeamPembimbing $teamPembimbing): bool
+    public function forceDelete(User $user, NilaiKompre $nilaiKompre): bool
     {
         //
     }

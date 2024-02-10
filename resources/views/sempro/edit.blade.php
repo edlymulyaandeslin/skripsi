@@ -52,10 +52,15 @@
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji1_id', $sempro->penguji1_id) == $dosen->id)
                                     <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
-                                @elseif($sempro->judul->pembimbing1_id == $dosen->id || $sempro->judul->pembimbing2_id == $dosen->id)
+                                @elseif($sempro->judul->pembimbing1_id == $dosen->id)
                                     <option style="background-color: #7f8fa6" class="text-white"
                                         value="{{ $dosen->id }}" disabled>
-                                        {{ $dosen->name }} (pembimbing)
+                                        {{ $dosen->name }} (pembimbing 1)
+                                    </option>
+                                @elseif($sempro->judul->pembimbing2_id == $dosen->id)
+                                    <option style="background-color: #7f8fa6" class="text-white"
+                                        value="{{ $dosen->id }}" disabled>
+                                        {{ $dosen->name }} (pembimbing 2)
                                     </option>
                                 @else
                                     <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
@@ -74,10 +79,15 @@
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji2_id', $sempro->penguji2_id) == $dosen->id)
                                     <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
-                                @elseif($sempro->judul->pembimbing1_id == $dosen->id || $sempro->judul->pembimbing2_id == $dosen->id)
+                                @elseif($sempro->judul->pembimbing1_id == $dosen->id)
                                     <option style="background-color: #7f8fa6" class="text-white"
                                         value="{{ $dosen->id }}" disabled>
-                                        {{ $dosen->name }} (pembimbing)
+                                        {{ $dosen->name }} (pembimbing 1)
+                                    </option>
+                                @elseif($sempro->judul->pembimbing2_id == $dosen->id)
+                                    <option style="background-color: #7f8fa6" class="text-white"
+                                        value="{{ $dosen->id }}" disabled>
+                                        {{ $dosen->name }} (pembimbing 2)
                                     </option>
                                 @else
                                     <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
@@ -96,10 +106,15 @@
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji3_id', $sempro->penguji3_id) == $dosen->id)
                                     <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
-                                @elseif($sempro->judul->pembimbing1_id == $dosen->id || $sempro->judul->pembimbing2_id == $dosen->id)
+                                @elseif($sempro->judul->pembimbing1_id == $dosen->id)
                                     <option style="background-color: #7f8fa6" class="text-white"
                                         value="{{ $dosen->id }}" disabled>
-                                        {{ $dosen->name }} (pembimbing)
+                                        {{ $dosen->name }} (pembimbing 1)
+                                    </option>
+                                @elseif($sempro->judul->pembimbing2_id == $dosen->id)
+                                    <option style="background-color: #7f8fa6" class="text-white"
+                                        value="{{ $dosen->id }}" disabled>
+                                        {{ $dosen->name }} (pembimbing 2)
                                     </option>
                                 @else
                                     <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>

@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\TeamPenguji;
+use App\Models\Kompre;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class TeamPengujiPolicy
+class KomprePolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class TeamPengujiPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, TeamPenguji $teamPenguji): bool
+    public function view(User $user, Kompre $kompre): bool
     {
         //
     }
@@ -35,7 +35,7 @@ class TeamPengujiPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, TeamPenguji $teamPenguji): bool
+    public function update(User $user, Kompre $kompre): bool
     {
         //
     }
@@ -43,7 +43,7 @@ class TeamPengujiPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, TeamPenguji $teamPenguji): bool
+    public function delete(User $user, Kompre $kompre): bool
     {
         //
     }
@@ -51,7 +51,7 @@ class TeamPengujiPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, TeamPenguji $teamPenguji): bool
+    public function restore(User $user, Kompre $kompre): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class TeamPengujiPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, TeamPenguji $teamPenguji): bool
+    public function forceDelete(User $user, Kompre $kompre): bool
     {
         //
     }

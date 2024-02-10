@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Dokumen;
+use App\Models\Judul;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class DokumenPolicy
+class JudulPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class DokumenPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Dokumen $dokumen): bool
+    public function view(User $user, Judul $judul): bool
     {
         //
     }
@@ -29,29 +29,29 @@ class DokumenPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->role_id === 4;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Dokumen $dokumen): bool
+    public function update(User $user, Judul $judul): bool
     {
-        //
+        return $user->role_id === 2;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Dokumen $dokumen): bool
+    public function delete(User $user, Judul $judul): bool
     {
-        //
+        return $user->id === $judul->mahasiswa_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Dokumen $dokumen): bool
+    public function restore(User $user, Judul $judul): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class DokumenPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Dokumen $dokumen): bool
+    public function forceDelete(User $user, Judul $judul): bool
     {
         //
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Judul;
 use App\Models\Logbook;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -15,14 +16,43 @@ class LogbookController extends Controller
      */
     public function index()
     {
+        // akses != koordinator
+        $this->authorize('viewAny', Logbook::class);
+
         // confirm delete judul
         $title = 'Delete Logbook!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
+        if (auth()->user()->role_id == 1) {
+            $logbooks = Logbook::with(['judul', 'judul.mahasiswa'])->latest()->get();
+            return view('logbook.index', [
+                'title' => 'E - Skripsi | Logbook',
+                'logbooks' => $logbooks
+            ]);
+        }
+
+        if (auth()->user()->role_id == 3) {
+            $logbooks = Logbook::with(['judul', 'judul.mahasiswa'])
+                ->whereHas('judul', function ($query) {
+                    $query->where('pembimbing1_id', auth()->user()->id)
+                        ->orWhere('pembimbing2_id', auth()->user()->id);
+                })->latest()->get();
+
+            return view('logbook.index', [
+                'title' => 'E - Skripsi | Logbook',
+                'logbooks' => $logbooks
+            ]);
+        }
+
+        $logbooks = Logbook::with(['judul', 'judul.mahasiswa'])
+            ->whereHas('judul', function ($query) {
+                $query->where('mahasiswa_id', auth()->user()->id);
+            })->latest()->get();
+
         return view('logbook.index', [
             'title' => 'E - Skripsi | Logbook',
-            'logbooks' => Logbook::with(['judul', 'judul.mahasiswa'])->latest()->get()
+            'logbooks' => $logbooks
         ]);
     }
 
@@ -31,6 +61,9 @@ class LogbookController extends Controller
      */
     public function create()
     {
+        // akses mahasiswa
+        $this->authorize('create', Logbook::class);
+
         return view('logbook.create', [
             'title' => 'Logbook | Create',
             'juduls' => Judul::with('mahasiswa')->where('status', 'diterima')->where('mahasiswa_id', auth()->user()->id)->latest()->get()
@@ -42,6 +75,9 @@ class LogbookController extends Controller
      */
     public function store(Request $request)
     {
+        // akses mahasiswa
+        $this->authorize('create', Logbook::class);
+
         $validateData = $request->validate([
             'judul_id' => 'required',
             'target_bimbingan' => 'required',
@@ -62,9 +98,9 @@ class LogbookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Logbook $logbook)
     {
-        $logbooks = Logbook::with(['judul', 'judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2'])->find($id);
+        $logbooks = $logbook->load(['judul', 'judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2']);
 
         return response()->json($logbooks);
     }
@@ -72,11 +108,14 @@ class LogbookController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Logbook $logbook)
     {
+        // akses pembimbing
+        $this->authorize('update', $logbook);
+
         return view('logbook.edit', [
             'title' => 'Logbook | Edit',
-            'logbook' => Logbook::find($id),
+            'logbook' => $logbook->load('judul'),
             'juduls' => Judul::where('status', 'diterima')->latest()->get()
         ]);
     }
@@ -84,8 +123,11 @@ class LogbookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Logbook $logbook)
     {
+        // akses pembimbing
+        $this->authorize('update', $logbook);
+
         $rules = [
             'status' => 'required',
         ];
@@ -96,7 +138,7 @@ class LogbookController extends Controller
 
         $validateData = $request->validate($rules);
 
-        Logbook::where('id', $id)->update($validateData);
+        $logbook->update($validateData);
 
         Alert::success('success!', 'Logbook has been updated');
 
@@ -106,15 +148,16 @@ class LogbookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Logbook $logbook)
     {
-        $logbook = Logbook::find($id);
+        // akses mahasiswa
+        $this->authorize('delete', $logbook);
 
         if ($logbook->file_proposal) {
             Storage::delete($logbook->file_proposal);
         }
 
-        $logbook->destroy($id);
+        $logbook->delete();
 
         Alert::success('success!', 'Logbook has been deleted');
 

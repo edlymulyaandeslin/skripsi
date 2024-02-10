@@ -53,22 +53,22 @@ class KoordinatorController extends Controller
         return redirect('/manajemen/koordinator');
     }
 
-    public function show($id)
+    public function show(User $user)
     {
-        $koordinator = User::with(['judul', 'judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro', 'judul.kompre'])->find($id);
+        $koordinator = $user->load(['judul', 'judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro', 'judul.kompre']);
 
         return response()->json($koordinator);
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
         return view('manajemen.koordinator.edit', [
             'title' => 'koordinator | Edit',
-            'koordinator' => User::find($id)
+            'koordinator' => $user
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         $rules = [
             'name' => 'required|max:255',
@@ -77,7 +77,7 @@ class KoordinatorController extends Controller
         $customMessage = [];
 
         if ($request->filled('nim_or_nidn')) {
-            $rules['nim_or_nidn'] = ['min:5', 'max:8',  Rule::unique('users', 'nim_or_nidn')->ignore($id)];
+            $rules['nim_or_nidn'] = ['min:5', 'max:8',  Rule::unique('users', 'nim_or_nidn')->ignore($user)];
             $customMessage['nim_or_nidn.unique'] = 'The nidn has already been taken.';
             $customMessage['nim_or_nidn.min'] = 'The nidn field min 5.';
             $customMessage['nim_or_nidn.max'] = 'The nidn field max 8.';
@@ -93,15 +93,15 @@ class KoordinatorController extends Controller
             $validateData['password'] = bcrypt($validateData['password']);
         }
 
-        User::where('id', $id)->update($validateData);
+        $user->update($validateData);
 
         Alert::success('Success!', 'koordinator has successfully updated');
 
         return redirect('/manajemen/koordinator');
     }
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        User::destroy($id);
+        $user->delete();
 
         Alert::success('Success!', 'koordinator has successfully deleted');
 

@@ -32,7 +32,6 @@ class KompreController extends Controller
      */
     public function create()
     {
-
         // find data kompre berdasarkan id mahasiswa yg login dan statusnya != ditolak
         $kompre = Kompre::with(['judul'])
             ->whereHas('judul', function ($query) {
@@ -56,7 +55,6 @@ class KompreController extends Controller
             ->get();
 
         $dokumen = auth()->user()->dokumen;
-
 
         return view('kompre.create', [
             'title' => 'Kompre | Create',
@@ -94,9 +92,9 @@ class KompreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Kompre $kompre)
     {
-        $kompre = Kompre::with(['judul', 'judul.mahasiswa.dokumen'])->find($id);
+        $kompre = $kompre->load(['judul', 'judul.mahasiswa.dokumen', 'penguji1', 'penguji2', 'penguji3']);
 
         return response()->json($kompre);
     }
@@ -104,11 +102,11 @@ class KompreController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Kompre $kompre)
     {
         return view('kompre.edit', [
             'title' => 'Kompre | Edit',
-            'kompre' => Kompre::with('judul')->find($id),
+            'kompre' => $kompre->load('judul'),
             'dosens' => User::where('role_id', 3)->latest()->get()
         ]);
     }
@@ -116,7 +114,7 @@ class KompreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Kompre $kompre)
     {
         $rules = [];
 
@@ -161,7 +159,11 @@ class KompreController extends Controller
             $validateData['pembayaran'] = $request->file('pembayaran')->storeAs('post-pembayaran', $pembayaran);
         }
 
-        Kompre::where('id', $id)->update($validateData);
+        $kompre->update($validateData);
+
+        if ($kompre->status != 'perbaikan') {
+            $kompre->update(['notes' => null]);
+        }
 
         Alert::success('Success!', 'Komprehensif has been updated!');
 
@@ -171,15 +173,14 @@ class KompreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Kompre $kompre)
     {
-        $kompre = Kompre::find($id);
 
         if ($kompre->pembayaran) {
             Storage::delete($kompre->pembayaran);
         }
 
-        $kompre->destroy($id);
+        $kompre->delete();
 
         Alert::success('Success!', 'Komprehensif has been deleted!');
 

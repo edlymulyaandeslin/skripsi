@@ -49,7 +49,7 @@ Route::resource('/nilai/kompre', NilaiKompreController::class)->names([
     'show' => 'nilai.kompre.show',
     'store' => 'nilai.kompre.store',
     'update' => 'nilai.kompre.update',
-])->middleware('auth');
+])->except(['create', 'destroy'])->middleware('auth');
 
 // route manajemen users
 Route::middleware('auth')->prefix('manajemen')->group(function () {
@@ -63,9 +63,9 @@ Route::middleware('auth')->prefix('manajemen')->group(function () {
     Route::resource('/dosen', DosenController::class);
 
     // route profile update
-    Route::get('/profile/{id}', [ProfileUpdate::class, 'index'])->middleware('auth');
-    Route::get('/profile/{id}/edit', [ProfileUpdate::class, 'edit'])->middleware('auth');
-    Route::patch('/profile/{id}', [ProfileUpdate::class, 'update'])->middleware('auth');
+    Route::get('/profile/{user}', [ProfileUpdate::class, 'index'])->middleware('auth');
+    Route::get('/profile/{user}/edit', [ProfileUpdate::class, 'edit'])->middleware('auth');
+    Route::patch('/profile/{user}', [ProfileUpdate::class, 'update'])->middleware('auth');
 
     Route::resource('/dokumen', DokumenController::class)->names([
         'destroy' => 'dokumen.reset'

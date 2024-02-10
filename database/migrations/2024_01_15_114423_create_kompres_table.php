@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('penguji2_id')->default(0);
             $table->foreignId('penguji3_id')->default(0);
             $table->text('notes')->nullable();
-            $table->enum('status', ['diajukan', 'diterima', 'lulus', 'tidak lulus', 'perbaikan'])->default('diajukan');
+            $table->enum('status', ['diajukan', 'diterima', 'lulus', 'tidak lulus', 'perbaikan', 'penilaian'])->default('diajukan');
             $table->string('pembayaran')->nullable();
             $table->timestamps();
         });

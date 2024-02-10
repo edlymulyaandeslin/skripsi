@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
-            <h3>Mahasiswa Seminar Proposal</h3>
+            <h3>Mahasiswa Seminar Komprehensif</h3>
 
             <div class="d-flex justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
@@ -70,8 +70,8 @@
                                                 </li>
 
                                                 <li>
-                                                    <a href="/kompre/{{ $kompre->id }}" class="dropdown-item"
-                                                        data-confirm-delete="true"><i
+                                                    <a href="{{ route('kompre.destroy', $kompre->id) }}"
+                                                        class="dropdown-item" data-confirm-delete="true"><i
                                                             class="bi bi-trash-fill text-danger"></i> Delete</a>
                                                 </li>
 
@@ -91,7 +91,7 @@
     </div>
 
     <!-- Modal show -->
-    <div class="modal fade" id="kompreView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="semproView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
@@ -201,7 +201,7 @@
 
                 let judulUrl = $(this).data('url');
                 $.get(judulUrl, function(data) {
-                    $('#kompreView').modal('show');
+                    $('#semproView').modal('show');
 
                     console.log(data)
                     $('#mahasiswa').val(data.judul.mahasiswa.name);

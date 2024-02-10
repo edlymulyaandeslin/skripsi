@@ -16,8 +16,6 @@ class DokumenController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-
-
     {
         // confirm delete judul
         $title = 'Reset Dokumen!';
@@ -132,9 +130,7 @@ class DokumenController extends Controller
      */
     public function destroy($id)
     {
-
         $dokumen = Dokumen::find($id);
-
         if ($dokumen->krs) {
             Storage::delete($dokumen->krs);
         }

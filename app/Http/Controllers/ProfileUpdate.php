@@ -9,24 +9,25 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileUpdate extends Controller
 {
-    public function index($id)
+    public function index(User $user)
     {
         return view('manajemen.profile.index', [
             'title' => 'E - Skripsi | Profile',
-            'user' => User::find($id)
+            'user' => $user
         ]);
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
         return view('manajemen.profile.edit', [
             'title' => 'Profile | Edit',
-            'user' => User::find($id)
+            'user' => $user
         ]);
     }
 
-    public function update($id, Request $request)
+    public function update(Request $request, User $user)
     {
+
         $rules = [
             'name' => 'required|max:50',
             'foto_profil' => 'image|file|max:1024',
@@ -38,7 +39,7 @@ class ProfileUpdate extends Controller
             $rules['jenis_kelamin'] = 'required';
         }
         if ($request->filled('email')) {
-            $rules['email'] = 'required|email|unique:users,email,' . $id;
+            $rules['email'] = 'required|email|unique:users,email,' . $user->id;
         }
         if ($request->filled('no_hp')) {
             $rules['no_hp'] = ['numeric', 'regex:/^\d{10,13}$/'];
@@ -73,10 +74,10 @@ class ProfileUpdate extends Controller
             $validateData['foto_profil'] = $request->file('foto_profil')->store('post-profil');
         }
 
-        User::where('id', $id)->update($validateData);
+        $user->update($validateData);
 
         Alert::success('Success', 'Profile has been updated');
 
-        return redirect('/manajemen/profile/' . $id);
+        return redirect('/manajemen/profile/' . $user->id);
     }
 }
