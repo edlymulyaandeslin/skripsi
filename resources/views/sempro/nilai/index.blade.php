@@ -52,28 +52,38 @@
                                     </td>
 
                                     <td>
-                                        <div>
-                                            <button type="button" class="btn btn-sm btn-outline-dark"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-list"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="javascript:void(0)" id="show-nilaisempro"
-                                                        data-url="{{ route('nilai.sempro.show', $sempro->id) }}}}"
-                                                        class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                        Show</a>
-                                                </li>
 
-                                                <li>
-                                                    <a class="dropdown-item" href="/nilai/sempro/{{ $sempro->id }}/edit">
-                                                        <i class="bi bi-pencil-square text-warning"></i>
-                                                        Update
-                                                    </a>
-                                                </li>
+                                        @can('dosen')
+                                            <div>
+                                                <button type="button" class="btn btn-sm btn-outline-dark"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bi bi-list"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="javascript:void(0)" id="show-nilaisempro"
+                                                            data-url="{{ route('nilai.sempro.show', $sempro->id) }}}}"
+                                                            class="dropdown-item"><i class="bi bi-search text-info"></i>
+                                                            Show</a>
+                                                    </li>
 
-                                            </ul>
-                                        </div>
+                                                    <li>
+                                                        <a class="dropdown-item" href="/nilai/sempro/{{ $sempro->id }}/edit">
+                                                            <i class="bi bi-pencil-square text-warning"></i>
+                                                            Update
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        @endcan
+
+                                        @cannot('dosen')
+                                            <a href="javascript:void(0)" id="show-nilaisempro"
+                                                data-url="{{ route('nilai.sempro.show', $sempro->id) }}}}"
+                                                class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
+                                            </a>
+                                        @endcannot
                                     </td>
                                 </tr>
                             @endforeach

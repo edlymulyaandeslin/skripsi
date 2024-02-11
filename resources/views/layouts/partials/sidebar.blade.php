@@ -19,6 +19,10 @@
             <div class="ms-3">
                 <h6 class="mb-0">{{ auth()->user()->name }}</h6>
                 <span>{{ auth()->user()->role->name }}</span>
+                <br>
+                @cannot('admin')
+                    <span>{{ auth()->user()->role_id === 4 ? 'NIM. ' : 'NIDN. ' }}{{ auth()->user()->nim_or_nidn }}</span>
+                @endcannot
             </div>
         </div>
 
@@ -30,20 +34,27 @@
                 class="nav-item nav-link {{ Request::is('judul*') ? 'active' : '' }} "><i
                     class="fa fa-book me-2"></i>Judul</a>
 
-            <a href="/logbook" class="nav-item nav-link {{ Request::is('logbook*') ? 'active' : '' }}"><i
-                    class="fa fa-book-open me-2"></i>Logbook</a>
+            @cannot('koordinator')
+                <a href="/logbook" class="nav-item nav-link {{ Request::is('logbook*') ? 'active' : '' }}"><i
+                        class="fa fa-book-open me-2"></i>Logbook</a>
+            @endcannot
 
             <div class="nav-item dropdown">
                 <a href="#"
                     class="nav-link dropdown-toggle {{ Request::is('sempro*') || Request::is('nilai/sempro*') ? 'active' : '' }}"
                     data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Sempro</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="/sempro/create"
-                        class="nav-item nav-link {{ Request::is('sempro/create') ? 'active' : '' }}">Daftar
-                        Sempro</a>
+
+                    @can('mahasiswa')
+                        <a href="/sempro/create"
+                            class="nav-item nav-link {{ Request::is('sempro/create') ? 'active' : '' }}">Daftar
+                            Sempro</a>
+                    @endcan
+
                     <a href="/sempro"
                         class="nav-item nav-link {{ Request::is('sempro*') && !Request::is('sempro/create') ? 'active' : '' }}">Mahasiswa
                         Sempro</a>
+
                     <a href="/nilai/sempro"
                         class="nav-item nav-link {{ Request::is('nilai/sempro*') ? 'active' : '' }}">Penilaian
                         Sempro</a>
@@ -55,12 +66,17 @@
                     class="nav-link dropdown-toggle {{ Request::is('kompre*') || Request::is('nilai/kompre*') ? 'active' : '' }}"
                     data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Kompre</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="/kompre/create"
-                        class="nav-item nav-link {{ Request::is('kompre/create') ? 'active' : '' }}">Daftar
-                        Kompre</a>
+
+                    @can('mahasiswa')
+                        <a href="/kompre/create"
+                            class="nav-item nav-link {{ Request::is('kompre/create') ? 'active' : '' }}">Daftar
+                            Kompre</a>
+                    @endcan
+
                     <a href="/kompre"
                         class="nav-item nav-link {{ Request::is('kompre*') && !Request::is('kompre/create') ? 'active' : '' }}">Mahasiswa
                         Kompre</a>
+
                     <a href="/nilai/kompre"
                         class="nav-item nav-link {{ Request::is('nilai/kompre*') ? 'active' : '' }}">Penilaian
                         Kompre</a>

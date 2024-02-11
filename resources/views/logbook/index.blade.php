@@ -12,8 +12,10 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
-                <a href="{{ route('logbook.create') }}" class="btn btn-sm btn-primary">Isi Logbook <i
-                        class="fa fa-plus"></i></a>
+                @can('mahasiswa')
+                    <a href="{{ route('logbook.create') }}" class="btn btn-sm btn-primary">Isi Logbook <i
+                            class="fa fa-plus"></i></a>
+                @endcan
             </div>
 
             <div class="table-responsive">
@@ -49,38 +51,52 @@
                                         </p>
                                     </td>
                                     <td>
-                                        <div>
-                                            <button type="button" class="btn btn-sm btn-outline-dark"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-list"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="javascript:void(0)" id="show-logbook"
-                                                        data-url="{{ route('logbook.show', $logbook->id) }}"
-                                                        class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                        Show</a>
-                                                </li>
+                                        @cannot('admin')
+                                            <div>
+                                                <button type="button" class="btn btn-sm btn-outline-dark"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bi bi-list"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="javascript:void(0)" id="show-logbook"
+                                                            data-url="{{ route('logbook.show', $logbook->id) }}"
+                                                            class="dropdown-item"><i class="bi bi-search text-info"></i>
+                                                            Show</a>
+                                                    </li>
 
-                                                <li>
-                                                    <a class="dropdown-item" href="/logbook/{{ $logbook->id }}/edit">
-                                                        <i class="bi bi-pencil-square text-warning"></i>
-                                                        Update
-                                                    </a>
-                                                </li>
+                                                    @can('dosen')
+                                                        <li>
+                                                            <a class="dropdown-item" href="/logbook/{{ $logbook->id }}/edit">
+                                                                <i class="bi bi-pencil-square text-warning"></i>
+                                                                Update
+                                                            </a>
+                                                        </li>
+                                                    @endcan
 
-                                                <li>
-                                                    <hr class="dropdown-divider">
-                                                </li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
 
-                                                <li>
-                                                    <a href="{{ route('logbook.destroy', $logbook->id) }}"
-                                                        class="dropdown-item" data-confirm-delete="true"><i
-                                                            class="bi bi-trash-fill text-danger"></i> Delete</a>
-                                                </li>
+                                                    @can('mahasiswa')
+                                                        <li>
+                                                            <a href="{{ route('logbook.destroy', $logbook->id) }}"
+                                                                class="dropdown-item" data-confirm-delete="true"><i
+                                                                    class="bi bi-trash-fill text-danger"></i> Delete</a>
+                                                        </li>
+                                                    @endcan
 
-                                            </ul>
-                                        </div>
+                                                </ul>
+                                            </div>
+                                        @endcannot
+
+                                        @can('admin')
+                                            <a href="javascript:void(0)" id="show-logbook"
+                                                data-url="{{ route('logbook.show', $logbook->id) }}"
+                                                class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
+                                            </a>
+                                        @endcan
+
                                     </td>
                                 </tr>
                             @endforeach

@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
-            <h3>Mahasiswa Seminar Komprehensif</h3>
+            <h3>Seminar Komprehensif</h3>
 
             <div class="d-flex justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
@@ -45,38 +45,51 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <div>
-                                            <button type="button" class="btn btn-sm btn-outline-dark"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-list"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="javascript:void(0)" id="show-kompre"
-                                                        data-url="/kompre/{{ $kompre->id }}" class="dropdown-item"><i
-                                                            class="bi bi-search text-info"></i>
-                                                        Show</a>
-                                                </li>
+                                        @unless (auth()->user()->can('admin') || auth()->user()->can('dosen'))
+                                            <div>
+                                                <button type="button" class="btn btn-sm btn-outline-dark"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bi bi-list"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="javascript:void(0)" id="show-kompre"
+                                                            data-url="/kompre/{{ $kompre->id }}" class="dropdown-item"><i
+                                                                class="bi bi-search text-info"></i>
+                                                            Show</a>
+                                                    </li>
 
-                                                <li>
-                                                    <a class="dropdown-item" href="/kompre/{{ $kompre->id }}/edit">
-                                                        <i class="bi bi-pencil-square text-warning"></i>
-                                                        Update
-                                                    </a>
-                                                </li>
+                                                    @can('koordinator')
+                                                        <li>
+                                                            <a class="dropdown-item" href="/kompre/{{ $kompre->id }}/edit">
+                                                                <i class="bi bi-pencil-square text-warning"></i>
+                                                                Update
+                                                            </a>
+                                                        </li>
+                                                    @endcan
 
-                                                <li>
-                                                    <hr class="dropdown-divider">
-                                                </li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
 
-                                                <li>
-                                                    <a href="{{ route('kompre.destroy', $kompre->id) }}"
-                                                        class="dropdown-item" data-confirm-delete="true"><i
-                                                            class="bi bi-trash-fill text-danger"></i> Delete</a>
-                                                </li>
+                                                    @can('mahasiswa')
+                                                        <li>
+                                                            <a href="{{ route('kompre.destroy', $kompre->id) }}"class="dropdown-item"
+                                                                data-confirm-delete="true"><i
+                                                                    class="bi bi-trash-fill text-danger"></i> Delete</a>
+                                                        </li>
+                                                    @endcan
+                                                </ul>
+                                            </div>
+                                        @endunless
 
-                                            </ul>
-                                        </div>
+                                        @unless (auth()->user()->can('mahasiswa') || auth()->user()->can('koordinator'))
+                                            <a href="javascript:void(0)" id="show-kompre"
+                                                data-url="/kompre/{{ $kompre->id }}"
+                                                class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
+                                            </a>
+                                        @endunless
+
                                     </td>
                                 </tr>
                             @endforeach

@@ -11,8 +11,10 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
-                <a href="{{ route('judul.create') }}" class="btn btn-sm btn-primary">Ajukan Judul <i
-                        class="fa fa-plus"></i></a>
+                @can('mahasiswa')
+                    <a href="{{ route('judul.create') }}" class="btn btn-sm btn-primary">Ajukan Judul <i
+                            class="fa fa-plus"></i></a>
+                @endcan
             </div>
 
             <div class="table-responsive">
@@ -44,38 +46,52 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <div>
-                                            <button type="button" class="btn btn-sm btn-outline-dark"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-list"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="javascript:void(0)" id="show-judul"
-                                                        data-url="{{ route('judul.show', $judul->id) }}"
-                                                        class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                        Show</a>
-                                                </li>
+                                        @unless (auth()->user()->can('admin') || auth()->user()->can('dosen'))
+                                            <div>
+                                                <button type="button" class="btn btn-sm btn-outline-dark"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bi bi-list"></i>
+                                                </button>
 
-                                                <li>
-                                                    <a class="dropdown-item" href="/judul/{{ $judul->id }}/edit">
-                                                        <i class="bi bi-pencil-square text-warning"></i>
-                                                        Update
-                                                    </a>
-                                                </li>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="javascript:void(0)" id="show-judul"
+                                                            data-url="{{ route('judul.show', $judul->id) }}"
+                                                            class="dropdown-item"><i class="bi bi-search text-info"></i>
+                                                            Show</a>
+                                                    </li>
 
-                                                <li>
-                                                    <hr class="dropdown-divider">
-                                                </li>
+                                                    @can('koordinator')
+                                                        <li>
+                                                            <a class="dropdown-item" href="/judul/{{ $judul->id }}/edit">
+                                                                <i class="bi bi-pencil-square text-warning"></i>
+                                                                Update
+                                                            </a>
+                                                        </li>
+                                                    @endcan
 
-                                                <li>
-                                                    <a href="{{ route('judul.destroy', $judul->id) }}"
-                                                        class="dropdown-item" data-confirm-delete="true"><i
-                                                            class="bi bi-trash-fill text-danger"></i> Delete</a>
-                                                </li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
 
-                                            </ul>
-                                        </div>
+                                                    @can('mahasiswa')
+                                                        <li>
+                                                            <a href="{{ route('judul.destroy', $judul->id) }}"
+                                                                class="dropdown-item" data-confirm-delete="true"><i
+                                                                    class="bi bi-trash-fill text-danger"></i> Delete</a>
+                                                        </li>
+                                                    @endcan
+
+                                                </ul>
+                                            </div>
+                                        @endunless
+
+                                        @unless (auth()->user()->can('mahasiswa') || auth()->user()->can('koordinator'))
+                                            <a href="javascript:void(0)" id="show-judul"
+                                                data-url="{{ route('judul.show', $judul->id) }}"
+                                                class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
+                                            </a>
+                                        @endunless
                                     </td>
                                 </tr>
                             @endforeach

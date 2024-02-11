@@ -26,16 +26,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// dashboard
 Route::get('/', function () {
     return view('dashboard', [
         'title' => 'E - Skripsi'
     ]);
 })->middleware('auth');
 
+// fitur judul
 Route::resource('/judul', JudulController::class)->middleware('auth');
 
+// fitur logbook
 Route::resource('/logbook', LogbookController::class)->middleware('auth');
 
+// fitur sempro dan penilaian
 Route::resource('/sempro', SemproController::class)->middleware('auth');
 Route::resource('/nilai/sempro', NilaiSemproController::class)->names([
     'show' => 'nilai.sempro.show',
@@ -43,7 +47,7 @@ Route::resource('/nilai/sempro', NilaiSemproController::class)->names([
     'update' => 'nilai.sempro.update',
 ])->except(['create', 'destroy'])->middleware('auth');
 
-
+// fitur kompre dan penilaian
 Route::resource('/kompre', KompreController::class)->middleware('auth');
 Route::resource('/nilai/kompre', NilaiKompreController::class)->names([
     'show' => 'nilai.kompre.show',
@@ -54,22 +58,22 @@ Route::resource('/nilai/kompre', NilaiKompreController::class)->names([
 // route manajemen users
 Route::middleware('auth')->prefix('manajemen')->group(function () {
     // route manajemen mahasiswa
-    Route::resource('/mahasiswa', MahasiswaController::class);
+    Route::resource('/mahasiswa', MahasiswaController::class)->middleware('admin');
 
     // route manajemen koordinator
-    Route::resource('/koordinator', KoordinatorController::class);
+    Route::resource('/koordinator', KoordinatorController::class)->middleware('admin');
 
     // route manajemen dosen
-    Route::resource('/dosen', DosenController::class);
+    Route::resource('/dosen', DosenController::class)->middleware('admin');
 
     // route profile update
-    Route::get('/profile/{user}', [ProfileUpdate::class, 'index'])->middleware('auth');
-    Route::get('/profile/{user}/edit', [ProfileUpdate::class, 'edit'])->middleware('auth');
-    Route::patch('/profile/{user}', [ProfileUpdate::class, 'update'])->middleware('auth');
+    Route::get('/profile/{user}', [ProfileUpdate::class, 'index']);
+    Route::get('/profile/{user}/edit', [ProfileUpdate::class, 'edit']);
+    Route::patch('/profile/{user}', [ProfileUpdate::class, 'update']);
 
     Route::resource('/dokumen', DokumenController::class)->names([
         'destroy' => 'dokumen.reset'
-    ])->middleware('auth');
+    ]);
 });
 
 // route authenticate
