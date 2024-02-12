@@ -1,13 +1,18 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CetakController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\JudulController;
 use App\Http\Controllers\KompreController;
 use App\Http\Controllers\KoordinatorController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\MahasiswaBimbinganController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\MahasiswaSkripsiController;
+use App\Http\Controllers\MahasiswaUjiController;
 use App\Http\Controllers\NilaiKompreController;
 use App\Http\Controllers\NilaiSemproController;
 use App\Http\Controllers\ProfileUpdate;
@@ -55,7 +60,13 @@ Route::resource('/nilai/kompre', NilaiKompreController::class)->names([
     'update' => 'nilai.kompre.update',
 ])->except(['create', 'destroy'])->middleware('auth');
 
-// route manajemen users
+// fitur mahasiswa pada halaman dosen
+Route::get('/mahasiswa-bimbingan', [MahasiswaSkripsiController::class, 'bimbingan'])->middleware('auth');
+Route::get('/mahasiswa-uji-sempro', [MahasiswaSkripsiController::class, 'sempro'])->middleware('auth');
+Route::get('/mahasiswa-uji-kompre', [MahasiswaSkripsiController::class, 'kompre'])->middleware('auth');
+Route::get('/mahasiswa-skripsi/{user}', [MahasiswaSkripsiController::class, 'show'])->middleware('auth');
+
+// route manajemen users pada halaman admin
 Route::middleware('auth')->prefix('manajemen')->group(function () {
     // route manajemen mahasiswa
     Route::resource('/mahasiswa', MahasiswaController::class)->middleware('admin');
@@ -76,6 +87,12 @@ Route::middleware('auth')->prefix('manajemen')->group(function () {
     ]);
 });
 
+// fitur laporan pada halaman admin
+// Route::middleware('admin')->prefix('laporan')->group(function () {
+//     Route::get('/mahasiswa-seminar', [LaporanController::class, 'index']);
+//     Route::get('/mahasiswa-seminar/{user}', [LaporanController::class, 'show']);
+// });
+
 // route authenticate
 Route::prefix('auth')->group(function () {
     // route login
@@ -83,5 +100,14 @@ Route::prefix('auth')->group(function () {
     route::post('/login', [AuthController::class, 'authenticate']);
 
     // route logout
-    route::post('/logout', [AuthController::class, 'logout']);
+    route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+});
+
+Route::prefix('cetak')->group(function () {
+    Route::get('/lembar-bimbingan', [CetakController::class, 'bimbingan']);
+    Route::get('/bimbingan-proposal/download/pdf', [CetakController::class, 'cetak_bproposal']);
+    Route::get('/bimbingan-kompre/download/pdf', [CetakController::class, 'cetak_bkompre']);
+
+    Route::get('/lembar-sempro', [CetakController::class, 'sempro']);
+    Route::get('/form-seminar', [CetakController::class, 'cetak_fSeminar']);
 });

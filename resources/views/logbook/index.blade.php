@@ -12,9 +12,11 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
+
                 @can('mahasiswa')
-                    <a href="{{ route('logbook.create') }}" class="btn btn-sm btn-primary">Isi Logbook <i
-                            class="fa fa-plus"></i></a>
+                    <div class="col-md-5 d-flex justify-content-end">
+                        <a href="{{ route('logbook.create') }}" class="btn btn-primary">Isi Logbook <i class="fa fa-plus"></i></a>
+                    </div>
                 @endcan
             </div>
 
@@ -107,6 +109,16 @@
                     </tbody>
                 </table>
             </div>
+            @can('mahasiswa')
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="cetak/bimbingan-proposal/download/pdf" class="btn btn-sm btn-danger"><i
+                            class="fa fa-file-download"></i> Cetak Bimbingan
+                        Proposal</a>
+                    <a href="cetak/bimbingan-kompre/download/pdf" class="btn btn-sm btn-danger"><i
+                            class="fa fa-file-download"></i> Cetak Bimbingan
+                        Komprehensif </a>
+                </div>
+            @endcan
         </div>
     </div>
 

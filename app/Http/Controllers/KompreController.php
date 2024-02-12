@@ -136,7 +136,7 @@ class KompreController extends Controller
      */
     public function show(Kompre $kompre)
     {
-        $kompre = $kompre->load(['judul', 'judul.mahasiswa.dokumen', 'penguji1', 'penguji2', 'penguji3']);
+        $kompre = $kompre->load(['judul.mahasiswa.dokumen', 'judul.pembimbing1', 'judul.pembimbing2', 'penguji1', 'penguji2', 'penguji3']);
 
         return response()->json($kompre);
     }

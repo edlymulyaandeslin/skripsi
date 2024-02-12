@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
-            <h3>Koordinator Skripsi</h3>
+            <h3>Koordinator</h3>
 
             <div class="d-flex justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
@@ -89,7 +89,7 @@
     <!-- Modal show -->
     <div class="modal fade" id="koordinatorView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail Koordinator</h1>
@@ -97,10 +97,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="nidn" class="form-label">NIDN</label>
-                                <input type="text" id="nidn" class="form-control" disabled>
+                                <label for="nim" class="form-label">NIM</label>
+                                <input type="text" id="nim" class="form-control" disabled>
                             </div>
 
                             <div class="mb-3">
@@ -109,12 +109,45 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="tempatlahir" class="form-label">Tempat Lahir</label>
+                                <input type="text" id="tempatlahir" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="tanggallahir" class="form-label">Tanggal Lahir</label>
+                                <input type="text" id="tanggallahir" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="jeniskelamin" class="form-label">Jenis Kelamin</label>
+                                <input type="text" id="jeniskelamin" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" id="email" class="form-control" disabled />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="nohp" class="form-label">Nomor Handphone</label>
+                                <input type="text" id="nohp" class="form-control" disabled />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="alamat" class="form-label">Alamat</label>
+                                <input type="text" id="alamat" class="form-control" disabled />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="angkatan" class="form-label">Angkatan</label>
+                                <input type="text" id="angkatan" class="form-control" disabled />
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="status" class="form-label">Status</label>
                                 <input type="text" id="status" class="form-control" disabled />
                             </div>
-
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -134,9 +167,27 @@
                 $.get(judulUrl, function(data) {
                     $('#koordinatorView').modal('show');
                     console.log(data)
-                    $('#nidn').val(data.nim_or_nidn);
+                    $('#nim').val(data.nim_or_nidn);
                     $('#name').val(data.name);
                     $('#status').val(data.status);
+
+                    data.tempat_lahir ? $('#tempatlahir').val(data.tempat_lahir) :
+                        $('#tempatlahir').val('-');
+
+                    data.tanggal_lahir ? $('#tanggallahir').val(data.tanggal_lahir) :
+                        $('#tanggallahir').val('-');
+
+                    data.jenis_kelamin ? $('#jeniskelamin').val(data.jenis_kelamin) :
+                        $('#jeniskelamin').val('-');
+
+                    data.email ? $('#email').val(data.email) : $('#email').val('-');
+
+                    data.no_hp ? $('#nohp').val(data.no_hp) : $('#nohp').val('-');
+
+                    data.alamat ? $('#alamat').val(data.alamat) : $('#alamat').val('-');
+
+                    data.angkatan ? $('#angkatan').val(data.angkatan) : $('#angkatan').val('-');
+
                 })
             })
         })

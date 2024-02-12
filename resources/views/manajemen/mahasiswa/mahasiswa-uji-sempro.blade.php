@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
-            <h3>Dosen Prodi Sistem Informasi</h3>
+            <h3>Mahasiswa Seminar Proposal yang akan di Uji</h3>
 
             <div class="d-flex justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
@@ -11,7 +11,6 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
-                <a href="{{ route('dosen.create') }}" class="btn btn-sm btn-primary">Dosen baru <i class="fa fa-plus"></i></a>
             </div>
 
             <div class="table-responsive">
@@ -19,59 +18,30 @@
                     <thead>
                         <tr class="text-center">
                             <th scope="col">No</th>
-                            <th scope="col">NIDN</th>
-                            <th scope="col">Nama</th>
+                            <th scope="col">Nim</th>
+                            <th scope="col">Mahasiswa</th>
                             <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($dosens->count() !== 0)
-                            @foreach ($dosens as $dosen)
-                                <tr key="{{ $dosen->id }}" class="text-center">
+                        @if ($mahasiswas->count() !== 0)
+                            @foreach ($mahasiswas as $mahasiswa)
+                                <tr key="{{ $mahasiswa->id }}" class="text-center">
                                     <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
-                                    <td>{{ $dosen->nim_or_nidn }}</td>
-                                    <td>{{ $dosen->name }}</td>
+                                    <td>{{ $mahasiswa->nim_or_nidn }}</td>
+                                    <td>{{ $mahasiswa->name }}</td>
                                     <td>
                                         <span
-                                            class="bg-{{ $dosen->status == 'active' ? 'success' : 'danger' }} text-white px-3 py-1 rounded">
-                                            {{ $dosen->status }}
+                                            class="bg-{{ $mahasiswa->status == 'active' ? 'success' : 'danger' }} text-white px-3 py-1 rounded">
+                                            {{ $mahasiswa->status }}
                                         </span>
                                     </td>
                                     <td>
-                                        <div>
-                                            <button type="button" class="btn btn-sm btn-outline-dark"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-list"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="javascript:void(0)" id="show-dosen"
-                                                        data-url="{{ route('dosen.show', $dosen->id) }}"
-                                                        class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                        Show</a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                        href="/manajemen/dosen/{{ $dosen->id }}/edit">
-                                                        <i class="bi bi-pencil-square text-warning"></i>
-                                                        Update
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <hr class="dropdown-divider">
-                                                </li>
-
-                                                <li>
-                                                    <a href="{{ route('dosen.destroy', $dosen->id) }}" class="dropdown-item"
-                                                        data-confirm-delete="true"><i
-                                                            class="bi bi-trash-fill text-danger"></i> Delete</a>
-                                                </li>
-
-                                            </ul>
-                                        </div>
+                                        <a href="javascript:void(0)" id="show-mahasiswa"
+                                            data-url="/mahasiswa-skripsi/{{ $mahasiswa->id }}"
+                                            class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -84,14 +54,13 @@
             </div>
         </div>
     </div>
-
     <!-- Modal show -->
-    <div class="modal fade" id="dosenView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="mahasiswaView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail Dosen</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail Mahasiswa</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -160,11 +129,11 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('body').on('click', '#show-dosen', function() {
+            $('body').on('click', '#show-mahasiswa', function() {
 
                 let judulUrl = $(this).data('url');
                 $.get(judulUrl, function(data) {
-                    $('#dosenView').modal('show');
+                    $('#mahasiswaView').modal('show');
                     console.log(data)
                     $('#nim').val(data.nim_or_nidn);
                     $('#name').val(data.name);

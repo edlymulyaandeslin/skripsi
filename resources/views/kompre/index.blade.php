@@ -106,7 +106,7 @@
     <!-- Modal show -->
     <div class="modal fade" id="kompreView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail</h1>
@@ -152,6 +152,22 @@
                             <textarea id="notes" class="form-control" disabled rows="4"></textarea>
                         </div>
 
+                        <h1 class="modal-title fs-5 mb-3 border-bottom">Pembimbing</h1>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="pembimbing1" class="form-label">Pembimbing 1</label>
+                                    <input type="text" id="pembimbing1" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="pembimbing2" class="form-label">Pembimbing 2</label>
+                                    <input type="text" id="pembimbing2" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
                         <h1 class="modal-title fs-5 mb-3 border-bottom">Penguji</h1>
 
                         <div class="row">
@@ -250,6 +266,11 @@
                         '-');
                     data.penguji3 ? $('#penguji3').val(data.penguji3.name) : $('#penguji3').val(
                         '-');
+
+                    data.judul.pembimbing1 ? $('#pembimbing1').val(data.judul.pembimbing1.name) : $(
+                        '#pembimbing1').val('-');
+                    data.judul.pembimbing2 ? $('#pembimbing2').val(data.judul.pembimbing2.name) : $(
+                        '#pembimbing2').val('-');
 
 
                     $('#krs').attr('href', 'storage/' + data.judul.mahasiswa.dokumen.krs);

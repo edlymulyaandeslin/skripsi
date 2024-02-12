@@ -131,7 +131,7 @@ class SemproController extends Controller
      */
     public function show(Sempro $sempro)
     {
-        $sempros = $sempro->load(['judul', 'judul.mahasiswa.dokumen', 'penguji1', 'penguji2', 'penguji3']);
+        $sempros = $sempro->load(['judul.mahasiswa.dokumen', 'judul.pembimbing1', 'judul.pembimbing2', 'penguji1', 'penguji2', 'penguji3']);
 
         return response()->json($sempros);
     }

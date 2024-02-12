@@ -53,23 +53,24 @@ class MahasiswaController extends Controller
         return redirect('/manajemen/mahasiswa');
     }
 
-    public function show(User $user)
+    public function show(User $user, $id)
     {
-        $mahasiswa = $user->load(['judul', 'judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro', 'judul.kompre']);
+        $mahasiswa = $user->with(['judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro', 'judul.kompre'])->find($id);
 
         return response()->json($mahasiswa);
     }
 
-    public function edit(User $user)
+    public function edit(User $user, $id)
     {
         return view('manajemen.mahasiswa.edit', [
             'title' => 'Mahasiswa | Edit',
-            'mahasiswa' => $user
+            'mahasiswa' => $user->find($id)
         ]);
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user, $id)
     {
+
         $rules = [
             'name' => 'required|max:255',
         ];
@@ -77,7 +78,7 @@ class MahasiswaController extends Controller
         $customMessage = [];
 
         if ($request->filled('nim_or_nidn')) {
-            $rules['nim_or_nidn'] = ['min:5', 'max:8',  Rule::unique('users', 'nim_or_nidn')->ignore($user)];
+            $rules['nim_or_nidn'] = ['min:5', 'max:8',  Rule::unique('users', 'nim_or_nidn')->ignore($id)];
             $customMessage['nim_or_nidn.unique'] = 'The nim has already been taken.';
             $customMessage['nim_or_nidn.min'] = 'The nim field min 5.';
             $customMessage['nim_or_nidn.max'] = 'The nim field max 8.';
@@ -93,15 +94,16 @@ class MahasiswaController extends Controller
             $validateData['password'] = bcrypt($validateData['password']);
         }
 
-        $user->update($validateData);
+        $user->where('id', $id)->update($validateData);
 
         Alert::success('Success!', 'Student has successfully updated');
 
         return redirect('/manajemen/mahasiswa');
     }
-    public function destroy(User $user)
+    public function destroy(User $user, $id)
     {
-        $user->delete();
+
+        $user->destroy($id);
 
         Alert::success('Success!', 'Student has successfully deleted');
 

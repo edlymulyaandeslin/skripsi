@@ -54,22 +54,22 @@ class DosenController extends Controller
         return redirect('/manajemen/dosen');
     }
 
-    public function show(User $user)
+    public function show(User $user, $id)
     {
-        $dosen = $user->load(['judul', 'judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro', 'judul.kompre']);
+        $dosen = $user->with(['judul', 'judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro', 'judul.kompre'])->find($id);
 
         return response()->json($dosen);
     }
 
-    public function edit(User $user)
+    public function edit(User $user, $id)
     {
         return view('manajemen.dosen.edit', [
             'title' => 'dosen | Edit',
-            'dosen' => $user
+            'dosen' => $user->find($id)
         ]);
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user, $id)
     {
         $rules = [
             'name' => 'required|max:255',
@@ -78,7 +78,7 @@ class DosenController extends Controller
         $customMessage = [];
 
         if ($request->filled('nim_or_nidn')) {
-            $rules['nim_or_nidn'] = ['min:5', 'max:8',  Rule::unique('users', 'nim_or_nidn')->ignore($user)];
+            $rules['nim_or_nidn'] = ['min:5', 'max:8',  Rule::unique('users', 'nim_or_nidn')->ignore($id)];
             $customMessage['nim_or_nidn.unique'] = 'The nidn has already been taken.';
             $customMessage['nim_or_nidn.min'] = 'The nidn field min 5.';
             $customMessage['nim_or_nidn.max'] = 'The nidn field max 8.';
@@ -94,15 +94,15 @@ class DosenController extends Controller
             $validateData['password'] = bcrypt($validateData['password']);
         }
 
-        $user->update($validateData);
+        $user->where('id', $id)->update($validateData);
 
         Alert::success('Success!', 'lecturer successfully updated');
 
         return redirect('/manajemen/dosen');
     }
-    public function destroy(User $user)
+    public function destroy(User $user, $id)
     {
-        $user->delete();
+        $user->destroy($id);
 
         Alert::success('Success!', 'lecturer successfully deleted');
 

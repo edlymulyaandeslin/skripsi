@@ -47,17 +47,17 @@
 
                     @can('mahasiswa')
                         <a href="/sempro/create"
-                            class="nav-item nav-link {{ Request::is('sempro/create') ? 'active' : '' }}">Daftar
-                            Sempro</a>
+                            class="nav-item nav-link {{ Request::is('sempro/create') ? 'active' : '' }}">Pendaftaran
+                            Proposal</a>
                     @endcan
 
                     <a href="/sempro"
-                        class="nav-item nav-link {{ Request::is('sempro*') && !Request::is('sempro/create') ? 'active' : '' }}">Mahasiswa
-                        Sempro</a>
+                        class="nav-item nav-link {{ Request::is('sempro*') && !Request::is('sempro/create') ? 'active' : '' }}">
+                        Seminar Proposal</a>
 
                     <a href="/nilai/sempro"
                         class="nav-item nav-link {{ Request::is('nilai/sempro*') ? 'active' : '' }}">Penilaian
-                        Sempro</a>
+                        Seminar Proposal</a>
                 </div>
             </div>
 
@@ -69,51 +69,63 @@
 
                     @can('mahasiswa')
                         <a href="/kompre/create"
-                            class="nav-item nav-link {{ Request::is('kompre/create') ? 'active' : '' }}">Daftar
-                            Kompre</a>
+                            class="nav-item nav-link {{ Request::is('kompre/create') ? 'active' : '' }}">Pendaftaran
+                            Komprehensif</a>
                     @endcan
 
                     <a href="/kompre"
-                        class="nav-item nav-link {{ Request::is('kompre*') && !Request::is('kompre/create') ? 'active' : '' }}">Mahasiswa
-                        Kompre</a>
+                        class="nav-item nav-link {{ Request::is('kompre*') && !Request::is('kompre/create') ? 'active' : '' }}">Seminar
+                        Komprehensif</a>
 
                     <a href="/nilai/kompre"
-                        class="nav-item nav-link {{ Request::is('nilai/kompre*') ? 'active' : '' }}">Penilaian
-                        Kompre</a>
+                        class="nav-item nav-link {{ Request::is('nilai/kompre*') ? 'active' : '' }}">Penilaian Seminar
+                        Komprehensif</a>
                 </div>
             </div>
 
-            <div class="nav-item dropdown">
-                <a href="#"
-                    class="nav-link dropdown-toggle {{ Request::is('manajemen*') && !Request::is(['manajemen/profile*', 'manajemen/dokumen*']) ? 'active' : '' }}"
-                    data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Manajemen</a>
-                <div class="dropdown-menu bg-transparent border-0">
-                    <a href="/manajemen/mahasiswa"
-                        class="nav-item nav-link {{ Request::is('manajemen/mahasiswa*') ? 'active' : '' }}">Mahasiswa</a>
-                    <a href="/manajemen/koordinator"
-                        class="nav-item nav-link {{ Request::is('manajemen/koordinator*') ? 'active' : '' }}">Koordinator</a>
-                    <a href="/manajemen/dosen"
-                        class="nav-item nav-link {{ Request::is('manajemen/dosen*') ? 'active' : '' }}">Dosen</a>
+            @can('admin')
+                <div class="nav-item dropdown">
+                    <a href="#"
+                        class="nav-link dropdown-toggle {{ Request::is('manajemen*') && !Request::is(['manajemen/profile*', 'manajemen/dokumen*']) ? 'active' : '' }}"
+                        data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="/manajemen/mahasiswa"
+                            class="nav-item nav-link {{ Request::is('manajemen/mahasiswa*') ? 'active' : '' }}">Mahasiswa</a>
+                        <a href="/manajemen/koordinator"
+                            class="nav-item nav-link {{ Request::is('manajemen/koordinator*') ? 'active' : '' }}">Koordinator</a>
+                        <a href="/manajemen/dosen"
+                            class="nav-item nav-link {{ Request::is('manajemen/dosen*') ? 'active' : '' }}">Dosen</a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle {{ Request::is('report*') ? 'active' : '' }}"
-                    data-bs-toggle="dropdown"><i class="fa fa-book-dead me-2"></i>Report</a>
-                <div class="dropdown-menu bg-transparent border-0">
-                    <a href="/mahasiswa"
-                        class="nav-item nav-link {{ Request::is('report/sempro*') ? 'active' : '' }}">Mahasiswa
-                        Sempro</a>
-                    <a href="/mahasiswa"
-                        class="nav-item nav-link {{ Request::is('report/kompre*') ? 'active' : '' }}">Mahasiswa
-                        Kompre</a>
+                {{-- <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ Request::is('laporan*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown"><i class="fa fa-book-dead me-2"></i>Laporan</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="/laporan/mahasiswa-seminar"
+                            class="nav-item nav-link {{ Request::is('laporan/mahasiswa-seminar') ? 'active' : '' }}">Mahasiswa
+                            Seminar</a>
+                    </div>
+                </div> --}}
+            @endcan
+
+            @can('dosen')
+                <div class="nav-item dropdown">
+                    <a href="#"
+                        class="nav-link dropdown-toggle {{ Request::is('mahasiswa-bimbingan*') || Request::is('mahasiswa-uji-sempro*') || Request::is('mahasiswa-uji-kompre*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Mahasiswa</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="/mahasiswa-bimbingan"
+                            class="nav-item nav-link {{ Request::is('mahasiswa-bimbingan*') ? 'active' : '' }}">Bimbingan</a>
+                        <a href="/mahasiswa-uji-sempro"
+                            class="nav-item nav-link {{ Request::is('mahasiswa-uji-sempro*') ? 'active' : '' }}">Ujian
+                            Proposal</a>
+                        <a href="/mahasiswa-uji-kompre"
+                            class="nav-item nav-link {{ Request::is('mahasiswa-uji-kompre*') ? 'active' : '' }}">Ujian
+                            Komprehensif</a>
+                    </div>
                 </div>
-            </div>
-            {{-- @else
-                <a href="{{ route('dokumen.index') }}"
-                    class="nav-item nav-link {{ Request::is('manajemen/*') ? 'active' : '' }} "><i
-                        class="fa fa-book me-2"></i>Dokumen</a>
-            @endif --}}
+            @endcan
 
         </div>
     </nav>
