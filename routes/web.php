@@ -113,4 +113,7 @@ Route::prefix('cetak')->group(function () {
 
     Route::get('/berita-acara/{sempro}', [CetakController::class, 'beritaAcara']);
     Route::get('/berita-acara/{sempro}/download/pdf', [CetakController::class, 'cetak_bAcara']);
+
+    Route::get('/nilai-sempro/{sempro}', [CetakController::class, 'nilaiSempro']);
+    Route::get('/nilai-sempro/{sempro}/download/pdf', [CetakController::class, 'cetak_nSempro']);
 });

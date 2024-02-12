@@ -27,6 +27,9 @@
                             <th scope="col">Penguji 3</th>
                             <th scope="col">Rata-rata</th>
                             <th scope="col">Aksi</th>
+                            @can('admin')
+                                <th scope="col">Cetak Nilai</th>
+                            @endcan
                         </tr>
                     </thead>
                     <tbody>
@@ -84,7 +87,15 @@
                                                 class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
                                             </a>
                                         @endcannot
+
                                     </td>
+
+                                    @can('admin')
+                                        <td>
+                                            <a href="/cetak/nilai-sempro/{{ $sempro->id }}/download/pdf"><i
+                                                    class="fa fa-file-download"></i></a>
+                                        </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                         @else
