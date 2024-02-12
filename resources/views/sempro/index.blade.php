@@ -66,6 +66,13 @@
                                                                 Update
                                                             </a>
                                                         </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="/cetak/berita-acara/{{ $sempro->id }}/download/pdf">
+                                                                <i class="fa fa-file-pdf text-danger"></i>
+                                                                Berita Acara
+                                                            </a>
+                                                        </li>
                                                     @endcan
 
                                                     <li>

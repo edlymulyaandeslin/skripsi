@@ -88,4 +88,27 @@ class CetakController extends Controller
         $pdf = Pdf::loadView('cetak.form-sempro', $data);
         return $pdf->download('form-seminar-proposal.pdf');
     }
+
+    // Cetak Berita Acara
+    public function beritaAcara(Sempro $sempro)
+    {
+        $sempro->load(['judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2', 'penguji1', 'penguji2', 'penguji3']);
+
+        return view('cetak.berita-acara', [
+            'title' => 'SEMINAR PROPOSAL',
+            'sempro' => $sempro,
+        ]);
+    }
+    public function cetak_bAcara(Sempro $sempro)
+    {
+        $sempro->load(['judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2', 'penguji1', 'penguji2', 'penguji3']);
+
+        $data = [
+            'title' => 'SEMINAR PROPOSAL',
+            'sempro' => $sempro,
+        ];
+
+        $pdf = Pdf::loadView('cetak.berita-acara', $data);
+        return $pdf->download('berita-acara-seminar-proposal.pdf');
+    }
 }
