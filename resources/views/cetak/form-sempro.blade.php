@@ -29,7 +29,7 @@
             /* Gaya untuk pencetakan */
             @page {
                 margin: 1cm;
-                Atur margin sesuai kebutuhan
+                /* Atur margin sesuai kebutuhan */
             }
 
             .col-md-6 {
@@ -54,9 +54,11 @@
                     </header>
                 </div>
                 <div id="garis-tebal"></div>
+
                 <div class="col-md-12 text-center">
                     <h4>FORMULIR PENGAJUAN SEMINAR PROPOSAL TUGAS AKHIR I</h4>
                 </div>
+
                 <div class="col-md-12 d-flex justify-content-center">
                     <table id="table" class="table caption-top" style="border: 1px solid black;">
                         <caption class="fw-bold">Data Mahasiswa</caption>
@@ -107,7 +109,7 @@
                 </p>
                 <p>
                     Tanda Tangan Mahasiswa ..........................................
-                    Tanggal {{ $sempro->created_at->format('d F Y') }}
+                    Tanggal {{ $sempro->created_at->translatedFormat('d F Y') }}
                 </p>
                 <div class="garis-putus-putus"></div>
                 <div class="col-md-12 d-flex justify-content-center">
@@ -215,8 +217,7 @@
                     </table>
                 </div>
 
-                <div class="col-md-12">
-
+                <div class="col-md-12 mt-5">
                     <div class="col-md-6">
                         <p>Yang akan dilaksanakan pada:</p>
                         <table class="table">
@@ -230,7 +231,7 @@
                                 <tr>
                                     <td>Tempat</td>
                                     <td>:</td>
-                                    <td>filkom place</td>
+                                    <td>{{ $sempro->ruang }}</td>
                                 </tr>
                                 <tr>
                                     <td>Waktu</td>
@@ -241,7 +242,7 @@
                         </table>
                     </div>
                     <div class="col-md-6">
-                        <p class="m-0">Pasir Pengaraian, ..................../...../{{ date('Y') }}</p>
+                        <p class="m-0">Pasir Pengaraian, ......................... {{ date('Y') }}</p>
                         <p class="mb-5">Ka. Program Studi Sistem Informasi</p>
                         <span>{{ $admin[0]->name ?? '-' }}</span>
                         <p>NIDN. {{ $admin[0]->nim_or_nidn ?? '-' }}</p>

@@ -28,7 +28,6 @@ class CetakController extends Controller
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })->where('kategori', 'proposal')
-
             ->get();
 
         $data = [
