@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         {{-- form --}}
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Detail Logbook</h4>
                 <form action="/logbook" method="post" enctype="multipart/form-data">
@@ -74,11 +74,5 @@
             </div>
         </div>
         {{-- end form --}}
-
-        {{-- feature --}}
-        <div class="col-md-6 d-flex justify-content-center align-items-center">
-            Isi Deskripsi logbook dengan benar
-        </div>
-        {{-- end feature --}}
     </div>
 @endsection

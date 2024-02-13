@@ -57,12 +57,6 @@
                     <div style="background-color: #27ae60" class="rounded-1 mt-3 p-4 text-white fst-italic">"Pengajuan
                         seminar proposal Anda sebelumnya telah kami terima. Saat ini, pengajuan Anda sedang kami proses."
                     </div>
-
-                    <div class="mt-3">
-                        <a href="/cetak/form-seminar" class="btn btn-sm btn-danger"><i class="fa fa-file-download"></i>
-                            Cetak Formulir
-                            Pendaftaran</a>
-                    </div>
                 </div>
             @else
                 <div class="bg-light rounded h-100 p-4">

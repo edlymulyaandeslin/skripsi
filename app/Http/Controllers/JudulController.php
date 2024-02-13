@@ -101,11 +101,14 @@ class JudulController extends Controller
         // akses koordinator
         $this->authorize('update', $judul);
 
+        $dosens = User::where('role_id', 3)->latest()->get();
+        $alljudul = Judul::all();
+
         return view('judul.edit', [
             'title' => 'Judul | Edit',
             'judul' => $judul->load(['mahasiswa',  'pembimbing1', 'pembimbing2']),
-            'dosens' => User::where('role_id', 3)->get(),
-            'alljudul' => Judul::all()
+            'dosens' => $dosens,
+            'alljuduls' => $alljudul
         ]);
     }
 

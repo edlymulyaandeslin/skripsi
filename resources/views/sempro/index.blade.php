@@ -18,8 +18,10 @@
                     <thead>
                         <tr class="text-center">
                             <th scope="col">No</th>
-                            <th scope="col">NIM</th>
-                            <th scope="col">Mahasiswa</th>
+                            @cannot('mahasiswa')
+                                <th scope="col">NIM</th>
+                                <th scope="col">Mahasiswa</th>
+                            @endcannot
                             <th scope="col">Judul</th>
                             <th scope="col">Tanggal Seminar</th>
                             <th scope="col">Ruang Seminar</th>
@@ -32,10 +34,12 @@
                             @foreach ($sempros as $sempro)
                                 <tr key="{{ $sempro->id }}" class="text-center">
                                     <th scope="row">{{ $loop->index + 1 }}</th>
-                                    <td>{{ $sempro->judul->mahasiswa->nim_or_nidn }}</td>
-                                    <td>{{ $sempro->judul->mahasiswa->name }}</td>
+                                    @cannot('mahasiswa')
+                                        <td>{{ $sempro->judul->mahasiswa->nim_or_nidn }}</td>
+                                        <td>{{ $sempro->judul->mahasiswa->name }}</td>
+                                    @endcannot
                                     <td>{{ $sempro->judul->judul }}</td>
-                                    <td>{{ $sempro->tanggal_seminar ? Carbon\Carbon::parse($sempro->tanggal_seminar)->formatLocalized('%d %b %Y') : '-' }}
+                                    <td>{{ $sempro->tanggal_seminar ? Carbon\Carbon::parse($sempro->tanggal_seminar)->translatedFormat('d F Y') : '-' }}
                                     </td>
                                     <td>{{ $sempro->ruang ?? '-' }}</td>
                                     <td>

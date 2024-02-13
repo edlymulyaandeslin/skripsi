@@ -10,15 +10,15 @@
                     <div class="col">
                         <div class="form-floating mb-3">
                             <input type="number" class="form-control @error('nim_or_nidn') is-invalid @enderror"
-                                id="floatingInput" name="nim_or_nidn" placeholder="NIDN" value="{{ old('nim_or_nidn') }}">
+                                name="nim_or_nidn" placeholder="NIDN" value="{{ old('nim_or_nidn') }}">
                             <label for="floatingInput">NIDN</label>
                             @error('nim_or_nidn')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                id="floatingInput" name="name" placeholder="Name" value="{{ old('name') }}">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                                placeholder="Name" value="{{ old('name') }}">
                             <label for="floatingInput">Nama</label>
                             @error('name')
                                 <p class="text-danger">{{ $message }}</p>

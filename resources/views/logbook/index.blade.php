@@ -25,8 +25,10 @@
                     <thead>
                         <tr class="text-center">
                             <th scope="col">No</th>
-                            <th scope="col">NIM</th>
-                            <th scope="col">Mahasiswa</th>
+                            @cannot('mahasiswa')
+                                <th scope="col">NIM</th>
+                                <th scope="col">Mahasiswa</th>
+                            @endcannot
                             <th scope="col">Kategori Bimbingan</th>
                             <th scope="col">Judul</th>
                             <th scope="col">Target Bimbingan</th>
@@ -40,12 +42,14 @@
                             @foreach ($logbooks as $logbook)
                                 <tr key="{{ $logbook->id }}" class="text-center">
                                     <th scope="row">{{ $loop->index + 1 }}</th>
-                                    <td>{{ $logbook->judul->mahasiswa->nim_or_nidn }}</td>
-                                    <td>{{ $logbook->judul->mahasiswa->name }}</td>
+                                    @cannot('mahasiswa')
+                                        <td>{{ $logbook->judul->mahasiswa->nim_or_nidn }}</td>
+                                        <td>{{ $logbook->judul->mahasiswa->name }}</td>
+                                    @endcannot
                                     <td>{{ $logbook->kategori }}</td>
                                     <td>{{ $logbook->judul->judul }}</td>
                                     <td>{{ $logbook->target_bimbingan }}</td>
-                                    <td>{{ $logbook->created_at->format('d F Y') }}</td>
+                                    <td>{{ $logbook->created_at->translatedFormat('d F Y') }}</td>
                                     <td>
                                         <p
                                             class="bg-{{ $logbook->status == 'diterima' ? 'success' : ($logbook->status == 'ditolak' ? 'danger' : ($logbook->status == 'acc proposal' || $logbook->status == 'acc komprehensif' ? 'primary' : 'warning')) }} rounded text-white px-3 py-1">

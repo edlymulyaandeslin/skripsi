@@ -35,7 +35,7 @@
                             <input type="number" class="form-control @error('nim_or_nidn') is-invalid @enderror"
                                 id="floatingInput" name="nim_or_nidn" placeholder="NIM"
                                 value="{{ old('nim_or_nidn', $user->nim_or_nidn) }}" disabled>
-                            <label for="floatingInput">NIM</label>
+                            <label for="floatingInput">{{ auth()->user()->role_id !== 4 ? 'NIDN' : 'NIM' }}</label>
                             @error('nim_or_nidn')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -144,15 +144,17 @@
                             @enderror
                         </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control @error('angkatan') is-invalid @enderror"
-                                id="floatingInput" name="angkatan" placeholder="angkatan"
-                                value="{{ old('angkatan', $user->angkatan ?? '-') }}" disabled>
-                            <label for="floatingInput">Angkatan</label>
-                            @error('angkatan')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div>
+                        @can('mahasiswa')
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control @error('angkatan') is-invalid @enderror"
+                                    id="floatingInput" name="angkatan" placeholder="angkatan"
+                                    value="{{ old('angkatan', $user->angkatan ?? '-') }}" disabled>
+                                <label for="floatingInput">Angkatan</label>
+                                @error('angkatan')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        @endcan
 
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control @error('status') is-invalid @enderror"

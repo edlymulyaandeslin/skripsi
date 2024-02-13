@@ -30,12 +30,16 @@
                         <div class="form-floating mb-3">
                             <select class="form-select @error('pembimbing1_id') is-invalid @enderror" name="pembimbing1_id">
                                 <option selected value="{{ 0 }}">Pilih</option>
-                                @foreach ($dosens as $dosen)
+
+                                @foreach ($dosens as $key => $dosen)
                                     @if (old('pembimbing1_id', $judul->pembimbing1_id) == $dosen->id && $judul->pembimbing1_id !== 0)
-                                        <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}
+                                        <option value="{{ $dosen->id }}" selected>
+                                            {{ $dosen->name }}
                                         </option>
                                     @else
-                                        <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
+                                        <option value="{{ $dosen->id }}">{{ $dosen->name }}
+
+                                        </option>
                                     @endif
                                 @endforeach
                             </select>

@@ -84,7 +84,7 @@ Route::middleware('auth')->prefix('manajemen')->group(function () {
 
     Route::resource('/dokumen', DokumenController::class)->names([
         'destroy' => 'dokumen.reset'
-    ]);
+    ])->middleware('mahasiswa');
 });
 
 // fitur laporan pada halaman admin
@@ -108,12 +108,9 @@ Route::prefix('cetak')->group(function () {
     Route::get('/bimbingan-proposal/download/pdf', [CetakController::class, 'cetak_bproposal']);
     Route::get('/bimbingan-kompre/download/pdf', [CetakController::class, 'cetak_bkompre']);
 
-    Route::get('/lembar-sempro', [CetakController::class, 'sempro']);
-    Route::get('/form-seminar', [CetakController::class, 'cetak_fSeminar']);
+    Route::get('/berita-acara/{sempro}', [CetakController::class, 'beritaAcara'])->middleware('koordinator');
+    Route::get('/berita-acara/{sempro}/download/pdf', [CetakController::class, 'cetak_bAcara'])->middleware('koordinator');
 
-    Route::get('/berita-acara/{sempro}', [CetakController::class, 'beritaAcara']);
-    Route::get('/berita-acara/{sempro}/download/pdf', [CetakController::class, 'cetak_bAcara']);
-
-    Route::get('/nilai-sempro/{sempro}', [CetakController::class, 'nilaiSempro']);
-    Route::get('/nilai-sempro/{sempro}/download/pdf', [CetakController::class, 'cetak_nSempro']);
+    Route::get('/nilai-sempro/{sempro}', [CetakController::class, 'nilaiSempro'])->middleware('koordinator');
+    Route::get('/nilai-sempro/{sempro}/download/pdf', [CetakController::class, 'cetak_nSempro'])->middleware('koordinator');
 });

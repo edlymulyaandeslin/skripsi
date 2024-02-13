@@ -21,8 +21,10 @@
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                 <a href="/manajemen/profile/{{ auth()->user()->id }}" class="dropdown-item"><i class="fa fa-user"></i>
                     Profile</a>
-                <a href="/manajemen/dokumen" class="dropdown-item"><i class="fa fa-file-alt"></i> Lengkapi
-                    Dokumen</a>
+                @can('mahasiswa')
+                    <a href="/manajemen/dokumen" class="dropdown-item"><i class="fa fa-file-alt"></i> Lengkapi
+                        Dokumen</a>
+                @endcan
                 <form action="/auth/logout" method="post">
                     @csrf
                     <button type="submit" class="dropdown-item"><i class="fa fa-sign-out-alt"></i> Log Out</button>

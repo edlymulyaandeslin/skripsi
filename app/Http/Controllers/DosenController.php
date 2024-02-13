@@ -33,14 +33,14 @@ class DosenController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'nim_or_nidn' => 'required|min:5|max:8|unique:users,nim_or_nidn',
+            'nim_or_nidn' => 'required|min:5|max:13|unique:users,nim_or_nidn',
             'name' => 'required|max:255',
             'password' => 'required|min:8|max:255'
         ], [
             'nim_or_nidn.required' => 'The nidn field is required.',
             'nim_or_nidn.unique' => 'The nidn has already been taken.',
             'nim_or_nidn.min' => 'The nidn field must be at least 5 characters.',
-            'nim_or_nidn.max' => 'The nidn field must not be greater than 8 characters.',
+            'nim_or_nidn.max' => 'The nidn field must not be greater than 13 characters.',
         ]);
 
         $validateData['password'] = bcrypt($validateData['password']);
@@ -78,10 +78,10 @@ class DosenController extends Controller
         $customMessage = [];
 
         if ($request->filled('nim_or_nidn')) {
-            $rules['nim_or_nidn'] = ['min:5', 'max:8',  Rule::unique('users', 'nim_or_nidn')->ignore($id)];
+            $rules['nim_or_nidn'] = ['min:5', 'max:13',  Rule::unique('users', 'nim_or_nidn')->ignore($id)];
             $customMessage['nim_or_nidn.unique'] = 'The nidn has already been taken.';
             $customMessage['nim_or_nidn.min'] = 'The nidn field min 5.';
-            $customMessage['nim_or_nidn.max'] = 'The nidn field max 8.';
+            $customMessage['nim_or_nidn.max'] = 'The nidn field max 13.';
         }
 
         if ($request->filled('password')) {

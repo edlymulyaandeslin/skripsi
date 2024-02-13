@@ -22,10 +22,12 @@
                     <thead>
                         <tr class="text-center">
                             <th scope="col">No</th>
-                            <th scope="col">NIM</th>
-                            <th scope="col">Mahasiswa</th>
+                            @cannot('mahasiswa')
+                                <th scope="col">NIM</th>
+                                <th scope="col">Mahasiswa</th>
+                            @endcannot
                             <th scope="col">Judul</th>
-                            <th scope="col">tanggal pengajuan</th>
+                            <th scope="col">Tanggal pengajuan</th>
                             <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                         </tr>
@@ -35,10 +37,12 @@
                             @foreach ($listjudul as $judul)
                                 <tr key="{{ $judul->id }}" class="text-center">
                                     <th scope="row">{{ $loop->index + 1 }}</th>
-                                    <td>{{ $judul->mahasiswa->nim_or_nidn }}</td>
-                                    <td>{{ $judul->mahasiswa->name }}</td>
+                                    @cannot('mahasiswa')
+                                        <td>{{ $judul->mahasiswa->nim_or_nidn }}</td>
+                                        <td>{{ $judul->mahasiswa->name }}</td>
+                                    @endcannot
                                     <td>{{ $judul->judul }}</td>
-                                    <td>{{ $judul->created_at->format('d M Y') }}</td>
+                                    <td>{{ $judul->created_at->translatedFormat('d F Y') }}</td>
                                     <td class="text-center">
                                         <span
                                             class="bg-{{ $judul->status == 'diterima' ? 'success' : ($judul->status == 'ditolak' ? 'danger' : 'warning') }} rounded text-white px-3 py-1">

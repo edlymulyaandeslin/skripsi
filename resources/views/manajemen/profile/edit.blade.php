@@ -45,15 +45,31 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control @error('nim_or_nidn') is-invalid @enderror"
-                                        name="nim_or_nidn" placeholder="NIM"
-                                        value="{{ old('nim_or_nidn', $user->nim_or_nidn) }}" disabled>
-                                    <label for="floatingInput">NIM</label>
-                                    @error('nim_or_nidn')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
+
+                                @cannot('admin')
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control @error('nim_or_nidn') is-invalid @enderror"
+                                            name="nim_or_nidn" placeholder="NIM"
+                                            value="{{ old('nim_or_nidn', $user->nim_or_nidn) }}" disabled>
+                                        <label for="floatingInput">NIM</label>
+                                        @error('nim_or_nidn')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                @endcannot
+
+                                @can('admin')
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control @error('nim_or_nidn') is-invalid @enderror"
+                                            name="nim_or_nidn" placeholder="NIM"
+                                            value="{{ old('nim_or_nidn', $user->nim_or_nidn) }}">
+                                        <label for="floatingInput">{{ auth()->user()->role_id !== 4 ? 'NIDN' : 'NIM' }}</label>
+                                        @error('nim_or_nidn')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                @endcan
+
                                 <div class="mb-4">
                                     <p class="my-0">Jenis Kelamin</p>
                                     @if ($user->jenis_kelamin === 'laki-laki')
@@ -107,7 +123,8 @@
 
                                 <div class="form-floating mb-3">
                                     <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                        name="email" placeholder="email" value="{{ old('email', $user->email ?? ' ') }}">
+                                        name="email" placeholder="email"
+                                        value="{{ old('email', $user->email ?? ' ') }}">
                                     <label for="floatingInput">email</label>
                                     @error('email')
                                         <p class="text-danger">{{ $message }}</p>
@@ -158,15 +175,17 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control @error('angkatan') is-invalid @enderror"
-                                        name="angkatan" placeholder="angkatan"
-                                        value="{{ old('angkatan', $user->angkatan ?? ' ') }}">
-                                    <label for="floatingInput">Angkatan</label>
-                                    @error('angkatan')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
+                                @can('mahasiswa')
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control @error('angkatan') is-invalid @enderror"
+                                            name="angkatan" placeholder="angkatan"
+                                            value="{{ old('angkatan', $user->angkatan ?? ' ') }}">
+                                        <label for="floatingInput">Angkatan</label>
+                                        @error('angkatan')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                @endcan
 
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control @error('status') is-invalid @enderror"
@@ -180,7 +199,7 @@
 
                             </div>
                         </div>
-                        <h4 class="pb-2 mb-3 border-bottom text-secondary">Ubah Password</h4>
+                        <h4 class="pb-2 my-3 border-bottom text-secondary">Ubah Password</h4>
                         <div class="col-md-12 row">
                             <div class="col">
 

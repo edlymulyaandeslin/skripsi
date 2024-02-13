@@ -35,6 +35,10 @@ class ProfileUpdate extends Controller
 
         $customMessage = [];
 
+        if ($request->filled('nim_or_nidn')) {
+            $rules['nim_or_nidn'] = 'required|min:5|max:13|unique:users,nim_or_nidn,' . $user->id;
+            $customMessage['nim_or_nidn.unique'] = 'The NIND has been taken already.';
+        }
         if ($request->filled('jenis_kelamin')) {
             $rules['jenis_kelamin'] = 'required';
         }

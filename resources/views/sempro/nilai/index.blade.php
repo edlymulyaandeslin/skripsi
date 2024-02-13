@@ -18,7 +18,9 @@
                     <thead>
                         <tr class="text-center">
                             <th scope="col">No</th>
-                            <th scope="col">Mahasiswa</th>
+                            @cannot('mahasiswa')
+                                <th scope="col">Mahasiswa</th>
+                            @endcannot
                             <th scope="col">Judul</th>
                             <th scope="col">Pembimbing 1</th>
                             <th scope="col">Pembimbing 2</th>
@@ -27,9 +29,7 @@
                             <th scope="col">Penguji 3</th>
                             <th scope="col">Rata-rata</th>
                             <th scope="col">Aksi</th>
-                            @can('admin')
-                                <th scope="col">Cetak Nilai</th>
-                            @endcan
+
                         </tr>
                     </thead>
                     <tbody>
@@ -38,7 +38,9 @@
                             @foreach ($sempros as $sempro)
                                 <tr key="{{ $sempro->id }}" class="text-center">
                                     <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
-                                    <td>{{ $sempro->judul->mahasiswa->name }}</td>
+                                    @cannot('mahasiswa')
+                                        <td>{{ $sempro->judul->mahasiswa->name }}</td>
+                                    @endcannot
                                     <td>{{ $sempro->judul->judul }}</td>
                                     <td>{{ $sempro->nilaisempro ? ($nilaiPem1 = $sempro->nilaisempro->nilai1_pem1 + $sempro->nilaisempro->nilai2_pem1 + $sempro->nilaisempro->nilai3_pem1 + $sempro->nilaisempro->nilai4_pem1 + $sempro->nilaisempro->nilai5_pem1 + $sempro->nilaisempro->nilai6_pem1 + $sempro->nilaisempro->nilai7_pem1) : ($nilaiPem1 = 0) }}
                                     </td>
@@ -56,7 +58,7 @@
 
                                     <td>
 
-                                        @can('dosen')
+                                        @unless (auth()->user()->can('mahasiswa') || auth()->user()->can('admin'))
                                             <div>
                                                 <button type="button" class="btn btn-sm btn-outline-dark"
                                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -70,30 +72,40 @@
                                                             Show</a>
                                                     </li>
 
-                                                    <li>
-                                                        <a class="dropdown-item" href="/nilai/sempro/{{ $sempro->id }}/edit">
-                                                            <i class="bi bi-pencil-square text-warning"></i>
-                                                            Update
-                                                        </a>
-                                                    </li>
+                                                    @can('koordinator')
+                                                        <li>
+                                                            <a href="/cetak/nilai-sempro/{{ $sempro->id }}/download/pdf"
+                                                                class="dropdown-item"><i
+                                                                    class="fa fa-file-download text-danger"></i> Cetak
+                                                                Nilai</a>
+                                                        </li>
+                                                    @endcan
+
+                                                    @can('dosen')
+                                                        <li>
+                                                            <a class="dropdown-item" href="/nilai/sempro/{{ $sempro->id }}/edit">
+                                                                <i class="bi bi-pencil-square text-warning"></i>
+                                                                Update
+                                                            </a>
+                                                        </li>
+                                                    @endcan
 
                                                 </ul>
                                             </div>
-                                        @endcan
+                                        @endunless
 
-                                        @cannot('dosen')
+                                        @unless (auth()->user()->can('dosen') || auth()->user()->can('koordinator'))
                                             <a href="javascript:void(0)" id="show-nilaisempro"
                                                 data-url="{{ route('nilai.sempro.show', $sempro->id) }}}}"
                                                 class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
                                             </a>
-                                        @endcannot
+                                        @endunless
 
                                     </td>
 
-                                    @can('admin')
+                                    @can('koordinator')
                                         <td>
-                                            <a href="/cetak/nilai-sempro/{{ $sempro->id }}/download/pdf"><i
-                                                    class="fa fa-file-download"></i></a>
+
                                         </td>
                                     @endcan
                                 </tr>
