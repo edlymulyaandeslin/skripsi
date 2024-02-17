@@ -11,6 +11,13 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
+                @can('koordinator')
+                    <div>
+                        <a href="/cetak/list-mahasiswa-kompre" class="btn btn-danger btn-sm"><i class="fa fa-file-download"></i>
+                            Mahasiswa
+                            Komprehensif</a>
+                    </div>
+                @endcan
             </div>
 
             <div class="table-responsive">
@@ -18,8 +25,11 @@
                     <thead>
                         <tr class="text-center">
                             <th scope="col">No</th>
-                            <th scope="col">NIM</th>
-                            <th scope="col">Mahasiswa</th>
+
+                            @cannot('mahasiswa')
+                                <th scope="col">NIM</th>
+                                <th scope="col">Mahasiswa</th>
+                            @endcannot
                             <th scope="col">Judul</th>
                             <th scope="col">Tanggal Seminar</th>
                             <th scope="col">Ruang Seminar</th>
@@ -29,13 +39,15 @@
                     </thead>
                     <tbody>
                         @if ($kompres->count() !== 0)
-                            @foreach ($kompres as $kompre)
+                            @foreach ($kompres as $index => $kompre)
                                 <tr key="{{ $kompre->id }}" class="text-center">
-                                    <th scope="row">{{ $loop->index + 1 }}</th>
-                                    <td>{{ $kompre->judul->mahasiswa->nim_or_nidn }}</td>
-                                    <td>{{ $kompre->judul->mahasiswa->name }}</td>
+                                    <th scope="row">{{ $index + $kompres->firstItem() }}</th>
+                                    @cannot('mahasiswa')
+                                        <td>{{ $kompre->judul->mahasiswa->nim_or_nidn }}</td>
+                                        <td>{{ $kompre->judul->mahasiswa->name }}</td>
+                                    @endcannot
                                     <td>{{ $kompre->judul->judul }}</td>
-                                    <td>{{ $kompre->tanggal_seminar ? Carbon\Carbon::parse($kompre->tanggal_seminar)->formatLocalized('%d %b %Y') : '-' }}
+                                    <td>{{ $kompre->tanggal_seminar ? Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('d F Y') : '-' }}
                                     </td>
                                     <td>{{ $kompre->ruang ?? '-' }}</td>
                                     <td>
@@ -56,14 +68,20 @@
                                                         <a href="javascript:void(0)" id="show-kompre"
                                                             data-url="/kompre/{{ $kompre->id }}" class="dropdown-item"><i
                                                                 class="bi bi-search text-info"></i>
-                                                            Show</a>
+                                                            Lihat</a>
                                                     </li>
 
                                                     @can('koordinator')
                                                         <li>
                                                             <a class="dropdown-item" href="/kompre/{{ $kompre->id }}/edit">
                                                                 <i class="bi bi-pencil-square text-warning"></i>
-                                                                Update
+                                                                Verifikasi
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="/cetak/berita-acara-kompre/{{ $kompre->id }}/download/pdf">
+                                                                <i class="fa fa-file-pdf text-danger"></i> Berita Acara
                                                             </a>
                                                         </li>
                                                     @endcan
@@ -76,7 +94,7 @@
                                                         <li>
                                                             <a href="{{ route('kompre.destroy', $kompre->id) }}"class="dropdown-item"
                                                                 data-confirm-delete="true"><i
-                                                                    class="bi bi-trash-fill text-danger"></i> Delete</a>
+                                                                    class="bi bi-trash-fill text-danger"></i> Batalkan</a>
                                                         </li>
                                                     @endcan
                                                 </ul>
@@ -99,6 +117,13 @@
 
                     </tbody>
                 </table>
+                {{-- pagination --}}
+                <div class="col-md-12 d-flex justify-content-between">
+                    Show {{ $kompres->firstItem() }}
+                    to {{ $kompres->lastItem() }} items
+                    of total {{ $kompres->total() }} items
+                    {{ $kompres->links() }}
+                </div>
             </div>
         </div>
     </div>
@@ -278,8 +303,7 @@
                         .transkip_nilai);
                     $('#hadirseminar').attr('href', 'storage/' + data.judul.mahasiswa.dokumen
                         .hadir_seminar);
-                    $('#lembarbimbingan').attr('href', 'storage/' + data.judul.mahasiswa.dokumen
-                        .lembar_bimbingan);
+                    $('#lembarbimbingan').attr('href', 'storage/' + data.lembar_bimbingan);
                     $('#pembayaran').attr('href', 'storage/' + data.pembayaran);
 
 

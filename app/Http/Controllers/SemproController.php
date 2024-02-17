@@ -19,14 +19,14 @@ class SemproController extends Controller
     public function index()
     {
         // confirm delete judul
-        $title = 'Delete Seminar Proposal!';
-        $text = "Are you sure you want to delete?";
+        $title = 'Batalkan Pengajuan Seminar Proposal!';
+        $text = "Kamu yakin ingin membatalkan?";
         confirmDelete($title, $text);
 
         if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
-            $sempros = Sempro::with(['judul', 'judul.mahasiswa'])->latest()->get();
+            $sempros = Sempro::with(['judul', 'judul.mahasiswa'])->latest()->paginate(10);
             return view('sempro.index', [
-                'title' => 'E - Skripsi | Sempro',
+                'title' => 'E - Skripsi | Seminar Proposal',
                 'sempros' => $sempros,
             ]);
         }
@@ -42,10 +42,10 @@ class SemproController extends Controller
                         ->orWhere('penguji2_id', auth()->user()->id)
                         ->orWhere('penguji3_id', auth()->user()->id);
                 })
-                ->latest()->get();
+                ->latest()->paginate(10);
 
             return view('sempro.index', [
-                'title' => 'E - Skripsi | Sempro',
+                'title' => 'E - Skripsi | Seminar Proposal',
                 'sempros' => $sempros,
             ]);
         }
@@ -54,10 +54,10 @@ class SemproController extends Controller
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
-            ->latest()->get();
+            ->latest()->paginate(10);
 
         return view('sempro.index', [
-            'title' => 'E - Skripsi | Sempro',
+            'title' => 'E - Skripsi | Seminar Proposal',
             'sempros' => $sempros,
         ]);
     }
@@ -91,7 +91,7 @@ class SemproController extends Controller
         $dokumen = auth()->user()->dokumen;
 
         return view('sempro.create', [
-            'title' => 'Sempro | Create',
+            'title' => 'Seminar Proposal | Pendaftaran',
             'juduls' => $juduls,
             'sempro' => $sempro,
             'dokumen' => $dokumen
@@ -109,19 +109,24 @@ class SemproController extends Controller
         $validateData = $request->validate([
             'judul_id' => 'required',
             'pembayaran' => 'required|file|mimes:pdf|max:2048',
+            'lembar_bimbingan' => 'required|file|mimes:pdf|max:2048'
         ]);
 
         $pembayaran = 'document_' . str()->random(10) . '.' . $request->file('pembayaran')->extension();
         $validateData['pembayaran'] = $request->file('pembayaran')->storeAs('post-pembayaran', $pembayaran);
 
+        $lembarbimbingan = 'document_' . str()->random(10) . '.' . $request->file('lembar_bimbingan')->extension();
+        $validateData['lembar_bimbingan'] = $request->file('lembar_bimbingan')->storeAs('doc-bimbingan', $lembarbimbingan);
+
         Sempro::where('status', 'tidak lulus')->get()->each(function ($sempro) {
             Storage::delete($sempro->pembayaran);
+            Storage::delete($sempro->lembar_bimbingan);
             $sempro->delete();
         });
 
         Sempro::create($validateData);
 
-        Alert::success('success!', 'Sempro has been added');
+        Alert::success('Berhasil', 'Seminar Proposal Telah Diajukan');
 
         return redirect('/sempro');
     }
@@ -145,7 +150,7 @@ class SemproController extends Controller
         $this->authorize('update', $sempro);
 
         return view('sempro.edit', [
-            'title' => 'Sempro | Edit',
+            'title' => 'Seminar Proposal | Verifikasi',
             'sempro' => $sempro->load('judul'),
             'dosens' => User::where('role_id', 3)->latest()->get()
         ]);
@@ -188,6 +193,10 @@ class SemproController extends Controller
             $rules['pembayaran'] = 'required|file|mimes:pdf|max:2048';
         }
 
+        if ($request->file('lembar_bimbingan')) {
+            $rules['lembar_bimbingan'] = 'required|file|mimes:pdf|max:2048';
+        }
+
         $validateData = $request->validate($rules);
 
         if ($request->file('pembayaran')) {
@@ -199,13 +208,22 @@ class SemproController extends Controller
             $validateData['pembayaran'] = $request->file('pembayaran')->storeAs('post-pembayaran', $pembayaran);
         }
 
+        if ($request->file('lembar_bimbingan')) {
+            if ($request->oldLembarBimbingan) {
+                Storage::delete($request->oldLembarBimbingan);
+            }
+
+            $lembarbimbingan = 'document_' . str()->random(10) . '.' . $request->file('lembar_bimbingan')->extension();
+            $validateData['lembar_bimbingan'] = $request->file('lembar_bimbingan')->storeAs('doc-bimbingan', $lembarbimbingan);
+        }
+
         $sempro->update($validateData);
 
         if ($sempro->status != 'perbaikan') {
             $sempro->update(['notes' => null]);
         }
 
-        Alert::success('success!', 'Sempro has been updated');
+        Alert::success('Berhasil', 'Verifikasi Seminar Proposal');
 
         return redirect('/sempro');
     }
@@ -233,7 +251,7 @@ class SemproController extends Controller
 
         Kompre::where('judul_id', $judul->id)->delete();
 
-        Alert::success('success!', 'Sempro has been deleted');
+        Alert::success('Berhasil', 'Pengajuan Seminar Proposal Dibatalkan');
 
         return redirect('/sempro');
     }

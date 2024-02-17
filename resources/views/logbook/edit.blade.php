@@ -3,9 +3,9 @@
 @section('content')
     <div class="row">
         {{-- form --}}
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
-                <h4 class="mb-4">Update Detail Logbook</h4>
+                <h4 class="mb-4">Verifikasi Bimbingan</h4>
                 <form action="/logbook/{{ $logbook->id }}" method="post">
                     @method('patch')
                     @csrf
@@ -140,10 +140,5 @@
         </div>
         {{-- end form --}}
 
-        {{-- feature --}}
-        <div class="col-md-6 d-flex justify-content-center align-items-center">
-            Isi Deskripsi logbook dengan benar
-        </div>
-        {{-- end feature --}}
     </div>
 @endsection

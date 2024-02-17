@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->enum('status', ['diajukan', 'diterima', 'lulus', 'tidak lulus', 'perbaikan', 'penilaian'])->default('diajukan');
             $table->string('pembayaran')->nullable();
+            $table->string('lembar_bimbingan')->nullable();
             $table->timestamps();
         });
     }

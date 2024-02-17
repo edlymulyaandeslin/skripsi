@@ -73,7 +73,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label>Catatan</label>
+                            <label>Apakah tema ini <span class="fw-bold">layak/tidak?</span> Berikan alasan
+                                anda</label>
                             <textarea name="notes1" class="form-control" rows="4" placeholder="Write..">{{ old('notes1', $kompre->nilaikompre->notes1 ?? '') }}</textarea>
                             @error('notes1')
                                 <p class="text-danger">{{ $message }}</p>
@@ -155,7 +156,8 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label>Catatan</label>
+                            <label>Apakah tema ini <span class="fw-bold">layak/tidak?</span> Berikan alasan
+                                anda</label>
                             <textarea name="notes2" class="form-control" rows="4" placeholder="Write..">{{ old('notes2', $kompre->nilaikompre->notes2 ?? '') }}</textarea>
                             @error('notes2')
                                 <p class="text-danger">{{ $message }}</p>
@@ -237,7 +239,8 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label>Catatan</label>
+                            <label>Apakah tema ini <span class="fw-bold">layak/tidak?</span> Berikan alasan
+                                anda</label>
                             <textarea name="notes3" class="form-control" rows="4" placeholder="Write..">{{ old('notes3', $kompre->nilaikompre->notes3 ?? '') }}</textarea>
                             @error('notes3')
                                 <p class="text-danger">{{ $message }}</p>

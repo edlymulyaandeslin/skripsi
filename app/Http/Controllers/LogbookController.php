@@ -20,14 +20,14 @@ class LogbookController extends Controller
         $this->authorize('viewAny', Logbook::class);
 
         // confirm delete judul
-        $title = 'Delete Logbook!';
-        $text = "Are you sure you want to delete?";
+        $title = 'Batalkan Bimbingan!';
+        $text = "Kamu yakin ingin membatalkan?";
         confirmDelete($title, $text);
 
         if (auth()->user()->role_id == 1) {
-            $logbooks = Logbook::with(['judul', 'judul.mahasiswa'])->latest()->get();
+            $logbooks = Logbook::with(['judul', 'judul.mahasiswa'])->latest()->paginate(10);
             return view('logbook.index', [
-                'title' => 'E - Skripsi | Logbook',
+                'title' => 'E - Skripsi | Bimbingan',
                 'logbooks' => $logbooks
             ]);
         }
@@ -37,10 +37,10 @@ class LogbookController extends Controller
                 ->whereHas('judul', function ($query) {
                     $query->where('pembimbing1_id', auth()->user()->id)
                         ->orWhere('pembimbing2_id', auth()->user()->id);
-                })->latest()->get();
+                })->latest()->paginate(10);
 
             return view('logbook.index', [
-                'title' => 'E - Skripsi | Logbook',
+                'title' => 'E - Skripsi | Bimbingan',
                 'logbooks' => $logbooks
             ]);
         }
@@ -48,11 +48,16 @@ class LogbookController extends Controller
         $logbooks = Logbook::with(['judul', 'judul.mahasiswa'])
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
-            })->latest()->get();
+            })->latest()->paginate(10);
+
+        $logbooksAccProposal = Logbook::where('status', 'acc proposal')->latest()->get();
+        $logbooksAccKomprehensif = Logbook::where('status', 'acc komprehensif')->latest()->get();
 
         return view('logbook.index', [
-            'title' => 'E - Skripsi | Logbook',
-            'logbooks' => $logbooks
+            'title' => 'E - Skripsi | Bimbingan',
+            'logbooks' => $logbooks,
+            'accProposal' => $logbooksAccProposal,
+            'accKomprehensif' => $logbooksAccKomprehensif
         ]);
     }
 
@@ -65,7 +70,7 @@ class LogbookController extends Controller
         $this->authorize('create', Logbook::class);
 
         return view('logbook.create', [
-            'title' => 'Logbook | Create',
+            'title' => 'Bimbingan | Pengajuan',
             'juduls' => Judul::with('mahasiswa')->where('status', 'diterima')->where('mahasiswa_id', auth()->user()->id)->latest()->get()
         ]);
     }
@@ -90,7 +95,7 @@ class LogbookController extends Controller
 
         Logbook::create($validateData);
 
-        Alert::success('success!', 'Logbook has been added');
+        Alert::success('Berhasil', 'Bimbingan Telah Diajukan');
 
         return redirect('/logbook');
     }
@@ -114,7 +119,7 @@ class LogbookController extends Controller
         $this->authorize('update', $logbook);
 
         return view('logbook.edit', [
-            'title' => 'Logbook | Edit',
+            'title' => 'Bimbingan | Verifikasi',
             'logbook' => $logbook->load('judul'),
             'juduls' => Judul::where('status', 'diterima')->latest()->get()
         ]);
@@ -140,7 +145,7 @@ class LogbookController extends Controller
 
         $logbook->update($validateData);
 
-        Alert::success('success!', 'Logbook has been updated');
+        Alert::success('Berhasil', 'Verifikasi Bimbingan');
 
         return redirect('/logbook');
     }
@@ -159,7 +164,7 @@ class LogbookController extends Controller
 
         $logbook->delete();
 
-        Alert::success('success!', 'Logbook has been deleted');
+        Alert::success('Berhasil', 'Bimbingan Telah Dibatalkan');
 
         return redirect('/logbook');
     }

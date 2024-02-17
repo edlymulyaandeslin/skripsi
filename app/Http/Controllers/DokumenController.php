@@ -37,8 +37,6 @@ class DokumenController extends Controller
             'krs' => 'required|file|mimes:pdf|max:2048',
             'transkip_nilai' => 'required|file|mimes:pdf|max:2048',
             'hadir_seminar' => 'required|file|mimes:pdf|max:2048',
-            'lembar_bimbingan' => 'required|file|mimes:pdf|max:2048'
-
         ]);
 
         $krs = 'document_' . str()->random(10) . '.' . $request->file('krs')->extension();
@@ -50,8 +48,7 @@ class DokumenController extends Controller
         $hadirseminar = 'document_' . str()->random(10) . '.' . $request->file('hadir_seminar')->extension();
         $validateData['hadir_seminar'] = $request->file('hadir_seminar')->storeAs('doc', $hadirseminar);
 
-        $lembarbimbingan = 'document_' . str()->random(10) . '.' . $request->file('lembar_bimbingan')->extension();
-        $validateData['lembar_bimbingan'] = $request->file('lembar_bimbingan')->storeAs('doc', $lembarbimbingan);
+
 
         Dokumen::create($validateData);
 
@@ -78,9 +75,6 @@ class DokumenController extends Controller
         }
         if ($request->file('hadir_seminar')) {
             $rules['hadir_seminar'] = 'required|file|mimes:pdf|max:2048';
-        }
-        if ($request->file('lembar_bimbingan')) {
-            $rules['lembar_bimbingan'] = 'required|file|mimes:pdf|max:2048';
         }
 
         $validateData = $request->validate($rules);
@@ -109,14 +103,6 @@ class DokumenController extends Controller
             $hadirseminar = 'document_' . str()->random(10) . '.' . $request->file('hadir_seminar')->extension();
             $validateData['hadir_seminar'] = $request->file('hadir_seminar')->storeAs('doc', $hadirseminar);
         }
-        if ($request->file('lembar_bimbingan')) {
-            if ($request->oldLembarBimbingan) {
-                Storage::delete($request->oldLembarBimbingan);
-            }
-
-            $lembarbimbingan = 'document_' . str()->random(10) . '.' . $request->file('lembar_bimbingan')->extension();
-            $validateData['lembar_bimbingan'] = $request->file('lembar_bimbingan')->storeAs('doc', $lembarbimbingan);
-        }
 
         Dokumen::where('id', $id)->update($validateData);
 
@@ -140,9 +126,9 @@ class DokumenController extends Controller
         if ($dokumen->hadir_seminar) {
             Storage::delete($dokumen->hadir_seminar);
         }
-        if ($dokumen->lembar_bimbingan) {
-            Storage::delete($dokumen->lembar_bimbingan);
-        }
+        // if ($dokumen->lembar_bimbingan) {
+        //     Storage::delete($dokumen->lembar_bimbingan);
+        // }
 
         $dokumen->delete();
 

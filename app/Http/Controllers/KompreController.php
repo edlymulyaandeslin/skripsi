@@ -17,15 +17,15 @@ class KompreController extends Controller
     public function index()
     {
         // confirm delete judul
-        $title = 'Delete Seminar Komprehensif!';
-        $text = "Are you sure you want to delete?";
+        $title = 'Batalkan Pengajuan Komprehensif!';
+        $text = "Kamu Yakin Ingin Membatalkan?";
         confirmDelete($title, $text);
 
         // admin atau koordinator
         if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
-            $kompres = Kompre::with(['judul', 'judul.mahasiswa'])->latest()->get();
+            $kompres = Kompre::with(['judul', 'judul.mahasiswa'])->latest()->paginate(10);
             return view('kompre.index', [
-                'title' => 'E - Skripsi | Kompre',
+                'title' => 'E - Skripsi | Komprehensif',
                 'kompres' => $kompres,
             ]);
         }
@@ -42,10 +42,10 @@ class KompreController extends Controller
                         ->orWhere('penguji2_id', auth()->user()->id)
                         ->orWhere('penguji3_id', auth()->user()->id);
                 })
-                ->latest()->get();
+                ->latest()->paginate(10);
 
             return view('kompre.index', [
-                'title' => 'E - Skripsi | Kompre',
+                'title' => 'E - Skripsi | Komprehensif',
                 'kompres' => $kompres,
             ]);
         }
@@ -55,10 +55,10 @@ class KompreController extends Controller
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
-            ->latest()->get();
+            ->latest()->paginate(10);
 
         return view('kompre.index', [
-            'title' => 'E - Skripsi | Kompre',
+            'title' => 'E - Skripsi | Komprehensif',
             'kompres' => $kompres,
         ]);
     }
@@ -96,7 +96,7 @@ class KompreController extends Controller
         $dokumen = auth()->user()->dokumen;
 
         return view('kompre.create', [
-            'title' => 'Kompre | Create',
+            'title' => 'Komprehensif | Pendaftaran',
             'juduls' => $juduls,
             'kompre' => $kompre,
             'dokumen' => $dokumen
@@ -114,19 +114,24 @@ class KompreController extends Controller
         $validateData = $request->validate([
             'judul_id' => 'required',
             'pembayaran' => 'required|file|mimes:pdf|max:2048',
+            'lembar_bimbingan' => 'required|file|mimes:pdf|max:2048'
         ]);
 
         $pembayaran = 'document_' . str()->random(10) . '.' . $request->file('pembayaran')->extension();
         $validateData['pembayaran'] = $request->file('pembayaran')->storeAs('post-pembayaran', $pembayaran);
 
+        $lembarbimbingan = 'document_' . str()->random(10) . '.' . $request->file('lembar_bimbingan')->extension();
+        $validateData['lembar_bimbingan'] = $request->file('lembar_bimbingan')->storeAs('doc-bimbingan', $lembarbimbingan);
+
         Kompre::where('status', 'tidak lulus')->get()->each(function ($kompre) {
             Storage::delete($kompre->pembayaran);
+            Storage::delete($kompre->lembar_bimbingan);
             $kompre->delete();
         });
 
         Kompre::create($validateData);
 
-        Alert::success('Success!', 'Successfully applied for a comprehensive seminar');
+        Alert::success('Berhasil', 'Seminar Komprehensif Telah Diajukan');
 
         return redirect('/kompre');
     }
@@ -150,7 +155,7 @@ class KompreController extends Controller
         $this->authorize('update', $kompre);
 
         return view('kompre.edit', [
-            'title' => 'Kompre | Edit',
+            'title' => 'Komprehensif | Verifikasi',
             'kompre' => $kompre->load('judul'),
             'dosens' => User::where('role_id', 3)->latest()->get()
         ]);
@@ -194,6 +199,10 @@ class KompreController extends Controller
             $rules['pembayaran'] = 'required|file|mimes:pdf|max:2048';
         }
 
+        if ($request->file('lembar_bimbingan')) {
+            $rules['lembar_bimbingan'] = 'required|file|mimes:pdf|max:2048';
+        }
+
         $validateData = $request->validate($rules);
 
         if ($request->file('pembayaran')) {
@@ -205,13 +214,23 @@ class KompreController extends Controller
             $validateData['pembayaran'] = $request->file('pembayaran')->storeAs('post-pembayaran', $pembayaran);
         }
 
+
+        if ($request->file('lembar_bimbingan')) {
+            if ($request->oldLembarBimbingan) {
+                Storage::delete($request->oldLembarBimbingan);
+            }
+
+            $lembarbimbingan = 'document_' . str()->random(10) . '.' . $request->file('lembar_bimbingan')->extension();
+            $validateData['lembar_bimbingan'] = $request->file('lembar_bimbingan')->storeAs('doc-bimbingan', $lembarbimbingan);
+        }
+
         $kompre->update($validateData);
 
         if ($kompre->status != 'perbaikan') {
             $kompre->update(['notes' => null]);
         }
 
-        Alert::success('Success!', 'Komprehensif has been updated!');
+        Alert::success('Berhasil', 'Verifikasi Seminar Komprehensif');
 
         return redirect('/kompre');
     }
@@ -230,7 +249,7 @@ class KompreController extends Controller
 
         $kompre->delete();
 
-        Alert::success('Success!', 'Komprehensif has been deleted!');
+        Alert::success('Berhasil', 'Pengajuan Seminar Komprehensif Dibatalkan');
 
         return redirect('/kompre');
     }

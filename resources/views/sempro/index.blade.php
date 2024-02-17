@@ -11,6 +11,13 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
+                @can('koordinator')
+                    <div>
+                        <a href="/cetak/list-mahasiswa-sempro" class="btn btn-danger btn-sm"><i class="fa fa-file-download"></i>
+                            Mahasiswa
+                            Seminar</a>
+                    </div>
+                @endcan
             </div>
 
             <div class="table-responsive">
@@ -31,9 +38,9 @@
                     </thead>
                     <tbody>
                         @if ($sempros->count() !== 0)
-                            @foreach ($sempros as $sempro)
+                            @foreach ($sempros as $index => $sempro)
                                 <tr key="{{ $sempro->id }}" class="text-center">
-                                    <th scope="row">{{ $loop->index + 1 }}</th>
+                                    <th scope="row">{{ $index + $sempros->firstItem() }}</th>
                                     @cannot('mahasiswa')
                                         <td>{{ $sempro->judul->mahasiswa->nim_or_nidn }}</td>
                                         <td>{{ $sempro->judul->mahasiswa->name }}</td>
@@ -60,19 +67,19 @@
                                                         <a href="javascript:void(0)" id="show-sempro"
                                                             data-url="/sempro/{{ $sempro->id }}" class="dropdown-item"><i
                                                                 class="bi bi-search text-info"></i>
-                                                            Show</a>
+                                                            Lihat</a>
                                                     </li>
 
                                                     @can('koordinator')
                                                         <li>
                                                             <a class="dropdown-item" href="/sempro/{{ $sempro->id }}/edit">
                                                                 <i class="bi bi-pencil-square text-warning"></i>
-                                                                Update
+                                                                Verifikasi
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="/cetak/berita-acara/{{ $sempro->id }}/download/pdf">
+                                                                href="/cetak/berita-acara-sempro/{{ $sempro->id }}/download/pdf">
                                                                 <i class="fa fa-file-pdf text-danger"></i>
                                                                 Berita Acara
                                                             </a>
@@ -87,7 +94,7 @@
                                                         <li>
                                                             <a href="{{ route('sempro.destroy', $sempro->id) }}"
                                                                 class="dropdown-item" data-confirm-delete="true"><i
-                                                                    class="bi bi-trash-fill text-danger"></i> Delete</a>
+                                                                    class="bi bi-trash-fill text-danger"></i> Batalkan</a>
                                                         </li>
                                                     @endcan
                                                 </ul>
@@ -110,6 +117,13 @@
 
                     </tbody>
                 </table>
+                {{-- pagination --}}
+                <div class="col-md-12 d-flex justify-content-between">
+                    Show {{ $sempros->firstItem() }}
+                    to {{ $sempros->lastItem() }} items
+                    of total {{ $sempros->total() }} items
+                    {{ $sempros->links() }}
+                </div>
             </div>
         </div>
     </div>
@@ -288,8 +302,7 @@
                         .transkip_nilai);
                     $('#hadirseminar').attr('href', 'storage/' + data.judul.mahasiswa.dokumen
                         .hadir_seminar);
-                    $('#lembarbimbingan').attr('href', 'storage/' + data.judul.mahasiswa.dokumen
-                        .lembar_bimbingan);
+                    $('#lembarbimbingan').attr('href', 'storage/' + data.lembar_bimbingan);
                     $('#pembayaran').attr('href', 'storage/' + data.pembayaran);
 
 

@@ -40,6 +40,19 @@
                             @enderror
                         </div>
 
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control"
+                                value="{{ str_replace('doc-bimbingan/', '', $kompre[0]->lembar_bimbingan) }}" disabled>
+                            <label for="lembarbimbingan">Lembar Bimbingan Proposal<span class="text-danger">*</span></label>
+                            @error('lembar_bimbingan')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <hr>
+                        <label for="wrong" class="form-label fst-italic text-danger bg-light">*Terjadi
+                            Kesalahan Upload?</label>
+
                         <div class="mb-3">
                             <input type="hidden" name="oldPembayaran" value="{{ $kompre[0]->pembayaran }}"
                                 class="form-control">
@@ -50,11 +63,21 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary d-none" id="updatePembayaran">Simpan</button>
+                        <div class="mb-3">
+                            <input type="hidden" name="oldLembarBimbingan" value="{{ $kompre[0]->lembar_bimbingan }}"
+                                class="form-control">
+                            <input type="file" id="lembar_bimbingan" name="lembar_bimbingan" class="form-control">
+                            <small>Jika ingin mengganti lembar bimbingan, silakan upload ulang disini</small>
+                            @error('lembar_bimbingan')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn btn-primary d-none" id="btnUpdate">Simpan</button>
                     </form>
 
-                    <div style="background-color: #27ae60" class="rounded-1 mt-3 p-4 text-white fst-italic">"Pengajuan
-                        seminar proposal Anda sebelumnya telah kami terima. Saat ini, pengajuan Anda sedang kami proses."
+                    <div style="background-color: #27ae60" class="rounded-1 mt-3 p-4 text-white fst-italic">"Setiap
+                        mahasiswa hanya memiliki satu kesempatan untuk mengajukan Seminar Komprehensif."
                     </div>
                 </div>
             @else
@@ -90,6 +113,16 @@
                             @enderror
                         </div>
 
+                        <div class="form-floating mb-3">
+                            <input type="file" name="lembar_bimbingan" class="form-control"
+                                value="{{ old('lembar_bimbingan') }}" id="form-file">
+                            <label for="form-file">Lembar Bimbingan Proposal<span class="text-danger">*</span></label>
+                            <small>Upload bukti lembar bimbingan proposal dengan format .pdf</small>
+                            @error('lembar_bimbingan')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>
@@ -104,17 +137,23 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#updatePembayaran').hide();
-
-            // Saat nilai input berubah, periksa apakah harus menampilkan tombol atau tidak
-            $('#pembayaran').on('change', function() {
-                if ($(this).val() !== '') {
-                    $('#updatePembayaran').removeClass('d-none')
-                        .show(); // Hapus kelas d-none dan tampilkan tombol
+            // Fungsi untuk memeriksa apakah tombol harus ditampilkan atau tidak
+            function checkButtonVisibility() {
+                if ($('#pembayaran').val() !== '' || $('#lembar_bimbingan').val() !== '') {
+                    $('#btnUpdate').removeClass('d-none').show(); // Hapus kelas d-none dan tampilkan tombol
                 } else {
-                    $('#updatePembayaran').addClass('d-none')
-                        .hide(); // Tambahkan kelas d-none dan sembunyikan tombol
+                    $('#btnUpdate').addClass('d-none').hide(); // Tambahkan kelas d-none dan sembunyikan tombol
                 }
+            }
+
+            // Saat nilai input pembayaran berubah, periksa apakah harus menampilkan tombol atau tidak
+            $('#pembayaran').on('change', function() {
+                checkButtonVisibility();
+            });
+
+            // Saat nilai input lembar_bimbingan berubah, periksa apakah harus menampilkan tombol atau tidak
+            $('#lembar_bimbingan').on('change', function() {
+                checkButtonVisibility();
             });
         })
     </script>

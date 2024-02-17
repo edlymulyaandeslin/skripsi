@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('krs')->nullable();
             $table->string('transkip_nilai')->nullable();
             $table->string('hadir_seminar')->nullable();
-            $table->string('lembar_bimbingan')->nullable();
             $table->timestamps();
         });
     }

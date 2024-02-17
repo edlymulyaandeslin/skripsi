@@ -5,15 +5,17 @@
         <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
             <h3>List Judul Skripsi</h3>
 
-            <div class="d-flex justify-content-between mb-3 mt-1">
+            <div class="d-flex row justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
                     <form>
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
                 @can('mahasiswa')
-                    <a href="{{ route('judul.create') }}" class="btn btn-sm btn-primary">Ajukan Judul <i
-                            class="fa fa-plus"></i></a>
+                    <div class="col-md-5 d-flex align-items-end justify-content-end">
+                        <a href="{{ route('judul.create') }}" class="btn btn-sm btn-primary">Ajukan Judul <i
+                                class="fa fa-plus"></i></a>
+                    </div>
                 @endcan
             </div>
 
@@ -34,9 +36,9 @@
                     </thead>
                     <tbody>
                         @if ($listjudul->count() !== 0)
-                            @foreach ($listjudul as $judul)
+                            @foreach ($listjudul as $index => $judul)
                                 <tr key="{{ $judul->id }}" class="text-center">
-                                    <th scope="row">{{ $loop->index + 1 }}</th>
+                                    <th scope="row">{{ $index + $listjudul->firstItem() }}</th>
                                     @cannot('mahasiswa')
                                         <td>{{ $judul->mahasiswa->nim_or_nidn }}</td>
                                         <td>{{ $judul->mahasiswa->name }}</td>
@@ -62,14 +64,14 @@
                                                         <a href="javascript:void(0)" id="show-judul"
                                                             data-url="{{ route('judul.show', $judul->id) }}"
                                                             class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                            Show</a>
+                                                            Lihat</a>
                                                     </li>
 
                                                     @can('koordinator')
                                                         <li>
                                                             <a class="dropdown-item" href="/judul/{{ $judul->id }}/edit">
                                                                 <i class="bi bi-pencil-square text-warning"></i>
-                                                                Update
+                                                                Verifikasi
                                                             </a>
                                                         </li>
                                                     @endcan
@@ -82,7 +84,7 @@
                                                         <li>
                                                             <a href="{{ route('judul.destroy', $judul->id) }}"
                                                                 class="dropdown-item" data-confirm-delete="true"><i
-                                                                    class="bi bi-trash-fill text-danger"></i> Delete</a>
+                                                                    class="bi bi-trash-fill text-danger"></i> Batalkan</a>
                                                         </li>
                                                     @endcan
 
@@ -105,6 +107,14 @@
 
                     </tbody>
                 </table>
+
+                {{-- pagination --}}
+                <div class="col-md-12 d-flex justify-content-between">
+                    Show {{ $listjudul->firstItem() }}
+                    to {{ $listjudul->lastItem() }} items
+                    of total {{ $listjudul->total() }} items
+                    {{ $listjudul->links() }}
+                </div>
             </div>
         </div>
     </div>

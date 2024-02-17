@@ -18,7 +18,9 @@
                     <thead>
                         <tr class="text-center">
                             <th scope="col">No</th>
-                            <th scope="col">Mahasiswa</th>
+                            @cannot('mahasiswa')
+                                <th scope="col">Mahasiswa</th>
+                            @endcannot
                             <th scope="col">Judul</th>
                             <th scope="col">Pembimbing 1</th>
                             <th scope="col">Pembimbing 2</th>
@@ -32,10 +34,12 @@
                     <tbody>
 
                         @if ($kompres->count() !== 0)
-                            @foreach ($kompres as $kompre)
+                            @foreach ($kompres as $index => $kompre)
                                 <tr key="{{ $kompre->id }}" class="text-center">
-                                    <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
-                                    <td>{{ $kompre->judul->mahasiswa->name }}</td>
+                                    <th scope="row" class="text-center">{{ $index + $kompres->firstItem() }}</th>
+                                    @cannot('mahasiswa')
+                                        <td>{{ $kompre->judul->mahasiswa->name }}</td>
+                                    @endcannot
                                     <td>{{ $kompre->judul->judul }}</td>
                                     <td>{{ $kompre->nilaikompre ? ($nilaiPem1 = $kompre->nilaikompre->nilai1_pem1 + $kompre->nilaikompre->nilai2_pem1 + $kompre->nilaikompre->nilai3_pem1 + $kompre->nilaikompre->nilai4_pem1 + $kompre->nilaikompre->nilai5_pem1 + $kompre->nilaikompre->nilai6_pem1 + $kompre->nilaikompre->nilai7_pem1) : ($nilaiPem1 = 0) }}
                                     </td>
@@ -52,7 +56,7 @@
                                     </td>
 
                                     <td>
-                                        @can('dosen')
+                                        @unless (auth()->user()->can('mahasiswa') || auth()->user()->can('admin'))
                                             <div>
                                                 <button type="button" class="btn btn-sm btn-outline-dark"
                                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -63,26 +67,36 @@
                                                         <a href="javascript:void(0)" id="show-nilaikompre"
                                                             data-url="{{ route('nilai.kompre.show', $kompre->id) }}}}"
                                                             class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                            Show</a>
+                                                            Lihat</a>
                                                     </li>
 
-                                                    <li>
-                                                        <a class="dropdown-item" href="/nilai/kompre/{{ $kompre->id }}/edit">
-                                                            <i class="bi bi-pencil-square text-warning"></i>
-                                                            Update
-                                                        </a>
-                                                    </li>
+                                                    @can('koordinator')
+                                                        <li>
+                                                            <a href="/cetak/nilai-kompre/{{ $kompre->id }}/download/pdf"
+                                                                class="dropdown-item"><i
+                                                                    class="fa fa-file-download text-danger"></i> Cetak
+                                                                Nilai</a>
+                                                        </li>
+                                                    @endcan
 
+                                                    @can('dosen')
+                                                        <li>
+                                                            <a class="dropdown-item" href="/nilai/kompre/{{ $kompre->id }}/edit">
+                                                                <i class="bi bi-pencil-square text-warning"></i>
+                                                                Input Nilai
+                                                            </a>
+                                                        </li>
+                                                    @endcan
                                                 </ul>
                                             </div>
-                                        @endcan
+                                        @endunless
 
-                                        @cannot('dosen')
+                                        @unless (auth()->user()->can('dosen') || auth()->user()->can('koordinator'))
                                             <a href="javascript:void(0)" id="show-nilaikompre"
                                                 data-url="{{ route('nilai.kompre.show', $kompre->id) }}}}"
                                                 class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
                                             </a>
-                                        @endcannot
+                                        @endunless
                                     </td>
                                 </tr>
                             @endforeach
@@ -92,6 +106,13 @@
 
                     </tbody>
                 </table>
+                {{-- pagination --}}
+                <div class="col-md-12 d-flex justify-content-between">
+                    Show {{ $kompres->firstItem() }}
+                    to {{ $kompres->lastItem() }} items
+                    of total {{ $kompres->total() }} items
+                    {{ $kompres->links() }}
+                </div>
             </div>
         </div>
     </div>
@@ -119,28 +140,130 @@
                             </div>
                         </div>
                         <hr>
+                        <div class="col-md-12 row justify-content-evenly">
+
+                            <div class="col-md-4">
+                                <h1 class="modal-title fs-5">Pembimbing 1</h1>
+                                <div class="mb-3">
+                                    <label for="nilai1_pem1" class="form-label">Kemampuan Memilih Tema</label>
+                                    <input type="text" id="nilai1_pem1" class="form-control" disabled />
+                                    <small>(0 - 15)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nilai2_pem1" class="form-label">Cara menyajikan pertanyaan
+                                        penelitian/problem
+                                        statement</label>
+                                    <input type="text" id="nilai2_pem1" class="form-control" disabled />
+                                    <small>(0 - 15)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nilai3_pem1" class="form-label">Problem Solving</label>
+                                    <input type="text" id="nilai3_pem1" class="form-control" disabled />
+                                    <small>(0 - 10)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nilai4_pem1" class="form-label">Pemilihan model atau metode</label>
+                                    <input type="text" id="nilai4_pem1" class="form-control" disabled />
+                                    <small>(0 - 10)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nilai5_pem1" class="form-label">Rencana implementasi
+                                        simulasi/komputasi</label>
+                                    <input type="text" id="nilai5_pem1" class="form-control" disabled />
+                                    <small>(0 - 10)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nilai6_pem1" class="form-label">Kemandirian dalam penyusunan
+                                        proposal</label>
+                                    <input type="text" id="nilai6_pem1" class="form-control" disabled />
+                                    <small>(0 - 20)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nilai7_pem1" class="form-label">Proses bimbingan</label>
+                                    <input type="text" id="nilai7_pem1" class="form-control" disabled />
+                                    <small>(0 - 20)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="totalPem1" class="form-label">Total</label>
+                                    <input type="text" id="totalPem1" class="form-control" disabled />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <h1 class="modal-title fs-5">Pembimbing 2</h1>
+                                <div class="mb-3">
+                                    <label for="nilai1_pem2" class="form-label">Kemampuan Memilih Tema</label>
+                                    <input type="text" id="nilai1_pem2" class="form-control" disabled />
+                                    <small>(0 - 15)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nilai2_pem2" class="form-label">Cara menyajikan pertanyaan
+                                        penelitian/problem
+                                        statement</label>
+                                    <input type="text" id="nilai2_pem2" class="form-control" disabled />
+                                    <small>(0 - 15)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nilai3_pem2" class="form-label">Problem Solving</label>
+                                    <input type="text" id="nilai3_pem2" class="form-control" disabled />
+                                    <small>(0 - 10)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nilai4_pem2" class="form-label">Pemilihan model atau metode</label>
+                                    <input type="text" id="nilai4_pem2" class="form-control" disabled />
+                                    <small>(0 - 10)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nilai5_pem2" class="form-label">Rencana implementasi
+                                        simulasi/komputasi</label>
+                                    <input type="text" id="nilai5_pem2" class="form-control" disabled />
+                                    <small>(0 - 10)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nilai6_pem2" class="form-label">Kemandirian dalam penyusunan
+                                        proposal</label>
+                                    <input type="text" id="nilai6_pem2" class="form-control" disabled />
+                                    <small>(0 - 20)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nilai7_pem2" class="form-label">Proses bimbingan</label>
+                                    <input type="text" id="nilai7_pem2" class="form-control" disabled />
+                                    <small>(0 - 20)</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="totalPem2" class="form-label">Total</label>
+                                    <input type="text" id="totalPem2" class="form-control" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                         <div class="col-md-4">
                             <h1 class="modal-title fs-5">Penguji 1</h1>
                             <div class="mb-3">
                                 <label for="nilai1_peng1" class="form-label">Menjawab Latar Belakang Masalah</label>
                                 <input type="text" id="nilai1_peng1" class="form-control" disabled />
+                                <small>(0 - 25)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="nilai2_peng1" class="form-label">Menguasai Teori Pendukung TA</label>
                                 <input type="text" id="nilai2_peng1" class="form-control" disabled />
+                                <small>(0 - 15)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="nilai3_peng1" class="form-label">Menguasai Materi Terkait Tools
                                     Pemodelan</label>
                                 <input type="text" id="nilai3_peng1" class="form-control" disabled />
+                                <small>(0 - 10)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="nilai4_peng1" class="form-label">Pemaparan Cara Menjawab</label>
                                 <input type="text" id="nilai4_peng1" class="form-control" disabled />
+                                <small>(0 - 25)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="nilai5_peng1" class="form-label">Komunikasi Interpersonal</label>
                                 <input type="text" id="nilai5_peng1" class="form-control" disabled />
+                                <small>(0 - 25)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="totalPenguji1" class="form-label">Total</label>
@@ -156,22 +279,27 @@
                             <div class="mb-3">
                                 <label for="nilai1_peng2" class="form-label">Menjawab Latar Belakang Masalah</label>
                                 <input type="text" id="nilai1_peng2" class="form-control" disabled />
+                                <small>(0 - 25)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="nilai2_peng2" class="form-label">Menguasai Teori Pendukung TA</label>
                                 <input type="text" id="nilai2_peng2" class="form-control" disabled />
+                                <small>(0 - 15)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="nilai3_peng2" class="form-label">Menguasai Materi Terkait Tools</label>
                                 <input type="text" id="nilai3_peng2" class="form-control" disabled />
+                                <small>(0 - 10)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="nilai4_peng2" class="form-label">Pemaparan Cara Menjawab</label>
                                 <input type="text" id="nilai4_peng2" class="form-control" disabled />
+                                <small>(0 - 25)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="nilai5_peng2" class="form-label">Komunikasi Interpersonal</label>
                                 <input type="text" id="nilai5_peng2" class="form-control" disabled />
+                                <small>(0 - 25)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="totalPenguji2" class="form-label">Total</label>
@@ -187,22 +315,27 @@
                             <div class="mb-3">
                                 <label for="nilai1_peng3" class="form-label">Menjawab Latar Belakang Masalah</label>
                                 <input type="text" id="nilai1_peng3" class="form-control" disabled />
+                                <small>(0 - 25)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="nilai2_peng3" class="form-label">Menguasai Teori Pendukung TA</label>
                                 <input type="text" id="nilai2_peng3" class="form-control" disabled />
+                                <small>(0 - 15)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="nilai3_peng3" class="form-label">Menguasai Materi Terkait Tools</label>
                                 <input type="text" id="nilai3_peng3" class="form-control" disabled />
+                                <small>(0 - 10)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="nilai4_peng3" class="form-label">Pemaparan Cara Menjawab</label>
                                 <input type="text" id="nilai4_peng3" class="form-control" disabled />
+                                <small>(0 - 25)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="nilai5_peng3" class="form-label">Komunikasi Interpersonal</label>
                                 <input type="text" id="nilai5_peng3" class="form-control" disabled />
+                                <small>(0 - 25)</small>
                             </div>
                             <div class="mb-3">
                                 <label for="totalPenguji3" class="form-label">Total</label>
@@ -214,82 +347,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="col-md-4">
-                            <h1 class="modal-title fs-5">Pembimbing 1</h1>
-                            <div class="mb-3">
-                                <label for="nilai1_pem1" class="form-label">Kemampuan Memilih Tema</label>
-                                <input type="text" id="nilai1_pem1" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai2_pem1" class="form-label">Cara menyajikan pertanyaan penelitian/problem
-                                    statement</label>
-                                <input type="text" id="nilai2_pem1" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai3_pem1" class="form-label">Problem Solving</label>
-                                <input type="text" id="nilai3_pem1" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai4_pem1" class="form-label">Pemilihan model atau metode</label>
-                                <input type="text" id="nilai4_pem1" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai5_pem1" class="form-label">Rencana implementasi
-                                    simulasi/komputasi</label>
-                                <input type="text" id="nilai5_pem1" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai6_pem1" class="form-label">Kemandirian dalam penyusunal proposal</label>
-                                <input type="text" id="nilai6_pem1" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai7_pem1" class="form-label">Proses bimbingan</label>
-                                <input type="text" id="nilai7_pem1" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="totalPem1" class="form-label">Total</label>
-                                <input type="text" id="totalPem1" class="form-control" disabled />
-                            </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <h1 class="modal-title fs-5">Pembimbing 2</h1>
-                            <div class="mb-3">
-                                <label for="nilai1_pem2" class="form-label">Kemampuan Memilih Tema</label>
-                                <input type="text" id="nilai1_pem2" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai2_pem2" class="form-label">Cara menyajikan pertanyaan penelitian/problem
-                                    statement</label>
-                                <input type="text" id="nilai2_pem2" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai3_pem2" class="form-label">Problem Solving</label>
-                                <input type="text" id="nilai3_pem2" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai4_pem2" class="form-label">Pemilihan model atau metode</label>
-                                <input type="text" id="nilai4_pem2" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai5_pem2" class="form-label">Rencana implementasi
-                                    simulasi/komputasi</label>
-                                <input type="text" id="nilai5_pem2" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai6_pem2" class="form-label">Kemandirian dalam penyusunal proposal</label>
-                                <input type="text" id="nilai6_pem2" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai7_pem2" class="form-label">Proses bimbingan</label>
-                                <input type="text" id="nilai7_pem2" class="form-control" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="totalPem2" class="form-label">Total</label>
-                                <input type="text" id="totalPem2" class="form-control" disabled />
-                            </div>
-                        </div>
-                        <hr>
                         <div class="col-md-4">
                             <h1 class="modal-title fs-5">Rata Rata Nilai</h1>
                             <input type="text" id="rata-rata" class="form-control" disabled />

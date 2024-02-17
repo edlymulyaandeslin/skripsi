@@ -15,10 +15,10 @@ class NilaiKompreController extends Controller
         // admin dan koordinator
         if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
             $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
-                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get();
+                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->paginate(10);
 
             return view('kompre.nilai.index', [
-                'title' => 'E - Skripsi | Nilai Kompre',
+                'title' => 'Seminar Komprehensif | Penilaian',
                 'kompres' => $kompres,
             ]);
         }
@@ -35,10 +35,10 @@ class NilaiKompreController extends Controller
                         ->orWhere('penguji2_id', auth()->user()->id)
                         ->orWhere('penguji3_id', auth()->user()->id);
                 })
-                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get();
+                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->paginate(10);
 
             return view('kompre.nilai.index', [
-                'title' => 'E - Skripsi | Nilai Kompre',
+                'title' => 'Komprehensif | Penilaian',
                 'kompres' => $kompres,
             ]);
         }
@@ -48,10 +48,10 @@ class NilaiKompreController extends Controller
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
-            ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get();
+            ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->paginate(10);
 
         return view('kompre.nilai.index', [
-            'title' => 'E - Skripsi | Nilai Kompre',
+            'title' => 'Komprehensif | Penilaian',
             'kompres' => $kompres,
         ]);
     }
@@ -172,7 +172,7 @@ class NilaiKompreController extends Controller
 
         NilaiKompre::create($validateData);
 
-        Alert::success('Success!', 'Value entered successfully');
+        Alert::success('Berhasil', 'Input Nilai Seminar Komprehensif');
 
         return redirect('/nilai/kompre');
     }
@@ -192,7 +192,7 @@ class NilaiKompreController extends Controller
         $this->authorize('update', $nilaikompre);
 
         return view('kompre.nilai.edit', [
-            'title' => 'Input Nilai',
+            'title' => 'Komprehensif | Input Nilai',
             'kompre' => $kompre->load('judul', 'judul.pembimbing1', 'judul.pembimbing2', 'nilaikompre', 'penguji1', 'penguji2', 'penguji3'),
         ]);
     }
@@ -343,7 +343,7 @@ class NilaiKompreController extends Controller
             ]);
         }
 
-        Alert::success('Success!', 'Value updated successfully');
+        Alert::success('Berhasil', 'Input Nilai Seminar Komprehensif');
 
         return redirect('/nilai/kompre');
     }

@@ -17,10 +17,10 @@ class NilaiSemproController extends Controller
         // admin dan koordinator
         if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
             $sempros = Sempro::with('judul.mahasiswa', 'nilaisempro')
-                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get();
+                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->paginate(10);
 
             return view('sempro.nilai.index', [
-                'title' => 'E - Skripsi | Nilai Sempro',
+                'title' => 'Seminar Proposal | Penilaian',
                 'sempros' => $sempros,
             ]);
         }
@@ -37,10 +37,10 @@ class NilaiSemproController extends Controller
                         ->orWhere('penguji2_id', auth()->user()->id)
                         ->orWhere('penguji3_id', auth()->user()->id);
                 })
-                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get();
+                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->paginate(10);
 
             return view('sempro.nilai.index', [
-                'title' => 'E - Skripsi | Nilai Sempro',
+                'title' => 'Seminar Proposal | Penilaian',
                 'sempros' => $sempros,
             ]);
         }
@@ -50,10 +50,10 @@ class NilaiSemproController extends Controller
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
-            ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get();
+            ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->paginate(10);
 
         return view('sempro.nilai.index', [
-            'title' => 'E - Skripsi | Nilai Sempro',
+            'title' => 'Seminar Proposal | Penilaian',
             'sempros' => $sempros,
         ]);
     }
@@ -174,7 +174,7 @@ class NilaiSemproController extends Controller
 
         NilaiSempro::create($validateData);
 
-        Alert::success('Success!', 'Value entered successfully');
+        Alert::success('Berhasil', 'Input Nilai Seminar Proposal');
 
         return redirect('/nilai/sempro');
     }
@@ -192,7 +192,7 @@ class NilaiSemproController extends Controller
         $this->authorize('update', $nilaisempro);
 
         return view('sempro.nilai.edit', [
-            'title' => 'Input Nilai',
+            'title' => 'Seminar Proposal | Input Nilai',
             'sempro' => $sempro->load('judul.pembimbing1', 'judul.pembimbing2', 'penguji1', 'penguji2', 'penguji3', 'nilaisempro'),
         ]);
     }
@@ -344,7 +344,7 @@ class NilaiSemproController extends Controller
             ]);
         }
 
-        Alert::success('Success!', 'Value updated successfully');
+        Alert::success('Berhasil', 'Input Nilai Seminar Proposal');
 
         return redirect('/nilai/sempro');
     }

@@ -36,7 +36,7 @@
 
             @cannot('koordinator')
                 <a href="/logbook" class="nav-item nav-link {{ Request::is('logbook*') ? 'active' : '' }}"><i
-                        class="fa fa-book-open me-2"></i>Logbook</a>
+                        class="fa fa-book-open me-2"></i>Bimbingan</a>
             @endcannot
 
             <div class="nav-item dropdown">
@@ -97,16 +97,6 @@
                             class="nav-item nav-link {{ Request::is('manajemen/dosen*') ? 'active' : '' }}">Dosen</a>
                     </div>
                 </div>
-
-                {{-- <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle {{ Request::is('laporan*') ? 'active' : '' }}"
-                        data-bs-toggle="dropdown"><i class="fa fa-book-dead me-2"></i>Laporan</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="/laporan/mahasiswa-seminar"
-                            class="nav-item nav-link {{ Request::is('laporan/mahasiswa-seminar') ? 'active' : '' }}">Mahasiswa
-                            Seminar</a>
-                    </div>
-                </div> --}}
             @endcan
 
             @can('dosen')

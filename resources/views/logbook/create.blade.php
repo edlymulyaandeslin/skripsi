@@ -5,7 +5,7 @@
         {{-- form --}}
         <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
-                <h4 class="mb-4">Detail Logbook</h4>
+                <h4 class="mb-4">Detail Bimbingan</h4>
                 <form action="/logbook" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-floating mb-3">

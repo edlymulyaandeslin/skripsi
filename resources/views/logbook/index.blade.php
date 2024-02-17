@@ -6,7 +6,7 @@
 
             <h3>History Bimbingan</h3>
 
-            <div class="d-flex justify-content-between mb-3 mt-1">
+            <div class="d-flex row justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
                     <form>
                         <input type="text" placeholder="search" class="form-control">
@@ -14,8 +14,10 @@
                 </div>
 
                 @can('mahasiswa')
-                    <div class="col-md-5 d-flex justify-content-end">
-                        <a href="{{ route('logbook.create') }}" class="btn btn-primary">Isi Logbook <i class="fa fa-plus"></i></a>
+                    <div class="col d-flex align-items-end justify-content-end">
+
+                        <a href="{{ route('logbook.create') }}" class="btn btn-sm btn-primary">Bimbingan <i
+                                class="fa fa-plus"></i></a>
                     </div>
                 @endcan
             </div>
@@ -39,9 +41,9 @@
                     </thead>
                     <tbody>
                         @if ($logbooks->count() !== 0)
-                            @foreach ($logbooks as $logbook)
+                            @foreach ($logbooks as $index => $logbook)
                                 <tr key="{{ $logbook->id }}" class="text-center">
-                                    <th scope="row">{{ $loop->index + 1 }}</th>
+                                    <th scope="row">{{ $index + $logbooks->firstItem() }}</th>
                                     @cannot('mahasiswa')
                                         <td>{{ $logbook->judul->mahasiswa->nim_or_nidn }}</td>
                                         <td>{{ $logbook->judul->mahasiswa->name }}</td>
@@ -68,14 +70,14 @@
                                                         <a href="javascript:void(0)" id="show-logbook"
                                                             data-url="{{ route('logbook.show', $logbook->id) }}"
                                                             class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                            Show</a>
+                                                            Lihat</a>
                                                     </li>
 
                                                     @can('dosen')
                                                         <li>
                                                             <a class="dropdown-item" href="/logbook/{{ $logbook->id }}/edit">
                                                                 <i class="bi bi-pencil-square text-warning"></i>
-                                                                Update
+                                                                Verifikasi
                                                             </a>
                                                         </li>
                                                     @endcan
@@ -88,7 +90,7 @@
                                                         <li>
                                                             <a href="{{ route('logbook.destroy', $logbook->id) }}"
                                                                 class="dropdown-item" data-confirm-delete="true"><i
-                                                                    class="bi bi-trash-fill text-danger"></i> Delete</a>
+                                                                    class="bi bi-trash-fill text-danger"></i> Batalkan</a>
                                                         </li>
                                                     @endcan
 
@@ -113,16 +115,32 @@
                     </tbody>
                 </table>
             </div>
+
             @can('mahasiswa')
-                <div class="d-flex justify-content-end gap-2">
-                    <a href="cetak/bimbingan-proposal/download/pdf" class="btn btn-sm btn-danger"><i
-                            class="fa fa-file-download"></i> Cetak Bimbingan
-                        Proposal</a>
-                    <a href="cetak/bimbingan-kompre/download/pdf" class="btn btn-sm btn-danger"><i
-                            class="fa fa-file-download"></i> Cetak Bimbingan
-                        Komprehensif </a>
+                <div class="col-md-12 d-flex justify-content-end gap-2 mb-3">
+                    @if ($accProposal->count() >= 2)
+                        <a href="cetak/bimbingan-proposal/download/pdf" class="btn btn-sm btn-danger"><i
+                                class="fa fa-file-pdf"></i> Bimbingan
+                            Proposal</a>
+                    @endif
+                    @if ($accKomprehensif->count() >= 2)
+                        <a href="cetak/bimbingan-kompre/download/pdf" class="btn btn-sm btn-danger"><i
+                                class="fa fa-file-pdf"></i> Bimbingan
+                            Komprehensif </a>
+                    @endif
                 </div>
             @endcan
+            {{-- pagination --}}
+            <div class="col-md-12 d-flex justify-content-between">
+
+                Show {{ $logbooks->firstItem() }}
+                to {{ $logbooks->lastItem() }} items
+                of total {{ $logbooks->total() }} items
+
+                {{ $logbooks->links() }}
+
+            </div>
+
         </div>
     </div>
 

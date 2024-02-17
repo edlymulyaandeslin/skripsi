@@ -87,11 +87,6 @@ Route::middleware('auth')->prefix('manajemen')->group(function () {
     ])->middleware('mahasiswa');
 });
 
-// fitur laporan pada halaman admin
-// Route::middleware('admin')->prefix('laporan')->group(function () {
-//     Route::get('/mahasiswa-seminar', [LaporanController::class, 'index']);
-//     Route::get('/mahasiswa-seminar/{user}', [LaporanController::class, 'show']);
-// });
 
 // route authenticate
 Route::prefix('auth')->group(function () {
@@ -104,13 +99,28 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('cetak')->group(function () {
-    Route::get('/lembar-bimbingan', [CetakController::class, 'bimbingan']);
+    // cetak lembar bimbingan
+    // Route::get('/lembar-bimbingan', [CetakController::class, 'bimbingan']);
     Route::get('/bimbingan-proposal/download/pdf', [CetakController::class, 'cetak_bproposal']);
     Route::get('/bimbingan-kompre/download/pdf', [CetakController::class, 'cetak_bkompre']);
 
-    Route::get('/berita-acara/{sempro}', [CetakController::class, 'beritaAcara'])->middleware('koordinator');
-    Route::get('/berita-acara/{sempro}/download/pdf', [CetakController::class, 'cetak_bAcara'])->middleware('koordinator');
-
-    Route::get('/nilai-sempro/{sempro}', [CetakController::class, 'nilaiSempro'])->middleware('koordinator');
+    // BERITA ACARA SEMPRO
+    // Route::get('/berita-acara-sempro/{sempro}', [CetakController::class, 'beritaAcaraSempro'])->middleware('koordinator');
+    Route::get('/berita-acara-sempro/{sempro}/download/pdf', [CetakController::class, 'cetak_bAcaraSempro'])->middleware('koordinator');
+    // Nilai sempro
+    // Route::get('/nilai-sempro/{sempro}', [CetakController::class, 'nilaiSempro'])->middleware('koordinator');
     Route::get('/nilai-sempro/{sempro}/download/pdf', [CetakController::class, 'cetak_nSempro'])->middleware('koordinator');
+
+    // BERITA ACARA KOMPRE
+    // Route::get('/berita-acara-kompre/{kompre}', [CetakController::class, 'beritaAcaraKompre'])->middleware('koordinator');
+    Route::get('/berita-acara-kompre/{kompre}/download/pdf', [CetakController::class, 'cetak_bAcaraKompre'])->middleware('koordinator');
+    // Nilai sempro
+    // Route::get('/nilai-kompre/{kompre}', [CetakController::class, 'nilaiKompre'])->middleware('koordinator');
+    Route::get('/nilai-kompre/{kompre}/download/pdf', [CetakController::class, 'cetak_nKompre'])->middleware('koordinator');
+
+    // Cetak List Mahasiswa Sempro
+    Route::get('/list-mahasiswa-sempro', [CetakController::class, 'listMahasiswaSempro']);
+
+    // Cetak List Mahasiswa Kompre
+    Route::get('/list-mahasiswa-kompre', [CetakController::class, 'listMahasiswaKompre']);
 });

@@ -5,7 +5,7 @@
         {{-- form --}}
         <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
-                <h4 class="mb-4">Update Detail</h6>
+                <h4 class="mb-4">Verifikasi Judul</h6>
                     <form action="/judul/{{ $judul->id }}" method="POST">
                         @method('patch')
                         @csrf

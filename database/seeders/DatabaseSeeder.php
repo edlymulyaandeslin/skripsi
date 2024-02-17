@@ -24,39 +24,39 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        User::factory()->create([
-            'role_id' => 1,
-            'nim_or_nidn' => 83,
-            'name' => 'Edly Mulya Andeslin',
-            'email' => 'edlymulyaandeslin@gmail.com',
-        ]);
+        // User::factory()->create([
+        //     'role_id' => 1,
+        //     'nim_or_nidn' => 83,
+        //     'name' => 'Edly Mulya Andeslin',
+        //     'email' => 'edlymulyaandeslin@gmail.com',
+        // ]);
 
-        User::factory(14)->create();
+        // User::factory(14)->create();
 
-        Judul::factory(1)->create();
+        // Judul::factory(1)->create();
 
-        Logbook::factory(5)->create();
+        // Logbook::factory(200)->create();
 
-        Sempro::factory(1)->create();
+        // Sempro::factory(200)->create();
 
-        NilaiSempro::factory(1)->create();
+        // NilaiSempro::factory(1)->create();
 
-        Kompre::factory(1)->create();
+        // Kompre::factory(200)->create();
 
-        NilaiKompre::factory(1)->create();
+        // NilaiKompre::factory(1)->create();
 
 
-        Role::create([
-            'name' => 'admin',
-        ]);
-        Role::create([
-            'name' => 'koordinator',
-        ]);
-        Role::create([
-            'name' => 'dosen',
-        ]);
-        Role::create([
-            'name' => 'mahasiswa',
-        ]);
+        // Role::create([
+        //     'name' => 'admin',
+        // ]);
+        // Role::create([
+        //     'name' => 'koordinator',
+        // ]);
+        // Role::create([
+        //     'name' => 'dosen',
+        // ]);
+        // Role::create([
+        //     'name' => 'mahasiswa',
+        // ]);
     }
 }

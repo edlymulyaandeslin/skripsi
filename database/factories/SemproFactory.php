@@ -21,6 +21,7 @@ class SemproFactory extends Factory
             'tanggal_seminar' => fake()->date(),
             'jam' => fake()->time(),
             'ruang' => fake()->locale(),
+            'status' => 'diterima'
         ];
     }
 }

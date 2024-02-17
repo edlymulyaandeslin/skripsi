@@ -144,7 +144,7 @@
                                 </tr>
                                 <tr>
                                     <td>2</td>
-                                    <td>Teah lunas biaya ujian proposal TA</td>
+                                    <td>Telah lunas biaya ujian proposal TA</td>
                                     <td>Fc. Slip Pembayaran</td>
                                     <td></td>
                                 </tr>
@@ -315,7 +315,7 @@
                         <table class="table " id="table">
                             <thead id="thead">
                                 <tr class="text-center">
-                                    <th>No</th>
+                                    <th style="width: 5%">No</th>
                                     <th>NIM</th>
                                     <th>Nama</th>
                                     <th colspan="2">Tanda Tangan</th>
@@ -543,7 +543,7 @@
                     </div>
 
                     <p class="mt-5">
-                        Pada hari ini,
+                        Pada hari ini
                         {{ $sempro->tanggal_seminar ? \Carbon\Carbon::parse($sempro->tanggal_seminar)->translatedFormat('l, d F Y') : '-' }}
                         Proposal Tugas Akhir atas nama :
                     </p>

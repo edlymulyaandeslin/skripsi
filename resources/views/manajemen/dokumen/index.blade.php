@@ -102,7 +102,7 @@
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="mb-3 row">
+                            {{-- <div class="mb-3 row">
                                 <div class="col-md-8">
                                     <label for="lembar_bimbingan" class="form-label">Lembar Bimbingan<span
                                             class="text-danger">*</span></label>
@@ -130,7 +130,7 @@
                                 @error('lembar_bimbingan')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
