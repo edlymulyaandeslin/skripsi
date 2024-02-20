@@ -14,8 +14,7 @@
                 </div>
 
                 @can('mahasiswa')
-                    <div class="col d-flex align-items-end justify-content-end">
-
+                    <div class="col d-flex align-items-end justify-content-end m-2">
                         <a href="{{ route('logbook.create') }}" class="btn btn-sm btn-primary">Bimbingan <i
                                 class="fa fa-plus"></i></a>
                     </div>
@@ -115,7 +114,7 @@
                                 </tr>
                             @endforeach
                         @else
-                            <td colspan="7" class="text-center">No Data</td>
+                            <td colspan="8" class="text-center">No Data</td>
                         @endif
 
                     </tbody>

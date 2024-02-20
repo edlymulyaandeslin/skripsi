@@ -43,18 +43,18 @@ class LogbookController extends Controller
             ]);
         }
 
-        $logbooks = Logbook::with(['judul', 'judul.mahasiswa'])
+        $logbooks = Logbook::with(['judul', 'pembimbing'])
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })->latest()->paginate(10);
 
-        $logbooksAccProposal = Logbook::with(['judul', 'judul.mahasiswa'])
+        $logbooksAccProposal = Logbook::with(['judul'])
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
             ->where('status', 'acc proposal')->latest()->get();
 
-        $logbooksAccKomprehensif = Logbook::with(['judul', 'judul.mahasiswa'])
+        $logbooksAccKomprehensif = Logbook::with(['judul'])
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })

@@ -37,7 +37,7 @@ class LogbookPolicy
      */
     public function update(User $user, Logbook $logbook): bool
     {
-        return $user->id === $logbook->judul->pembimbing1_id || $user->id === $logbook->judul->pembimbing2_id;
+        return $user->id === $logbook->pembimbing_id;
     }
 
     /**
