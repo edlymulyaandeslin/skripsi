@@ -20,9 +20,10 @@
                 <h6 class="mb-0">{{ auth()->user()->name }}</h6>
                 <span>{{ auth()->user()->role->name }}</span>
                 <br>
-                @cannot('admin')
+                @unless (auth()->user()->can('admin') || auth()->user()->can('koordinator'))
                     <span>{{ auth()->user()->role_id === 4 ? 'NIM. ' : 'NIDN. ' }}{{ auth()->user()->nim_or_nidn }}</span>
-                @endcannot
+                @endunless
+
             </div>
         </div>
 
@@ -112,6 +113,21 @@
                             Proposal</a>
                         <a href="/mahasiswa-uji-kompre"
                             class="nav-item nav-link {{ Request::is('mahasiswa-uji-kompre*') ? 'active' : '' }}">Ujian
+                            Komprehensif</a>
+                    </div>
+                </div>
+            @endcan
+
+            @can('koordinator')
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ Request::is('berita-acara*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown"><i class="fa fa-book-open me-2"></i>Berita Acara</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="/berita-acara/sempro"
+                            class="nav-item nav-link {{ Request::is('berita-acara/sempro*') ? 'active' : '' }}">Seminar
+                            Proposal</a>
+                        <a href="/berita-acara/kompre"
+                            class="nav-item nav-link {{ Request::is('berita-acara/kompre*') ? 'active' : '' }}">Seminar
                             Komprehensif</a>
                     </div>
                 </div>

@@ -46,9 +46,9 @@
                                     <th style="width: 3%">No</th>
                                     <th style="width: 10%">Nim</th>
                                     <th style="width: 20%">Nama</th>
-                                    <th style="width: 30%">Judul</th>
-                                    <th>Tanggal</th>
-                                    <th style="width: 17%">Ruang</th>
+                                    <th>Judul</th>
+                                    <th style="width: 18%">Tanggal</th>
+
                                 </tr>
                             </thead>
                             <tbody id="tbody">
@@ -63,7 +63,6 @@
                                             <td>{{ \Carbon\Carbon::parse($sempro->tanggal_seminar)->translatedFormat('d F Y') ?? '-' }}
                                             </td>
 
-                                            <td>{{ $sempro->ruang ?? '-' }}</td>
                                         </tr>
                                     @endforeach
                                 @else

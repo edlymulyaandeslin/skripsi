@@ -11,19 +11,12 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
-                @can('koordinator')
-                    <div>
-                        <a href="/cetak/list-mahasiswa-sempro" class="btn btn-danger btn-sm"><i class="fa fa-file-download"></i>
-                            Mahasiswa
-                            Seminar</a>
-                    </div>
-                @endcan
             </div>
 
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <tr class="text-center">
+                        <tr class="text-center align-middle">
                             <th scope="col">No</th>
                             @cannot('mahasiswa')
                                 <th scope="col">NIM</th>
@@ -77,13 +70,6 @@
                                                                 Verifikasi
                                                             </a>
                                                         </li>
-                                                        <li>
-                                                            <a class="dropdown-item"
-                                                                href="/cetak/berita-acara-sempro/{{ $sempro->id }}/download/pdf">
-                                                                <i class="fa fa-file-pdf text-danger"></i>
-                                                                Berita Acara
-                                                            </a>
-                                                        </li>
                                                     @endcan
 
                                                     <li>
@@ -119,8 +105,8 @@
                 </table>
                 {{-- pagination --}}
                 <div class="col-md-12 d-flex justify-content-between">
-                    Show {{ $sempros->firstItem() }}
-                    to {{ $sempros->lastItem() }} items
+                    Show {{ $sempros->firstItem() ?? 0 }}
+                    to {{ $sempros->lastItem() ?? 0 }} items
                     of total {{ $sempros->total() }} items
                     {{ $sempros->links() }}
                 </div>

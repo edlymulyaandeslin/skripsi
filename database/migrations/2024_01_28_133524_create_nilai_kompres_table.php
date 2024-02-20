@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('nilai_kompres', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('kompre_id')->constrained('kompres')->cascadeOnDelete();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('kompre_id')->constrained('kompres')->cascadeOnDelete();
             $table->integer('nilai1_pem1')->default(0);
             $table->integer('nilai2_pem1')->default(0);
             $table->integer('nilai3_pem1')->default(0);

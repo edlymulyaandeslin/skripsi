@@ -25,16 +25,19 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <tr class="text-center">
+                        <tr class="text-center align-middle">
                             <th scope="col">No</th>
                             @cannot('mahasiswa')
                                 <th scope="col">NIM</th>
                                 <th scope="col">Mahasiswa</th>
                             @endcannot
-                            <th scope="col">Kategori Bimbingan</th>
+                            <th scope="col">Tanggal Bimbingan</th>
+                            <th scope="col">Kategori</th>
+                            @can('mahasiswa')
+                                <th scope="col">Dospem</th>
+                            @endcan
                             <th scope="col">Judul</th>
                             <th scope="col">Target Bimbingan</th>
-                            <th scope="col">Tanggal Bimbingan</th>
                             <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                         </tr>
@@ -48,10 +51,13 @@
                                         <td>{{ $logbook->judul->mahasiswa->nim_or_nidn }}</td>
                                         <td>{{ $logbook->judul->mahasiswa->name }}</td>
                                     @endcannot
+                                    <td>{{ $logbook->created_at->translatedFormat('d F Y') }}</td>
                                     <td>{{ $logbook->kategori }}</td>
+                                    @can('mahasiswa')
+                                        <td>{{ $logbook->pembimbing->name }}</td>
+                                    @endcan
                                     <td>{{ $logbook->judul->judul }}</td>
                                     <td>{{ $logbook->target_bimbingan }}</td>
-                                    <td>{{ $logbook->created_at->translatedFormat('d F Y') }}</td>
                                     <td>
                                         <p
                                             class="bg-{{ $logbook->status == 'diterima' ? 'success' : ($logbook->status == 'ditolak' ? 'danger' : ($logbook->status == 'acc proposal' || $logbook->status == 'acc komprehensif' ? 'primary' : 'warning')) }} rounded text-white px-3 py-1">
@@ -133,8 +139,8 @@
             {{-- pagination --}}
             <div class="col-md-12 d-flex justify-content-between">
 
-                Show {{ $logbooks->firstItem() }}
-                to {{ $logbooks->lastItem() }} items
+                Show {{ $logbooks->firstItem() ?? 0 }}
+                to {{ $logbooks->lastItem() ?? 0 }} items
                 of total {{ $logbooks->total() }} items
 
                 {{ $logbooks->links() }}

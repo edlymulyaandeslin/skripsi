@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('nilai_sempros', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('sempro_id')->constrained('sempros')->cascadeOnDelete();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('sempro_id')->constrained('sempros')->cascadeOnDelete();
             $table->integer('nilai1_pem1')->default(0);
             $table->integer('nilai2_pem1')->default(0);
             $table->integer('nilai3_pem1')->default(0);

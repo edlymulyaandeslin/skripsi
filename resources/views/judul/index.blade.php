@@ -22,7 +22,7 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <tr class="text-center">
+                        <tr class="text-center align-middle">
                             <th scope="col">No</th>
                             @cannot('mahasiswa')
                                 <th scope="col">NIM</th>
@@ -110,11 +110,18 @@
 
                 {{-- pagination --}}
                 <div class="col-md-12 d-flex justify-content-between">
-                    Show {{ $listjudul->firstItem() }}
-                    to {{ $listjudul->lastItem() }} items
+                    Show {{ $listjudul->firstItem() ?? 0 }}
+                    to {{ $listjudul->lastItem() ?? 0 }} items
                     of total {{ $listjudul->total() }} items
                     {{ $listjudul->links() }}
                 </div>
+
+                @can('mahasiswa')
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <small class="fw-bold">Notes: Ajukan 3 Judul</small>
+                    </div>
+                @endcan
+
             </div>
         </div>
     </div>

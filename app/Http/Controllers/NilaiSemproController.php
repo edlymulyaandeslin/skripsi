@@ -181,7 +181,7 @@ class NilaiSemproController extends Controller
 
     public function show(Sempro $sempro)
     {
-        $sempros = $sempro->load(['judul.mahasiswa', 'penguji1', 'penguji2', 'penguji3', 'nilaisempro']);
+        $sempros = $sempro->load(['judul.mahasiswa', 'nilaisempro']);
 
         return response()->json($sempros);
     }

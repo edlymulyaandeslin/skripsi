@@ -17,7 +17,7 @@ class NilaiKompreFactory extends Factory
     public function definition(): array
     {
         return [
-            'kompre_id' => 1,
+            'kompre_id' => fake()->uuid(),
             'nilai1_pem1' => fake()->numberBetween(0, 15),
             'nilai2_pem1' => fake()->numberBetween(0, 15),
             'nilai3_pem1' => fake()->numberBetween(0, 10),

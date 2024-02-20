@@ -11,7 +11,10 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
-                <a href="{{ route('dosen.create') }}" class="btn btn-sm btn-primary">Dosen baru <i class="fa fa-plus"></i></a>
+                <div>
+                    <a href="{{ route('dosen.create') }}" class="btn btn-sm btn-primary">Dosen baru <i
+                            class="fa fa-plus"></i></a>
+                </div>
             </div>
 
             <div class="table-responsive">
@@ -27,9 +30,9 @@
                     </thead>
                     <tbody>
                         @if ($dosens->count() !== 0)
-                            @foreach ($dosens as $dosen)
+                            @foreach ($dosens as $index => $dosen)
                                 <tr key="{{ $dosen->id }}" class="text-center">
-                                    <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
+                                    <th scope="row" class="text-center">{{ $index + $dosens->firstItem() }}</th>
                                     <td>{{ $dosen->nim_or_nidn }}</td>
                                     <td>{{ $dosen->name }}</td>
                                     <td>
@@ -49,14 +52,14 @@
                                                     <a href="javascript:void(0)" id="show-dosen"
                                                         data-url="{{ route('dosen.show', $dosen->id) }}"
                                                         class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                        Show</a>
+                                                        Lihat</a>
                                                 </li>
 
                                                 <li>
                                                     <a class="dropdown-item"
                                                         href="/manajemen/dosen/{{ $dosen->id }}/edit">
                                                         <i class="bi bi-pencil-square text-warning"></i>
-                                                        Update
+                                                        Edit
                                                     </a>
                                                 </li>
 
@@ -67,7 +70,7 @@
                                                 <li>
                                                     <a href="{{ route('dosen.destroy', $dosen->id) }}" class="dropdown-item"
                                                         data-confirm-delete="true"><i
-                                                            class="bi bi-trash-fill text-danger"></i> Delete</a>
+                                                            class="bi bi-trash-fill text-danger"></i> Hapus</a>
                                                 </li>
 
                                             </ul>
@@ -81,6 +84,13 @@
 
                     </tbody>
                 </table>
+                {{-- pagination --}}
+                <div class="col-md-12 d-flex justify-content-between">
+                    Show {{ $dosens->firstItem() }}
+                    to {{ $dosens->lastItem() }} items
+                    of total {{ $dosens->total() }} items
+                    {{ $dosens->links() }}
+                </div>
             </div>
         </div>
     </div>

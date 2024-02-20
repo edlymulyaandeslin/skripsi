@@ -12,14 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('juduls', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('mahasiswa_id')->references('id')->on('users')->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('mahasiswa_id')->constrained('users')->cascadeOnDelete();
             $table->string('judul');
             $table->text('latar_belakang');
-            $table->foreignId('pembimbing1_id')->default(0);
-            $table->foreignId('pembimbing2_id')->default(0);
+            $table->uuid('pembimbing1_id')->nullable();
+            $table->uuid('pembimbing2_id')->nullable();
             $table->enum('status', ['diajukan', 'diterima', 'ditolak'])->default('diajukan');
             $table->timestamps();
+            // Relasi
+            $table->foreign('pembimbing1_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('pembimbing2_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

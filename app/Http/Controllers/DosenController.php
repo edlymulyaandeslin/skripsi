@@ -13,20 +13,20 @@ class DosenController extends Controller
 
     {
         // confirm delete judul
-        $title = 'Delete Dosen!';
-        $text = "Are you sure you want to delete?";
+        $title = 'Hapus Dosen!';
+        $text = "Kamu yakin ingin menghapus?";
         confirmDelete($title, $text);
 
         return view('manajemen.dosen.index', [
-            'title' => 'E - Skripsi | dosen',
-            'dosens' => User::where('role_id', 3)->latest()->get()
+            'title' => 'E - Skripsi | Dosen',
+            'dosens' => User::where('role_id', 3)->latest()->paginate(10)
         ]);
     }
 
     public function create()
     {
         return view('manajemen.dosen.create', [
-            'title' => 'E - Skripsi | Tambah dosen'
+            'title' => 'E - Skripsi | Tambah Dosen'
         ]);
     }
 
@@ -49,7 +49,7 @@ class DosenController extends Controller
 
         User::create($validateData);
 
-        Alert::success('Success!', 'New lecturer added');
+        Alert::success('Berhasil', 'Dosen Telah Ditambahkan');
 
         return redirect('/manajemen/dosen');
     }
@@ -96,7 +96,7 @@ class DosenController extends Controller
 
         $user->where('id', $id)->update($validateData);
 
-        Alert::success('Success!', 'lecturer successfully updated');
+        Alert::success('Berhasil', 'Data Dosen Diperbarui');
 
         return redirect('/manajemen/dosen');
     }
@@ -104,7 +104,7 @@ class DosenController extends Controller
     {
         $user->destroy($id);
 
-        Alert::success('Success!', 'lecturer successfully deleted');
+        Alert::success('Berhasil', 'Dosen Telah Dihapus');
 
         return redirect('/manajemen/dosen');
     }

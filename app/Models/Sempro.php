@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,9 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Sempro extends Model
 {
-    use HasFactory;
-    protected $guarded = [];
-
+    use HasFactory, HasUuids;
+    protected $guarded = ['id'];
     public function judul(): BelongsTo
     {
         return $this->belongsTo(Judul::class, 'judul_id');

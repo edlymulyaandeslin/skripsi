@@ -72,7 +72,7 @@
                                 <td>{{ $logbooks[0]->judul->mahasiswa->nim_or_nidn ?? '-' }}</td>
                             </tr>
                             <tr>
-                                <th>Judul Proposal Tugas Akhir</th>
+                                <th style="width: 30%">Judul Proposal Tugas Akhir</th>
                                 <td>{{ $logbooks[0]->judul->judul ?? '-' }}</td>
                             </tr>
                             <tr>
@@ -90,9 +90,10 @@
                 <div class="col-md-12">
                     <table id="table" class="table">
                         <thead id="thead">
-                            <tr class="text-center">
+                            <tr class="text-center align-middle">
                                 <th id="th">No</th>
                                 <th id="th">Hari/Tanggal Bimbingan</th>
+                                <th id="th">Dospem</th>
                                 <th id="th">Target Bimbingan</th>
                                 <th id="th">Hasil Bimbingan dan Rencana Selanjutnya</th>
                             </tr>
@@ -100,9 +101,10 @@
                         <tbody id="tbody">
                             @if ($logbooks->count() !== 0)
                                 @foreach ($logbooks as $logbook)
-                                    <tr class="text-center">
+                                    <tr class="text-center align-items-center">
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $logbook->created_at->translatedFormat('l, d F Y') }}</td>
+                                        <td>{{ $logbook->pembimbing->name }}</td>
                                         <td>{{ $logbook->target_bimbingan ?? '-' }}</td>
                                         <td>{{ $logbook->hasil ?? '-' }}</td>
                                     </tr>

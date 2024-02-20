@@ -16,7 +16,7 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <tr class="text-center">
+                        <tr class="text-center align-middle">
                             <th scope="col">No</th>
                             @cannot('mahasiswa')
                                 <th scope="col">Mahasiswa</th>
@@ -56,7 +56,7 @@
                                     </td>
 
                                     <td>
-                                        @unless (auth()->user()->can('mahasiswa') || auth()->user()->can('admin'))
+                                        @can('dosen')
                                             <div>
                                                 <button type="button" class="btn btn-sm btn-outline-dark"
                                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -65,38 +65,28 @@
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <a href="javascript:void(0)" id="show-nilaikompre"
-                                                            data-url="{{ route('nilai.kompre.show', $kompre->id) }}}}"
+                                                            data-url="{{ route('nilai.kompre.show', $kompre->id) }}"
                                                             class="dropdown-item"><i class="bi bi-search text-info"></i>
                                                             Lihat</a>
                                                     </li>
 
-                                                    @can('koordinator')
-                                                        <li>
-                                                            <a href="/cetak/nilai-kompre/{{ $kompre->id }}/download/pdf"
-                                                                class="dropdown-item"><i
-                                                                    class="fa fa-file-download text-danger"></i> Cetak
-                                                                Nilai</a>
-                                                        </li>
-                                                    @endcan
-
-                                                    @can('dosen')
-                                                        <li>
-                                                            <a class="dropdown-item" href="/nilai/kompre/{{ $kompre->id }}/edit">
-                                                                <i class="bi bi-pencil-square text-warning"></i>
-                                                                Input Nilai
-                                                            </a>
-                                                        </li>
-                                                    @endcan
+                                                    <li>
+                                                        <a class="dropdown-item" href="/nilai/kompre/{{ $kompre->id }}/edit">
+                                                            <i class="bi bi-pencil-square text-warning"></i>
+                                                            Input Nilai
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
-                                        @endunless
+                                        @endcan
 
-                                        @unless (auth()->user()->can('dosen') || auth()->user()->can('koordinator'))
+                                        @cannot('dosen')
                                             <a href="javascript:void(0)" id="show-nilaikompre"
-                                                data-url="{{ route('nilai.kompre.show', $kompre->id) }}}}"
+                                                data-url="{{ route('nilai.kompre.show', $kompre->id) }}"
                                                 class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
                                             </a>
-                                        @endunless
+                                        @endcannot
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -108,8 +98,8 @@
                 </table>
                 {{-- pagination --}}
                 <div class="col-md-12 d-flex justify-content-between">
-                    Show {{ $kompres->firstItem() }}
-                    to {{ $kompres->lastItem() }} items
+                    Show {{ $kompres->firstItem() ?? 0 }}
+                    to {{ $kompres->lastItem() ?? 0 }} items
                     of total {{ $kompres->total() }} items
                     {{ $kompres->links() }}
                 </div>

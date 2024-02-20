@@ -88,6 +88,11 @@ class SemproController extends Controller
             ->latest()
             ->get();
 
+        if ($juduls->count() == 0) {
+            Alert::warning('Info', 'Mohon Selesaikan Bimbingan Sebelum Mengajukan Seminar Proposal');
+            return redirect('/logbook');
+        }
+
         $dokumen = auth()->user()->dokumen;
 
         return view('sempro.create', [
@@ -176,9 +181,9 @@ class SemproController extends Controller
         }
 
         if ($request->filled('penguji1_id') || $request->filled('penguji2_id') || $request->filled('penguji3_id')) {
-            $rules['penguji1_id'] = 'required';
-            $rules['penguji2_id'] = 'required';
-            $rules['penguji3_id'] = 'required';
+            $rules['penguji1_id'] = 'nullable';
+            $rules['penguji2_id'] = 'nullable';
+            $rules['penguji3_id'] = 'nullable';
         }
 
         if ($request->input('status')) {

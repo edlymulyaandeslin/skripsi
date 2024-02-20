@@ -17,11 +17,11 @@ class JudulFactory extends Factory
     public function definition(): array
     {
         return [
-            'mahasiswa_id' => mt_rand(1, 10),
+            'mahasiswa_id' => fake()->uuid(),
             'judul' => fake()->jobTitle(),
             'latar_belakang' => fake()->paragraph(4),
-            'pembimbing1_id' => 0,
-            'pembimbing2_id' => 0,
+            'pembimbing1_id' => fake()->uuid(),
+            'pembimbing2_id' => fake()->uuid(),
             'status' => 'diterima',
         ];
     }

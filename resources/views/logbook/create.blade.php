@@ -30,7 +30,7 @@
                         <textarea class="form-control @error('target_bimbingan') is-invalid @enderror" placeholder="Target Bimbingan"
                             id="floatingTextarea" style="height: 150px;" name="target_bimbingan">{{ old('target_bimbingan') }}</textarea>
                         <label for="target_bimbingan">Target Bimbingan<span class="text-danger">*</span></label>
-                        <small>Target bimbingan contoh : bab 1.</small>
+                        <small>Target bimbingan misal : bab 1.</small>
                         @error('target_bimbingan')
                             <p class="text-danger pt-1">{{ $message }}</p>
                         @enderror
@@ -41,7 +41,7 @@
                             class="form-control @error('file_proposal')
                             is-invalid @enderror">
                         <label for="file_proposal">Proposal<span class="text-danger">*</span></label>
-                        <small>Unggah proposal bimbingan. Contoh : proposal-bab-1.pdf</small>
+                        <small>Unggah proposal bimbingan misal : proposal-bab-1.pdf</small>
                         @error('file_proposal')
                             <p class="text-danger pt-1">{{ $message }}</p>
                         @enderror
@@ -63,8 +63,38 @@
                             @endif
                         </select>
                         <label for="floatingSelect">Kategori<span class="text-danger">*</span></label>
-                        <small>Kategori bimbingan misal : proposal atau komprehensif</small>
+                        <small>Kategori bimbingan misal : proposal / komprehensif</small>
                         @error('kategori')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select @error('pembimbing_id') is-invalid @enderror" id="floatingSelect"
+                            name="pembimbing_id">
+                            <option selected value="{{ null }}">Pilih</option>
+                            @foreach ($juduls as $judul)
+                                @if (old('pembimbing_id') == $judul->pembimbing1_id)
+                                    <option value="{{ $judul->pembimbing1_id }}" selected>{{ $judul->pembimbing1->name }}
+                                    </option>
+                                    <option value="{{ $judul->pembimbing2_id }}">{{ $judul->pembimbing2->name }}
+                                    </option>
+                                @elseif (old('pembimbing_id') == $judul->pembimbing2_id)
+                                    <option value="{{ $judul->pembimbing1_id }}">{{ $judul->pembimbing1->name }}
+                                    </option>
+                                    <option value="{{ $judul->pembimbing2_id }}" selected>{{ $judul->pembimbing2->name }}
+                                    </option>
+                                @else
+                                    <option value="{{ $judul->pembimbing1_id }}">{{ $judul->pembimbing1->name }}
+                                    </option>
+                                    <option value="{{ $judul->pembimbing2_id }}">{{ $judul->pembimbing2->name }}
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <label for="floatingSelect">Dosen<span class="text-danger">*</span></label>
+                        <small>Dosen bimbingan misal : Dosen A</small>
+                        @error('pembimbing_id')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>

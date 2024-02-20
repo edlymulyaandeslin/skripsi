@@ -17,7 +17,7 @@ class KompreFactory extends Factory
     public function definition(): array
     {
         return [
-            'judul_id' => 1,
+            'judul_id' => fake()->uuid(),
             'tanggal_seminar' => fake()->date(),
             'jam' => fake()->time(),
             'ruang' => fake()->locale(),

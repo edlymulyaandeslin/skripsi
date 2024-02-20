@@ -48,7 +48,7 @@
 
                     <div class="form-floating mb-3">
                         <select class="form-select @error('penguji1_id') is-invalid @enderror" name="penguji1_id">
-                            <option selected value="{{ 0 }}">Pilih</option>
+                            <option selected value="{{ null }}">Pilih</option>
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji1_id', $kompre->penguji1_id) == $dosen->id)
                                     <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
@@ -75,7 +75,7 @@
 
                     <div class="form-floating mb-3">
                         <select class="form-select @error('penguji2_id') is-invalid @enderror" name="penguji2_id">
-                            <option selected value="{{ 0 }}">Pilih</option>
+                            <option selected value="{{ null }}">Pilih</option>
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji2_id', $kompre->penguji2_id) == $dosen->id)
                                     <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
@@ -102,7 +102,7 @@
 
                     <div class="form-floating mb-3">
                         <select class="form-select @error('penguji3_id') is-invalid @enderror" name="penguji3_id">
-                            <option selected value="{{ 0 }}">Pilih</option>
+                            <option selected value="{{ null }}">Pilih</option>
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji3_id', $kompre->penguji3_id) == $dosen->id)
                                     <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>

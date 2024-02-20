@@ -12,13 +12,13 @@ class MahasiswaController extends Controller
     public function index()
     {
         // confirm delete judul
-        $title = 'Delete Mahasiswa!';
-        $text = "Are you sure you want to delete?";
+        $title = 'Hapus Mahasiswa!';
+        $text = "Kamu yakin ingin menghapus?";
         confirmDelete($title, $text);
 
         return view('manajemen.mahasiswa.index', [
             'title' => 'E - Skripsi | Mahasiswa',
-            'mahasiswas' => User::where('role_id', 4)->latest()->get()
+            'mahasiswas' => User::where('role_id', 4)->latest()->paginate(10)
         ]);
     }
 
@@ -48,7 +48,7 @@ class MahasiswaController extends Controller
 
         User::create($validateData);
 
-        Alert::success('Success!', 'New students added');
+        Alert::success('Berhasil', 'Mahasiswa Telah Ditambahkan');
 
         return redirect('/manajemen/mahasiswa');
     }
@@ -96,7 +96,7 @@ class MahasiswaController extends Controller
 
         $user->where('id', $id)->update($validateData);
 
-        Alert::success('Success!', 'Student has successfully updated');
+        Alert::success('Berhasil', 'Data Mahasiswa Diperbarui');
 
         return redirect('/manajemen/mahasiswa');
     }
@@ -105,7 +105,7 @@ class MahasiswaController extends Controller
 
         $user->destroy($id);
 
-        Alert::success('Success!', 'Student has successfully deleted');
+        Alert::success('Berhasil', 'Mahasiswa Telah Dihapus');
 
         return redirect('/manajemen/mahasiswa');
     }

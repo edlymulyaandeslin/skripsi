@@ -11,8 +11,11 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
-                <a href="{{ route('koordinator.create') }}" class="btn btn-sm btn-primary">Koordinator baru <i
-                        class="fa fa-plus"></i></a>
+                <div>
+                    <a href="{{ route('koordinator.create') }}" class="btn btn-sm btn-primary">Koordinator baru <i
+                            class="fa fa-plus"></i></a>
+                </div>
+
             </div>
 
             <div class="table-responsive">
@@ -28,9 +31,9 @@
                     </thead>
                     <tbody>
                         @if ($koordinators->count() !== 0)
-                            @foreach ($koordinators as $koordinator)
+                            @foreach ($koordinators as $index => $koordinator)
                                 <tr key="{{ $koordinator->id }}" class="text-center">
-                                    <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
+                                    <th scope="row" class="text-center">{{ $index + $koordinators->firstItem() }}</th>
                                     <td>{{ $koordinator->nim_or_nidn }}</td>
                                     <td>{{ $koordinator->name }}</td>
                                     <td>
@@ -50,14 +53,14 @@
                                                     <a href="javascript:void(0)" id="show-koordinator"
                                                         data-url="{{ route('koordinator.show', $koordinator->id) }}"
                                                         class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                        Show</a>
+                                                        Lihat</a>
                                                 </li>
 
                                                 <li>
                                                     <a class="dropdown-item"
                                                         href="/manajemen/koordinator/{{ $koordinator->id }}/edit">
                                                         <i class="bi bi-pencil-square text-warning"></i>
-                                                        Update
+                                                        Edit
                                                     </a>
                                                 </li>
 
@@ -68,7 +71,7 @@
                                                 <li>
                                                     <a href="{{ route('koordinator.destroy', $koordinator->id) }}"
                                                         class="dropdown-item" data-confirm-delete="true"><i
-                                                            class="bi bi-trash-fill text-danger"></i> Delete</a>
+                                                            class="bi bi-trash-fill text-danger"></i> Hapus</a>
                                                 </li>
 
                                             </ul>
@@ -82,6 +85,13 @@
 
                     </tbody>
                 </table>
+                {{-- pagination --}}
+                <div class="col-md-12 d-flex justify-content-between">
+                    Show {{ $koordinators->firstItem() }}
+                    to {{ $koordinators->lastItem() }} items
+                    of total {{ $koordinators->total() }} items
+                    {{ $koordinators->links() }}
+                </div>
             </div>
         </div>
     </div>

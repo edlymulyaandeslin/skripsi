@@ -12,14 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('logbooks', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('judul_id')->constrained('juduls')->cascadeOnDelete();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('judul_id')->constrained('juduls')->cascadeOnDelete();
             $table->text('target_bimbingan');
             $table->string('file_proposal')->nullable();
             $table->text('hasil')->nullable();
+            $table->uuid('pembimbing_id')->nullable();
             $table->enum('kategori', ['proposal', 'komprehensif'])->nullable();
             $table->enum('status', ['diajukan', 'ditolak', 'diterima', 'acc proposal', 'acc komprehensif'])->default('diajukan');
             $table->timestamps();
+
+            // relasi
+            $table->foreign('pembimbing_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

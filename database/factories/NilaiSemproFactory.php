@@ -17,7 +17,7 @@ class NilaiSemproFactory extends Factory
     public function definition(): array
     {
         return [
-            'sempro_id' => 1,
+            'sempro_id' => fake()->uuid(),
             'nilai1_pem1' => fake()->numberBetween(0, 15),
             'nilai2_pem1' => fake()->numberBetween(0, 15),
             'nilai3_pem1' => fake()->numberBetween(0, 10),

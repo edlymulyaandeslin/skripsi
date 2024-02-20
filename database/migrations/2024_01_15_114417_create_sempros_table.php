@@ -12,19 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sempros', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('judul_id')->constrained('juduls')->cascadeOnDelete();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('judul_id')->constrained('juduls')->cascadeOnDelete();
             $table->date('tanggal_seminar')->nullable();
             $table->time('jam')->nullable();
             $table->string('ruang')->nullable();
-            $table->foreignId('penguji1_id')->default(0);
-            $table->foreignId('penguji2_id')->default(0);
-            $table->foreignId('penguji3_id')->default(0);
+            $table->uuid('penguji1_id')->nullable();
+            $table->uuid('penguji2_id')->nullable();
+            $table->uuid('penguji3_id')->nullable();
             $table->text('notes')->nullable();
             $table->enum('status', ['diajukan', 'diterima', 'lulus', 'tidak lulus', 'perbaikan', 'penilaian'])->default('diajukan');
             $table->string('pembayaran')->nullable();
             $table->string('lembar_bimbingan')->nullable();
             $table->timestamps();
+
+            // Relasi
+            $table->foreign('penguji1_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('penguji2_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('penguji3_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

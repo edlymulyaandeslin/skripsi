@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Judul;
+use App\Models\Logbook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -133,13 +134,35 @@ class JudulController extends Controller
 
         $mahasiswaId = $judul->mahasiswa_id;
 
+
         $rules = [
-            'pembimbing1_id' => 'required',
-            'pembimbing2_id' => 'required',
             'status' => 'required',
         ];
+        if ($request->filled('pembimbing1_id')) {
+            $rules['pembimbing1_id'] = 'required';
+        }
+        if ($request->filled('pembimbing2_id')) {
+            $rules['pembimbing2_id'] = 'required';
+        }
 
         $validateData = $request->validate($rules);
+
+        // update logbook yang pembimbing_id nya sama dengan judul->pembimbing1_id || judul->pembimbing2_id
+        if ($request->filled('pembimbing1_id')) {
+            Logbook::with('judul')->whereHas('judul', function ($query) use ($mahasiswaId) {
+                $query->where('mahasiswa_id', $mahasiswaId);
+            })->where('pembimbing_id', $judul->pembimbing1_id)->update([
+                'pembimbing_id' => $request->pembimbing1_id
+            ]);
+        }
+
+        if ($request->filled('pembimbing2_id')) {
+            Logbook::with('judul')->whereHas('judul', function ($query) use ($mahasiswaId) {
+                $query->where('mahasiswa_id', $mahasiswaId);
+            })->where('pembimbing_id', $judul->pembimbing2_id)->update([
+                'pembimbing_id' => $request->pembimbing2_id
+            ]);
+        }
 
         $judul->update($validateData);
 
@@ -147,8 +170,8 @@ class JudulController extends Controller
         if ($judul->status == 'diterima') {
             Judul::where('mahasiswa_id', $mahasiswaId)->whereNotIn('id', [$judul->id])->update([
                 'status' => 'ditolak',
-                'pembimbing1_id' => 0,
-                'pembimbing2_id' => 0
+                'pembimbing1_id' => null,
+                'pembimbing2_id' => null
             ]);
         }
 

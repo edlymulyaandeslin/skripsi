@@ -68,7 +68,7 @@
                                 <div class="form-floating mb-4">
                                     <input type="number"
                                         class="form-control @error('nim_or_nidn') is-invalid @enderror"
-                                        name="nim_or_nidn" placeholder="NIM Or NIDN" value="{{ old('nim_or_nidn') }}">
+                                        name="nim_or_nidn" placeholder="NIM Or NIDN" value="{{ old('nim_or_nidn') }}" />
                                     <label for="nim_or_nidn">NIM atau NIDN</label>
                                     @error('nim_or_nidn')
                                         <p class="text-danger">{{ $message }}</p>
@@ -77,7 +77,7 @@
 
                                 <div class="form-floating mb-4">
                                     <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                        name="password" placeholder="Password">
+                                        name="password" placeholder="Password" />
                                     <label for="password">Password</label>
                                     @error('password')
                                         <p class="text-danger">{{ $message }}</p>
@@ -85,16 +85,16 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="remember_token"
-                                            {{ old('remember_token') ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="remember_token">Remember me</label>
+                                        <label class="form-check-label" for="remember">
+                                            <input type="checkbox" class="form-check-input" name="remember"
+                                                id="remember" value="{{ old('remember') ? 'checked' : '' }}" />
+                                            Remember me</label>
                                     </div>
-                                    <a href="">Forgot Password</a>
+
                                 </div>
                                 <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
                             </form>
 
-                            <p class="text-center mb-0">Don't have an Account? <a href="">Sign Up</a></p>
                         </div>
                     </div>
                 </div>

@@ -11,8 +11,10 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
-                <a href="{{ route('mahasiswa.create') }}" class="btn btn-sm btn-primary">Mahasiswa baru
-                    <i class="fa fa-plus"></i></a>
+                <div>
+                    <a href="{{ route('mahasiswa.create') }}" class="btn btn-sm btn-primary">Mahasiswa baru
+                        <i class="fa fa-plus"></i></a>
+                </div>
             </div>
 
             <div class="table-responsive">
@@ -28,9 +30,9 @@
                     </thead>
                     <tbody>
                         @if ($mahasiswas->count() !== 0)
-                            @foreach ($mahasiswas as $mahasiswa)
+                            @foreach ($mahasiswas as $index => $mahasiswa)
                                 <tr key="{{ $mahasiswa->id }}" class="text-center">
-                                    <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
+                                    <th scope="row" class="text-center">{{ $index + $mahasiswas->firstItem() }}</th>
                                     <td>{{ $mahasiswa->nim_or_nidn }}</td>
                                     <td>{{ $mahasiswa->name }}</td>
                                     <td>
@@ -50,14 +52,14 @@
                                                     <a href="javascript:void(0)" id="show-mahasiswa"
                                                         data-url="{{ route('mahasiswa.show', $mahasiswa->id) }}"
                                                         class="dropdown-item"><i class="bi bi-search text-info"></i>
-                                                        Show</a>
+                                                        Lihat</a>
                                                 </li>
 
                                                 <li>
                                                     <a class="dropdown-item"
                                                         href="/manajemen/mahasiswa/{{ $mahasiswa->id }}/edit">
                                                         <i class="bi bi-pencil-square text-warning"></i>
-                                                        Update
+                                                        Ubah
                                                     </a>
                                                 </li>
 
@@ -68,7 +70,7 @@
                                                 <li>
                                                     <a href="{{ route('mahasiswa.destroy', $mahasiswa->id) }}"
                                                         class="dropdown-item" data-confirm-delete="true"><i
-                                                            class="bi bi-trash-fill text-danger"></i> Delete</a>
+                                                            class="bi bi-trash-fill text-danger"></i> Hapus</a>
                                                 </li>
 
                                             </ul>
@@ -82,6 +84,13 @@
 
                     </tbody>
                 </table>
+                {{-- pagination --}}
+                <div class="col-md-12 d-flex justify-content-between">
+                    Show {{ $mahasiswas->firstItem() }}
+                    to {{ $mahasiswas->lastItem() }} items
+                    of total {{ $mahasiswas->total() }} items
+                    {{ $mahasiswas->links() }}
+                </div>
             </div>
         </div>
     </div>

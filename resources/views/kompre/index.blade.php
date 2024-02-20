@@ -11,19 +11,12 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
-                @can('koordinator')
-                    <div>
-                        <a href="/cetak/list-mahasiswa-kompre" class="btn btn-danger btn-sm"><i class="fa fa-file-download"></i>
-                            Mahasiswa
-                            Komprehensif</a>
-                    </div>
-                @endcan
             </div>
 
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <tr class="text-center">
+                        <tr class="text-center align-middle">
                             <th scope="col">No</th>
 
                             @cannot('mahasiswa')
@@ -78,12 +71,6 @@
                                                                 Verifikasi
                                                             </a>
                                                         </li>
-                                                        <li>
-                                                            <a class="dropdown-item"
-                                                                href="/cetak/berita-acara-kompre/{{ $kompre->id }}/download/pdf">
-                                                                <i class="fa fa-file-pdf text-danger"></i> Berita Acara
-                                                            </a>
-                                                        </li>
                                                     @endcan
 
                                                     <li>
@@ -119,8 +106,8 @@
                 </table>
                 {{-- pagination --}}
                 <div class="col-md-12 d-flex justify-content-between">
-                    Show {{ $kompres->firstItem() }}
-                    to {{ $kompres->lastItem() }} items
+                    Show {{ $kompres->firstItem() ?? 0 }}
+                    to {{ $kompres->lastItem() ?? 0 }} items
                     of total {{ $kompres->total() }} items
                     {{ $kompres->links() }}
                 </div>

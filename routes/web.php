@@ -1,23 +1,20 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BeritaAcaraController;
 use App\Http\Controllers\CetakController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\JudulController;
 use App\Http\Controllers\KompreController;
 use App\Http\Controllers\KoordinatorController;
-use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LogbookController;
-use App\Http\Controllers\MahasiswaBimbinganController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MahasiswaSkripsiController;
-use App\Http\Controllers\MahasiswaUjiController;
 use App\Http\Controllers\NilaiKompreController;
 use App\Http\Controllers\NilaiSemproController;
 use App\Http\Controllers\ProfileUpdate;
 use App\Http\Controllers\SemproController;
-use App\Http\Controllers\TeamPengujiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -98,29 +95,25 @@ Route::prefix('auth')->group(function () {
     route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 });
 
+Route::middleware('koordinator')->prefix('berita-acara')->group(function () {
+    Route::get('/sempro', [BeritaAcaraController::class, 'sempro']);
+    Route::get('/kompre', [BeritaAcaraController::class, 'kompre']);
+});
+
 Route::prefix('cetak')->group(function () {
     // cetak lembar bimbingan
-    // Route::get('/lembar-bimbingan', [CetakController::class, 'bimbingan']);
-    Route::get('/bimbingan-proposal/download/pdf', [CetakController::class, 'cetak_bproposal']);
-    Route::get('/bimbingan-kompre/download/pdf', [CetakController::class, 'cetak_bkompre']);
+    Route::get('/bimbingan-proposal/download/pdf', [CetakController::class, 'cetak_bproposal'])->middleware('mahasiswa');
+    Route::get('/bimbingan-kompre/download/pdf', [CetakController::class, 'cetak_bkompre'])->middleware('mahasiswa');
 
     // BERITA ACARA SEMPRO
-    // Route::get('/berita-acara-sempro/{sempro}', [CetakController::class, 'beritaAcaraSempro'])->middleware('koordinator');
     Route::get('/berita-acara-sempro/{sempro}/download/pdf', [CetakController::class, 'cetak_bAcaraSempro'])->middleware('koordinator');
-    // Nilai sempro
-    // Route::get('/nilai-sempro/{sempro}', [CetakController::class, 'nilaiSempro'])->middleware('koordinator');
-    Route::get('/nilai-sempro/{sempro}/download/pdf', [CetakController::class, 'cetak_nSempro'])->middleware('koordinator');
 
     // BERITA ACARA KOMPRE
-    // Route::get('/berita-acara-kompre/{kompre}', [CetakController::class, 'beritaAcaraKompre'])->middleware('koordinator');
     Route::get('/berita-acara-kompre/{kompre}/download/pdf', [CetakController::class, 'cetak_bAcaraKompre'])->middleware('koordinator');
-    // Nilai sempro
-    // Route::get('/nilai-kompre/{kompre}', [CetakController::class, 'nilaiKompre'])->middleware('koordinator');
-    Route::get('/nilai-kompre/{kompre}/download/pdf', [CetakController::class, 'cetak_nKompre'])->middleware('koordinator');
 
     // Cetak List Mahasiswa Sempro
-    Route::get('/list-mahasiswa-sempro', [CetakController::class, 'listMahasiswaSempro']);
+    Route::get('/list-mahasiswa-sempro', [CetakController::class, 'cetak_listMahasiswaSempro'])->middleware('koordinator');
 
     // Cetak List Mahasiswa Kompre
-    Route::get('/list-mahasiswa-kompre', [CetakController::class, 'listMahasiswaKompre']);
+    Route::get('/list-mahasiswa-kompre', [CetakController::class, 'cetak_listMahasiswaKompre'])->middleware('koordinator');
 });

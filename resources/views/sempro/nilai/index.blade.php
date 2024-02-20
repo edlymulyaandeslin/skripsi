@@ -16,7 +16,7 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <tr class="text-center">
+                        <tr class="text-center align-middle">
                             <th scope="col">No</th>
                             @cannot('mahasiswa')
                                 <th scope="col">Mahasiswa</th>
@@ -57,8 +57,7 @@
                                     </td>
 
                                     <td>
-
-                                        @unless (auth()->user()->can('mahasiswa') || auth()->user()->can('admin'))
+                                        @can('dosen')
                                             <div>
                                                 <button type="button" class="btn btn-sm btn-outline-dark"
                                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -67,39 +66,29 @@
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <a href="javascript:void(0)" id="show-nilaisempro"
-                                                            data-url="{{ route('nilai.sempro.show', $sempro->id) }}}}"
+                                                            data-url="{{ route('nilai.sempro.show', $sempro->id) }}"
                                                             class="dropdown-item"><i class="bi bi-search text-info"></i>
                                                             Lihat</a>
                                                     </li>
 
-                                                    @can('koordinator')
-                                                        <li>
-                                                            <a href="/cetak/nilai-sempro/{{ $sempro->id }}/download/pdf"
-                                                                class="dropdown-item"><i
-                                                                    class="fa fa-file-download text-danger"></i> Cetak
-                                                                Nilai</a>
-                                                        </li>
-                                                    @endcan
-
-                                                    @can('dosen')
-                                                        <li>
-                                                            <a class="dropdown-item" href="/nilai/sempro/{{ $sempro->id }}/edit">
-                                                                <i class="bi bi-pencil-square text-warning"></i>
-                                                                Input Nilai
-                                                            </a>
-                                                        </li>
-                                                    @endcan
+                                                    <li>
+                                                        <a class="dropdown-item" href="/nilai/sempro/{{ $sempro->id }}/edit">
+                                                            <i class="bi bi-pencil-square text-warning"></i>
+                                                            Input Nilai
+                                                        </a>
+                                                    </li>
 
                                                 </ul>
                                             </div>
-                                        @endunless
+                                        @endcan
 
-                                        @unless (auth()->user()->can('dosen') || auth()->user()->can('koordinator'))
+                                        {{-- <li>{{ $sempro->ruang }}</li> --}}
+                                        @cannot('dosen')
                                             <a href="javascript:void(0)" id="show-nilaisempro"
-                                                data-url="{{ route('nilai.sempro.show', $sempro->id) }}}}"
+                                                data-url="{{ route('nilai.sempro.show', $sempro->id) }}"
                                                 class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
                                             </a>
-                                        @endunless
+                                        @endcannot
 
                                     </td>
 
@@ -113,8 +102,8 @@
                 </table>
                 {{-- pagination --}}
                 <div class="col-md-12 d-flex justify-content-between">
-                    Show {{ $sempros->firstItem() }}
-                    to {{ $sempros->lastItem() }} items
+                    Show {{ $sempros->firstItem() ?? 0 }}
+                    to {{ $sempros->lastItem() ?? 0 }} items
                     of total {{ $sempros->total() }} items
                     {{ $sempros->links() }}
                 </div>
@@ -123,7 +112,7 @@
     </div>
 
     <!-- Modal show -->
-    <div class="modal fade " id="nilaisemproView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="nilaisemproView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">

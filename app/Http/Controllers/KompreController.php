@@ -92,6 +92,10 @@ class KompreController extends Controller
             ->having('acc_komprehensif_count', '>=', 2)
             ->latest()
             ->get();
+        if ($juduls->count() == 0) {
+            Alert::warning('Info', 'Anda Harus Lulus Seminar Proposal dan Selesaikan Bimbingan Komprehensif');
+            return redirect('/logbook');
+        }
 
         $dokumen = auth()->user()->dokumen;
 
@@ -182,9 +186,9 @@ class KompreController extends Controller
         }
 
         if ($request->filled('penguji1_id') || $request->filled('penguji2_id') || $request->filled('penguji3_id')) {
-            $rules['penguji1_id'] = 'required';
-            $rules['penguji2_id'] = 'required';
-            $rules['penguji3_id'] = 'required';
+            $rules['penguji1_id'] = 'nullable';
+            $rules['penguji2_id'] = 'nullable';
+            $rules['penguji3_id'] = 'nullable';
         }
 
         if ($request->input('status')) {

@@ -24,39 +24,93 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        // User::factory()->create([
-        //     'role_id' => 1,
-        //     'nim_or_nidn' => 83,
-        //     'name' => 'Edly Mulya Andeslin',
-        //     'email' => 'edlymulyaandeslin@gmail.com',
-        // ]);
+        Role::create([
+            'name' => 'admin',
+        ]);
+        Role::create([
+            'name' => 'koordinator',
+        ]);
+        Role::create([
+            'name' => 'dosen',
+        ]);
+        Role::create([
+            'name' => 'mahasiswa',
+        ]);
+
+        // admin
+        User::factory()->create([
+            'role_id' => 1,
+            'nim_or_nidn' => 81,
+            'name' => 'Edly Mulya Andeslin',
+            'email' => 'edlymulyaandeslin@gmail.com',
+        ]);
+        // koordinator
+        User::factory()->create([
+            'role_id' => 2,
+            'nim_or_nidn' => 82,
+            'name' => 'Urfi Utami M.Kom',
+            'email' => 'urfiutami@gmail.com',
+        ]);
+        // dosen
+        User::factory()->create([
+            'role_id' => 3,
+            'nim_or_nidn' => 80001,
+            'name' => 'Khairul Sabri M.Kom',
+            'email' => 'khairulsabri@gmail.com',
+        ]);
+        User::factory()->create([
+            'role_id' => 3,
+            'nim_or_nidn' => 80002,
+            'name' => 'Dona M.Kom',
+            'email' => 'dona@gmail.com',
+            'posisi' => 'kaprodi'
+        ]);
+        User::factory()->create([
+            'role_id' => 3,
+            'nim_or_nidn' => 80003,
+            'name' => 'Wirda Jannatuljannah M.Pd',
+            'email' => 'wirdajannatuljannah@gmail.com',
+        ]);
+        User::factory()->create([
+            'role_id' => 3,
+            'nim_or_nidn' => 80004,
+            'name' => 'Hendri Maradona M.Kom',
+            'email' => 'hendrimaradona@gmail.com',
+        ]);
+        // mahasiswa
+        User::factory()->create([
+            'role_id' => 4,
+            'nim_or_nidn' => 80005,
+            'name' => 'Jesyca Michel',
+            'email' => 'jesycamichel@gmail.com',
+        ]);
+        User::factory()->create([
+            'role_id' => 4,
+            'nim_or_nidn' => 80006,
+            'name' => 'Muhammad Ridho',
+            'email' => 'ridhokun@gmail.com',
+        ]);
+        User::factory()->create([
+            'role_id' => 4,
+            'nim_or_nidn' => 80008,
+            'name' => 'Sayyid Jafar S',
+            'email' => 'sayyidkun@gmail.com',
+        ]);
 
         // User::factory(14)->create();
 
         // Judul::factory(1)->create();
 
-        // Logbook::factory(200)->create();
+        // Logbook::factory(5)->create();
 
-        // Sempro::factory(200)->create();
+        // Sempro::factory(1)->create();
 
-        // NilaiSempro::factory(1)->create();
+        // // NilaiSempro::factory(1)->create();
 
-        // Kompre::factory(200)->create();
+        // Kompre::factory(1)->create();
 
         // NilaiKompre::factory(1)->create();
 
 
-        // Role::create([
-        //     'name' => 'admin',
-        // ]);
-        // Role::create([
-        //     'name' => 'koordinator',
-        // ]);
-        // Role::create([
-        //     'name' => 'dosen',
-        // ]);
-        // Role::create([
-        //     'name' => 'mahasiswa',
-        // ]);
     }
 }

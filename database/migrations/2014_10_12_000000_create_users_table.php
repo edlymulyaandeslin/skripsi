@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignId('role_id');
             $table->integer('nim_or_nidn')->unique();
             $table->string('foto_profil')->nullable();

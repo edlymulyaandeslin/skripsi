@@ -20,15 +20,15 @@ class AuthController extends Controller
             'password' => 'required|min:8'
         ]);
 
-        if (Auth::attempt($credentials, $request->filled('remember_token'))) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            Alert::success('Login Success')->toToast();
+            Alert::success('Login Berhasil')->toToast();
 
             return redirect()->intended('/');
         }
 
-        Alert::error('Login Failed')->toToast();
+        Alert::error('Login Gagal')->toToast();
 
         return back();
     }
@@ -41,7 +41,7 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        Alert::success('Logout success')->toToast();
+        Alert::success('Logout Berhasil')->toToast()->autoClose(3000);
 
         return redirect('/auth/login');
     }

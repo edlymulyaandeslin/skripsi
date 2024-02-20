@@ -34,10 +34,8 @@ class LogbookController extends Controller
 
         if (auth()->user()->role_id == 3) {
             $logbooks = Logbook::with(['judul', 'judul.mahasiswa'])
-                ->whereHas('judul', function ($query) {
-                    $query->where('pembimbing1_id', auth()->user()->id)
-                        ->orWhere('pembimbing2_id', auth()->user()->id);
-                })->latest()->paginate(10);
+                ->where('pembimbing_id', auth()->user()->id)
+                ->latest()->paginate(10);
 
             return view('logbook.index', [
                 'title' => 'E - Skripsi | Bimbingan',
@@ -50,8 +48,17 @@ class LogbookController extends Controller
                 $query->where('mahasiswa_id', auth()->user()->id);
             })->latest()->paginate(10);
 
-        $logbooksAccProposal = Logbook::where('status', 'acc proposal')->latest()->get();
-        $logbooksAccKomprehensif = Logbook::where('status', 'acc komprehensif')->latest()->get();
+        $logbooksAccProposal = Logbook::with(['judul', 'judul.mahasiswa'])
+            ->whereHas('judul', function ($query) {
+                $query->where('mahasiswa_id', auth()->user()->id);
+            })
+            ->where('status', 'acc proposal')->latest()->get();
+
+        $logbooksAccKomprehensif = Logbook::with(['judul', 'judul.mahasiswa'])
+            ->whereHas('judul', function ($query) {
+                $query->where('mahasiswa_id', auth()->user()->id);
+            })
+            ->where('status', 'acc komprehensif')->latest()->get();
 
         return view('logbook.index', [
             'title' => 'E - Skripsi | Bimbingan',
@@ -68,10 +75,15 @@ class LogbookController extends Controller
     {
         // akses mahasiswa
         $this->authorize('create', Logbook::class);
+        $juduls = Judul::with('mahasiswa', 'pembimbing1', 'pembimbing2')->where('status', 'diterima')->where('mahasiswa_id', auth()->user()->id)->latest()->get();
 
+        if ($juduls->count() == 0) {
+            Alert::error('Opsss', 'Belum ada judul yang diterima');
+            return redirect('/logbook');
+        }
         return view('logbook.create', [
             'title' => 'Bimbingan | Pengajuan',
-            'juduls' => Judul::with('mahasiswa')->where('status', 'diterima')->where('mahasiswa_id', auth()->user()->id)->latest()->get()
+            'juduls' => $juduls
         ]);
     }
 
@@ -87,7 +99,8 @@ class LogbookController extends Controller
             'judul_id' => 'required',
             'target_bimbingan' => 'required',
             'file_proposal' => 'required|file|mimes:pdf|max:5000',
-            'kategori' => 'required'
+            'kategori' => 'required',
+            'pembimbing_id' => 'required'
         ]);
 
         $originalName = mt_rand(1, 99999) . '_' . $request->file('file_proposal')->getClientOriginalName();

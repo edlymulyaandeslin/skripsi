@@ -12,20 +12,20 @@ class KoordinatorController extends Controller
     public function index()
     {
         // confirm delete judul
-        $title = 'Delete Koordinator!';
-        $text = "Are you sure you want to delete?";
+        $title = 'Hapus Koordinator!';
+        $text = "Kamu yakin ingin menghapus?";
         confirmDelete($title, $text);
 
         return view('manajemen.koordinator.index', [
             'title' => 'E - Skripsi | Koordinator',
-            'koordinators' => User::where('role_id', 2)->latest()->get()
+            'koordinators' => User::where('role_id', 2)->latest()->paginate(10)
         ]);
     }
 
     public function create()
     {
         return view('manajemen.koordinator.create', [
-            'title' => 'E - Skripsi | Tambah koordinator'
+            'title' => 'E - Skripsi | Tambah Koordinator'
         ]);
     }
 
@@ -48,7 +48,7 @@ class KoordinatorController extends Controller
 
         User::create($validateData);
 
-        Alert::success('Success!', 'New koordinator added');
+        Alert::success('Berhasil', 'Koordinator Telah Ditambahkan');
 
         return redirect('/manajemen/koordinator');
     }
@@ -95,7 +95,7 @@ class KoordinatorController extends Controller
 
         $user->where('id', $id)->update($validateData);
 
-        Alert::success('Success!', 'koordinator has successfully updated');
+        Alert::success('Berhasil', 'Data Koordinator Diperbarui');
 
         return redirect('/manajemen/koordinator');
     }
@@ -103,7 +103,7 @@ class KoordinatorController extends Controller
     {
         $user->destroy($id);
 
-        Alert::success('Success!', 'koordinator has successfully deleted');
+        Alert::success('Berhasil', 'Koordinator Telah Dihapus');
 
         return redirect('/manajemen/koordinator');
     }

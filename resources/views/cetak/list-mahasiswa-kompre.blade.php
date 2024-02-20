@@ -38,7 +38,7 @@
                         </header>
                         <div id="garis-tebal"></div>
                     </div>
-                    <h3 class="text-center my-3 text-uppercase">mahasiswa seminar Proposal</h3>
+                    <h3 class="text-center my-3 text-uppercase">mahasiswa seminar komprehensif</h3>
                     <div class="col-md-12">
                         <table class="table" id="table">
                             <thead id="thead">
@@ -46,9 +46,8 @@
                                     <th style="width: 3%">No</th>
                                     <th style="width: 10%">Nim</th>
                                     <th style="width: 20%">Nama</th>
-                                    <th style="width: 30%">Judul</th>
-                                    <th>Tanggal</th>
-                                    <th style="width: 17%">Ruang</th>
+                                    <th>Judul</th>
+                                    <th style="width: 18%">Tanggal</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody">
@@ -62,8 +61,6 @@
                                             <td>{{ $kompre->judul->judul ?? '-' }}</td>
                                             <td>{{ \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('d F Y') ?? '-' }}
                                             </td>
-
-                                            <td>{{ $kompre->ruang ?? '-' }}</td>
                                         </tr>
                                     @endforeach
                                 @else
