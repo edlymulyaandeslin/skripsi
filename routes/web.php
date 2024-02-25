@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BeritaAcaraController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\CetakController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\DosenController;
@@ -95,9 +95,11 @@ Route::prefix('auth')->group(function () {
     route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 });
 
-Route::middleware('koordinator')->prefix('berita-acara')->group(function () {
-    Route::get('/sempro', [BeritaAcaraController::class, 'sempro']);
-    Route::get('/kompre', [BeritaAcaraController::class, 'kompre']);
+Route::middleware('koordinator')->prefix('laporan')->group(function () {
+    Route::get('/seminar', [LaporanController::class, 'seminar']);
+    Route::get('/lulus-sempro', [LaporanController::class, 'lulusSempro']);
+    Route::get('/lulus-kompre', [LaporanController::class, 'lulusKompre']);
+    Route::get('/yudisium', [LaporanController::class, 'yudisium']);
 });
 
 Route::prefix('cetak')->group(function () {
@@ -111,9 +113,13 @@ Route::prefix('cetak')->group(function () {
     // BERITA ACARA KOMPRE
     Route::get('/berita-acara-kompre/{kompre}/download/pdf', [CetakController::class, 'cetak_bAcaraKompre'])->middleware('koordinator');
 
-    // Cetak List Mahasiswa Sempro
-    Route::get('/list-mahasiswa-sempro', [CetakController::class, 'cetak_listMahasiswaSempro'])->middleware('koordinator');
+    // Cetak List Mahasiswa seminar
+    Route::get('/list-mahasiswa-seminar', [CetakController::class, 'cetak_listMahasiswaSeminar'])->middleware('koordinator');
 
-    // Cetak List Mahasiswa Kompre
-    Route::get('/list-mahasiswa-kompre', [CetakController::class, 'cetak_listMahasiswaKompre'])->middleware('koordinator');
+    // Cetak List mahasiswa lulus sempro
+    Route::get('/lulus-sempro', [CetakController::class, 'cetak_lulusSempro'])->middleware('koordinator');
+    Route::get('/lulus-kompre', [CetakController::class, 'cetak_lulusKompre'])->middleware('koordinator');
+
+    // Cetak List mahasiswa lulus yudisium
+    Route::post('/yudisium', [CetakController::class, 'cetak_yudisium'])->middleware('koordinator');
 });

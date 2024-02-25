@@ -77,13 +77,26 @@
                                                         <hr class="dropdown-divider">
                                                     </li>
 
-                                                    @can('mahasiswa')
-                                                        <li>
-                                                            <a href="{{ route('kompre.destroy', $kompre->id) }}"class="dropdown-item"
-                                                                data-confirm-delete="true"><i
-                                                                    class="bi bi-trash-fill text-danger"></i> Batalkan</a>
-                                                        </li>
-                                                    @endcan
+                                                    @if ($kompre->status == 'diajukan')
+                                                        @can('mahasiswa')
+                                                            <li>
+                                                                <a href="{{ route('kompre.destroy', $kompre->id) }}"class="dropdown-item"
+                                                                    data-confirm-delete="true"><i
+                                                                        class="bi bi-trash-fill text-danger"></i> Batalkan</a>
+                                                            </li>
+                                                        @endcan
+                                                    @elseif($kompre->status == 'tidak lulus')
+                                                        @can('koordinator')
+                                                            <li>
+                                                                <a href="{{ route('kompre.destroy', $kompre->id) }}"class="dropdown-item"
+                                                                    data-confirm-delete="true"><i
+                                                                        class="bi bi-trash-fill text-danger"></i> Hapus</a>
+                                                            </li>
+                                                        @endcan
+                                                    @else
+                                                        {{ '' }}
+                                                    @endif
+
                                                 </ul>
                                             </div>
                                         @endunless

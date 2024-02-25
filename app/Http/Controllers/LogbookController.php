@@ -25,7 +25,13 @@ class LogbookController extends Controller
         confirmDelete($title, $text);
 
         if (auth()->user()->role_id == 1) {
-            $logbooks = Logbook::with(['judul', 'judul.mahasiswa'])->latest()->paginate(10);
+            $logbooks = Logbook::with(['judul', 'judul.mahasiswa'])
+                ->whereHas('judul.mahasiswa', function ($query) {
+                    $query->where('status', 'active');
+                })
+                ->latest()
+                ->paginate(10);
+
             return view('logbook.index', [
                 'title' => 'E - Skripsi | Bimbingan',
                 'logbooks' => $logbooks
@@ -34,6 +40,9 @@ class LogbookController extends Controller
 
         if (auth()->user()->role_id == 3) {
             $logbooks = Logbook::with(['judul', 'judul.mahasiswa'])
+                ->whereHas('judul.mahasiswa', function ($query) {
+                    $query->where('status', 'active');
+                })
                 ->where('pembimbing_id', auth()->user()->id)
                 ->latest()->paginate(10);
 
@@ -48,6 +57,7 @@ class LogbookController extends Controller
                 $query->where('mahasiswa_id', auth()->user()->id);
             })->latest()->paginate(10);
 
+        // untuk validasi menampilkan btn print bimbingan proposal dan komprehensif
         $logbooksAccProposal = Logbook::with(['judul'])
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
@@ -134,7 +144,8 @@ class LogbookController extends Controller
         return view('logbook.edit', [
             'title' => 'Bimbingan | Verifikasi',
             'logbook' => $logbook->load('judul'),
-            'juduls' => Judul::where('status', 'diterima')->latest()->get()
+            'juduls' => Judul::where('status', 'diterima')->latest()->get(),
+
         ]);
     }
 

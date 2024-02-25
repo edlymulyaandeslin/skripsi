@@ -80,13 +80,15 @@
                                                         <hr class="dropdown-divider">
                                                     </li>
 
-                                                    @can('mahasiswa')
-                                                        <li>
-                                                            <a href="{{ route('judul.destroy', $judul->id) }}"
-                                                                class="dropdown-item" data-confirm-delete="true"><i
-                                                                    class="bi bi-trash-fill text-danger"></i> Batalkan</a>
-                                                        </li>
-                                                    @endcan
+                                                    @if ($judul->status !== 'diterima')
+                                                        @can('mahasiswa')
+                                                            <li>
+                                                                <a href="{{ route('judul.destroy', $judul->id) }}"
+                                                                    class="dropdown-item" data-confirm-delete="true"><i
+                                                                        class="bi bi-trash-fill text-danger"></i> Batalkan</a>
+                                                            </li>
+                                                        @endcan
+                                                    @endif
 
                                                 </ul>
                                             </div>

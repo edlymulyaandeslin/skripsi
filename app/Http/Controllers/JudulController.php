@@ -23,9 +23,17 @@ class JudulController extends Controller
 
         // jika dia admin atau koordinator tampilkan semua judul
         if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
+            $listjudul = Judul::with(
+                ['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook']
+            )->whereHas('mahasiswa', function ($query) {
+                $query->where('status', 'active');
+            })->whereIn('status', ['diajukan', 'diterima'])
+                ->latest()
+                ->paginate(10);
+
             return view('judul.index', [
                 'title' => 'E - Skripsi | Judul',
-                'listjudul' => Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])->whereIn('status', ['diajukan', 'diterima'])->latest()->paginate(10),
+                'listjudul' => $listjudul,
             ]);
         }
 
@@ -34,7 +42,11 @@ class JudulController extends Controller
             $listjudul = Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])->where(function ($query) {
                 $query->orWhere('pembimbing1_id', auth()->user()->id)
                     ->orWhere('pembimbing2_id', auth()->user()->id);
-            })->latest()->paginate(10);
+            })->whereHas('mahasiswa', function ($query) {
+                $query->where('status', 'active');
+            })
+                ->latest()
+                ->paginate(10);
 
             return view('judul.index', [
                 'title' => 'E - Skripsi | Judul',

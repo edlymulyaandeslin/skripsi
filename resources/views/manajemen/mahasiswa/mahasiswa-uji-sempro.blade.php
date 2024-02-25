@@ -20,26 +20,31 @@
                             <th scope="col">No</th>
                             <th scope="col">Nim</th>
                             <th scope="col">Mahasiswa</th>
+                            <th scope="col">Judul</th>
+                            <th scope="col">Tanggal Seminar</th>
                             <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($mahasiswas->count() !== 0)
-                            @foreach ($mahasiswas as $mahasiswa)
-                                <tr key="{{ $mahasiswa->id }}" class="text-center">
-                                    <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
-                                    <td>{{ $mahasiswa->nim_or_nidn }}</td>
-                                    <td>{{ $mahasiswa->name }}</td>
+                        @if ($sempros->count() !== 0)
+                            @foreach ($sempros as $index => $sempro)
+                                <tr key="{{ $sempro->id }}" class="text-center">
+                                    <th scope="row">{{ $index + $sempros->firstItem() }}</th>
+                                    <td>{{ $sempro->judul->mahasiswa->nim_or_nidn }}</td>
+                                    <td>{{ $sempro->judul->mahasiswa->name }}</td>
+                                    <td>{{ $sempro->judul->judul }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($sempro->tanggal_seminar)->translatedFormat('d F Y') ?? '-' }}
+                                    </td>
                                     <td>
                                         <span
-                                            class="bg-{{ $mahasiswa->status == 'active' ? 'success' : 'danger' }} text-white px-3 py-1 rounded">
-                                            {{ $mahasiswa->status }}
+                                            class="bg-{{ $sempro->judul->mahasiswa->status == 'active' ? 'success' : 'danger' }} text-white px-3 py-1 rounded">
+                                            {{ $sempro->judul->mahasiswa->status }}
                                         </span>
                                     </td>
                                     <td>
                                         <a href="javascript:void(0)" id="show-mahasiswa"
-                                            data-url="/mahasiswa-skripsi/{{ $mahasiswa->id }}"
+                                            data-url="/mahasiswa-skripsi/{{ $sempro->judul->mahasiswa_id }}"
                                             class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
                                         </a>
                                     </td>
@@ -51,6 +56,13 @@
 
                     </tbody>
                 </table>
+                {{-- paginate --}}
+                <div class="col-md-12 d-flex justify-content-between">
+                    Show {{ $sempros->firstItem() ?? 0 }}
+                    to {{ $sempros->lastItem() ?? 0 }} items
+                    of total {{ $sempros->total() }} items
+                    {{ $sempros->links() }}
+                </div>
             </div>
         </div>
     </div>

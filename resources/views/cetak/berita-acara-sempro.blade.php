@@ -41,6 +41,14 @@
             #header {
                 page-break-after: always;
             }
+
+            #tableheader {
+                width: 100%;
+            }
+
+            #tableheader #td {
+                text-align: center;
+            }
         </style>
     </head>
 
@@ -50,13 +58,20 @@
 
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos : 28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <div id="garis-tebal"></div>
 
@@ -266,13 +281,20 @@
 
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos : 28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
 
                     <div id="garis-tebal"></div>
@@ -528,14 +550,20 @@
 
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
-                                28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <div id="garis-tebal"></div>
 
@@ -639,14 +667,20 @@
 
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
-                                28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                         <div id="garis-tebal"></div>
                     </div>
 
@@ -742,14 +776,20 @@
 
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
-                                28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                         <div id="garis-tebal"></div>
                     </div>
 
@@ -862,14 +902,20 @@
 
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
-                                28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                         <div id="garis-tebal"></div>
                     </div>
 
@@ -980,14 +1026,20 @@
                 <div class="col-md-12">
 
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
-                                28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                         <div id="garis-tebal"></div>
                     </div>
 
@@ -1097,13 +1149,20 @@
 
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos : 28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                         <div id="garis-tebal"></div>
                     </div>
 
@@ -1218,13 +1277,20 @@
                 <div class="col-md-12">
 
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos : 28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                         <div id="garis-tebal"></div>
                     </div>
 
@@ -1339,13 +1405,20 @@
                 <div class="col-md-12">
 
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos : 28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                         <div id="garis-tebal"></div>
                     </div>
 

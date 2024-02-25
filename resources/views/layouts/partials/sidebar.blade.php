@@ -120,15 +120,22 @@
 
             @can('koordinator')
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle {{ Request::is('berita-acara*') ? 'active' : '' }}"
-                        data-bs-toggle="dropdown"><i class="fa fa-book-open me-2"></i>Berita Acara</a>
+                    <a href="#" class="nav-link dropdown-toggle {{ Request::is('laporan*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown"><i class="fa fa-book-open me-2"></i>Laporan</a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a href="/berita-acara/sempro"
-                            class="nav-item nav-link {{ Request::is('berita-acara/sempro*') ? 'active' : '' }}">Seminar
-                            Proposal</a>
-                        <a href="/berita-acara/kompre"
-                            class="nav-item nav-link {{ Request::is('berita-acara/kompre*') ? 'active' : '' }}">Seminar
-                            Komprehensif</a>
+                        <a href="/laporan/seminar"
+                            class="nav-item nav-link {{ Request::is('laporan/seminar*') ? 'active' : '' }}">Mahasiswa
+                            Seminar</a>
+                        <a href="/laporan/lulus-sempro"
+                            class="nav-item nav-link {{ Request::is('laporan/lulus-sempro*') ? 'active' : '' }}">
+                            Lulus
+                            Sempro</a>
+                        <a href="/laporan/lulus-kompre"
+                            class="nav-item nav-link {{ Request::is('laporan/lulus-kompre*') ? 'active' : '' }}">
+                            Lulus Kompre</a>
+                        <a href="/laporan/yudisium"
+                            class="nav-item nav-link {{ Request::is('laporan/yudisium*') ? 'active' : '' }}">Mahasiswa
+                            Yudisium</a>
                     </div>
                 </div>
             @endcan

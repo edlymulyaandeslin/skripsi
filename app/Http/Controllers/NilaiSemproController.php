@@ -17,7 +17,9 @@ class NilaiSemproController extends Controller
         // admin dan koordinator
         if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
             $sempros = Sempro::with('judul.mahasiswa', 'nilaisempro')
-                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->paginate(10);
+                ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
+                ->latest()
+                ->paginate(10);
 
             return view('sempro.nilai.index', [
                 'title' => 'Seminar Proposal | Penilaian',
@@ -37,7 +39,9 @@ class NilaiSemproController extends Controller
                         ->orWhere('penguji2_id', auth()->user()->id)
                         ->orWhere('penguji3_id', auth()->user()->id);
                 })
-                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->paginate(10);
+                ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
+                ->latest()
+                ->paginate(10);
 
             return view('sempro.nilai.index', [
                 'title' => 'Seminar Proposal | Penilaian',

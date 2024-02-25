@@ -7,6 +7,7 @@ use App\Models\Logbook;
 use App\Models\Sempro;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CetakController extends Controller
@@ -46,17 +47,8 @@ class CetakController extends Controller
     }
     // end Cetak bimbingan form
 
-    //  start Cetak Berita Acara Sempro
-    // public function beritaAcaraSempro(Sempro $sempro)
-    // {
-    //     $sempro->load(['judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2', 'penguji1', 'penguji2', 'penguji3']);
 
-    //     return view('cetak.berita-acara-sempro', [
-    //         'title' => 'SEMINAR PROPOSAL',
-    //         'sempro' => $sempro,
-    //         'kaprodi' => User::where('role_id', 3)->where('posisi','kaprodi')->get()
-    //     ]);
-    // }
+    // start Cetak Berita Acara Sempro
     public function cetak_bAcaraSempro(Sempro $sempro)
     {
         $sempro->load(['judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2', 'penguji1', 'penguji2', 'penguji3', 'nilaisempro']);
@@ -73,9 +65,16 @@ class CetakController extends Controller
     //  end Cetak Berita Acara Sempro
 
 
+    // start Cetak Berita Acara Kompre
     public function cetak_bAcaraKompre(Kompre $kompre)
     {
         $kompre->load(['judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2', 'penguji1', 'penguji2', 'penguji3', 'nilaikompre']);
+
+        // return view('cetak.berita-acara-kompre', [
+        //     'title' => 'SEMINAR KOMPREHENSIF',
+        //     'kompre' => $kompre,
+        //     'kaprodi' => User::where('role_id', 3)->where('posisi', 'kaprodi')->get()
+        // ]);
 
         $data = [
             'title' => 'SEMINAR KOMPREHENSIF',
@@ -89,42 +88,121 @@ class CetakController extends Controller
     //  end Cetak Berita Acara Kompre
 
 
-    // list mahasiswa sempro
-    public function cetak_listMahasiswaSempro()
+    // list mahasiswa seminar
+    public function cetak_listMahasiswaSeminar()
     {
-        $sempros = Sempro::with('judul.mahasiswa')->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get();
+        $users = User::with(['judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro.penguji1', 'judul.sempro.penguji2', 'judul.sempro.penguji3', 'judul.kompre.penguji1', 'judul.kompre.penguji2', 'judul.kompre.penguji3'])
+            ->where(function ($query) {
+                $query->orWhereHas('judul.sempro', function ($query) {
+                    $query->where('status', 'diterima');
+                })
+                    ->orWhereHas('judul.kompre', function ($query) {
+                        $query->where('status', 'diterima');
+                    });
+            })->where('role_id', 4)
+            ->latest()->get();
 
-        if ($sempros->count() == 0) {
-            Alert::error('Opsss', 'Maaf Belum Ada Mahasiswa Yang Seminar Proposal');
-            return redirect('/berita-acara/sempro');
+        if ($users->count() == 0) {
+            Alert::error('Opsss', 'Maaf Belum Ada Mahasiswa Yang Seminar');
+            return back();
         }
 
         $data = [
-            'title' => 'Mahasiswa Seminar Proposal',
+            'title' => 'Mahasiswa Seminar',
+            'users' => $users,
+            'kaprodi' => User::where('role_id', 3)->where('posisi', 'kaprodi')->get()
+        ];
+
+        $pdf = Pdf::loadView('cetak.list-mahasiswa-seminar', $data)->setPaper('legal', 'landscape');
+        return $pdf->download('mahasiswa-seminar.pdf');
+    }
+    // end list mahasiswa seminar
+
+
+    // list mahasiswa lulus sempro
+    public function cetak_lulusSempro()
+    {
+        $sempros = Sempro::with(['judul.mahasiswa', 'nilaisempro'])->where('status', 'lulus')->latest()->get();
+
+        if ($sempros->count() == 0) {
+            Alert::error('Opsss', 'Maaf Belum Ada Mahasiswa Yang Lulus Seminar Proposal');
+            return back();
+        }
+
+        $data = [
+            'title' => 'Lulus Sempro',
             'sempros' => $sempros,
             'kaprodi' => User::where('role_id', 3)->where('posisi', 'kaprodi')->get()
         ];
 
-        $pdf = Pdf::loadView('cetak.list-mahasiswa-sempro', $data);
-        return $pdf->download('mahasiswa-seminar-proposal.pdf');
+        $pdf = Pdf::loadView('cetak.list-lulus-sempro', $data);
+        return $pdf->download('mahasiswa-lulus-sempro.pdf');
     }
+    // end list mahasiswa lulus sempro
 
-    public function cetak_listMahasiswaKompre()
+
+    // list mahasiswa lulus kompre
+    public function cetak_lulusKompre()
     {
-        $kompres = Kompre::with('judul.mahasiswa')->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->get();
+        $kompres = Kompre::with(['judul.mahasiswa', 'nilaikompre'])->where('status', 'lulus')->latest()->get();
 
         if ($kompres->count() == 0) {
-            Alert::error('Opsss', 'Maaf Belum Ada Mahasiswa Yang Seminar Komprehensif');
-            return redirect('/berita-acara/kompre');
+            Alert::error('Opsss', 'Maaf Belum Ada Mahasiswa Yang Lulus Seminar Komprehensif');
+            return back();
         }
 
         $data = [
-            'title' => 'Mahasiswa Seminar Komprehensif',
+            'title' => 'Lulus Kompre',
             'kompres' => $kompres,
             'kaprodi' => User::where('role_id', 3)->where('posisi', 'kaprodi')->get()
         ];
 
-        $pdf = Pdf::loadView('cetak.list-mahasiswa-kompre', $data);
-        return $pdf->download('mahasiswa-seminar-komprehensif.pdf');
+        $pdf = Pdf::loadView('cetak.list-lulus-kompre', $data);
+        return $pdf->download('mahasiswa-lulus-kompre.pdf');
     }
+    // end list mahasiswa lulus kompre
+
+    // list mahasiswa lulus yudisium
+    public function cetak_yudisium(Request $request)
+    {
+        $tanggalAwal = $request->tanggalAwal;
+        $tanggalAkhir = $request->tanggalAkhir;
+
+        if ($tanggalAwal > $tanggalAkhir) {
+            Alert::warning('Warning', 'Tanggal Periode Awal Tidak Boleh Lebih Besar Daripada Tanggal Periode Akhir');
+            return back();
+        }
+
+        $users = User::with([
+            'judul.pembimbing1', 'judul.pembimbing2',
+            'judul.sempro.penguji1', 'judul.sempro.penguji2', 'judul.sempro.penguji3',
+            'judul.kompre.penguji1', 'judul.kompre.penguji2', 'judul.kompre.penguji3'
+        ])
+            ->where(function ($query) use ($tanggalAwal, $tanggalAkhir) {
+                $query->whereHas('judul.sempro', function ($query) {
+                    $query->where('status', 'lulus');
+                })
+                    ->whereHas('judul.kompre', function ($query) use ($tanggalAwal, $tanggalAkhir) {
+                        $query->where('status', 'lulus')
+                            ->whereBetween('updated_at', [$tanggalAwal, $tanggalAkhir]);
+                    });
+            })->where('role_id', 4)
+            ->latest()
+            ->get();
+
+        if ($users->count() == 0) {
+            Alert::info('Info', 'Tidak Ada Mahasiswa Pada Tanggal Periode Yang Di Pilih');
+            return back();
+        }
+
+        $data = [
+            'title' => 'Yudisium',
+            'users' => $users,
+            'kaprodi' => User::where('role_id', 3)->where('posisi', 'kaprodi')->get()
+        ];
+
+        $pdf = Pdf::loadView('cetak.list-lulus-yudisium', $data);
+        return $pdf->download('mahasiswa-yudisium.pdf');
+    }
+    // end list mahasiswa lulus yudisium
 }

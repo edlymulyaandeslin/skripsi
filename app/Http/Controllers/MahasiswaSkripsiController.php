@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Judul;
+use App\Models\Kompre;
+use App\Models\Sempro;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,12 +14,12 @@ class MahasiswaSkripsiController extends Controller
     {
         $this->authorize('dosen');
 
-        $mahasiswas = User::with(['judul'])
+        $mahasiswas = User::with(['judul.sempro', 'judul.kompre'])
             ->whereHas('judul', function ($query) {
-                $query->where('pembimbing1_id', auth()->user()->id)
+                $query->where('status', 'diterima')->where('pembimbing1_id', auth()->user()->id)
                     ->orWhere('pembimbing2_id', auth()->user()->id);
             })
-            ->where('role_id', 4)->get();
+            ->where('role_id', 4)->latest()->paginate(10);
 
         return view('manajemen.mahasiswa.mahasiswa-bimbingan', [
             'title' => 'E - Skripsi | Mahasiswa Bimbingan',
@@ -28,34 +31,31 @@ class MahasiswaSkripsiController extends Controller
     {
         $this->authorize('dosen');
 
-        $mahasiswas = User::with(['judul.sempro'])
-            ->whereHas('judul.sempro', function ($query) {
-                $query->where('penguji1_id', auth()->user()->id)
-                    ->orWhere('penguji2_id', auth()->user()->id)
-                    ->orWhere('penguji3_id', auth()->user()->id);
-            })
-            ->where('role_id', 4)->get();
+
+        $sempros = Sempro::with(['judul.mahasiswa'])->where(function ($query) {
+            $query->where('penguji1_id', auth()->user()->id)
+                ->orWhere('penguji2_id', auth()->user()->id)
+                ->orWhere('penguji3_id', auth()->user()->id);
+        })->where('status', 'diterima')->latest()->paginate(10);
 
         return view('manajemen.mahasiswa.mahasiswa-uji-sempro', [
             'title' => 'E - Skripsi | Uji Mahasiswa',
-            'mahasiswas' => $mahasiswas
+            'sempros' => $sempros
         ]);
     }
     public function kompre()
     {
         $this->authorize('dosen');
 
-        $mahasiswas = User::with(['judul.kompre'])
-            ->whereHas('judul.kompre', function ($query) {
-                $query->where('penguji1_id', auth()->user()->id)
-                    ->orWhere('penguji2_id', auth()->user()->id)
-                    ->orWhere('penguji3_id', auth()->user()->id);
-            })
-            ->where('role_id', 4)->get();
+        $kompres = Kompre::with(['judul.mahasiswa'])->where(function ($query) {
+            $query->where('penguji1_id', auth()->user()->id)
+                ->orWhere('penguji2_id', auth()->user()->id)
+                ->orWhere('penguji3_id', auth()->user()->id);
+        })->where('status', 'diterima')->latest()->paginate(10);
 
         return view('manajemen.mahasiswa.mahasiswa-uji-kompre', [
             'title' => 'E - Skripsi | Uji Mahasiswa',
-            'mahasiswas' => $mahasiswas
+            'kompres' => $kompres
         ]);
     }
 

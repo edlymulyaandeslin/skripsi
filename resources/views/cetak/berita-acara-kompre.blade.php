@@ -22,6 +22,11 @@
                 border: 1px solid black;
             }
 
+            #berita tr td {
+                padding-bottom: 60px;
+                border-bottom: 1px solid black
+            }
+
             .garis-putus-putus {
                 border: 1px dashed black;
             }
@@ -41,6 +46,14 @@
             #header {
                 page-break-after: always;
             }
+
+            #tableheader {
+                width: 100%;
+            }
+
+            #tableheader #td {
+                text-align: center;
+            }
         </style>
     </head>
 
@@ -50,215 +63,123 @@
 
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos : 28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <div id="garis-tebal"></div>
 
                     <div class="col-md-12 text-center">
-                        <h4>FORMULIR PENGAJUAN SEMINAR KOMPREHENSIF TUGAS AKHIR I</h4>
+                        <h4>BERITA ACARA</h4>
+                        <h4>UJIAN KOMPREHENSIF</h4>
+                        <h4>TAHUN AKADEMIK {{ \Carbon\Carbon::now()->year }} / {{ \Carbon\Carbon::now()->year + 1 }}
+                        </h4>
                     </div>
 
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <table id="table" class="table caption-top" style="border: 1px solid black;">
-                            <caption class="fw-bold">Data Mahasiswa</caption>
-                            <tbody id="tbody">
-                                <tr>
-                                    <td>Nama</td>
-                                    <td>{{ $kompre->judul->mahasiswa->name }}</td>
+                    <p class="m-0">
+                        Pada
+                    </p>
 
-                                    <td>No.HP</td>
-                                    <td>{{ $kompre->judul->mahasiswa->no_hp }}</td>
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 20%">Hari/Tanggal</td>
+                                    <td style="width: 1%">:</td>
+                                    <td>{{ \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('l, d F Y') ?? '-' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Pukul</td>
+                                    <td style="width: 1%">:</td>
+                                    <td>{{ \Carbon\Carbon::parse($kompre->jam)->translatedFormat('H:i') . ' WIB' ?? '-' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ruang</td>
+                                    <td style="width: 1%">:</td>
+                                    <td>{{ $kompre->ruang }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Program Studi Sistem Informasi Fakultas Ilmu Komputer Universitas Pasir Pengaraian telah
+                        melaksanakan ujian komprehensif atas nama mahasiswa.</p>
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 20%">Nama</td>
+                                    <td style="width: 1%">:</td>
+                                    <td>{{ $kompre->judul->mahasiswa->name }}</td>
                                 </tr>
                                 <tr>
                                     <td>NIM</td>
+                                    <td>:</td>
                                     <td>{{ $kompre->judul->mahasiswa->nim_or_nidn }}</td>
-
-                                    <td>Email</td>
-                                    <td>{{ $kompre->judul->mahasiswa->email }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4" style="height: 80px"></td>
-
-                                </tr>
-
-                                <tr>
-                                    <td colspan="2">Data Pembimbing 1</td>
-                                    <td colspan="2">Data Pembimbing 2</td>
-                                </tr>
-                                <tr>
-                                    <td>Nama</td>
-                                    <td>{{ $kompre->judul->pembimbing1->name }}</td>
-
-                                    <td>Nama</td>
-                                    <td>{{ $kompre->judul->pembimbing2->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td>NIDN</td>
-                                    <td>{{ $kompre->judul->pembimbing1->nim_or_nidn }}</td>
-
-                                    <td>NIDN</td>
-                                    <td>{{ $kompre->judul->pembimbing2->nim_or_nidn }}</td>
+                                    <td>Judul Skripsi</td>
+                                    <td>:</td>
+                                    <td>{{ \Str::title($kompre->judul->judul) }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+
                     <p>
-                        Dengan ini saya mengajukan permohonan SEMINAR KOMPREHENSIF. Saya Menyatakan saya telah memenuhi
-                        ketentuan yang dipersyaratkan oleh Program Studi.
+                        Demikian berita acara ini dibuat dengan sesungguhnya dan sebenar-benarnya untuk digunakan
+                        sebagaimana mestinya.
                     </p>
-                    <p>
-                        Tanda Tangan Mahasiswa ..........................................
-                        Tanggal {{ $kompre->created_at->translatedFormat('d F Y') }}
-                    </p>
-                    <div class="garis-putus-putus"></div>
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <table id="table" class="table caption-top">
-                            <caption class="fw-bold">Ka. Program Studi Sistem Informasi telah memeriksa persyaratan
-                                seminar
-                                Komprehensif Tugas
-                                Akhir</caption>
-                            <thead id="thead">
-                                <tr class="text-center">
-                                    <th scope="col">No</th>
-                                    <th scope="col">Persyaratan</th>
-                                    <th scope="col">Dokumen</th>
-                                    <th scope="col">Ket.</th>
+
+                    <div class="col-md-12 text-end">
+                        <p class="me-4">
+                            Pasir Pengaraian,
+                            {{ \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('d F Y') ?? '-' }}
+                        </p>
+                    </div>
+
+                    <div class="col-md-12">
+                        <table class="table text-center">
+                            <thead>
+
+                                <tr>
+                                    <th style="width: 50%">Penguji</th>
+                                    <th>Tanda Tangan</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbody">
+                            <tbody id="berita">
                                 <tr>
-                                    <td rowspan="2">1</td>
-                                    <td rowspan="2">Telah memprogram mata kuliah TA I pada KRS</td>
-                                    <td>Fc. KRS</td>
-                                    <td></td>
+                                    <th rowspan="2">Komisi Pembimbing</th>
+                                    <td class="text-start">1.</td>
                                 </tr>
                                 <tr>
-                                    <td>Fc. Transkip Nilai Sementara</td>
-                                    <td></td>
+                                    <td class="text-start">2.</td>
                                 </tr>
                                 <tr>
-                                    <td>2</td>
-                                    <td>Telah lunas biaya ujian komprehensif TA</td>
-                                    <td>Fc. Slip Pembayaran</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td rowspan="2">3</td>
-                                    <td rowspan="2">5 Rangkap Proposal TA yang sudah disetujui pembimbing 1 dan 2 dan
-                                        6
-                                        MAP</td>
-                                    <td>5 Rangkap Naskah Proposal</td>
-                                    <td></td>
+                                    <th rowspan="3">Komisi Penguji Luar Pembimbing</th>
+                                    <td class="text-center">(Ketua Penguji)</td>
                                 </tr>
                                 <tr>
-                                    <td>6 Map</td>
-                                    <td></td>
+                                    <td class="text-center">(Anggota Penguji)</td>
                                 </tr>
                                 <tr>
-                                    <td>4</td>
-                                    <td>Menghadiri minimal 5 kali sidang proposal atau TA</td>
-                                    <td>Bukti Hadir Seminar/sidang</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>5</td>
-                                    <td>Lembar Kontrol Bimbingan Komprehensif TA</td>
-                                    <td>Asli dan Fotocopy</td>
-                                    <td></td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <p>Setelah diperiksa mahasiswa tersebut diatas telah memenuhi persyaratan sehingga berhak mengajukan
-                        permohonan SEMINAR KOMPREHENSIF.</p>
-                    <p>
-                        Ka. Program Studi Sistem Informasi Tanggal ...............................
-                        Tanda Tangan.............................
-                    </p>
-
-                    <div class="garis-putus-putus"></div>
-
-                    <p class="text-end mt-2">No :
-                        ............./SI-FILKOM/............./............./{{ date('Y') }}
-                    </p>
-
-                    <p>Ketua Program Studi Sistem Informasi dengan ini mengusulkan kepada Dekan Fakultas Ilmu Komputer
-                        agar
-                        nama-nama dibawah ini dibuatkan Surat Keputusan untuk menjadi tim Tim Penguji Komprehensif Tugas
-                        Akhir
-                        bagi mahasiswa tersebut diatas.</p>
-
-                    <div class="col-md-12 d-flex justify-content-center mt-5 pt-5">
-                        <table id="table" class="table">
-                            <thead id="thead">
-                                <tr class="text-center">
-                                    <th scope="col">Penguji</th>
-                                    <th scope="col">Nama</th>
-                                    <th scope="col">NIDN</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody">
-                                <tr>
-                                    <td>Penguji 1</td>
-                                    <td>{{ $kompre->penguji1->name ?? '-' }}</td>
-                                    <td>{{ $kompre->penguji1->nim_or_nidn ?? '-' }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Penguji 2</td>
-                                    <td>{{ $kompre->penguji2->name ?? '-' }}</td>
-                                    <td>{{ $kompre->penguji2->nim_or_nidn ?? '-' }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Penguji 3</td>
-                                    <td>{{ $kompre->penguji3->name ?? '-' }}</td>
-                                    <td>{{ $kompre->penguji3->nim_or_nidn ?? '-' }}</td>
+                                    <td class="text-center">(Anggota Penguji)</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-
-                    <div class="col-md-12 mt-5">
-                        <div class="col-md-6">
-                            <p>Yang akan dilaksanakan pada:</p>
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td>Hari/Tanggal</td>
-                                        <td>:</td>
-                                        <td>{{ $kompre->tanggal_seminar ? \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('l, d F Y') : '-' }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tempat</td>
-                                        <td>:</td>
-                                        <td>{{ $kompre->ruang ?? '-' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Waktu</td>
-                                        <td>:</td>
-                                        <td>{{ $kompre->jam ? \Carbon\Carbon::parse($kompre->jam)->format('H:i') : '-' }}
-                                            WIB
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <p class="m-0">Pasir Pengaraian, ......................... {{ date('Y') }}</p>
-                            <p class="mb-5">Ka. Program Studi Sistem Informasi</p>
-                            <span>{{ $kaprodi[0]->name ?? '-' }}</span>
-                            <p>NIDN. {{ $kaprodi[0]->nim_or_nidn ?? '-' }}</p>
-                        </div>
                     </div>
                 </div>
 
@@ -266,43 +187,68 @@
 
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos : 28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <div id="garis-tebal"></div>
                     </div>
-
-                    <div id="garis-tebal"></div>
 
                     <div class="col-md-12 text-center">
-                        <h4>DAFTAR HADIR MAHASISWA</h4>
-                        <h4>{{ $title }} TUGAS AKHIR I</h4>
+                        <h4>REKAPITULASI NILAI</h4>
+                        <h4>UJIAN KOMPREHENSIF</h4>
+                        <h4>TAHUN AKADEMIK {{ \Carbon\Carbon::now()->year }} / {{ \Carbon\Carbon::now()->year + 1 }}
+                        </h4>
                     </div>
+
+                    <p class="m-0">
+                        Penguji Ujian Komprehensif Program Studi S1 Sistem Informasi telah mengadakan ujian komprehensif
+                        pada:
+                    </p>
 
                     <div class="col-md-12">
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td style="width: 30%">Hari/Tanggal</td>
+                                    <td style="width: 20%">Hari</td>
                                     <td style="width: 1%">:</td>
-                                    <td>{{ $kompre->tanggal_seminar ? \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('l, d F Y') : '-' }}
+                                    <td>{{ \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('l') ?? '-' }}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Waktu</td>
-                                    <td>:</td>
-                                    <td>{{ $kompre->jam? \Carbon\Carbon::parse($kompre->jam)->translatedFormat('H:i') .' s/d ' .\Carbon\Carbon::parse($kompre->jam)->addHours(1)->translatedFormat('H:i'): '-' }}
-                                        WIB</td>
-                                </tr>
-                                <tr>
-                                    <td>Penyaji</td>
-                                    <td>:</td>
-                                    <td>{{ $kompre->judul->mahasiswa->name }}</td>
+                                    <td style="width: 20%">Tanggal</td>
+                                    <td style="width: 1%">:</td>
+                                    <td>{{ \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('d F Y') ?? '-' }}
+                                    </td>
                                 </tr>
 
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Atas nama mahasiswa:</p>
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 20%">Nama</td>
+                                    <td style="width: 1%">:</td>
+                                    <td>{{ $kompre->judul->mahasiswa->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>NIM</td>
+                                    <td>:</td>
+                                    <td>{{ $kompre->judul->mahasiswa->nim_or_nidn }}</td>
+                                </tr>
                                 <tr>
                                     <td>Judul Proposal</td>
                                     <td>:</td>
@@ -313,480 +259,11 @@
                     </div>
 
                     <div class="col-md-12">
-                        <table class="table " id="table">
-                            <thead id="thead">
-                                <tr class="text-center">
-                                    <th style="width: 5%">No</th>
-                                    <th>NIM</th>
-                                    <th>Nama</th>
-                                    <th colspan="2">Tanda Tangan</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody">
-                                <tr>
-                                    <td>1.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">1.</td>
-                                    <td rowspan="2">2.</td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>3.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">3.</td>
-                                    <td rowspan="2">4.</td>
-                                </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>5.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">5.</td>
-                                    <td rowspan="2">6.</td>
-                                </tr>
-                                <tr>
-                                    <td>6.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>7.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">7.</td>
-                                    <td rowspan="2">8.</td>
-                                </tr>
-                                <tr>
-                                    <td>8.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>9.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">9.</td>
-                                    <td rowspan="2">10.</td>
-                                </tr>
-                                <tr>
-                                    <td>10.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>11.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">11.</td>
-                                    <td rowspan="2">12.</td>
-                                </tr>
-                                <tr>
-                                    <td>12.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>13.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">13.</td>
-                                    <td rowspan="2">14.</td>
-                                </tr>
-                                <tr>
-                                    <td>14.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>15.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">15.</td>
-                                    <td rowspan="2">16.</td>
-                                </tr>
-                                <tr>
-                                    <td>16.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>17.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">17.</td>
-                                    <td rowspan="2">18.</td>
-                                </tr>
-                                <tr>
-                                    <td>18.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>19.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">19.</td>
-                                    <td rowspan="2">20.</td>
-                                </tr>
-                                <tr>
-                                    <td>20.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>21.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">21.</td>
-                                    <td rowspan="2">22.</td>
-                                </tr>
-                                <tr>
-                                    <td>22.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>23.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">23.</td>
-                                    <td rowspan="2">24.</td>
-                                </tr>
-                                <tr>
-                                    <td>24.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>25.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">25.</td>
-                                    <td rowspan="2">26.</td>
-                                </tr>
-                                <tr>
-                                    <td>26.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>27.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">27.</td>
-                                    <td rowspan="2">28.</td>
-                                </tr>
-                                <tr>
-                                    <td>28.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>29.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td rowspan="2">29.</td>
-                                    <td rowspan="2">30.</td>
-                                </tr>
-                                <tr>
-                                    <td>30.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-
-                <div id="header"></div>
-
-                <div class="col-md-12">
-                    <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
-                                28557</span>
-                        </header>
-                    </div>
-                    <div id="garis-tebal"></div>
-
-                    <div class="col-md-12 text-center">
-                        <h4>BERITA ACARA PELAKSANAAN {{ $title }} TUGAS AKHIR I</h4>
-                    </div>
-
-                    <p class="mt-5">
-                        Pada hari ini
-                        {{ $kompre->tanggal_seminar ? \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('l, d F Y') : '-' }}
-                        Proposal Tugas Akhir atas nama :
-                    </p>
-
-                    <div class="col-md-12">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td style="width: 30%">NAMA</td>
-                                    <td style="width: 1%">:</td>
-                                    <td>{{ $kompre->judul->mahasiswa->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td>NIM</td>
-                                    <td>:</td>
-                                    <td>{{ $kompre->judul->mahasiswa->nim_or_nidn }}</td>
-                                </tr>
-                                <tr>
-                                    <td>JUDUL KOMPREHENSIF</td>
-                                    <td>:</td>
-                                    <td>{{ \Str::title($kompre->judul->judul) }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-12">
-                        Dinyatakan :
-                        <ul class="list-group list-group-numbered">
-                            <li class="list-group-item">Diterima</li>
-                            <li class="list-group-item">Ditolak</li>
-                            <li class="list-group-item">Diseminar Ulang</li>
-                        </ul>
-                    </div>
-
-                    <p class="mt-4">
-                        Dengan catatan terlampir.
-                    </p>
-
-                    <p>
-                        Demikian berita acara ini dibuat untuk dapat digunakan seperlunya. Ditetapkan di Pasir
-                        Pengaraian
-                        tanggal ...... bulan ...... tahun {{ date('Y') }}
-                    </p>
-
-                    <div class="col-md-12">
                         <table id="table" class="table text-center">
                             <thead id="thead">
                                 <tr>
                                     <th>No</th>
                                     <th>NAMA</th>
-                                    <th>JABATAN</th>
-                                    <th>TANDA TANGAN</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody">
-                                <tr>
-                                    <td class="pb-4">1</td>
-                                    <td>{{ $kompre->judul->pembimbing1->name ?? '-' }}</td>
-                                    <td>KETUA</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="pb-4">2</td>
-                                    <td>{{ $kompre->judul->pembimbing2->name ?? '-' }}</td>
-                                    <td>SEKRETARIS</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="pb-4">3</td>
-                                    <td>{{ $kompre->penguji1->name ?? '-' }}</td>
-                                    <td>PENGUJI 1</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="pb-4">4</td>
-                                    <td>{{ $kompre->penguji2->name ?? '-' }}</td>
-                                    <td>PENGUJI 2</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="pb-4">5</td>
-                                    <td>{{ $kompre->penguji3->name ?? '-' }}</td>
-                                    <td>PENGUJI 3</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="header"></div>
-
-                <div class="col-md-12">
-                    <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
-                                28557</span>
-                        </header>
-                        <div id="garis-tebal"></div>
-                    </div>
-
-                    <div class="col-md-12 text-center">
-                        <h4>DAFTAR HADIR TIM PENGUJI</h4>
-                        <h4>SIDANG KOMPREHENSIF TUGAS AKHIR I</h4>
-                    </div>
-
-                    <div class="col-md-12">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td style="width: 30%">NAMA</td>
-                                    <td style="width: 1%">:</td>
-                                    <td>{{ $kompre->judul->mahasiswa->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td>NIM</td>
-                                    <td>:</td>
-                                    <td>{{ $kompre->judul->mahasiswa->nim_or_nidn }}</td>
-                                </tr>
-                                <tr>
-                                    <td>JUDUL KOMPREHENSIF</td>
-                                    <td>:</td>
-                                    <td>{{ \Str::title($kompre->judul->judul) }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="col-md-12">
-                        <table id="table" class="table text-center">
-                            <thead id="thead">
-                                <tr>
-                                    <th>No</th>
-                                    <th>NAMA</th>
-                                    <th>JABATAN</th>
-                                    <th>TANDA TANGAN</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody">
-                                <tr>
-                                    <td class="pb-4">1</td>
-                                    <td>{{ $kompre->judul->pembimbing1->name ?? '-' }}</td>
-                                    <td>KETUA</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="pb-4">2</td>
-                                    <td>{{ $kompre->judul->pembimbing2->name ?? '-' }}</td>
-                                    <td>SEKRETARIS</td>
-
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="pb-4">3</td>
-                                    <td>{{ $kompre->penguji1->name ?? '-' }}</td>
-                                    <td>PENGUJI 1</td>
-
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="pb-4">4</td>
-                                    <td>{{ $kompre->penguji2->name ?? '-' }}</td>
-                                    <td>PENGUJI 2</td>
-
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="pb-4">5</td>
-                                    <td>{{ $kompre->penguji3->name ?? '-' }}</td>
-                                    <td>PENGUJI 3</td>
-
-                                    <td></td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="col-md-6 offset-7">
-                        <p>Pasir Pengaraian, ......................... {{ date('Y') }}</p>
-                        <div>
-                            <p class="m-0">Ketua/Sekretaris</p>
-                            <p class="mb-5">Sidang Komprehensif TA</p>
-                            <p class="m-0">...........................................</p>
-                            <p class="m-0">NIDN. ...............................</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="header"></div>
-
-                <div class="col-md-12">
-                    <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
-                                28557</span>
-                        </header>
-                        <div id="garis-tebal"></div>
-                    </div>
-
-                    <div class="col-md-12 text-center">
-                        <h4>REKAPITULASI PENILAIAN</h4>
-                        <h4>SIDANG KOMPREHENSIF TUGAS AKHIR I</h4>
-                    </div>
-
-                    <div class="col-md-12">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td style="width: 30%">NAMA</td>
-                                    <td style="width: 1%">:</td>
-                                    <td>{{ $kompre->judul->mahasiswa->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td>NIM</td>
-                                    <td>:</td>
-                                    <td>{{ $kompre->judul->mahasiswa->nim_or_nidn }}</td>
-                                </tr>
-                                <tr>
-                                    <td>JUDUL KOMPREHENSIF</td>
-                                    <td>:</td>
-                                    <td>{{ \Str::title($kompre->judul->judul) }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="col-md-12">
-                        <table id="table" class="table text-center">
-                            <thead id="thead">
-                                <tr>
-                                    <th>No</th>
-                                    <th>NAMA</th>
-                                    <th>JABATAN</th>
                                     <th>NILAI</th>
                                     <th>TANDA TANGAN</th>
                                 </tr>
@@ -795,7 +272,6 @@
                                 <tr>
                                     <td class="pb-4">1</td>
                                     <td>{{ $kompre->judul->pembimbing1->name ?? '-' }}</td>
-                                    <td>KETUA</td>
                                     <td>
                                         {{ $kompre->nilaikompre ? ($nilaipem1 = $kompre->nilaikompre->nilai1_pem1 + $kompre->nilaikompre->nilai2_pem1 + $kompre->nilaikompre->nilai3_pem1 + $kompre->nilaikompre->nilai4_pem1 + $kompre->nilaikompre->nilai5_pem1 + $kompre->nilaikompre->nilai6_pem1 + $kompre->nilaikompre->nilai7_pem1) : ($nilaipem1 = 0) }}
                                     </td>
@@ -804,7 +280,6 @@
                                 <tr>
                                     <td class="pb-4">2</td>
                                     <td>{{ $kompre->judul->pembimbing2->name ?? '-' }}</td>
-                                    <td>SEKRETARIS</td>
                                     <td>
                                         {{ $kompre->nilaikompre ? ($nilaipem2 = $kompre->nilaikompre->nilai1_pem2 + $kompre->nilaikompre->nilai2_pem2 + $kompre->nilaikompre->nilai3_pem2 + $kompre->nilaikompre->nilai4_pem2 + $kompre->nilaikompre->nilai5_pem2 + $kompre->nilaikompre->nilai6_pem2 + $kompre->nilaikompre->nilai7_pem2) : ($nilaipem2 = 0) }}
                                     </td>
@@ -813,7 +288,6 @@
                                 <tr>
                                     <td class="pb-4">3</td>
                                     <td>{{ $kompre->penguji1->name ?? '-' }}</td>
-                                    <td>PENGUJI 1</td>
                                     <td>
                                         {{ $kompre->nilaikompre ? ($nilaipeng1 = $kompre->nilaikompre->nilai1_peng1 + $kompre->nilaikompre->nilai2_peng1 + $kompre->nilaikompre->nilai3_peng1 + $kompre->nilaikompre->nilai4_peng1 + $kompre->nilaikompre->nilai5_peng1) : ($nilaipeng1 = 0) }}
                                     </td>
@@ -822,7 +296,6 @@
                                 <tr>
                                     <td class="pb-4">4</td>
                                     <td>{{ $kompre->penguji2->name ?? '-' }}</td>
-                                    <td>PENGUJI 2</td>
                                     <td>
                                         {{ $kompre->nilaikompre ? ($nilaipeng2 = $kompre->nilaikompre->nilai1_peng2 + $kompre->nilaikompre->nilai2_peng2 + $kompre->nilaikompre->nilai3_peng2 + $kompre->nilaikompre->nilai4_peng2 + $kompre->nilaikompre->nilai5_peng2) : ($nilaipeng2 = 0) }}
                                     </td>
@@ -831,29 +304,27 @@
                                 <tr>
                                     <td class="pb-4">5</td>
                                     <td>{{ $kompre->penguji3->name ?? '-' }}</td>
-                                    <td>PENGUJI 3</td>
                                     <td>
                                         {{ $kompre->nilaikompre ? ($nilaipeng3 = $kompre->nilaikompre->nilai1_peng3 + $kompre->nilaikompre->nilai2_peng3 + $kompre->nilaikompre->nilai3_peng3 + $kompre->nilaikompre->nilai4_peng3 + $kompre->nilaikompre->nilai5_peng3) : ($nilaipeng3 = 0) }}
                                     </td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <th colspan="3">Rata Rata</th>
+                                    <th colspan="2">Rata Rata</th>
                                     <td>{{ ($nilaipem1 + $nilaipem2 + $nilaipeng1 + $nilaipeng2 + $nilaipeng3) / 5 }}
                                     </td>
-                                    <td></td>
+                                    <td style="background-color: grey;"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    <p>Hasil : <span class="fw-bold">LAYAK/TIDAK LAYAK</span></p>
 
                     <div class="col-md-6 offset-7">
                         <p>Pasir Pengaraian, ......................... {{ date('Y') }}</p>
                         <div>
-                            <p class="m-0">Ketua/Sekretaris</p>
-                            <p class="mb-5">Sidang Komprehensif TA</p>
-                            <p class="m-0">...........................................</p>
-                            <p class="m-0">NIDN. ...............................</p>
+                            <p class="mb-5">Ketua Penguji</p>
+                            <p class="m-0">................................</p>
                         </div>
                     </div>
                 </div>
@@ -862,19 +333,28 @@
 
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
-                                28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                         <div id="garis-tebal"></div>
                     </div>
 
                     <div class="col-md-12 text-center">
-                        <h4>LEMBAR NILAI BIMBINGAN KOMPREHENSIF TUGAS AKHIR</h4>
+                        <h4>FORMAT PENILAIAN</h4>
+                        <h4>UJIAN KOMPREHENSIF</h4>
+                        <h4>TAHUN AKADEMIK {{ \Carbon\Carbon::now()->year }} / {{ \Carbon\Carbon::now()->year + 1 }}
+                        </h4>
                     </div>
 
                     <div class="col-md-12">
@@ -891,16 +371,21 @@
                                     <td>{{ $kompre->judul->mahasiswa->nim_or_nidn }}</td>
                                 </tr>
                                 <tr>
-                                    <td>JUDUL KOMPREHENSIF</td>
+                                    <td>JUDUL PROPOSAL</td>
                                     <td>:</td>
                                     <td>{{ \Str::title($kompre->judul->judul) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>PENGUJI I</td>
+                                    <td>:</td>
+                                    <td>{{ $kompre->judul->pembimbing1->name }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="col-md-12">
-                        <table id="table" class="table">
+                        {{-- <table id="table" class="table">
                             <thead id="thead">
                                 <tr class="text-center">
                                     <th colspan="2">Komponen Penilaian</th>
@@ -962,37 +447,139 @@
                                     <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 + $nilai6 + $nilai7 }}</td>
                                 </tr>
                             </tbody>
+                        </table> --}}
+                        <table class="table" id="table">
+                            <thead id="thead" class="text-center align-middle">
+                                <tr>
+                                    <th>No</th>
+                                    <th style="width: 50%">Aspek Penilaian</th>
+                                    <th>Bobot</th>
+                                    <th>Nilai</th>
+                                    <th>Nilai x Bobot</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                <tr>
+                                    <td rowspan="3" class="text-center">1.</td>
+                                    <td>Penguasaan Penelitian:</td>
+                                    <td rowspan="3" class="text-center align-middle">1</td>
+                                    <td rowspan="3"></td>
+                                    <td rowspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Sistematika penulisan</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Ketepatan penggunaan bahasa</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="10" class="text-center">2.</td>
+                                    <td>Segi Ilmiah Tulisan:</td>
+                                    <td rowspan="10" class="text-center align-middle">2</td>
+                                    <td rowspan="10"></td>
+                                    <td rowspan="10"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kesesuaian judul</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Ketepatan latar belakang masalah</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Rumusan masalah</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Tujuan dan manfaat penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>e. Keaslian penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>f. Ketepatan tinjauan pustaka</td>
+                                </tr>
+                                <tr>
+                                    <td>g. Perumusan hipotesis</td>
+                                </tr>
+                                <tr>
+                                    <td>h. Penggunaan metode penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>i. Penggunaan kepustakaan</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" class="text-center">3.</td>
+                                    <td>Kemampuan Penyajian:</td>
+                                    <td rowspan="5" class="text-center align-middle">1</td>
+                                    <td rowspan="5"></td>
+                                    <td rowspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kemampuan mengemukakan konsep dan teori</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Kemampuan berbicara dengan jelas</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Kemampuan mengajukan materi secara sistematis</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Kemampuan teknik penyajian secara keseluruhan</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" class="text-center">4.</td>
+                                    <td>Kemampuan berdiskusi</td>
+                                    <td rowspan="5" class="text-center align-middle">1</td>
+                                    <td rowspan="5"></td>
+                                    <td rowspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kemampuan komunikasi</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Kemampuan menjawab dengan tepat</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Kemampuan mengendalikan emosi</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Kemampuan mengemukakan pendapat</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <th class="text-center">Jumlah Nilai</th>
+                                    <td colspan="3" class="text-center">zero</td>
+                                </tr>
+                            </tbody>
                         </table>
-                    </div>
-
-                    <div class="col-md-6 offset-7">
-                        <p>Pasir Pengaraian, ......................... {{ date('Y') }}</p>
-                        <div>
-                            <p class="mb-5">Pembimbing 1</p>
-                            <p class="m-0">{{ $kompre->judul->pembimbing1->name ?? '-' }}</p>
-                            <p class="m-0">NIDN. {{ $kompre->judul->pembimbing1->nim_or_nidn ?? '-' }}</p>
-                        </div>
                     </div>
                 </div>
 
                 <div id="header"></div>
 
                 <div class="col-md-12">
-
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
-                                28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                         <div id="garis-tebal"></div>
                     </div>
 
                     <div class="col-md-12 text-center">
-                        <h4>LEMBAR NILAI BIMBINGAN KOMPREHENSIF TUGAS AKHIR</h4>
+                        <h4>FORMAT PENILAIAN</h4>
+                        <h4>UJIAN KOMPREHENSIF</h4>
+                        <h4>TAHUN AKADEMIK {{ \Carbon\Carbon::now()->year }} / {{ \Carbon\Carbon::now()->year + 1 }}
+                        </h4>
                     </div>
 
                     <div class="col-md-12">
@@ -1009,16 +596,21 @@
                                     <td>{{ $kompre->judul->mahasiswa->nim_or_nidn }}</td>
                                 </tr>
                                 <tr>
-                                    <td>JUDUL KOMPREHENSIF</td>
+                                    <td>JUDUL PROPOSAL</td>
                                     <td>:</td>
                                     <td>{{ \Str::title($kompre->judul->judul) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>PENGUJI II</td>
+                                    <td>:</td>
+                                    <td>{{ $kompre->judul->pembimbing2->name }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="col-md-12">
-                        <table id="table" class="table">
+                        {{-- <table id="table" class="table">
                             <thead id="thead">
                                 <tr class="text-center">
                                     <th colspan="2">Komponen Penilaian</th>
@@ -1034,45 +626,45 @@
                                     <td>Kemampuan memilih dan menjustifikasi Tema yang akan diangkat dari sisi Latar
                                         Belakang dan Rumusan Masalah</td>
                                     <td>0 - 15</td>
-                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_pem2 ?? ($nilai1 = 0) }}</td>
+                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_pem1 ?? ($nilai1 = 0) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Pertanyaan Penelitian</td>
                                     <td>Cara menyajikan pertanyaan penelitian/problem statement untuk membangun Rumusan
                                         Masalah dan Tujuan</td>
                                     <td>0 - 15</td>
-                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_pem2 ?? ($nilai2 = 0) }}</td>
+                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_pem1 ?? ($nilai2 = 0) }}</td>
                                 </tr>
                                 <tr>
                                     <td rowspan="2">Studi Literatur</td>
                                     <td>Ide/gagasan/strategi untuk menyelesaikan masalah</td>
                                     <td>0 - 10</td>
-                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_pem2 ?? ($nilai3 = 0) }}</td>
+                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_pem1 ?? ($nilai3 = 0) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Justifikasi pemilihan model/ metode/ teori baik model simulasi, komputasi atau
                                         model
                                         pembangunan aplikasi/perangkat lunak dengan melakukan studi literatur</td>
                                     <td>0 - 10</td>
-                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_pem2 ?? ($nilai4 = 0) }}</td>
+                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_pem1 ?? ($nilai4 = 0) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Rencana Implementasi Simulasi/Komputasi</td>
                                     <td>Penjelasan tentang bagaimana membangun Implementasi/ Simulasi/ Komputasi yang
                                         diturunkan dari pemodelan</td>
                                     <td>0 - 10</td>
-                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_pem2 ?? ($nilai5 = 0) }}</td>
+                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_pem1 ?? ($nilai5 = 0) }}</td>
                                 </tr>
                                 <tr>
                                     <td rowspan="2">Expert Judgement</td>
                                     <td colspan="2">Kemandirian mahasiswa dalam penyusunan proposal</td>
                                     <td>0 - 20</td>
-                                    <td>{{ $nilai6 = $kompre->nilaikompre->nilai6_pem2 ?? ($nilai6 = 0) }}</td>
+                                    <td>{{ $nilai6 = $kompre->nilaikompre->nilai6_pem1 ?? ($nilai6 = 0) }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Proses Bimbingan</td>
                                     <td>0 - 20</td>
-                                    <td>{{ $nilai7 = $kompre->nilaikompre->nilai7_pem2 ?? ($nilai7 = 0) }}</td>
+                                    <td>{{ $nilai7 = $kompre->nilaikompre->nilai7_pem1 ?? ($nilai7 = 0) }}</td>
                                 </tr>
                                 <tr>
                                     <th colspan="3">Jumlah</th>
@@ -1080,16 +672,110 @@
                                     <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 + $nilai6 + $nilai7 }}</td>
                                 </tr>
                             </tbody>
+                        </table> --}}
+                        <table class="table" id="table">
+                            <thead id="thead" class="text-center align-middle">
+                                <tr>
+                                    <th>No</th>
+                                    <th style="width: 50%">Aspek Penilaian</th>
+                                    <th>Bobot</th>
+                                    <th>Nilai</th>
+                                    <th>Nilai x Bobot</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                <tr>
+                                    <td rowspan="3" class="text-center">1.</td>
+                                    <td>Penguasaan Penelitian:</td>
+                                    <td rowspan="3" class="text-center align-middle">1</td>
+                                    <td rowspan="3"></td>
+                                    <td rowspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Sistematika penulisan</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Ketepatan penggunaan bahasa</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="10" class="text-center">2.</td>
+                                    <td>Segi Ilmiah Tulisan:</td>
+                                    <td rowspan="10" class="text-center align-middle">2</td>
+                                    <td rowspan="10"></td>
+                                    <td rowspan="10"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kesesuaian judul</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Ketepatan latar belakang masalah</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Rumusan masalah</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Tujuan dan manfaat penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>e. Keaslian penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>f. Ketepatan tinjauan pustaka</td>
+                                </tr>
+                                <tr>
+                                    <td>g. Perumusan hipotesis</td>
+                                </tr>
+                                <tr>
+                                    <td>h. Penggunaan metode penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>i. Penggunaan kepustakaan</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" class="text-center">3.</td>
+                                    <td>Kemampuan Penyajian:</td>
+                                    <td rowspan="5" class="text-center align-middle">1</td>
+                                    <td rowspan="5"></td>
+                                    <td rowspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kemampuan mengemukakan konsep dan teori</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Kemampuan berbicara dengan jelas</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Kemampuan mengajukan materi secara sistematis</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Kemampuan teknik penyajian secara keseluruhan</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" class="text-center">4.</td>
+                                    <td>Kemampuan berdiskusi</td>
+                                    <td rowspan="5" class="text-center align-middle">1</td>
+                                    <td rowspan="5"></td>
+                                    <td rowspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kemampuan komunikasi</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Kemampuan menjawab dengan tepat</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Kemampuan mengendalikan emosi</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Kemampuan mengemukakan pendapat</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <th class="text-center">Jumlah Nilai</th>
+                                    <td colspan="3" class="text-center">zero</td>
+                                </tr>
+                            </tbody>
                         </table>
-                    </div>
-
-                    <div class="col-md-6 offset-7">
-                        <p>Pasir Pengaraian, ......................... {{ date('Y') }}</p>
-                        <div>
-                            <p class="mb-5">Pembimbing 2</p>
-                            <p class="m-0">{{ $kompre->judul->pembimbing2->name ?? '-' }}</p>
-                            <p class="m-0">NIDN. {{ $kompre->judul->pembimbing2->nim_or_nidn ?? '-' }}</p>
-                        </div>
                     </div>
                 </div>
 
@@ -1097,18 +783,28 @@
 
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos : 28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                         <div id="garis-tebal"></div>
                     </div>
 
                     <div class="col-md-12 text-center">
-                        <h4>LEMBAR NILAI SEMINAR KOMPREHENSIF TUGAS AKHIR</h4>
+                        <h4>FORMAT PENILAIAN</h4>
+                        <h4>UJIAN KOMPREHENSIF</h4>
+                        <h4>TAHUN AKADEMIK {{ \Carbon\Carbon::now()->year }} / {{ \Carbon\Carbon::now()->year + 1 }}
+                        </h4>
                     </div>
 
                     <div class="col-md-12">
@@ -1125,25 +821,24 @@
                                     <td>{{ $kompre->judul->mahasiswa->nim_or_nidn }}</td>
                                 </tr>
                                 <tr>
-                                    <td>JUDUL KOMPREHENSIF</td>
+                                    <td>JUDUL PROPOSAL</td>
                                     <td>:</td>
                                     <td>{{ \Str::title($kompre->judul->judul) }}</td>
                                 </tr>
                                 <tr>
-                                    <td>TANGGAL SEMINAR</td>
+                                    <td>PENGUJI III</td>
                                     <td>:</td>
-                                    <td>{{ \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('d F Y') ?? '-' }}
-                                    </td>
+                                    <td>{{ $kompre->penguji1->name }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="col-md-12">
-                        <table id="table" class="table">
+                        {{-- <table id="table" class="table">
                             <thead id="thead">
                                 <tr class="text-center">
-                                    <th>Komponen Penilaian</th>
+                                    <th colspan="2">Komponen Penilaian</th>
                                     <th>Kriteria Penilaian</th>
                                     <th>Rentang Nilai</th>
                                     <th>Nilai</th>
@@ -1151,85 +846,190 @@
                             </thead>
                             <tbody id="tbody" class="p-4">
                                 <tr>
-                                    <td rowspan="3">Pembuatan Komprehensif</td>
-                                    <td>Menjawab latar belakang permasalahan, perumusan masalah, tujuan dan metodologi
-                                        secara terstruktur</td>
-                                    <td>0 - 25</td>
-                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_peng1 ?? ($nilai1 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Menguasai teori pendukung TA</td>
+                                    <td rowspan="5">Pembuatan Komprehensif</td>
+                                    <td>Pemilihan Tema</td>
+                                    <td>Kemampuan memilih dan menjustifikasi Tema yang akan diangkat dari sisi Latar
+                                        Belakang dan Rumusan Masalah</td>
                                     <td>0 - 15</td>
-                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_peng1 ?? ($nilai2 = 0) }}</td>
+                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_pem1 ?? ($nilai1 = 0) }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Menguasai materi terkait dengan tools pemodelan, simulasi ataupun implementasi
-                                    </td>
-                                    <td>0 - 25</td>
-                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_peng1 ?? ($nilai3 = 0) }}</td>
+                                    <td>Pertanyaan Penelitian</td>
+                                    <td>Cara menyajikan pertanyaan penelitian/problem statement untuk membangun Rumusan
+                                        Masalah dan Tujuan</td>
+                                    <td>0 - 15</td>
+                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_pem1 ?? ($nilai2 = 0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">Studi Literatur</td>
+                                    <td>Ide/gagasan/strategi untuk menyelesaikan masalah</td>
+                                    <td>0 - 10</td>
+                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_pem1 ?? ($nilai3 = 0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Justifikasi pemilihan model/ metode/ teori baik model simulasi, komputasi atau
+                                        model
+                                        pembangunan aplikasi/perangkat lunak dengan melakukan studi literatur</td>
+                                    <td>0 - 10</td>
+                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_pem1 ?? ($nilai4 = 0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Rencana Implementasi Simulasi/Komputasi</td>
+                                    <td>Penjelasan tentang bagaimana membangun Implementasi/ Simulasi/ Komputasi yang
+                                        diturunkan dari pemodelan</td>
+                                    <td>0 - 10</td>
+                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_pem1 ?? ($nilai5 = 0) }}</td>
                                 </tr>
                                 <tr>
                                     <td rowspan="2">Expert Judgement</td>
-                                    <td>Pemaparan/cara menjawab</td>
-                                    <td>0 - 25</td>
-                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_peng1 ?? ($nilai4 = 0) }}</td>
+                                    <td colspan="2">Kemandirian mahasiswa dalam penyusunan proposal</td>
+                                    <td>0 - 20</td>
+                                    <td>{{ $nilai6 = $kompre->nilaikompre->nilai6_pem1 ?? ($nilai6 = 0) }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Komunikasi interpersonal</td>
-                                    <td>0 - 25</td>
-                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_peng1 ?? ($nilai5 = 0) }}</td>
+                                    <td colspan="2">Proses Bimbingan</td>
+                                    <td>0 - 20</td>
+                                    <td>{{ $nilai7 = $kompre->nilaikompre->nilai7_pem1 ?? ($nilai7 = 0) }}</td>
                                 </tr>
                                 <tr>
-                                    <th colspan="2">Jumlah</th>
+                                    <th colspan="3">Jumlah</th>
                                     <td>0 - 100</td>
-                                    <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 }}</td>
+                                    <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 + $nilai6 + $nilai7 }}</td>
+                                </tr>
+                            </tbody>
+                        </table> --}}
+                        <table class="table" id="table">
+                            <thead id="thead" class="text-center align-middle">
+                                <tr>
+                                    <th>No</th>
+                                    <th style="width: 50%">Aspek Penilaian</th>
+                                    <th>Bobot</th>
+                                    <th>Nilai</th>
+                                    <th>Nilai x Bobot</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                <tr>
+                                    <td rowspan="3" class="text-center">1.</td>
+                                    <td>Penguasaan Penelitian:</td>
+                                    <td rowspan="3" class="text-center align-middle">1</td>
+                                    <td rowspan="3"></td>
+                                    <td rowspan="3"></td>
                                 </tr>
                                 <tr>
-                                    <th colspan="2">Rata-rata nilai Calon Pembimbing</th>
-                                    <td colspan="2"></td>
+                                    <td>a. Sistematika penulisan</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Ketepatan penggunaan bahasa</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="10" class="text-center">2.</td>
+                                    <td>Segi Ilmiah Tulisan:</td>
+                                    <td rowspan="10" class="text-center align-middle">2</td>
+                                    <td rowspan="10"></td>
+                                    <td rowspan="10"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kesesuaian judul</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Ketepatan latar belakang masalah</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Rumusan masalah</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Tujuan dan manfaat penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>e. Keaslian penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>f. Ketepatan tinjauan pustaka</td>
+                                </tr>
+                                <tr>
+                                    <td>g. Perumusan hipotesis</td>
+                                </tr>
+                                <tr>
+                                    <td>h. Penggunaan metode penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>i. Penggunaan kepustakaan</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" class="text-center">3.</td>
+                                    <td>Kemampuan Penyajian:</td>
+                                    <td rowspan="5" class="text-center align-middle">1</td>
+                                    <td rowspan="5"></td>
+                                    <td rowspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kemampuan mengemukakan konsep dan teori</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Kemampuan berbicara dengan jelas</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Kemampuan mengajukan materi secara sistematis</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Kemampuan teknik penyajian secara keseluruhan</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" class="text-center">4.</td>
+                                    <td>Kemampuan berdiskusi</td>
+                                    <td rowspan="5" class="text-center align-middle">1</td>
+                                    <td rowspan="5"></td>
+                                    <td rowspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kemampuan komunikasi</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Kemampuan menjawab dengan tepat</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Kemampuan mengendalikan emosi</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Kemampuan mengemukakan pendapat</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <th class="text-center">Jumlah Nilai</th>
+                                    <td colspan="3" class="text-center">zero</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-
-                    <p>Saya menyatakan mahasiswa tersebut: <span class="fw-bold">lulus/tidak lulus</span> dengan alasan
-                        sebagai berikut:</p>
-
-                    <div class="col-md-12 p-2" style="border: 1px solid black">
-                        <p class="fw-bold" style="border-bottom: 1px solid black">CATATAN REVIEWER/USULAN
-                            PERBAIKAN
-                        </p>
-                        <p>{{ $kompre->nilaikompre->notes1 ?? '-' }} </p>
-                    </div>
-                    <small class="mb-4 fw-bold">*coret salah satu</small>
-
-                    <div class="col-md-6 offset-7">
-                        <p>Pasir Pengaraian, ......................... {{ date('Y') }}</p>
-                        <div>
-                            <p class="mb-5">Penguji 1</p>
-                            <p class="m-0">{{ $kompre->penguji1->name ?? '-' }}</p>
-                            <p class="m-0">NIDN. {{ $kompre->penguji1->nim_or_nidn ?? '-' }}</p>
-                        </div>
                     </div>
                 </div>
 
                 <div id="header"></div>
 
                 <div class="col-md-12">
-
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos : 28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                         <div id="garis-tebal"></div>
                     </div>
 
                     <div class="col-md-12 text-center">
-                        <h4>LEMBAR NILAI SEMINAR KOMPREHENSIF TUGAS AKHIR</h4>
+                        <h4>FORMAT PENILAIAN</h4>
+                        <h4>UJIAN KOMPREHENSIF</h4>
+                        <h4>TAHUN AKADEMIK {{ \Carbon\Carbon::now()->year }} / {{ \Carbon\Carbon::now()->year + 1 }}
+                        </h4>
                     </div>
 
                     <div class="col-md-12">
@@ -1246,25 +1046,24 @@
                                     <td>{{ $kompre->judul->mahasiswa->nim_or_nidn }}</td>
                                 </tr>
                                 <tr>
-                                    <td>JUDUL KOMPREHENSIF</td>
+                                    <td>JUDUL PROPOSAL</td>
                                     <td>:</td>
                                     <td>{{ \Str::title($kompre->judul->judul) }}</td>
                                 </tr>
                                 <tr>
-                                    <td>TANGGAL SEMINAR</td>
+                                    <td>PENGUJI IV</td>
                                     <td>:</td>
-                                    <td>{{ \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('d F Y') ?? '-' }}
-                                    </td>
+                                    <td>{{ $kompre->penguji2->name }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="col-md-12">
-                        <table id="table" class="table">
+                        {{-- <table id="table" class="table">
                             <thead id="thead">
                                 <tr class="text-center">
-                                    <th>Komponen Penilaian</th>
+                                    <th colspan="2">Komponen Penilaian</th>
                                     <th>Kriteria Penilaian</th>
                                     <th>Rentang Nilai</th>
                                     <th>Nilai</th>
@@ -1272,85 +1071,190 @@
                             </thead>
                             <tbody id="tbody" class="p-4">
                                 <tr>
-                                    <td rowspan="3">Pembuatan Komprehensif</td>
-                                    <td>Menjawab latar belakang permasalahan, perumusan masalah, tujuan dan metodologi
-                                        secara terstruktur</td>
-                                    <td>0 - 25</td>
-                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_peng2 ?? ($nilai1 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Menguasai teori pendukung TA</td>
+                                    <td rowspan="5">Pembuatan Komprehensif</td>
+                                    <td>Pemilihan Tema</td>
+                                    <td>Kemampuan memilih dan menjustifikasi Tema yang akan diangkat dari sisi Latar
+                                        Belakang dan Rumusan Masalah</td>
                                     <td>0 - 15</td>
-                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_peng2 ?? ($nilai2 = 0) }}</td>
+                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_pem1 ?? ($nilai1 = 0) }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Menguasai materi terkait dengan tools pemodelan, simulasi ataupun implementasi
-                                    </td>
-                                    <td>0 - 25</td>
-                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_peng2 ?? ($nilai3 = 0) }}</td>
+                                    <td>Pertanyaan Penelitian</td>
+                                    <td>Cara menyajikan pertanyaan penelitian/problem statement untuk membangun Rumusan
+                                        Masalah dan Tujuan</td>
+                                    <td>0 - 15</td>
+                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_pem1 ?? ($nilai2 = 0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">Studi Literatur</td>
+                                    <td>Ide/gagasan/strategi untuk menyelesaikan masalah</td>
+                                    <td>0 - 10</td>
+                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_pem1 ?? ($nilai3 = 0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Justifikasi pemilihan model/ metode/ teori baik model simulasi, komputasi atau
+                                        model
+                                        pembangunan aplikasi/perangkat lunak dengan melakukan studi literatur</td>
+                                    <td>0 - 10</td>
+                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_pem1 ?? ($nilai4 = 0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Rencana Implementasi Simulasi/Komputasi</td>
+                                    <td>Penjelasan tentang bagaimana membangun Implementasi/ Simulasi/ Komputasi yang
+                                        diturunkan dari pemodelan</td>
+                                    <td>0 - 10</td>
+                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_pem1 ?? ($nilai5 = 0) }}</td>
                                 </tr>
                                 <tr>
                                     <td rowspan="2">Expert Judgement</td>
-                                    <td>Pemaparan/cara menjawab</td>
-                                    <td>0 - 25</td>
-                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_peng2 ?? ($nilai4 = 0) }}</td>
+                                    <td colspan="2">Kemandirian mahasiswa dalam penyusunan proposal</td>
+                                    <td>0 - 20</td>
+                                    <td>{{ $nilai6 = $kompre->nilaikompre->nilai6_pem1 ?? ($nilai6 = 0) }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Komunikasi interpersonal</td>
-                                    <td>0 - 25</td>
-                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_peng2 ?? ($nilai5 = 0) }}</td>
+                                    <td colspan="2">Proses Bimbingan</td>
+                                    <td>0 - 20</td>
+                                    <td>{{ $nilai7 = $kompre->nilaikompre->nilai7_pem1 ?? ($nilai7 = 0) }}</td>
                                 </tr>
                                 <tr>
-                                    <th colspan="2">Jumlah</th>
+                                    <th colspan="3">Jumlah</th>
                                     <td>0 - 100</td>
-                                    <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 }}</td>
+                                    <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 + $nilai6 + $nilai7 }}</td>
+                                </tr>
+                            </tbody>
+                        </table> --}}
+                        <table class="table" id="table">
+                            <thead id="thead" class="text-center align-middle">
+                                <tr>
+                                    <th>No</th>
+                                    <th style="width: 50%">Aspek Penilaian</th>
+                                    <th>Bobot</th>
+                                    <th>Nilai</th>
+                                    <th>Nilai x Bobot</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                <tr>
+                                    <td rowspan="3" class="text-center">1.</td>
+                                    <td>Penguasaan Penelitian:</td>
+                                    <td rowspan="3" class="text-center align-middle">1</td>
+                                    <td rowspan="3"></td>
+                                    <td rowspan="3"></td>
                                 </tr>
                                 <tr>
-                                    <th colspan="2">Rata-rata nilai Calon Pembimbing</th>
-                                    <td colspan="2"></td>
+                                    <td>a. Sistematika penulisan</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Ketepatan penggunaan bahasa</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="10" class="text-center">2.</td>
+                                    <td>Segi Ilmiah Tulisan:</td>
+                                    <td rowspan="10" class="text-center align-middle">2</td>
+                                    <td rowspan="10"></td>
+                                    <td rowspan="10"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kesesuaian judul</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Ketepatan latar belakang masalah</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Rumusan masalah</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Tujuan dan manfaat penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>e. Keaslian penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>f. Ketepatan tinjauan pustaka</td>
+                                </tr>
+                                <tr>
+                                    <td>g. Perumusan hipotesis</td>
+                                </tr>
+                                <tr>
+                                    <td>h. Penggunaan metode penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>i. Penggunaan kepustakaan</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" class="text-center">3.</td>
+                                    <td>Kemampuan Penyajian:</td>
+                                    <td rowspan="5" class="text-center align-middle">1</td>
+                                    <td rowspan="5"></td>
+                                    <td rowspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kemampuan mengemukakan konsep dan teori</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Kemampuan berbicara dengan jelas</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Kemampuan mengajukan materi secara sistematis</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Kemampuan teknik penyajian secara keseluruhan</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" class="text-center">4.</td>
+                                    <td>Kemampuan berdiskusi</td>
+                                    <td rowspan="5" class="text-center align-middle">1</td>
+                                    <td rowspan="5"></td>
+                                    <td rowspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kemampuan komunikasi</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Kemampuan menjawab dengan tepat</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Kemampuan mengendalikan emosi</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Kemampuan mengemukakan pendapat</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <th class="text-center">Jumlah Nilai</th>
+                                    <td colspan="3" class="text-center">zero</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-
-                    <p>Saya menyatakan mahasiswa tersebut: <span class="fw-bold">lulus/tidak lulus</span> dengan alasan
-                        sebagai berikut:</p>
-
-                    <div class="col-md-12 p-2" style="border: 1px solid black">
-                        <p class="fw-bold" style="border-bottom: 1px solid black">CATATAN REVIEWER/USULAN
-                            PERBAIKAN
-                        </p>
-                        <p>{{ $kompre->nilaikompre->notes2 ?? '-' }} </p>
-                    </div>
-                    <small class="mb-4 fw-bold">*coret salah satu</small>
-
-                    <div class="col-md-6 offset-7">
-                        <p>Pasir Pengaraian, ......................... {{ date('Y') }}</p>
-                        <div>
-                            <p class="mb-5">Penguji 2</p>
-                            <p class="m-0">{{ $kompre->penguji2->name ?? '-' }}</p>
-                            <p class="m-0">NIDN. {{ $kompre->penguji2->nim_or_nidn ?? '-' }}</p>
-                        </div>
                     </div>
                 </div>
 
                 <div id="header"></div>
 
                 <div class="col-md-12">
-
                     <div class="col-md-12">
-                        {{-- <img src="" alt=""> --}}
-                        <header class="text-center">
-                            <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
-                            <h2>FAKULTAS ILMU KOMPUTER</h2>
-                            <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
-                            <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos : 28557</span>
-                        </header>
+                        <table id="tableheader">
+                            <tr>
+                                <td id="td"><img
+                                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/upp.png'))) }}"
+                                        width="140px" alt="404"></td>
+                                <td id="td">
+                                    <h2>UNIVERSITAS PASIR PENGARAIAN</h2>
+                                    <h2>FAKULTAS ILMU KOMPUTER</h2>
+                                    <h2>PROGRAM STUDI SISTEM INFORMASI</h2>
+                                    <span>Jalan Tuanku Tambusai, Kumu Rambah Hilir, Telp. 085265853585 Kode Pos :
+                                        28557</span>
+                                </td>
+                            </tr>
+                        </table>
                         <div id="garis-tebal"></div>
                     </div>
 
                     <div class="col-md-12 text-center">
-                        <h4>LEMBAR NILAI SEMINAR KOMPREHENSIF TUGAS AKHIR</h4>
+                        <h4>FORMAT PENILAIAN</h4>
+                        <h4>UJIAN KOMPREHENSIF</h4>
+                        <h4>TAHUN AKADEMIK {{ \Carbon\Carbon::now()->year }} / {{ \Carbon\Carbon::now()->year + 1 }}
+                        </h4>
                     </div>
 
                     <div class="col-md-12">
@@ -1367,25 +1271,24 @@
                                     <td>{{ $kompre->judul->mahasiswa->nim_or_nidn }}</td>
                                 </tr>
                                 <tr>
-                                    <td>JUDUL KOMPREHENSIF</td>
+                                    <td>JUDUL PROPOSAL</td>
                                     <td>:</td>
                                     <td>{{ \Str::title($kompre->judul->judul) }}</td>
                                 </tr>
                                 <tr>
-                                    <td>TANGGAL SEMINAR</td>
+                                    <td>PENGUJI V</td>
                                     <td>:</td>
-                                    <td>{{ \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('d F Y') }}
-                                    </td>
+                                    <td>{{ $kompre->penguji3->name }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="col-md-12">
-                        <table id="table" class="table">
+                        {{-- <table id="table" class="table">
                             <thead id="thead">
                                 <tr class="text-center">
-                                    <th>Komponen Penilaian</th>
+                                    <th colspan="2">Komponen Penilaian</th>
                                     <th>Kriteria Penilaian</th>
                                     <th>Rentang Nilai</th>
                                     <th>Nilai</th>
@@ -1393,65 +1296,161 @@
                             </thead>
                             <tbody id="tbody" class="p-4">
                                 <tr>
-                                    <td rowspan="3">Pembuatan Komprehensif</td>
-                                    <td>Menjawab latar belakang permasalahan, perumusan masalah, tujuan dan metodologi
-                                        secara terstruktur</td>
-                                    <td>0 - 25</td>
-                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_peng3 ?? ($nilai1 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Menguasai teori pendukung TA</td>
+                                    <td rowspan="5">Pembuatan Komprehensif</td>
+                                    <td>Pemilihan Tema</td>
+                                    <td>Kemampuan memilih dan menjustifikasi Tema yang akan diangkat dari sisi Latar
+                                        Belakang dan Rumusan Masalah</td>
                                     <td>0 - 15</td>
-                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_peng3 ?? ($nilai2 = 0) }}</td>
+                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_pem1 ?? ($nilai1 = 0) }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Menguasai materi terkait dengan tools pemodelan, simulasi ataupun implementasi
-                                    </td>
-                                    <td>0 - 25</td>
-                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_peng3 ?? ($nilai3 = 0) }}</td>
+                                    <td>Pertanyaan Penelitian</td>
+                                    <td>Cara menyajikan pertanyaan penelitian/problem statement untuk membangun Rumusan
+                                        Masalah dan Tujuan</td>
+                                    <td>0 - 15</td>
+                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_pem1 ?? ($nilai2 = 0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">Studi Literatur</td>
+                                    <td>Ide/gagasan/strategi untuk menyelesaikan masalah</td>
+                                    <td>0 - 10</td>
+                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_pem1 ?? ($nilai3 = 0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Justifikasi pemilihan model/ metode/ teori baik model simulasi, komputasi atau
+                                        model
+                                        pembangunan aplikasi/perangkat lunak dengan melakukan studi literatur</td>
+                                    <td>0 - 10</td>
+                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_pem1 ?? ($nilai4 = 0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Rencana Implementasi Simulasi/Komputasi</td>
+                                    <td>Penjelasan tentang bagaimana membangun Implementasi/ Simulasi/ Komputasi yang
+                                        diturunkan dari pemodelan</td>
+                                    <td>0 - 10</td>
+                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_pem1 ?? ($nilai5 = 0) }}</td>
                                 </tr>
                                 <tr>
                                     <td rowspan="2">Expert Judgement</td>
-                                    <td>Pemaparan/cara menjawab</td>
-                                    <td>0 - 25</td>
-                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_peng3 ?? ($nilai4 = 0) }}</td>
+                                    <td colspan="2">Kemandirian mahasiswa dalam penyusunan proposal</td>
+                                    <td>0 - 20</td>
+                                    <td>{{ $nilai6 = $kompre->nilaikompre->nilai6_pem1 ?? ($nilai6 = 0) }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Komunikasi interpersonal</td>
-                                    <td>0 - 25</td>
-                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_peng3 ?? ($nilai5 = 0) }}</td>
+                                    <td colspan="2">Proses Bimbingan</td>
+                                    <td>0 - 20</td>
+                                    <td>{{ $nilai7 = $kompre->nilaikompre->nilai7_pem1 ?? ($nilai7 = 0) }}</td>
                                 </tr>
                                 <tr>
-                                    <th colspan="2">Jumlah</th>
+                                    <th colspan="3">Jumlah</th>
                                     <td>0 - 100</td>
-                                    <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 }}</td>
+                                    <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 + $nilai6 + $nilai7 }}</td>
+                                </tr>
+                            </tbody>
+                        </table> --}}
+                        <table class="table" id="table">
+                            <thead id="thead" class="text-center align-middle">
+                                <tr>
+                                    <th>No</th>
+                                    <th style="width: 50%">Aspek Penilaian</th>
+                                    <th>Bobot</th>
+                                    <th>Nilai</th>
+                                    <th>Nilai x Bobot</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                <tr>
+                                    <td rowspan="3" class="text-center">1.</td>
+                                    <td>Penguasaan Penelitian:</td>
+                                    <td rowspan="3" class="text-center align-middle">1</td>
+                                    <td rowspan="3"></td>
+                                    <td rowspan="3"></td>
                                 </tr>
                                 <tr>
-                                    <th colspan="2">Rata-rata nilai Calon Pembimbing</th>
-                                    <td colspan="2"></td>
+                                    <td>a. Sistematika penulisan</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Ketepatan penggunaan bahasa</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="10" class="text-center">2.</td>
+                                    <td>Segi Ilmiah Tulisan:</td>
+                                    <td rowspan="10" class="text-center align-middle">2</td>
+                                    <td rowspan="10"></td>
+                                    <td rowspan="10"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kesesuaian judul</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Ketepatan latar belakang masalah</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Rumusan masalah</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Tujuan dan manfaat penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>e. Keaslian penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>f. Ketepatan tinjauan pustaka</td>
+                                </tr>
+                                <tr>
+                                    <td>g. Perumusan hipotesis</td>
+                                </tr>
+                                <tr>
+                                    <td>h. Penggunaan metode penelitian</td>
+                                </tr>
+                                <tr>
+                                    <td>i. Penggunaan kepustakaan</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" class="text-center">3.</td>
+                                    <td>Kemampuan Penyajian:</td>
+                                    <td rowspan="5" class="text-center align-middle">1</td>
+                                    <td rowspan="5"></td>
+                                    <td rowspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kemampuan mengemukakan konsep dan teori</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Kemampuan berbicara dengan jelas</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Kemampuan mengajukan materi secara sistematis</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Kemampuan teknik penyajian secara keseluruhan</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" class="text-center">4.</td>
+                                    <td>Kemampuan berdiskusi</td>
+                                    <td rowspan="5" class="text-center align-middle">1</td>
+                                    <td rowspan="5"></td>
+                                    <td rowspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <td>a. Kemampuan komunikasi</td>
+                                </tr>
+                                <tr>
+                                    <td>b. Kemampuan menjawab dengan tepat</td>
+                                </tr>
+                                <tr>
+                                    <td>c. Kemampuan mengendalikan emosi</td>
+                                </tr>
+                                <tr>
+                                    <td>d. Kemampuan mengemukakan pendapat</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <th class="text-center">Jumlah Nilai</th>
+                                    <td colspan="3" class="text-center">zero</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-
-                    <p>Saya menyatakan mahasiswa tersebut: <span class="fw-bold">lulus/tidak lulus</span> dengan alasan
-                        sebagai berikut:</p>
-
-                    <div class="col-md-12 p-2" style="border: 1px solid black">
-                        <p class="fw-bold" style="border-bottom: 1px solid black">CATATAN REVIEWER/USULAN
-                            PERBAIKAN
-                        </p>
-                        <p>{{ $kompre->nilaikompre->notes3 ?? '-' }} </p>
-                    </div>
-                    <small class="mb-4 fw-bold">*coret salah satu</small>
-
-                    <div class="col-md-6 offset-7">
-                        <p>Pasir Pengaraian, ......................... {{ date('Y') }}</p>
-                        <div>
-                            <p class="mb-5">Penguji 3</p>
-                            <p class="m-0">{{ $kompre->penguji3->name ?? '-' }}</p>
-                            <p class="m-0">NIDN. {{ $kompre->penguji3->nim_or_nidn ?? '-' }}</p>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -116,8 +116,8 @@
                         <div class="form-floating mb-3">
                             <input type="file" name="lembar_bimbingan" class="form-control"
                                 value="{{ old('lembar_bimbingan') }}" id="form-file">
-                            <label for="form-file">Lembar Bimbingan Proposal<span class="text-danger">*</span></label>
-                            <small>Upload bukti lembar bimbingan proposal dengan format .pdf</small>
+                            <label for="form-file">Lembar Bimbingan Komprehensif<span class="text-danger">*</span></label>
+                            <small>Upload bukti lembar bimbingan komprehensif dengan format .pdf</small>
                             @error('lembar_bimbingan')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror

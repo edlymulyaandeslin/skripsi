@@ -20,17 +20,46 @@
                             <th scope="col">No</th>
                             <th scope="col">Nim</th>
                             <th scope="col">Mahasiswa</th>
+                            <th scope="col">Judul</th>
+                            <th scope="col">Tanggal Sempro</th>
+                            <th scope="col">Tanggal Kompre</th>
                             <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @if ($mahasiswas->count() !== 0)
-                            @foreach ($mahasiswas as $mahasiswa)
+                            @foreach ($mahasiswas as $index => $mahasiswa)
                                 <tr key="{{ $mahasiswa->id }}" class="text-center">
-                                    <th scope="row" class="text-center">{{ $loop->index + 1 }}</th>
+                                    <th scope="row">{{ $index + $mahasiswas->firstItem() }}</th>
                                     <td>{{ $mahasiswa->nim_or_nidn }}</td>
                                     <td>{{ $mahasiswa->name }}</td>
+
+                                    @foreach ($mahasiswa->judul as $judul)
+                                        <td>{{ $judul->judul }}</td>
+
+                                        {{-- tgl sempro --}}
+                                        @if ($judul->sempro->count() !== 0)
+                                            @foreach ($judul->sempro as $sempro)
+                                                {{-- <td>{{ }}</td> --}}
+                                                <td>{{ $sempro->tanggal_seminar ? \Carbon\Carbon::parse($sempro->tanggal_seminar)->translatedFormat('d F Y') : '-' }}
+                                                </td>
+                                            @endforeach
+                                        @else
+                                            <td>{{ '-' }}</td>
+                                        @endif
+
+                                        {{-- tgl kompre --}}
+                                        @if ($judul->kompre->count() !== 0)
+                                            @foreach ($judul->kompre as $kompre)
+                                                <td>{{ $kompre->tanggal_seminar ? \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('d F Y') : '-' }}
+                                                </td>
+                                            @endforeach
+                                        @else
+                                            <td>{{ '-' }}</td>
+                                        @endif
+                                    @endforeach
+
                                     <td>
                                         <span
                                             class="bg-{{ $mahasiswa->status == 'active' ? 'success' : 'danger' }} text-white px-3 py-1 rounded">
@@ -51,6 +80,13 @@
 
                     </tbody>
                 </table>
+                {{-- pagination --}}
+                <div class="col-md-12 d-flex justify-content-between">
+                    Show {{ $mahasiswas->firstItem() ?? 0 }}
+                    to {{ $mahasiswas->lastItem() ?? 0 }} items
+                    of total {{ $mahasiswas->total() }} items
+                    {{ $mahasiswas->links() }}
+                </div>
             </div>
         </div>
     </div>

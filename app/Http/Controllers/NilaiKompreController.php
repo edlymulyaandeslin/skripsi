@@ -15,7 +15,9 @@ class NilaiKompreController extends Controller
         // admin dan koordinator
         if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
             $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
-                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->paginate(10);
+                ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
+                ->latest()
+                ->paginate(10);
 
             return view('kompre.nilai.index', [
                 'title' => 'Seminar Komprehensif | Penilaian',
@@ -35,7 +37,9 @@ class NilaiKompreController extends Controller
                         ->orWhere('penguji2_id', auth()->user()->id)
                         ->orWhere('penguji3_id', auth()->user()->id);
                 })
-                ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->paginate(10);
+                ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
+                ->latest()
+                ->paginate(10);
 
             return view('kompre.nilai.index', [
                 'title' => 'Komprehensif | Penilaian',
@@ -48,7 +52,9 @@ class NilaiKompreController extends Controller
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
-            ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->paginate(10);
+            ->whereNotIn('status', ['diajukan', 'perbaikan'])
+            ->latest()
+            ->paginate(10);
 
         return view('kompre.nilai.index', [
             'title' => 'Komprehensif | Penilaian',

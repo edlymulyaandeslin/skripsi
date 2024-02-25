@@ -19,12 +19,15 @@ class SemproController extends Controller
     public function index()
     {
         // confirm delete judul
-        $title = 'Batalkan Pengajuan Seminar Proposal!';
+        $title = 'Batalkan Seminar Proposal!';
         $text = "Kamu yakin ingin membatalkan?";
         confirmDelete($title, $text);
 
         if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
-            $sempros = Sempro::with(['judul', 'judul.mahasiswa'])->latest()->paginate(10);
+            $sempros = Sempro::with(['judul', 'judul.mahasiswa'])
+                ->whereNotIn('status', ['lulus'])
+                ->latest()
+                ->paginate(10);
             return view('sempro.index', [
                 'title' => 'E - Skripsi | Seminar Proposal',
                 'sempros' => $sempros,
@@ -42,6 +45,7 @@ class SemproController extends Controller
                         ->orWhere('penguji2_id', auth()->user()->id)
                         ->orWhere('penguji3_id', auth()->user()->id);
                 })
+                ->whereNotIn('status', ['lulus'])
                 ->latest()->paginate(10);
 
             return view('sempro.index', [

@@ -91,13 +91,15 @@
                                                         <hr class="dropdown-divider">
                                                     </li>
 
-                                                    @can('mahasiswa')
-                                                        <li>
-                                                            <a href="{{ route('logbook.destroy', $logbook->id) }}"
-                                                                class="dropdown-item" data-confirm-delete="true"><i
-                                                                    class="bi bi-trash-fill text-danger"></i> Batalkan</a>
-                                                        </li>
-                                                    @endcan
+                                                    @if ($logbook->status == 'diajukan')
+                                                        @can('mahasiswa')
+                                                            <li>
+                                                                <a href="{{ route('logbook.destroy', $logbook->id) }}"
+                                                                    class="dropdown-item" data-confirm-delete="true"><i
+                                                                        class="bi bi-trash-fill text-danger"></i> Batalkan</a>
+                                                            </li>
+                                                        @endcan
+                                                    @endif
 
                                                 </ul>
                                             </div>

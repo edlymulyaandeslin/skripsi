@@ -17,13 +17,16 @@ class KompreController extends Controller
     public function index()
     {
         // confirm delete judul
-        $title = 'Batalkan Pengajuan Komprehensif!';
+        $title = 'Batalkan Komprehensif!';
         $text = "Kamu Yakin Ingin Membatalkan?";
         confirmDelete($title, $text);
 
         // admin atau koordinator
         if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
-            $kompres = Kompre::with(['judul', 'judul.mahasiswa'])->latest()->paginate(10);
+            $kompres = Kompre::with(['judul', 'judul.mahasiswa'])
+                ->whereNotIn('status', ['lulus'])
+                ->latest()
+                ->paginate(10);
             return view('kompre.index', [
                 'title' => 'E - Skripsi | Komprehensif',
                 'kompres' => $kompres,
@@ -42,7 +45,9 @@ class KompreController extends Controller
                         ->orWhere('penguji2_id', auth()->user()->id)
                         ->orWhere('penguji3_id', auth()->user()->id);
                 })
-                ->latest()->paginate(10);
+                ->whereNotIn('status', ['lulus'])
+                ->latest()
+                ->paginate(10);
 
             return view('kompre.index', [
                 'title' => 'E - Skripsi | Komprehensif',
