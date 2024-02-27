@@ -5,12 +5,36 @@
         {{-- form --}}
         <div class="col-md-12">
             @if ($dokumen == null)
-                <div style="background-color: #f9ca24" class="text-white py-3 rounded-1 px-3 fst-italic">Data kamu belum
-                    lengkap, silakan lengkapi terlebih dahulu <a href="/manajemen/dokumen">klik disini</a></div>
+                <div class="alert alert-warning" role="alert">
+                    <h4 class="alert-heading">Pemberitahuan!</h4>
+                    <p>Untuk pendaftaran seminar proposal kamu harus mengupload beberapa dokumen tambahan, detailnya <a
+                            href="/manajemen/dokumen">Klik disini</a></p>
+                    <hr>
+                    <p class="mb-0">#Keepspiritkids!</p>
+                </div>
             @elseif ($sempro->count() != 0)
                 <div class="bg-light rounded h-100 p-4">
+                    <h4>Daftar Seminar Proposal</h4>
 
-                    <h4 class="mb-4">Daftar Seminar Proposal</h4>
+                    @if ($sempro[0]->status == 'diterima')
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">ACCEPTED!</h4>
+                            <p>Selamat pengajuan seminar proposal kamu diterima, untuk melihat jadwal <a href="/sempro">klik
+                                    disini</a>.
+                            </p>
+                            <hr>
+                            <p class="mb-0">#Congratskids!</p>
+                        </div>
+                    @else
+                        <div class="alert alert-warning" role="alert">
+                            <h4 class="alert-heading">PENDING!</h4>
+                            <p>Pengajuan kamu sedang kami check dan proses, mohon ditunggu info selanjutnya ya!
+                            </p>
+                            <hr>
+                            <p class="mb-0">#Keepspiritkids!</p>
+                        </div>
+                    @endif
+
                     <form action="/sempro/{{ $sempro[0]->id }}" method="post" enctype="multipart/form-data">
                         @method('patch')
                         @csrf
@@ -77,9 +101,6 @@
                         <button type="submit" class="btn btn-primary d-none" id="btnUpdate">Simpan</button>
                     </form>
 
-                    <div style="background-color: #27ae60" class="rounded-1 mt-3 p-3 text-white fst-italic">"Setiap
-                        mahasiswa hanya memiliki satu kesempatan untuk mengajukan Seminar Proposal."
-                    </div>
                 </div>
             @else
                 <div class="bg-light rounded h-100 p-4">

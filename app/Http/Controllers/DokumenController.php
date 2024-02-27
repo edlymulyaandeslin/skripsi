@@ -19,7 +19,7 @@ class DokumenController extends Controller
     {
         // confirm delete judul
         $title = 'Reset Dokumen!';
-        $text = "Are you sure you want to reset?";
+        $text = "Kamu yakin ingin mereset?";
         confirmDelete($title, $text);
 
         return view('manajemen.dokumen.index', [
@@ -31,7 +31,6 @@ class DokumenController extends Controller
 
     public function store(Request $request)
     {
-
         $validateData = $request->validate([
             'mahasiswa_id' => 'required',
             'krs' => 'required|file|mimes:pdf|max:2048',
@@ -48,11 +47,9 @@ class DokumenController extends Controller
         $hadirseminar = 'document_' . str()->random(10) . '.' . $request->file('hadir_seminar')->extension();
         $validateData['hadir_seminar'] = $request->file('hadir_seminar')->storeAs('doc', $hadirseminar);
 
-
-
         Dokumen::create($validateData);
 
-        Alert::success('success', 'Dokumen has been added');
+        Alert::success('Berhasil', 'Dokumen telah diupload');
 
         return redirect('/manajemen/dokumen');
     }
@@ -106,7 +103,7 @@ class DokumenController extends Controller
 
         Dokumen::where('id', $id)->update($validateData);
 
-        Alert::success('success', 'Dokumen has been Updated');
+        Alert::success('Berhasil', 'Dokumen telah diupload');
 
         return redirect('/manajemen/dokumen');
     }
@@ -126,13 +123,10 @@ class DokumenController extends Controller
         if ($dokumen->hadir_seminar) {
             Storage::delete($dokumen->hadir_seminar);
         }
-        // if ($dokumen->lembar_bimbingan) {
-        //     Storage::delete($dokumen->lembar_bimbingan);
-        // }
 
         $dokumen->delete();
 
-        Alert::success('success', 'Dokumen has been reset');
+        Alert::success('Berhasil', 'Dokumen telah reset');
 
         return redirect('/manajemen/dokumen');
     }

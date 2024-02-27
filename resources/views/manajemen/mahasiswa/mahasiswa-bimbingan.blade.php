@@ -28,47 +28,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($mahasiswas->count() !== 0)
-                            @foreach ($mahasiswas as $index => $mahasiswa)
-                                <tr key="{{ $mahasiswa->id }}" class="text-center">
-                                    <th scope="row">{{ $index + $mahasiswas->firstItem() }}</th>
-                                    <td>{{ $mahasiswa->nim_or_nidn }}</td>
-                                    <td>{{ $mahasiswa->name }}</td>
+                        @if ($juduls->count() !== 0)
+                            @foreach ($juduls as $index => $judul)
+                                <tr key="{{ $judul->id }}" class="text-center">
+                                    <th scope="row">{{ $index + $juduls->firstItem() }}</th>
+                                    <td>{{ $judul->mahasiswa->nim_or_nidn }}</td>
+                                    <td>{{ $judul->mahasiswa->name }}</td>
+                                    <td>{{ $judul->judul }}</td>
 
-                                    @foreach ($mahasiswa->judul as $judul)
-                                        <td>{{ $judul->judul }}</td>
+                                    @if ($judul->sempro->count() !== 0)
+                                        <td>{{ $judul->sempro[0]->tanggal_seminar ? \Carbon\Carbon::parse($judul->sempro[0]->tanggal_seminar)->translatedFormat('d F Y') : '-' }}
+                                        </td>
+                                    @else
+                                        <td>-</td>
+                                    @endif
 
-                                        {{-- tgl sempro --}}
-                                        @if ($judul->sempro->count() !== 0)
-                                            @foreach ($judul->sempro as $sempro)
-                                                {{-- <td>{{ }}</td> --}}
-                                                <td>{{ $sempro->tanggal_seminar ? \Carbon\Carbon::parse($sempro->tanggal_seminar)->translatedFormat('d F Y') : '-' }}
-                                                </td>
-                                            @endforeach
-                                        @else
-                                            <td>{{ '-' }}</td>
-                                        @endif
-
-                                        {{-- tgl kompre --}}
-                                        @if ($judul->kompre->count() !== 0)
-                                            @foreach ($judul->kompre as $kompre)
-                                                <td>{{ $kompre->tanggal_seminar ? \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('d F Y') : '-' }}
-                                                </td>
-                                            @endforeach
-                                        @else
-                                            <td>{{ '-' }}</td>
-                                        @endif
-                                    @endforeach
+                                    @if ($judul->kompre->count() !== 0)
+                                        <td>{{ $judul->kompre[0]->tanggal_seminar ? \Carbon\Carbon::parse($judul->kompre[0]->tanggal_seminar)->translatedFormat('d F Y') : '-' }}
+                                        </td>
+                                    @else
+                                        <td>-</td>
+                                    @endif
 
                                     <td>
-                                        <span
-                                            class="bg-{{ $mahasiswa->status == 'active' ? 'success' : 'danger' }} text-white px-3 py-1 rounded">
-                                            {{ $mahasiswa->status }}
+                                        <span class="bg-success text-white px-3 py-1 rounded">
+                                            {{ $judul->mahasiswa->status }}
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="javascript:void(0)" id="show-mahasiswa"
-                                            data-url="/mahasiswa-skripsi/{{ $mahasiswa->id }}"
+                                        <a href="javascript:void(0)" id="show-judul"
+                                            data-url="/mahasiswa-skripsi/{{ $judul->mahasiswa_id }}"
                                             class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
                                         </a>
                                     </td>
@@ -82,10 +71,10 @@
                 </table>
                 {{-- pagination --}}
                 <div class="col-md-12 d-flex justify-content-between">
-                    Show {{ $mahasiswas->firstItem() ?? 0 }}
-                    to {{ $mahasiswas->lastItem() ?? 0 }} items
-                    of total {{ $mahasiswas->total() }} items
-                    {{ $mahasiswas->links() }}
+                    Show {{ $juduls->firstItem() ?? 0 }}
+                    to {{ $juduls->lastItem() ?? 0 }} items
+                    of total {{ $juduls->total() }} items
+                    {{ $juduls->links() }}
                 </div>
             </div>
         </div>
@@ -166,7 +155,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('body').on('click', '#show-mahasiswa', function() {
+            $('body').on('click', '#show-judul', function() {
 
                 let judulUrl = $(this).data('url');
                 $.get(judulUrl, function(data) {

@@ -59,6 +59,7 @@
                     <a href="/nilai/sempro"
                         class="nav-item nav-link {{ Request::is('nilai/sempro*') ? 'active' : '' }}">Penilaian
                         Seminar Proposal</a>
+
                 </div>
             </div>
 

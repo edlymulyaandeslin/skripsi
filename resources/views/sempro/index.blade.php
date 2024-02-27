@@ -111,7 +111,13 @@
                                 </tr>
                             @endforeach
                         @else
-                            <td colspan="9" class="text-center">No Data</td>
+                            @can('mahasiswa')
+                                <td colspan="9" class="text-center">Silakan Ajukan Seminar <a href="/sempro/create"
+                                        class="text-decoration-underline">disini</a></td>
+                            @endcan
+                            @cannot('mahasiswa')
+                                <td colspan="9" class="text-center">No Data</td>
+                            @endcannot
                         @endif
 
                     </tbody>

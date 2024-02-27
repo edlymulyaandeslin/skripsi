@@ -14,23 +14,26 @@ class MahasiswaSkripsiController extends Controller
     {
         $this->authorize('dosen');
 
-        $mahasiswas = User::with(['judul.sempro', 'judul.kompre'])
-            ->whereHas('judul', function ($query) {
-                $query->where('status', 'diterima')->where('pembimbing1_id', auth()->user()->id)
+        $juduls = Judul::with('mahasiswa', 'pembimbing1', 'pembimbing2', 'sempro', 'kompre')
+            ->where('status', 'diterima')
+            ->whereHas('mahasiswa', function ($query) {
+                $query->where('role_id', 4);
+            })->where(function ($query) {
+                $query->where('pembimbing1_id', auth()->user()->id)
                     ->orWhere('pembimbing2_id', auth()->user()->id);
-            })
-            ->where('role_id', 4)->latest()->paginate(10);
+            })->latest()
+            ->paginate(10);
+
 
         return view('manajemen.mahasiswa.mahasiswa-bimbingan', [
             'title' => 'E - Skripsi | Mahasiswa Bimbingan',
-            'mahasiswas' => $mahasiswas
+            'juduls' => $juduls
         ]);
     }
 
     public function sempro()
     {
         $this->authorize('dosen');
-
 
         $sempros = Sempro::with(['judul.mahasiswa'])->where(function ($query) {
             $query->where('penguji1_id', auth()->user()->id)
@@ -61,7 +64,6 @@ class MahasiswaSkripsiController extends Controller
 
     public function show(User $user)
     {
-        // $mahasiswa = $user->with(['judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro', 'judul.kompre'])->find($id);
         $mahasiswa = $user->load(['judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro', 'judul.kompre']);
 
         return response()->json($mahasiswa);
