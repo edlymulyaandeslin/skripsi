@@ -17,7 +17,7 @@ class MahasiswaSkripsiController extends Controller
         $juduls = Judul::with('mahasiswa', 'pembimbing1', 'pembimbing2', 'sempro', 'kompre')
             ->where('status', 'diterima')
             ->whereHas('mahasiswa', function ($query) {
-                $query->where('role_id', 4);
+                $query->where('role_id', 4)->where('status', 'active');
             })->where(function ($query) {
                 $query->where('pembimbing1_id', auth()->user()->id)
                     ->orWhere('pembimbing2_id', auth()->user()->id);
@@ -39,7 +39,7 @@ class MahasiswaSkripsiController extends Controller
             $query->where('penguji1_id', auth()->user()->id)
                 ->orWhere('penguji2_id', auth()->user()->id)
                 ->orWhere('penguji3_id', auth()->user()->id);
-        })->where('status', 'diterima')->latest()->paginate(10);
+        })->whereIn('status', ['diterima', 'penilaian'])->latest()->paginate(10);
 
         return view('manajemen.mahasiswa.mahasiswa-uji-sempro', [
             'title' => 'E - Skripsi | Uji Mahasiswa',
@@ -54,7 +54,7 @@ class MahasiswaSkripsiController extends Controller
             $query->where('penguji1_id', auth()->user()->id)
                 ->orWhere('penguji2_id', auth()->user()->id)
                 ->orWhere('penguji3_id', auth()->user()->id);
-        })->where('status', 'diterima')->latest()->paginate(10);
+        })->whereIn('status', ['diterima', 'penilaian'])->latest()->paginate(10);
 
         return view('manajemen.mahasiswa.mahasiswa-uji-kompre', [
             'title' => 'E - Skripsi | Uji Mahasiswa',

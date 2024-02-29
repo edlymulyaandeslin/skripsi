@@ -43,39 +43,20 @@
                                     <td>{{ $kompre->judul->judul }}</td>
                                     <td>{{ \Carbon\Carbon::parse($kompre->tanggal_seminar)->translatedFormat('d F Y') }}
                                     </td>
-                                    <td>{{ $kompre->nilaikompre
-                                        ? ($kompre->nilaikompre->nilai1_pem1 +
-                                                $kompre->nilaikompre->nilai2_pem1 +
-                                                $kompre->nilaikompre->nilai3_pem1 +
-                                                $kompre->nilaikompre->nilai4_pem1 +
-                                                $kompre->nilaikompre->nilai5_pem1 +
-                                                $kompre->nilaikompre->nilai6_pem1 +
-                                                $kompre->nilaikompre->nilai7_pem1 +
-                                                $kompre->nilaikompre->nilai1_pem2 +
-                                                $kompre->nilaikompre->nilai2_pem2 +
-                                                $kompre->nilaikompre->nilai3_pem2 +
-                                                $kompre->nilaikompre->nilai4_pem2 +
-                                                $kompre->nilaikompre->nilai5_pem2 +
-                                                $kompre->nilaikompre->nilai6_pem2 +
-                                                $kompre->nilaikompre->nilai7_pem2 +
-                                                $kompre->nilaikompre->nilai1_peng1 +
-                                                $kompre->nilaikompre->nilai2_peng1 +
-                                                $kompre->nilaikompre->nilai3_peng1 +
-                                                $kompre->nilaikompre->nilai4_peng1 +
-                                                $kompre->nilaikompre->nilai5_peng1 +
-                                                $kompre->nilaikompre->nilai1_peng2 +
-                                                $kompre->nilaikompre->nilai2_peng2 +
-                                                $kompre->nilaikompre->nilai3_peng2 +
-                                                $kompre->nilaikompre->nilai4_peng2 +
-                                                $kompre->nilaikompre->nilai5_peng2 +
-                                                $kompre->nilaikompre->nilai1_peng3 +
-                                                $kompre->nilaikompre->nilai2_peng3 +
-                                                $kompre->nilaikompre->nilai3_peng3 +
-                                                $kompre->nilaikompre->nilai4_peng3 +
-                                                $kompre->nilaikompre->nilai5_peng3) /
-                                            5
-                                        : 0 }}
-                                    </td>
+                                    @if ($kompre->nilaikompre)
+                                        @php
+                                            $nilaipem1 = ($kompre->nilaikompre->nilai1_pem1 + $kompre->nilaikompre->nilai2_pem1 + $kompre->nilaikompre->nilai3_pem1 + $kompre->nilaikompre->nilai4_pem1) / 5;
+                                            $nilaipem2 = ($kompre->nilaikompre->nilai1_pem2 + $kompre->nilaikompre->nilai2_pem2 + $kompre->nilaikompre->nilai3_pem2 + $kompre->nilaikompre->nilai4_pem2) / 5;
+                                            $nilaipeng1 = ($kompre->nilaikompre->nilai1_peng1 + $kompre->nilaikompre->nilai2_peng1 + $kompre->nilaikompre->nilai3_peng1 + $kompre->nilaikompre->nilai4_peng1) / 5;
+                                            $nilaipeng2 = ($kompre->nilaikompre->nilai1_peng2 + $kompre->nilaikompre->nilai2_peng2 + $kompre->nilaikompre->nilai3_peng2 + $kompre->nilaikompre->nilai4_peng2) / 5;
+                                            $nilaipeng3 = ($kompre->nilaikompre->nilai1_peng3 + $kompre->nilaikompre->nilai2_peng3 + $kompre->nilaikompre->nilai3_peng3 + $kompre->nilaikompre->nilai4_peng3) / 5;
+                                        @endphp
+                                        <td>{{ ($nilaipem1 + $nilaipem2 + $nilaipeng1 + $nilaipeng2 + $nilaipeng3) / 5 }}
+                                        </td>
+                                    @else
+                                        <td>{{ 0 }}</td>
+                                    @endif
+
                                     <td>
                                         <a href="/cetak/berita-acara-kompre/{{ $kompre->id }}/download/pdf">
                                             <i class="fa fa-file-pdf text-danger"></i>

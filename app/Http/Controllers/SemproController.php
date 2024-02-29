@@ -28,6 +28,7 @@ class SemproController extends Controller
                 ->whereNotIn('status', ['lulus'])
                 ->latest()
                 ->paginate(10);
+
             return view('sempro.index', [
                 'title' => 'E - Skripsi | Seminar Proposal',
                 'sempros' => $sempros,
@@ -35,18 +36,18 @@ class SemproController extends Controller
         }
 
         if (auth()->user()->role_id === 3) {
-            $sempros = Sempro::with(['judul', 'judul.mahasiswa'])
+            $sempros = Sempro::with('judul.mahasiswa')
+                ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->whereHas('judul', function ($query) {
-                    $query->where('pembimbing1_id', auth()->user()->id)
+                    $query->orWhere('pembimbing1_id', auth()->user()->id)
                         ->orWhere('pembimbing2_id', auth()->user()->id);
-                })
-                ->orWhere(function ($query) {
+                })->orWhere(function ($query) {
                     $query->where('penguji1_id', auth()->user()->id)
-                        ->orWhere('penguji2_id', auth()->user()->id)
-                        ->orWhere('penguji3_id', auth()->user()->id);
+                        ->where('penguji2_id', auth()->user()->id)
+                        ->where('penguji3_id', auth()->user()->id);
                 })
-                ->whereNotIn('status', ['lulus'])
-                ->latest()->paginate(10);
+                ->latest()
+                ->paginate(10);
 
             return view('sempro.index', [
                 'title' => 'E - Skripsi | Seminar Proposal',
@@ -59,6 +60,10 @@ class SemproController extends Controller
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
             ->latest()->paginate(10);
+
+        if ($sempros->count() == 0) {
+            return redirect('/sempro/create');
+        }
 
         return view('sempro.index', [
             'title' => 'E - Skripsi | Seminar Proposal',

@@ -50,13 +50,13 @@ class ProfileUpdate extends Controller
             $customMessage['no_hp.regex'] = 'The no hp field range 10 - 13 characters';
         }
         if ($request->filled('tempat_lahir')) {
-            $rules['tempat_lahir'] = 'required|min:5|max:50';
+            $rules['tempat_lahir'] = 'required|max:50';
         }
         if ($request->filled('tanggal_lahir')) {
             $rules['tanggal_lahir'] = 'required';
         }
         if ($request->filled('alamat')) {
-            $rules['alamat'] = 'required|min:5|max:50';
+            $rules['alamat'] = 'required|max:50';
         }
         if ($request->filled('angkatan')) {
             $rules['angkatan'] = 'required|numeric|min:2019|max:' . date('Y');
@@ -80,7 +80,7 @@ class ProfileUpdate extends Controller
 
         $user->update($validateData);
 
-        Alert::success('Success', 'Profile has been updated');
+        Alert::success('Berhasil', 'Profile Berhasil Diupdate');
 
         return redirect('/manajemen/profile/' . $user->id);
     }

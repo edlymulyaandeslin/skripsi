@@ -26,17 +26,6 @@ class LaporanController extends Controller
             })
             ->latest()->paginate(10);
 
-        // foreach ($users as $user) {
-        //     // dd($user->name);
-        //     // dd($user->judul);
-        //     foreach ($user->judul as $judul) {
-        //         if ($judul->status == 'diterima') {
-        //             echo $judul->status . '<br>';
-        //             echo $judul->sempro[0] . '<br>';
-        //         }
-        //     }
-        // }
-
         return view('report.seminar', [
             'title' => 'E - Skripsi | Seminar',
             'users' => $users
@@ -62,15 +51,18 @@ class LaporanController extends Controller
     }
     public function yudisium()
     {
-        $users = User::with(['judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro.penguji1', 'judul.sempro.penguji2', 'judul.sempro.penguji3', 'judul.kompre.penguji1', 'judul.kompre.penguji2', 'judul.kompre.penguji3'])
-            ->where(function ($query) {
-                $query->whereHas('judul.sempro', function ($query) {
-                    $query->where('status', 'lulus');
-                })
-                    ->whereHas('judul.kompre', function ($query) {
-                        $query->where('status', 'lulus');
-                    });
-            })->where('role_id', 4)
+        $users = User::with([
+            'judul.pembimbing1', 'judul.pembimbing2',
+            'judul.sempro.penguji1', 'judul.sempro.penguji2', 'judul.sempro.penguji3',
+            'judul.kompre.penguji1', 'judul.kompre.penguji2', 'judul.kompre.penguji3'
+        ])
+            ->whereHas('judul.sempro', function ($query) {
+                $query->where('status', 'lulus');
+            })
+            ->whereHas('judul.kompre', function ($query) {
+                $query->where('status', 'lulus');
+            })
+            ->where('role_id', 4)
             ->latest()
             ->paginate(10);
 

@@ -30,16 +30,15 @@ class NilaiSemproController extends Controller
         // dosen
         if (auth()->user()->role_id === 3) {
             $sempros = Sempro::with('judul.mahasiswa', 'nilaisempro')
-                ->whereHas('judul', function ($query) {
-                    $query->where('pembimbing1_id', auth()->user()->id)
-                        ->orWhere('pembimbing2_id', auth()->user()->id);
-                })
-                ->orWhere(function ($query) {
-                    $query->where('penguji1_id', auth()->user()->id)
-                        ->orWhere('penguji2_id', auth()->user()->id)
-                        ->orWhere('penguji3_id', auth()->user()->id);
-                })
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
+                ->whereHas('judul', function ($query) {
+                    $query->orWhere('pembimbing1_id', auth()->user()->id)
+                        ->orWhere('pembimbing2_id', auth()->user()->id);
+                })->orWhere(function ($query) {
+                    $query->where('penguji1_id', auth()->user()->id)
+                        ->where('penguji2_id', auth()->user()->id)
+                        ->where('penguji3_id', auth()->user()->id);
+                })
                 ->latest()
                 ->paginate(10);
 
@@ -54,8 +53,13 @@ class NilaiSemproController extends Controller
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
-            ->whereNotIn('status', ['diajukan', 'perbaikan'])->latest()->paginate(10);
+            ->whereNotIn('status', ['diajukan', 'perbaikan'])
+            ->latest()->paginate(10);
 
+        if ($sempros->count() == 0) {
+            Alert::info('Info', 'Kamu Belum Mengajukan Seminar Proposal');
+            return redirect()->route('sempro.create');
+        }
         return view('sempro.nilai.index', [
             'title' => 'Seminar Proposal | Penilaian',
             'sempros' => $sempros,
@@ -338,7 +342,7 @@ class NilaiSemproController extends Controller
             $sempro->update([
                 'status' => 'penilaian',
             ]);
-        } elseif ($ratarata >= 75) {
+        } elseif ($ratarata >= 65) {
             $sempro->update([
                 'status' => 'lulus',
             ]);

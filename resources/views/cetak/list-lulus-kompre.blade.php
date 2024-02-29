@@ -83,32 +83,23 @@
                                                         $kompre->nilaikompre->nilai2_pem1 +
                                                         $kompre->nilaikompre->nilai3_pem1 +
                                                         $kompre->nilaikompre->nilai4_pem1 +
-                                                        $kompre->nilaikompre->nilai5_pem1 +
-                                                        $kompre->nilaikompre->nilai6_pem1 +
-                                                        $kompre->nilaikompre->nilai7_pem1 +
                                                         $kompre->nilaikompre->nilai1_pem2 +
                                                         $kompre->nilaikompre->nilai2_pem2 +
                                                         $kompre->nilaikompre->nilai3_pem2 +
                                                         $kompre->nilaikompre->nilai4_pem2 +
-                                                        $kompre->nilaikompre->nilai5_pem2 +
-                                                        $kompre->nilaikompre->nilai6_pem2 +
-                                                        $kompre->nilaikompre->nilai7_pem2 +
                                                         $kompre->nilaikompre->nilai1_peng1 +
                                                         $kompre->nilaikompre->nilai2_peng1 +
                                                         $kompre->nilaikompre->nilai3_peng1 +
                                                         $kompre->nilaikompre->nilai4_peng1 +
-                                                        $kompre->nilaikompre->nilai5_peng1 +
                                                         $kompre->nilaikompre->nilai1_peng2 +
                                                         $kompre->nilaikompre->nilai2_peng2 +
                                                         $kompre->nilaikompre->nilai3_peng2 +
                                                         $kompre->nilaikompre->nilai4_peng2 +
-                                                        $kompre->nilaikompre->nilai5_peng2 +
                                                         $kompre->nilaikompre->nilai1_peng3 +
                                                         $kompre->nilaikompre->nilai2_peng3 +
                                                         $kompre->nilaikompre->nilai3_peng3 +
-                                                        $kompre->nilaikompre->nilai4_peng3 +
-                                                        $kompre->nilaikompre->nilai5_peng3) /
-                                                    5
+                                                        $kompre->nilaikompre->nilai4_peng3) /
+                                                    25
                                                 : 0 }}
                                             </td>
                                         </tr>

@@ -273,7 +273,7 @@
                                     <td class="pb-4">1</td>
                                     <td>{{ $kompre->judul->pembimbing1->name ?? '-' }}</td>
                                     <td>
-                                        {{ $kompre->nilaikompre ? ($nilaipem1 = $kompre->nilaikompre->nilai1_pem1 + $kompre->nilaikompre->nilai2_pem1 + $kompre->nilaikompre->nilai3_pem1 + $kompre->nilaikompre->nilai4_pem1 + $kompre->nilaikompre->nilai5_pem1 + $kompre->nilaikompre->nilai6_pem1 + $kompre->nilaikompre->nilai7_pem1) : ($nilaipem1 = 0) }}
+                                        {{ $kompre->nilaikompre ? ($nilaipem1 = ($kompre->nilaikompre->nilai1_pem1 + $kompre->nilaikompre->nilai2_pem1 + $kompre->nilaikompre->nilai3_pem1 + $kompre->nilaikompre->nilai4_pem1) / 5) : ($nilaipem1 = 0) }}
                                     </td>
                                     <td></td>
                                 </tr>
@@ -281,7 +281,7 @@
                                     <td class="pb-4">2</td>
                                     <td>{{ $kompre->judul->pembimbing2->name ?? '-' }}</td>
                                     <td>
-                                        {{ $kompre->nilaikompre ? ($nilaipem2 = $kompre->nilaikompre->nilai1_pem2 + $kompre->nilaikompre->nilai2_pem2 + $kompre->nilaikompre->nilai3_pem2 + $kompre->nilaikompre->nilai4_pem2 + $kompre->nilaikompre->nilai5_pem2 + $kompre->nilaikompre->nilai6_pem2 + $kompre->nilaikompre->nilai7_pem2) : ($nilaipem2 = 0) }}
+                                        {{ $kompre->nilaikompre ? ($nilaipem2 = ($kompre->nilaikompre->nilai1_pem2 + $kompre->nilaikompre->nilai2_pem2 + $kompre->nilaikompre->nilai3_pem2 + $kompre->nilaikompre->nilai4_pem2) / 5) : ($nilaipem2 = 0) }}
                                     </td>
                                     <td></td>
                                 </tr>
@@ -289,7 +289,7 @@
                                     <td class="pb-4">3</td>
                                     <td>{{ $kompre->penguji1->name ?? '-' }}</td>
                                     <td>
-                                        {{ $kompre->nilaikompre ? ($nilaipeng1 = $kompre->nilaikompre->nilai1_peng1 + $kompre->nilaikompre->nilai2_peng1 + $kompre->nilaikompre->nilai3_peng1 + $kompre->nilaikompre->nilai4_peng1 + $kompre->nilaikompre->nilai5_peng1) : ($nilaipeng1 = 0) }}
+                                        {{ $kompre->nilaikompre ? ($nilaipeng1 = ($kompre->nilaikompre->nilai1_peng1 + $kompre->nilaikompre->nilai2_peng1 + $kompre->nilaikompre->nilai3_peng1 + $kompre->nilaikompre->nilai4_peng1) / 5) : ($nilaipeng1 = 0) }}
                                     </td>
                                     <td></td>
                                 </tr>
@@ -297,7 +297,7 @@
                                     <td class="pb-4">4</td>
                                     <td>{{ $kompre->penguji2->name ?? '-' }}</td>
                                     <td>
-                                        {{ $kompre->nilaikompre ? ($nilaipeng2 = $kompre->nilaikompre->nilai1_peng2 + $kompre->nilaikompre->nilai2_peng2 + $kompre->nilaikompre->nilai3_peng2 + $kompre->nilaikompre->nilai4_peng2 + $kompre->nilaikompre->nilai5_peng2) : ($nilaipeng2 = 0) }}
+                                        {{ $kompre->nilaikompre ? ($nilaipeng2 = ($kompre->nilaikompre->nilai1_peng2 + $kompre->nilaikompre->nilai2_peng2 + $kompre->nilaikompre->nilai3_peng2 + $kompre->nilaikompre->nilai4_peng2) / 5) : ($nilaipeng2 = 0) }}
                                     </td>
                                     <td></td>
                                 </tr>
@@ -305,7 +305,7 @@
                                     <td class="pb-4">5</td>
                                     <td>{{ $kompre->penguji3->name ?? '-' }}</td>
                                     <td>
-                                        {{ $kompre->nilaikompre ? ($nilaipeng3 = $kompre->nilaikompre->nilai1_peng3 + $kompre->nilaikompre->nilai2_peng3 + $kompre->nilaikompre->nilai3_peng3 + $kompre->nilaikompre->nilai4_peng3 + $kompre->nilaikompre->nilai5_peng3) : ($nilaipeng3 = 0) }}
+                                        {{ $kompre->nilaikompre ? ($nilaipeng3 = ($kompre->nilaikompre->nilai1_peng3 + $kompre->nilaikompre->nilai2_peng3 + $kompre->nilaikompre->nilai3_peng3 + $kompre->nilaikompre->nilai4_peng3) / 5) : ($nilaipeng3 = 0) }}
                                     </td>
                                     <td></td>
                                 </tr>
@@ -385,69 +385,6 @@
                     </div>
 
                     <div class="col-md-12">
-                        {{-- <table id="table" class="table">
-                            <thead id="thead">
-                                <tr class="text-center">
-                                    <th colspan="2">Komponen Penilaian</th>
-                                    <th>Kriteria Penilaian</th>
-                                    <th>Rentang Nilai</th>
-                                    <th>Nilai</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody" class="p-4">
-                                <tr>
-                                    <td rowspan="5">Pembuatan Komprehensif</td>
-                                    <td>Pemilihan Tema</td>
-                                    <td>Kemampuan memilih dan menjustifikasi Tema yang akan diangkat dari sisi Latar
-                                        Belakang dan Rumusan Masalah</td>
-                                    <td>0 - 15</td>
-                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_pem1 ?? ($nilai1 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Pertanyaan Penelitian</td>
-                                    <td>Cara menyajikan pertanyaan penelitian/problem statement untuk membangun Rumusan
-                                        Masalah dan Tujuan</td>
-                                    <td>0 - 15</td>
-                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_pem1 ?? ($nilai2 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">Studi Literatur</td>
-                                    <td>Ide/gagasan/strategi untuk menyelesaikan masalah</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_pem1 ?? ($nilai3 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Justifikasi pemilihan model/ metode/ teori baik model simulasi, komputasi atau
-                                        model
-                                        pembangunan aplikasi/perangkat lunak dengan melakukan studi literatur</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_pem1 ?? ($nilai4 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Rencana Implementasi Simulasi/Komputasi</td>
-                                    <td>Penjelasan tentang bagaimana membangun Implementasi/ Simulasi/ Komputasi yang
-                                        diturunkan dari pemodelan</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_pem1 ?? ($nilai5 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">Expert Judgement</td>
-                                    <td colspan="2">Kemandirian mahasiswa dalam penyusunan proposal</td>
-                                    <td>0 - 20</td>
-                                    <td>{{ $nilai6 = $kompre->nilaikompre->nilai6_pem1 ?? ($nilai6 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">Proses Bimbingan</td>
-                                    <td>0 - 20</td>
-                                    <td>{{ $nilai7 = $kompre->nilaikompre->nilai7_pem1 ?? ($nilai7 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="3">Jumlah</th>
-                                    <td>0 - 100</td>
-                                    <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 + $nilai6 + $nilai7 }}</td>
-                                </tr>
-                            </tbody>
-                        </table> --}}
                         <table class="table" id="table">
                             <thead id="thead" class="text-center align-middle">
                                 <tr>
@@ -462,9 +399,13 @@
                                 <tr>
                                     <td rowspan="3" class="text-center">1.</td>
                                     <td>Penguasaan Penelitian:</td>
-                                    <td rowspan="3" class="text-center align-middle">1</td>
-                                    <td rowspan="3"></td>
-                                    <td rowspan="3"></td>
+                                    <td rowspan="3" class="text-center align-middle">{{ $bobot->bobot1 }}</td>
+                                    <td rowspan="3" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai1_pem1 / $bobot->bobot1 }}
+                                    </td>
+                                    <td rowspan="3" class="text-center align-middle">
+                                        {{ $nilai1_pem1 = $kompre->nilaikompre->nilai1_pem1 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Sistematika penulisan</td>
@@ -475,9 +416,13 @@
                                 <tr>
                                     <td rowspan="10" class="text-center">2.</td>
                                     <td>Segi Ilmiah Tulisan:</td>
-                                    <td rowspan="10" class="text-center align-middle">2</td>
-                                    <td rowspan="10"></td>
-                                    <td rowspan="10"></td>
+                                    <td rowspan="10" class="text-center align-middle">{{ $bobot->bobot2 }}</td>
+                                    <td rowspan="10" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai2_pem1 / $bobot->bobot2 }}
+                                    </td>
+                                    <td rowspan="10" class="text-center align-middle">
+                                        {{ $nilai2_pem1 = $kompre->nilaikompre->nilai2_pem1 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kesesuaian judul</td>
@@ -509,9 +454,14 @@
                                 <tr>
                                     <td rowspan="5" class="text-center">3.</td>
                                     <td>Kemampuan Penyajian:</td>
-                                    <td rowspan="5" class="text-center align-middle">1</td>
-                                    <td rowspan="5"></td>
-                                    <td rowspan="5"></td>
+                                    <td rowspan="5" class="text-center align-middle">{{ $bobot->bobot3 }}</td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai3_pem1 / $bobot->bobot3 }}
+                                    </td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $nilai3_pem1 = $kompre->nilaikompre->nilai3_pem1 }}
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kemampuan mengemukakan konsep dan teori</td>
@@ -528,9 +478,13 @@
                                 <tr>
                                     <td rowspan="5" class="text-center">4.</td>
                                     <td>Kemampuan berdiskusi</td>
-                                    <td rowspan="5" class="text-center align-middle">1</td>
-                                    <td rowspan="5"></td>
-                                    <td rowspan="5"></td>
+                                    <td rowspan="5" class="text-center align-middle">{{ $bobot->bobot4 }}</td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai4_pem1 / $bobot->bobot4 }}
+                                    </td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $nilai4_pem1 = $kompre->nilaikompre->nilai4_pem1 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kemampuan komunikasi</td>
@@ -547,7 +501,8 @@
                                 <tr>
                                     <td></td>
                                     <th class="text-center">Jumlah Nilai</th>
-                                    <td colspan="3" class="text-center">zero</td>
+                                    <td colspan="3" class="text-center">
+                                        {{ ($nilai1_pem1 + $nilai2_pem1 + $nilai3_pem1 + $nilai4_pem1) / 5 }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -610,69 +565,7 @@
                     </div>
 
                     <div class="col-md-12">
-                        {{-- <table id="table" class="table">
-                            <thead id="thead">
-                                <tr class="text-center">
-                                    <th colspan="2">Komponen Penilaian</th>
-                                    <th>Kriteria Penilaian</th>
-                                    <th>Rentang Nilai</th>
-                                    <th>Nilai</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody" class="p-4">
-                                <tr>
-                                    <td rowspan="5">Pembuatan Komprehensif</td>
-                                    <td>Pemilihan Tema</td>
-                                    <td>Kemampuan memilih dan menjustifikasi Tema yang akan diangkat dari sisi Latar
-                                        Belakang dan Rumusan Masalah</td>
-                                    <td>0 - 15</td>
-                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_pem1 ?? ($nilai1 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Pertanyaan Penelitian</td>
-                                    <td>Cara menyajikan pertanyaan penelitian/problem statement untuk membangun Rumusan
-                                        Masalah dan Tujuan</td>
-                                    <td>0 - 15</td>
-                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_pem1 ?? ($nilai2 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">Studi Literatur</td>
-                                    <td>Ide/gagasan/strategi untuk menyelesaikan masalah</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_pem1 ?? ($nilai3 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Justifikasi pemilihan model/ metode/ teori baik model simulasi, komputasi atau
-                                        model
-                                        pembangunan aplikasi/perangkat lunak dengan melakukan studi literatur</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_pem1 ?? ($nilai4 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Rencana Implementasi Simulasi/Komputasi</td>
-                                    <td>Penjelasan tentang bagaimana membangun Implementasi/ Simulasi/ Komputasi yang
-                                        diturunkan dari pemodelan</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_pem1 ?? ($nilai5 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">Expert Judgement</td>
-                                    <td colspan="2">Kemandirian mahasiswa dalam penyusunan proposal</td>
-                                    <td>0 - 20</td>
-                                    <td>{{ $nilai6 = $kompre->nilaikompre->nilai6_pem1 ?? ($nilai6 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">Proses Bimbingan</td>
-                                    <td>0 - 20</td>
-                                    <td>{{ $nilai7 = $kompre->nilaikompre->nilai7_pem1 ?? ($nilai7 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="3">Jumlah</th>
-                                    <td>0 - 100</td>
-                                    <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 + $nilai6 + $nilai7 }}</td>
-                                </tr>
-                            </tbody>
-                        </table> --}}
+
                         <table class="table" id="table">
                             <thead id="thead" class="text-center align-middle">
                                 <tr>
@@ -687,9 +580,13 @@
                                 <tr>
                                     <td rowspan="3" class="text-center">1.</td>
                                     <td>Penguasaan Penelitian:</td>
-                                    <td rowspan="3" class="text-center align-middle">1</td>
-                                    <td rowspan="3"></td>
-                                    <td rowspan="3"></td>
+                                    <td rowspan="3" class="text-center align-middle">{{ $bobot->bobot1 }}</td>
+                                    <td rowspan="3" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai1_pem2 / $bobot->bobot1 }}
+                                    </td>
+                                    <td rowspan="3" class="text-center align-middle">
+                                        {{ $nilai1_pem2 = $kompre->nilaikompre->nilai1_pem2 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Sistematika penulisan</td>
@@ -700,9 +597,13 @@
                                 <tr>
                                     <td rowspan="10" class="text-center">2.</td>
                                     <td>Segi Ilmiah Tulisan:</td>
-                                    <td rowspan="10" class="text-center align-middle">2</td>
-                                    <td rowspan="10"></td>
-                                    <td rowspan="10"></td>
+                                    <td rowspan="10" class="text-center align-middle">{{ $bobot->bobot2 }}</td>
+                                    <td rowspan="10" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai2_pem2 / $bobot->bobot2 }}
+                                    </td>
+                                    <td rowspan="10" class="text-center align-middle">
+                                        {{ $nilai2_pem2 = $kompre->nilaikompre->nilai2_pem2 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kesesuaian judul</td>
@@ -734,9 +635,14 @@
                                 <tr>
                                     <td rowspan="5" class="text-center">3.</td>
                                     <td>Kemampuan Penyajian:</td>
-                                    <td rowspan="5" class="text-center align-middle">1</td>
-                                    <td rowspan="5"></td>
-                                    <td rowspan="5"></td>
+                                    <td rowspan="5" class="text-center align-middle">{{ $bobot->bobot3 }}</td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai3_pem2 / $bobot->bobot3 }}
+                                    </td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $nilai3_pem2 = $kompre->nilaikompre->nilai3_pem2 }}
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kemampuan mengemukakan konsep dan teori</td>
@@ -753,9 +659,13 @@
                                 <tr>
                                     <td rowspan="5" class="text-center">4.</td>
                                     <td>Kemampuan berdiskusi</td>
-                                    <td rowspan="5" class="text-center align-middle">1</td>
-                                    <td rowspan="5"></td>
-                                    <td rowspan="5"></td>
+                                    <td rowspan="5" class="text-center align-middle">{{ $bobot->bobot4 }}</td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai4_pem2 / $bobot->bobot4 }}
+                                    </td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $nilai4_pem2 = $kompre->nilaikompre->nilai4_pem2 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kemampuan komunikasi</td>
@@ -772,7 +682,8 @@
                                 <tr>
                                     <td></td>
                                     <th class="text-center">Jumlah Nilai</th>
-                                    <td colspan="3" class="text-center">zero</td>
+                                    <td colspan="3" class="text-center">
+                                        {{ ($nilai1_pem2 + $nilai2_pem2 + $nilai3_pem2 + $nilai4_pem2) / 5 }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -835,69 +746,6 @@
                     </div>
 
                     <div class="col-md-12">
-                        {{-- <table id="table" class="table">
-                            <thead id="thead">
-                                <tr class="text-center">
-                                    <th colspan="2">Komponen Penilaian</th>
-                                    <th>Kriteria Penilaian</th>
-                                    <th>Rentang Nilai</th>
-                                    <th>Nilai</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody" class="p-4">
-                                <tr>
-                                    <td rowspan="5">Pembuatan Komprehensif</td>
-                                    <td>Pemilihan Tema</td>
-                                    <td>Kemampuan memilih dan menjustifikasi Tema yang akan diangkat dari sisi Latar
-                                        Belakang dan Rumusan Masalah</td>
-                                    <td>0 - 15</td>
-                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_pem1 ?? ($nilai1 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Pertanyaan Penelitian</td>
-                                    <td>Cara menyajikan pertanyaan penelitian/problem statement untuk membangun Rumusan
-                                        Masalah dan Tujuan</td>
-                                    <td>0 - 15</td>
-                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_pem1 ?? ($nilai2 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">Studi Literatur</td>
-                                    <td>Ide/gagasan/strategi untuk menyelesaikan masalah</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_pem1 ?? ($nilai3 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Justifikasi pemilihan model/ metode/ teori baik model simulasi, komputasi atau
-                                        model
-                                        pembangunan aplikasi/perangkat lunak dengan melakukan studi literatur</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_pem1 ?? ($nilai4 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Rencana Implementasi Simulasi/Komputasi</td>
-                                    <td>Penjelasan tentang bagaimana membangun Implementasi/ Simulasi/ Komputasi yang
-                                        diturunkan dari pemodelan</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_pem1 ?? ($nilai5 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">Expert Judgement</td>
-                                    <td colspan="2">Kemandirian mahasiswa dalam penyusunan proposal</td>
-                                    <td>0 - 20</td>
-                                    <td>{{ $nilai6 = $kompre->nilaikompre->nilai6_pem1 ?? ($nilai6 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">Proses Bimbingan</td>
-                                    <td>0 - 20</td>
-                                    <td>{{ $nilai7 = $kompre->nilaikompre->nilai7_pem1 ?? ($nilai7 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="3">Jumlah</th>
-                                    <td>0 - 100</td>
-                                    <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 + $nilai6 + $nilai7 }}</td>
-                                </tr>
-                            </tbody>
-                        </table> --}}
                         <table class="table" id="table">
                             <thead id="thead" class="text-center align-middle">
                                 <tr>
@@ -912,9 +760,13 @@
                                 <tr>
                                     <td rowspan="3" class="text-center">1.</td>
                                     <td>Penguasaan Penelitian:</td>
-                                    <td rowspan="3" class="text-center align-middle">1</td>
-                                    <td rowspan="3"></td>
-                                    <td rowspan="3"></td>
+                                    <td rowspan="3" class="text-center align-middle">{{ $bobot->bobot1 }}</td>
+                                    <td rowspan="3" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai1_peng1 / $bobot->bobot1 }}
+                                    </td>
+                                    <td rowspan="3" class="text-center align-middle">
+                                        {{ $nilai1_peng1 = $kompre->nilaikompre->nilai1_peng1 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Sistematika penulisan</td>
@@ -925,9 +777,13 @@
                                 <tr>
                                     <td rowspan="10" class="text-center">2.</td>
                                     <td>Segi Ilmiah Tulisan:</td>
-                                    <td rowspan="10" class="text-center align-middle">2</td>
-                                    <td rowspan="10"></td>
-                                    <td rowspan="10"></td>
+                                    <td rowspan="10" class="text-center align-middle">{{ $bobot->bobot2 }}</td>
+                                    <td rowspan="10" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai2_peng1 / $bobot->bobot2 }}
+                                    </td>
+                                    <td rowspan="10" class="text-center align-middle">
+                                        {{ $nilai2_peng1 = $kompre->nilaikompre->nilai2_peng1 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kesesuaian judul</td>
@@ -959,9 +815,14 @@
                                 <tr>
                                     <td rowspan="5" class="text-center">3.</td>
                                     <td>Kemampuan Penyajian:</td>
-                                    <td rowspan="5" class="text-center align-middle">1</td>
-                                    <td rowspan="5"></td>
-                                    <td rowspan="5"></td>
+                                    <td rowspan="5" class="text-center align-middle">{{ $bobot->bobot3 }}</td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai3_peng1 / $bobot->bobot3 }}
+                                    </td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $nilai3_peng1 = $kompre->nilaikompre->nilai3_peng1 }}
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kemampuan mengemukakan konsep dan teori</td>
@@ -978,9 +839,13 @@
                                 <tr>
                                     <td rowspan="5" class="text-center">4.</td>
                                     <td>Kemampuan berdiskusi</td>
-                                    <td rowspan="5" class="text-center align-middle">1</td>
-                                    <td rowspan="5"></td>
-                                    <td rowspan="5"></td>
+                                    <td rowspan="5" class="text-center align-middle">{{ $bobot->bobot4 }}</td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai4_peng1 / $bobot->bobot4 }}
+                                    </td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $nilai4_peng1 = $kompre->nilaikompre->nilai4_peng1 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kemampuan komunikasi</td>
@@ -997,7 +862,8 @@
                                 <tr>
                                     <td></td>
                                     <th class="text-center">Jumlah Nilai</th>
-                                    <td colspan="3" class="text-center">zero</td>
+                                    <td colspan="3" class="text-center">
+                                        {{ ($nilai1_peng1 + $nilai2_peng1 + $nilai3_peng1 + $nilai4_peng1) / 5 }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1060,69 +926,7 @@
                     </div>
 
                     <div class="col-md-12">
-                        {{-- <table id="table" class="table">
-                            <thead id="thead">
-                                <tr class="text-center">
-                                    <th colspan="2">Komponen Penilaian</th>
-                                    <th>Kriteria Penilaian</th>
-                                    <th>Rentang Nilai</th>
-                                    <th>Nilai</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody" class="p-4">
-                                <tr>
-                                    <td rowspan="5">Pembuatan Komprehensif</td>
-                                    <td>Pemilihan Tema</td>
-                                    <td>Kemampuan memilih dan menjustifikasi Tema yang akan diangkat dari sisi Latar
-                                        Belakang dan Rumusan Masalah</td>
-                                    <td>0 - 15</td>
-                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_pem1 ?? ($nilai1 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Pertanyaan Penelitian</td>
-                                    <td>Cara menyajikan pertanyaan penelitian/problem statement untuk membangun Rumusan
-                                        Masalah dan Tujuan</td>
-                                    <td>0 - 15</td>
-                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_pem1 ?? ($nilai2 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">Studi Literatur</td>
-                                    <td>Ide/gagasan/strategi untuk menyelesaikan masalah</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_pem1 ?? ($nilai3 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Justifikasi pemilihan model/ metode/ teori baik model simulasi, komputasi atau
-                                        model
-                                        pembangunan aplikasi/perangkat lunak dengan melakukan studi literatur</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_pem1 ?? ($nilai4 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Rencana Implementasi Simulasi/Komputasi</td>
-                                    <td>Penjelasan tentang bagaimana membangun Implementasi/ Simulasi/ Komputasi yang
-                                        diturunkan dari pemodelan</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_pem1 ?? ($nilai5 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">Expert Judgement</td>
-                                    <td colspan="2">Kemandirian mahasiswa dalam penyusunan proposal</td>
-                                    <td>0 - 20</td>
-                                    <td>{{ $nilai6 = $kompre->nilaikompre->nilai6_pem1 ?? ($nilai6 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">Proses Bimbingan</td>
-                                    <td>0 - 20</td>
-                                    <td>{{ $nilai7 = $kompre->nilaikompre->nilai7_pem1 ?? ($nilai7 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="3">Jumlah</th>
-                                    <td>0 - 100</td>
-                                    <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 + $nilai6 + $nilai7 }}</td>
-                                </tr>
-                            </tbody>
-                        </table> --}}
+
                         <table class="table" id="table">
                             <thead id="thead" class="text-center align-middle">
                                 <tr>
@@ -1137,9 +941,13 @@
                                 <tr>
                                     <td rowspan="3" class="text-center">1.</td>
                                     <td>Penguasaan Penelitian:</td>
-                                    <td rowspan="3" class="text-center align-middle">1</td>
-                                    <td rowspan="3"></td>
-                                    <td rowspan="3"></td>
+                                    <td rowspan="3" class="text-center align-middle">{{ $bobot->bobot1 }}</td>
+                                    <td rowspan="3" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai1_peng2 / $bobot->bobot1 }}
+                                    </td>
+                                    <td rowspan="3" class="text-center align-middle">
+                                        {{ $nilai1_peng2 = $kompre->nilaikompre->nilai1_peng2 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Sistematika penulisan</td>
@@ -1150,9 +958,13 @@
                                 <tr>
                                     <td rowspan="10" class="text-center">2.</td>
                                     <td>Segi Ilmiah Tulisan:</td>
-                                    <td rowspan="10" class="text-center align-middle">2</td>
-                                    <td rowspan="10"></td>
-                                    <td rowspan="10"></td>
+                                    <td rowspan="10" class="text-center align-middle">{{ $bobot->bobot2 }}</td>
+                                    <td rowspan="10" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai2_peng2 / $bobot->bobot2 }}
+                                    </td>
+                                    <td rowspan="10" class="text-center align-middle">
+                                        {{ $nilai2_peng2 = $kompre->nilaikompre->nilai2_peng2 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kesesuaian judul</td>
@@ -1184,9 +996,14 @@
                                 <tr>
                                     <td rowspan="5" class="text-center">3.</td>
                                     <td>Kemampuan Penyajian:</td>
-                                    <td rowspan="5" class="text-center align-middle">1</td>
-                                    <td rowspan="5"></td>
-                                    <td rowspan="5"></td>
+                                    <td rowspan="5" class="text-center align-middle">{{ $bobot->bobot3 }}</td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai3_peng2 / $bobot->bobot3 }}
+                                    </td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $nilai3_peng2 = $kompre->nilaikompre->nilai3_peng2 }}
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kemampuan mengemukakan konsep dan teori</td>
@@ -1203,9 +1020,13 @@
                                 <tr>
                                     <td rowspan="5" class="text-center">4.</td>
                                     <td>Kemampuan berdiskusi</td>
-                                    <td rowspan="5" class="text-center align-middle">1</td>
-                                    <td rowspan="5"></td>
-                                    <td rowspan="5"></td>
+                                    <td rowspan="5" class="text-center align-middle">{{ $bobot->bobot4 }}</td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai4_peng2 / $bobot->bobot4 }}
+                                    </td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $nilai4_peng2 = $kompre->nilaikompre->nilai4_peng2 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kemampuan komunikasi</td>
@@ -1222,7 +1043,8 @@
                                 <tr>
                                     <td></td>
                                     <th class="text-center">Jumlah Nilai</th>
-                                    <td colspan="3" class="text-center">zero</td>
+                                    <td colspan="3" class="text-center">
+                                        {{ ($nilai1_peng2 + $nilai2_peng2 + $nilai3_peng2 + $nilai4_peng2) / 5 }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1285,69 +1107,6 @@
                     </div>
 
                     <div class="col-md-12">
-                        {{-- <table id="table" class="table">
-                            <thead id="thead">
-                                <tr class="text-center">
-                                    <th colspan="2">Komponen Penilaian</th>
-                                    <th>Kriteria Penilaian</th>
-                                    <th>Rentang Nilai</th>
-                                    <th>Nilai</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody" class="p-4">
-                                <tr>
-                                    <td rowspan="5">Pembuatan Komprehensif</td>
-                                    <td>Pemilihan Tema</td>
-                                    <td>Kemampuan memilih dan menjustifikasi Tema yang akan diangkat dari sisi Latar
-                                        Belakang dan Rumusan Masalah</td>
-                                    <td>0 - 15</td>
-                                    <td>{{ $nilai1 = $kompre->nilaikompre->nilai1_pem1 ?? ($nilai1 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Pertanyaan Penelitian</td>
-                                    <td>Cara menyajikan pertanyaan penelitian/problem statement untuk membangun Rumusan
-                                        Masalah dan Tujuan</td>
-                                    <td>0 - 15</td>
-                                    <td>{{ $nilai2 = $kompre->nilaikompre->nilai2_pem1 ?? ($nilai2 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">Studi Literatur</td>
-                                    <td>Ide/gagasan/strategi untuk menyelesaikan masalah</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai3 = $kompre->nilaikompre->nilai3_pem1 ?? ($nilai3 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Justifikasi pemilihan model/ metode/ teori baik model simulasi, komputasi atau
-                                        model
-                                        pembangunan aplikasi/perangkat lunak dengan melakukan studi literatur</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai4 = $kompre->nilaikompre->nilai4_pem1 ?? ($nilai4 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Rencana Implementasi Simulasi/Komputasi</td>
-                                    <td>Penjelasan tentang bagaimana membangun Implementasi/ Simulasi/ Komputasi yang
-                                        diturunkan dari pemodelan</td>
-                                    <td>0 - 10</td>
-                                    <td>{{ $nilai5 = $kompre->nilaikompre->nilai5_pem1 ?? ($nilai5 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">Expert Judgement</td>
-                                    <td colspan="2">Kemandirian mahasiswa dalam penyusunan proposal</td>
-                                    <td>0 - 20</td>
-                                    <td>{{ $nilai6 = $kompre->nilaikompre->nilai6_pem1 ?? ($nilai6 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">Proses Bimbingan</td>
-                                    <td>0 - 20</td>
-                                    <td>{{ $nilai7 = $kompre->nilaikompre->nilai7_pem1 ?? ($nilai7 = 0) }}</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="3">Jumlah</th>
-                                    <td>0 - 100</td>
-                                    <td>{{ $nilai1 + $nilai2 + $nilai3 + $nilai4 + $nilai5 + $nilai6 + $nilai7 }}</td>
-                                </tr>
-                            </tbody>
-                        </table> --}}
                         <table class="table" id="table">
                             <thead id="thead" class="text-center align-middle">
                                 <tr>
@@ -1362,9 +1121,13 @@
                                 <tr>
                                     <td rowspan="3" class="text-center">1.</td>
                                     <td>Penguasaan Penelitian:</td>
-                                    <td rowspan="3" class="text-center align-middle">1</td>
-                                    <td rowspan="3"></td>
-                                    <td rowspan="3"></td>
+                                    <td rowspan="3" class="text-center align-middle">{{ $bobot->bobot1 }}</td>
+                                    <td rowspan="3" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai1_peng3 / $bobot->bobot1 }}
+                                    </td>
+                                    <td rowspan="3" class="text-center align-middle">
+                                        {{ $nilai1_peng3 = $kompre->nilaikompre->nilai1_peng3 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Sistematika penulisan</td>
@@ -1375,9 +1138,13 @@
                                 <tr>
                                     <td rowspan="10" class="text-center">2.</td>
                                     <td>Segi Ilmiah Tulisan:</td>
-                                    <td rowspan="10" class="text-center align-middle">2</td>
-                                    <td rowspan="10"></td>
-                                    <td rowspan="10"></td>
+                                    <td rowspan="10" class="text-center align-middle">{{ $bobot->bobot2 }}</td>
+                                    <td rowspan="10" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai2_peng3 / $bobot->bobot2 }}
+                                    </td>
+                                    <td rowspan="10" class="text-center align-middle">
+                                        {{ $nilai2_peng3 = $kompre->nilaikompre->nilai2_peng3 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kesesuaian judul</td>
@@ -1409,9 +1176,14 @@
                                 <tr>
                                     <td rowspan="5" class="text-center">3.</td>
                                     <td>Kemampuan Penyajian:</td>
-                                    <td rowspan="5" class="text-center align-middle">1</td>
-                                    <td rowspan="5"></td>
-                                    <td rowspan="5"></td>
+                                    <td rowspan="5" class="text-center align-middle">{{ $bobot->bobot3 }}</td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai3_peng3 / $bobot->bobot3 }}
+                                    </td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $nilai3_peng3 = $kompre->nilaikompre->nilai3_peng3 }}
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kemampuan mengemukakan konsep dan teori</td>
@@ -1428,9 +1200,13 @@
                                 <tr>
                                     <td rowspan="5" class="text-center">4.</td>
                                     <td>Kemampuan berdiskusi</td>
-                                    <td rowspan="5" class="text-center align-middle">1</td>
-                                    <td rowspan="5"></td>
-                                    <td rowspan="5"></td>
+                                    <td rowspan="5" class="text-center align-middle">{{ $bobot->bobot4 }}</td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $kompre->nilaikompre->nilai4_peng3 / $bobot->bobot4 }}
+                                    </td>
+                                    <td rowspan="5" class="text-center align-middle">
+                                        {{ $nilai4_peng3 = $kompre->nilaikompre->nilai4_peng3 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>a. Kemampuan komunikasi</td>
@@ -1447,7 +1223,8 @@
                                 <tr>
                                     <td></td>
                                     <th class="text-center">Jumlah Nilai</th>
-                                    <td colspan="3" class="text-center">zero</td>
+                                    <td colspan="3" class="text-center">
+                                        {{ ($nilai1_peng3 + $nilai2_peng3 + $nilai3_peng3 + $nilai4_peng3) / 5 }}</td>
                                 </tr>
                             </tbody>
                         </table>

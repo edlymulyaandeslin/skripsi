@@ -23,7 +23,7 @@
                                     disini</a>.
                             </p>
                             <hr>
-                            <p class="mb-0">#Congratskids!</p>
+                            <p class="mb-0">#niceee!</p>
                         </div>
                     @else
                         <div class="alert alert-warning" role="alert">
@@ -31,7 +31,7 @@
                             <p>Pengajuan kamu sedang kami check dan proses, mohon ditunggu info selanjutnya ya!
                             </p>
                             <hr>
-                            <p class="mb-0">#Keepspiritkids!</p>
+                            <p class="mb-0">Tetap semangat!</p>
                         </div>
                     @endif
 

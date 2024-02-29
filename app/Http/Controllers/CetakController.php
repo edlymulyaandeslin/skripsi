@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bobot;
 use App\Models\Kompre;
 use App\Models\Logbook;
 use App\Models\Sempro;
@@ -73,13 +74,15 @@ class CetakController extends Controller
         // return view('cetak.berita-acara-kompre', [
         //     'title' => 'SEMINAR KOMPREHENSIF',
         //     'kompre' => $kompre,
-        //     'kaprodi' => User::where('role_id', 3)->where('posisi', 'kaprodi')->get()
+        //     'kaprodi' => User::where('role_id', 3)->where('posisi', 'kaprodi')->get(),
+        //     'bobot' => Bobot::first()
         // ]);
 
         $data = [
             'title' => 'SEMINAR KOMPREHENSIF',
             'kompre' => $kompre,
-            'kaprodi' => User::where('role_id', 3)->where('posisi', 'kaprodi')->get()
+            'kaprodi' => User::where('role_id', 3)->where('posisi', 'kaprodi')->get(),
+            'bobot' => Bobot::first()
         ];
 
         $pdf = Pdf::loadView('cetak.berita-acara-kompre', $data);

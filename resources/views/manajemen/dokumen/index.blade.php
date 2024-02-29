@@ -5,7 +5,7 @@
         <div class="col-md-12">
             @if ($user->email == null || $user->no_hp == null)
                 <div class="alert alert-warning" role="alert">
-                    <h4 class="alert-heading">Halo Kidss!</h4>
+                    <h4 class="alert-heading">Halo, {{ auth()->user()->name }}!</h4>
                     <p>Sepertinya Biodata kamu belum lengkap mohon lengkapi terlebih dahulu <a
                             href="/manajemen/profile/{{ auth()->user()->id }}/edit">Klik
                             disini</a></p>

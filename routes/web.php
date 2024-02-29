@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BobotController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\CetakController;
 use App\Http\Controllers\DokumenController;
@@ -55,7 +56,7 @@ Route::resource('/nilai/kompre', NilaiKompreController::class)->names([
     'show' => 'nilai.kompre.show',
     'store' => 'nilai.kompre.store',
     'update' => 'nilai.kompre.update',
-])->except(['create', 'destroy'])->middleware('auth');
+])->except(['create', 'destroy']);
 
 // fitur mahasiswa pada halaman dosen
 Route::get('/mahasiswa-bimbingan', [MahasiswaSkripsiController::class, 'bimbingan'])->middleware('auth');
@@ -123,3 +124,9 @@ Route::prefix('cetak')->group(function () {
     // Cetak List mahasiswa lulus yudisium
     Route::post('/yudisium', [CetakController::class, 'cetak_yudisium'])->middleware('koordinator');
 });
+
+// setting bobot
+Route::resource('/bobot', BobotController::class)->only([
+    'edit',
+    'update'
+]);

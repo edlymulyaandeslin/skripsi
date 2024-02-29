@@ -11,6 +11,11 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
+                @can('koordinator')
+                    <div>
+                        <a href="/bobot/{{ $bobot->id }}/edit" class="btn btn-sm btn-dark">Atur Bobot Nilai</a>
+                    </div>
+                @endcan
             </div>
 
             <div class="table-responsive">
@@ -41,18 +46,18 @@
                                         <td>{{ $kompre->judul->mahasiswa->name }}</td>
                                     @endcannot
                                     <td>{{ $kompre->judul->judul }}</td>
-                                    <td>{{ $kompre->nilaikompre ? ($nilaiPem1 = $kompre->nilaikompre->nilai1_pem1 + $kompre->nilaikompre->nilai2_pem1 + $kompre->nilaikompre->nilai3_pem1 + $kompre->nilaikompre->nilai4_pem1 + $kompre->nilaikompre->nilai5_pem1 + $kompre->nilaikompre->nilai6_pem1 + $kompre->nilaikompre->nilai7_pem1) : ($nilaiPem1 = 0) }}
+                                    <td>{{ $kompre->nilaikompre ? ($nilaiPem1 = ($kompre->nilaikompre->nilai1_pem1 + $kompre->nilaikompre->nilai2_pem1 + $kompre->nilaikompre->nilai3_pem1 + $kompre->nilaikompre->nilai4_pem1) / 5) : ($nilaiPem1 = 0) }}
                                     </td>
-                                    <td>{{ $kompre->nilaikompre ? ($nilaiPem2 = $kompre->nilaikompre->nilai1_pem2 + $kompre->nilaikompre->nilai2_pem2 + $kompre->nilaikompre->nilai3_pem2 + $kompre->nilaikompre->nilai4_pem2 + $kompre->nilaikompre->nilai5_pem2 + $kompre->nilaikompre->nilai6_pem2 + $kompre->nilaikompre->nilai7_pem2) : ($nilaiPem2 = 0) }}
+                                    <td>{{ $kompre->nilaikompre ? ($nilaiPem2 = ($kompre->nilaikompre->nilai1_pem2 + $kompre->nilaikompre->nilai2_pem2 + $kompre->nilaikompre->nilai3_pem2 + $kompre->nilaikompre->nilai4_pem2) / 5) : ($nilaiPem2 = 0) }}
                                     </td>
-                                    <td>{{ $kompre->nilaikompre ? ($nilaiPenguji1 = $kompre->nilaikompre->nilai1_peng1 + $kompre->nilaikompre->nilai2_peng1 + $kompre->nilaikompre->nilai3_peng1 + $kompre->nilaikompre->nilai4_peng1 + $kompre->nilaikompre->nilai5_peng1) : ($nilaiPenguji1 = 0) }}
+                                    <td>{{ $kompre->nilaikompre ? ($nilaiPenguji1 = ($kompre->nilaikompre->nilai1_peng1 + $kompre->nilaikompre->nilai2_peng1 + $kompre->nilaikompre->nilai3_peng1 + $kompre->nilaikompre->nilai4_peng1) / 5) : ($nilaiPenguji1 = 0) }}
                                     </td>
-                                    <td>{{ $kompre->nilaikompre ? ($nilaiPenguji2 = $kompre->nilaikompre->nilai1_peng2 + $kompre->nilaikompre->nilai2_peng2 + $kompre->nilaikompre->nilai3_peng2 + $kompre->nilaikompre->nilai4_peng2 + $kompre->nilaikompre->nilai5_peng2) : ($nilaiPenguji2 = 0) }}
+                                    <td>{{ $kompre->nilaikompre ? ($nilaiPenguji2 = ($kompre->nilaikompre->nilai1_peng2 + $kompre->nilaikompre->nilai2_peng2 + $kompre->nilaikompre->nilai3_peng2 + $kompre->nilaikompre->nilai4_peng2) / 5) : ($nilaiPenguji2 = 0) }}
                                     </td>
-                                    <td>{{ $kompre->nilaikompre ? ($nilaiPenguji3 = $kompre->nilaikompre->nilai1_peng3 + $kompre->nilaikompre->nilai2_peng3 + $kompre->nilaikompre->nilai3_peng3 + $kompre->nilaikompre->nilai4_peng3 + $kompre->nilaikompre->nilai5_peng3) : ($nilaiPenguji3 = 0) }}
+                                    <td>{{ $kompre->nilaikompre ? ($nilaiPenguji3 = ($kompre->nilaikompre->nilai1_peng3 + $kompre->nilaikompre->nilai2_peng3 + $kompre->nilaikompre->nilai3_peng3 + $kompre->nilaikompre->nilai4_peng3) / 5) : ($nilaiPenguji3 = 0) }}
                                     </td>
                                     <td>
-                                        {{ number_format(($nilaiPenguji1 + $nilaiPenguji2 + $nilaiPenguji3 + $nilaiPem1 + $nilaiPem2) / 5, 2) }}
+                                        {{ number_format($totalNilai = ($nilaiPenguji1 + $nilaiPenguji2 + $nilaiPenguji3 + $nilaiPem1 + $nilaiPem2) / 5, 2) }}
                                     </td>
 
                                     <td>
@@ -103,6 +108,30 @@
                     of total {{ $kompres->total() }} items
                     {{ $kompres->links() }}
                 </div>
+
+                @can('mahasiswa')
+                    @if ($kompres[0]->status == 'lulus')
+                        <div class="alert alert-success mt-3" role="alert">
+                            <h4 class="alert-heading">Selamat, Kamu Telah Lulus!</h4>
+                            <p>Kamu memperoleh nilai {{ $totalNilai }} dalam seminar komprehensif. Kamu berhasil melewati
+                                seminar komprehensif.</p>
+                            <p>Inilah awal dari pencapaian lebih besar. Tetap semangat dan teruskan pencapaian Kamu.
+                            </p>
+                            <hr>
+                            <p>Teruslah berkarya!</p>
+                        </div>
+                    @elseif ($kompres[0]->status == 'tidak lulus')
+                        <div class="alert alert-danger mt-3" role="alert">
+                            <h4 class="alert-heading">Maaf, Kamu Belum Lulus!</h4>
+                            <p>Kamu memperoleh nilai {{ $totalNilai }} dalam seminar komprehensif. Kamu belum berhasil
+                                melewati
+                                seminar komprehensif.</p>
+                            <p>Jangan putus asa! Gunakan pengalaman ini untuk memperbaiki diri dan terus berjuang.</p>
+                            <hr>
+                            <p>Tetap Semangat!</p>
+                        </div>
+                    @endif
+                @endcan
             </div>
         </div>
     </div>
@@ -135,44 +164,26 @@
                             <div class="col-md-4">
                                 <h1 class="modal-title fs-5">Pembimbing 1</h1>
                                 <div class="mb-3">
-                                    <label for="nilai1_pem1" class="form-label">Kemampuan Memilih Tema</label>
+                                    <label for="nilai1_pem1" class="form-label">Penguasaan Penelitian</label>
                                     <input type="text" id="nilai1_pem1" class="form-control" disabled />
-                                    <small>(0 - 15)</small>
+                                    <small>10 - 100 (x{{ $bobot->bobot1 }})</small>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nilai2_pem1" class="form-label">Cara menyajikan pertanyaan
-                                        penelitian/problem
-                                        statement</label>
+                                    <label for="nilai2_pem1" class="form-label">Segi Ilmiah Tulisan</label>
                                     <input type="text" id="nilai2_pem1" class="form-control" disabled />
-                                    <small>(0 - 15)</small>
+                                    <small>10 - 100 (x{{ $bobot->bobot2 }})</small>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nilai3_pem1" class="form-label">Problem Solving</label>
+                                    <label for="nilai3_pem1" class="form-label">Kemampuan Penyajian</label>
                                     <input type="text" id="nilai3_pem1" class="form-control" disabled />
-                                    <small>(0 - 10)</small>
+                                    <small>10 - 100 (x{{ $bobot->bobot3 }})</small>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nilai4_pem1" class="form-label">Pemilihan model atau metode</label>
+                                    <label for="nilai4_pem1" class="form-label">Kemampuan Berdiskusi</label>
                                     <input type="text" id="nilai4_pem1" class="form-control" disabled />
-                                    <small>(0 - 10)</small>
+                                    <small>10 - 100 (x{{ $bobot->bobot4 }})</small>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="nilai5_pem1" class="form-label">Rencana implementasi
-                                        simulasi/komputasi</label>
-                                    <input type="text" id="nilai5_pem1" class="form-control" disabled />
-                                    <small>(0 - 10)</small>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nilai6_pem1" class="form-label">Kemandirian dalam penyusunan
-                                        proposal</label>
-                                    <input type="text" id="nilai6_pem1" class="form-control" disabled />
-                                    <small>(0 - 20)</small>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nilai7_pem1" class="form-label">Proses bimbingan</label>
-                                    <input type="text" id="nilai7_pem1" class="form-control" disabled />
-                                    <small>(0 - 20)</small>
-                                </div>
+
                                 <div class="mb-3">
                                     <label for="totalPem1" class="form-label">Total</label>
                                     <input type="text" id="totalPem1" class="form-control" disabled />
@@ -182,43 +193,24 @@
                             <div class="col-md-4">
                                 <h1 class="modal-title fs-5">Pembimbing 2</h1>
                                 <div class="mb-3">
-                                    <label for="nilai1_pem2" class="form-label">Kemampuan Memilih Tema</label>
+                                    <label for="nilai1_pem2" class="form-label">Penguasaan Penelitian</label>
                                     <input type="text" id="nilai1_pem2" class="form-control" disabled />
-                                    <small>(0 - 15)</small>
+                                    <small>10 - 100 (x{{ $bobot->bobot1 }})</small>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nilai2_pem2" class="form-label">Cara menyajikan pertanyaan
-                                        penelitian/problem
-                                        statement</label>
+                                    <label for="nilai2_pem2" class="form-label">Segi Ilmiah Tulisan</label>
                                     <input type="text" id="nilai2_pem2" class="form-control" disabled />
-                                    <small>(0 - 15)</small>
+                                    <small>10 - 100 (x{{ $bobot->bobot2 }})</small>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nilai3_pem2" class="form-label">Problem Solving</label>
+                                    <label for="nilai3_pem2" class="form-label">Kemampuan Penyajian</label>
                                     <input type="text" id="nilai3_pem2" class="form-control" disabled />
-                                    <small>(0 - 10)</small>
+                                    <small>10 - 100 (x{{ $bobot->bobot3 }})</small>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nilai4_pem2" class="form-label">Pemilihan model atau metode</label>
+                                    <label for="nilai4_pem2" class="form-label">Kemampuan Berdiskusi</label>
                                     <input type="text" id="nilai4_pem2" class="form-control" disabled />
-                                    <small>(0 - 10)</small>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nilai5_pem2" class="form-label">Rencana implementasi
-                                        simulasi/komputasi</label>
-                                    <input type="text" id="nilai5_pem2" class="form-control" disabled />
-                                    <small>(0 - 10)</small>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nilai6_pem2" class="form-label">Kemandirian dalam penyusunan
-                                        proposal</label>
-                                    <input type="text" id="nilai6_pem2" class="form-control" disabled />
-                                    <small>(0 - 20)</small>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nilai7_pem2" class="form-label">Proses bimbingan</label>
-                                    <input type="text" id="nilai7_pem2" class="form-control" disabled />
-                                    <small>(0 - 20)</small>
+                                    <small>10 - 100 (x{{ $bobot->bobot4 }})</small>
                                 </div>
                                 <div class="mb-3">
                                     <label for="totalPem2" class="form-label">Total</label>
@@ -230,111 +222,86 @@
                         <div class="col-md-4">
                             <h1 class="modal-title fs-5">Penguji 1</h1>
                             <div class="mb-3">
-                                <label for="nilai1_peng1" class="form-label">Menjawab Latar Belakang Masalah</label>
+                                <label for="nilai1_peng1" class="form-label">Penguasaan Penelitian</label>
                                 <input type="text" id="nilai1_peng1" class="form-control" disabled />
-                                <small>(0 - 25)</small>
+                                <small>10 - 100 (x{{ $bobot->bobot1 }})</small>
                             </div>
                             <div class="mb-3">
-                                <label for="nilai2_peng1" class="form-label">Menguasai Teori Pendukung TA</label>
+                                <label for="nilai2_peng1" class="form-label">Segi Ilmiah Tulisan</label>
                                 <input type="text" id="nilai2_peng1" class="form-control" disabled />
-                                <small>(0 - 15)</small>
+                                <small>10 - 100 (x{{ $bobot->bobot2 }})</small>
                             </div>
                             <div class="mb-3">
-                                <label for="nilai3_peng1" class="form-label">Menguasai Materi Terkait Tools
-                                    Pemodelan</label>
+                                <label for="nilai3_peng1" class="form-label">Kemampuan Penyajian</label>
                                 <input type="text" id="nilai3_peng1" class="form-control" disabled />
-                                <small>(0 - 10)</small>
+                                <small>10 - 100 (x{{ $bobot->bobot3 }})</small>
                             </div>
                             <div class="mb-3">
-                                <label for="nilai4_peng1" class="form-label">Pemaparan Cara Menjawab</label>
+                                <label for="nilai4_peng1" class="form-label">Kemampuan Berdiskusi</label>
                                 <input type="text" id="nilai4_peng1" class="form-control" disabled />
-                                <small>(0 - 25)</small>
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai5_peng1" class="form-label">Komunikasi Interpersonal</label>
-                                <input type="text" id="nilai5_peng1" class="form-control" disabled />
-                                <small>(0 - 25)</small>
+                                <small>10 - 100 (x{{ $bobot->bobot4 }})</small>
                             </div>
                             <div class="mb-3">
                                 <label for="totalPenguji1" class="form-label">Total</label>
                                 <input type="text" id="totalPenguji1" class="form-control" disabled />
                             </div>
-                            <div class="mb-3">
-                                <label for="notes1" class="form-label">Catatan</label>
-                                <textarea id="notes1" class="form-control" disabled></textarea>
-                            </div>
+
                         </div>
                         <div class="col-md-4">
                             <h1 class="modal-title fs-5">Penguji 2</h1>
                             <div class="mb-3">
-                                <label for="nilai1_peng2" class="form-label">Menjawab Latar Belakang Masalah</label>
+                                <label for="nilai1_peng2" class="form-label">Penguasaan Penelitian</label>
                                 <input type="text" id="nilai1_peng2" class="form-control" disabled />
-                                <small>(0 - 25)</small>
+                                <small>10 - 100 (x{{ $bobot->bobot1 }})</small>
                             </div>
                             <div class="mb-3">
-                                <label for="nilai2_peng2" class="form-label">Menguasai Teori Pendukung TA</label>
+                                <label for="nilai2_peng2" class="form-label">Segi Ilmiah Tulisan</label>
                                 <input type="text" id="nilai2_peng2" class="form-control" disabled />
-                                <small>(0 - 15)</small>
+                                <small>10 - 100 (x{{ $bobot->bobot2 }})</small>
                             </div>
                             <div class="mb-3">
-                                <label for="nilai3_peng2" class="form-label">Menguasai Materi Terkait Tools</label>
+                                <label for="nilai3_peng2" class="form-label">Kemampuan Penyajian</label>
                                 <input type="text" id="nilai3_peng2" class="form-control" disabled />
-                                <small>(0 - 10)</small>
+                                <small>10 - 100 (x{{ $bobot->bobot3 }})</small>
                             </div>
                             <div class="mb-3">
-                                <label for="nilai4_peng2" class="form-label">Pemaparan Cara Menjawab</label>
+                                <label for="nilai4_peng2" class="form-label">Kemampuan Berdiskusi</label>
                                 <input type="text" id="nilai4_peng2" class="form-control" disabled />
-                                <small>(0 - 25)</small>
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai5_peng2" class="form-label">Komunikasi Interpersonal</label>
-                                <input type="text" id="nilai5_peng2" class="form-control" disabled />
-                                <small>(0 - 25)</small>
+                                <small>10 - 100 (x{{ $bobot->bobot4 }})</small>
                             </div>
                             <div class="mb-3">
                                 <label for="totalPenguji2" class="form-label">Total</label>
                                 <input type="text" id="totalPenguji2" class="form-control" disabled />
                             </div>
-                            <div class="mb-3">
-                                <label for="notes2" class="form-label">Catatan</label>
-                                <textarea id="notes2" class="form-control" disabled></textarea>
-                            </div>
+
                         </div>
                         <div class="col-md-4">
                             <h1 class="modal-title fs-5">Penguji 3</h1>
                             <div class="mb-3">
-                                <label for="nilai1_peng3" class="form-label">Menjawab Latar Belakang Masalah</label>
+                                <label for="nilai1_peng3" class="form-label">Penguasaan Penelitian</label>
                                 <input type="text" id="nilai1_peng3" class="form-control" disabled />
-                                <small>(0 - 25)</small>
+                                <small>10 - 100 (x{{ $bobot->bobot1 }})</small>
                             </div>
                             <div class="mb-3">
-                                <label for="nilai2_peng3" class="form-label">Menguasai Teori Pendukung TA</label>
+                                <label for="nilai2_peng3" class="form-label">Segi Ilmiah Tulisan</label>
                                 <input type="text" id="nilai2_peng3" class="form-control" disabled />
-                                <small>(0 - 15)</small>
+                                <small>10 - 100 (x{{ $bobot->bobot2 }})</small>
                             </div>
                             <div class="mb-3">
-                                <label for="nilai3_peng3" class="form-label">Menguasai Materi Terkait Tools</label>
+                                <label for="nilai3_peng3" class="form-label">Kemampuan Penyajian</label>
                                 <input type="text" id="nilai3_peng3" class="form-control" disabled />
-                                <small>(0 - 10)</small>
+                                <small>10 - 100 (x{{ $bobot->bobot3 }})</small>
                             </div>
                             <div class="mb-3">
-                                <label for="nilai4_peng3" class="form-label">Pemaparan Cara Menjawab</label>
+                                <label for="nilai4_peng3" class="form-label">Kemampuan Berdiskusi</label>
                                 <input type="text" id="nilai4_peng3" class="form-control" disabled />
-                                <small>(0 - 25)</small>
-                            </div>
-                            <div class="mb-3">
-                                <label for="nilai5_peng3" class="form-label">Komunikasi Interpersonal</label>
-                                <input type="text" id="nilai5_peng3" class="form-control" disabled />
-                                <small>(0 - 25)</small>
+                                <small>10 - 100 (x{{ $bobot->bobot4 }})</small>
                             </div>
                             <div class="mb-3">
                                 <label for="totalPenguji3" class="form-label">Total</label>
                                 <input type="text" id="totalPenguji3" class="form-control" disabled />
                             </div>
-                            <div class="mb-3">
-                                <label for="notes3" class="form-label">Catatan</label>
-                                <textarea id="notes3" class="form-control" disabled></textarea>
-                            </div>
+
                         </div>
                         <hr>
 
@@ -362,122 +329,118 @@
                 $.get(judulUrl, function(data) {
                     $('#nilaikompreView').modal('show');
 
-                    console.log(data)
-                    $('#mahasiswa').val(data.judul.mahasiswa.name);
+                    $('#mahasiswa').val(data.kompres.judul.mahasiswa.name);
 
-                    $('#judul').val(data.judul.judul);
+                    $('#judul').val(data.kompres.judul.judul);
 
-                    if (data.nilaikompre != null) {
-                        $('#nilai1_peng1').val(data.nilaikompre.nilai1_peng1)
-                        $('#nilai2_peng1').val(data.nilaikompre.nilai2_peng1)
-                        $('#nilai3_peng1').val(data.nilaikompre.nilai3_peng1)
-                        $('#nilai4_peng1').val(data.nilaikompre.nilai4_peng1)
-                        $('#nilai5_peng1').val(data.nilaikompre.nilai5_peng1)
+                    if (data.kompres.nilaikompre != null) {
+                        $('#nilai1_peng1').val(data.kompres.nilaikompre.nilai1_peng1 / data.bobot
+                            .bobot1)
+                        $('#nilai2_peng1').val(data.kompres.nilaikompre.nilai2_peng1 / data.bobot
+                            .bobot2)
+                        $('#nilai3_peng1').val(data.kompres.nilaikompre.nilai3_peng1 / data.bobot
+                            .bobot3)
+                        $('#nilai4_peng1').val(data.kompres.nilaikompre.nilai4_peng1 / data.bobot
+                            .bobot4)
 
-                        $('#nilai1_peng2').val(data.nilaikompre.nilai1_peng2)
-                        $('#nilai2_peng2').val(data.nilaikompre.nilai2_peng2)
-                        $('#nilai3_peng2').val(data.nilaikompre.nilai3_peng2)
-                        $('#nilai4_peng2').val(data.nilaikompre.nilai4_peng2)
-                        $('#nilai5_peng2').val(data.nilaikompre.nilai5_peng2)
+                        $('#nilai1_peng2').val(data.kompres.nilaikompre.nilai1_peng2 / data.bobot
+                            .bobot1)
+                        $('#nilai2_peng2').val(data.kompres.nilaikompre.nilai2_peng2 / data.bobot
+                            .bobot2)
+                        $('#nilai3_peng2').val(data.kompres.nilaikompre.nilai3_peng2 / data.bobot
+                            .bobot3)
+                        $('#nilai4_peng2').val(data.kompres.nilaikompre.nilai4_peng2 / data.bobot
+                            .bobot4)
 
-                        $('#nilai1_peng3').val(data.nilaikompre.nilai1_peng3)
-                        $('#nilai2_peng3').val(data.nilaikompre.nilai2_peng3)
-                        $('#nilai3_peng3').val(data.nilaikompre.nilai3_peng3)
-                        $('#nilai4_peng3').val(data.nilaikompre.nilai4_peng3)
-                        $('#nilai5_peng3').val(data.nilaikompre.nilai5_peng3)
+                        $('#nilai1_peng3').val(data.kompres.nilaikompre.nilai1_peng3 / data.bobot
+                            .bobot1)
+                        $('#nilai2_peng3').val(data.kompres.nilaikompre.nilai2_peng3 / data.bobot
+                            .bobot2)
+                        $('#nilai3_peng3').val(data.kompres.nilaikompre.nilai3_peng3 / data.bobot
+                            .bobot3)
+                        $('#nilai4_peng3').val(data.kompres.nilaikompre.nilai4_peng3 / data.bobot
+                            .bobot4)
 
-                        $('#nilai1_pem1').val(data.nilaikompre.nilai1_pem1)
-                        $('#nilai2_pem1').val(data.nilaikompre.nilai2_pem1)
-                        $('#nilai3_pem1').val(data.nilaikompre.nilai3_pem1)
-                        $('#nilai4_pem1').val(data.nilaikompre.nilai4_pem1)
-                        $('#nilai5_pem1').val(data.nilaikompre.nilai5_pem1)
-                        $('#nilai6_pem1').val(data.nilaikompre.nilai6_pem1)
-                        $('#nilai7_pem1').val(data.nilaikompre.nilai7_pem1)
+                        $('#nilai1_pem1').val(data.kompres.nilaikompre.nilai1_pem1 / data.bobot
+                            .bobot1)
+                        $('#nilai2_pem1').val(data.kompres.nilaikompre.nilai2_pem1 / data.bobot
+                            .bobot2)
+                        $('#nilai3_pem1').val(data.kompres.nilaikompre.nilai3_pem1 / data.bobot
+                            .bobot3)
+                        $('#nilai4_pem1').val(data.kompres.nilaikompre.nilai4_pem1 / data.bobot
+                            .bobot4)
 
-                        $('#nilai1_pem2').val(data.nilaikompre.nilai1_pem2)
-                        $('#nilai2_pem2').val(data.nilaikompre.nilai2_pem2)
-                        $('#nilai3_pem2').val(data.nilaikompre.nilai3_pem2)
-                        $('#nilai4_pem2').val(data.nilaikompre.nilai4_pem2)
-                        $('#nilai5_pem2').val(data.nilaikompre.nilai5_pem2)
-                        $('#nilai6_pem2').val(data.nilaikompre.nilai6_pem2)
-                        $('#nilai7_pem2').val(data.nilaikompre.nilai7_pem2)
-
-                        $('#notes1').val(data.nilaikompre.notes1);
-                        $('#notes2').val(data.nilaikompre.notes2);
-                        $('#notes3').val(data.nilaikompre.notes3);
-
+                        $('#nilai1_pem2').val(data.kompres.nilaikompre.nilai1_pem2 / data.bobot
+                            .bobot1)
+                        $('#nilai2_pem2').val(data.kompres.nilaikompre.nilai2_pem2 / data.bobot
+                            .bobot2)
+                        $('#nilai3_pem2').val(data.kompres.nilaikompre.nilai3_pem2 / data.bobot
+                            .bobot3)
+                        $('#nilai4_pem2').val(data.kompres.nilaikompre.nilai4_pem2 / data.bobot
+                            .bobot4)
                     } else {
                         $('#nilai1_peng1').val('-')
                         $('#nilai2_peng1').val('-')
                         $('#nilai3_peng1').val('-')
                         $('#nilai4_peng1').val('-')
-                        $('#nilai5_peng1').val('-')
 
                         $('#nilai1_peng2').val('-')
                         $('#nilai2_peng2').val('-')
                         $('#nilai3_peng2').val('-')
                         $('#nilai4_peng2').val('-')
-                        $('#nilai5_peng2').val('-')
 
                         $('#nilai1_peng3').val('-')
                         $('#nilai2_peng3').val('-')
                         $('#nilai3_peng3').val('-')
                         $('#nilai4_peng3').val('-')
-                        $('#nilai5_peng3').val('-')
 
                         $('#nilai1_pem1').val('-')
                         $('#nilai2_pem1').val('-')
                         $('#nilai3_pem1').val('-')
                         $('#nilai4_pem1').val('-')
-                        $('#nilai5_pem1').val('-')
-                        $('#nilai6_pem1').val('-')
-                        $('#nilai7_pem1').val('-')
 
                         $('#nilai1_pem2').val('-')
                         $('#nilai2_pem2').val('-')
                         $('#nilai3_pem2').val('-')
                         $('#nilai4_pem2').val('-')
-                        $('#nilai5_pem2').val('-')
-                        $('#nilai6_pem2').val('-')
-                        $('#nilai7_pem2').val('-')
 
-                        $('#notes1').val('-');
-                        $('#notes2').val('-');
-                        $('#notes3').val('-');
                     }
 
                     // perhitungan total nilai
                     let totalPenguji1 = 0
-                    data.nilaikompre ? totalPenguji1 =
-                        data.nilaikompre.nilai1_peng1 + data.nilaikompre.nilai2_peng1 +
-                        data.nilaikompre.nilai3_peng1 + data.nilaikompre.nilai4_peng1 +
-                        data.nilaikompre.nilai5_peng1 : totalPenguji1 = 0;
+                    data.kompres.nilaikompre ? totalPenguji1 =
+                        (data.kompres.nilaikompre.nilai1_peng1 +
+                            data.kompres.nilaikompre.nilai2_peng1 +
+                            data.kompres.nilaikompre.nilai3_peng1 +
+                            data.kompres.nilaikompre.nilai4_peng1) / 5 : totalPenguji1 = 0;
 
                     let totalPenguji2 = 0
-                    data.nilaikompre ? totalPenguji2 =
-                        data.nilaikompre.nilai1_peng2 + data.nilaikompre.nilai2_peng2 +
-                        data.nilaikompre.nilai3_peng2 + data.nilaikompre.nilai4_peng2 +
-                        data.nilaikompre.nilai5_peng2 : totalPenguji2 = 0;
+                    data.kompres.nilaikompre ? totalPenguji2 =
+                        (data.kompres.nilaikompre.nilai1_peng2 +
+                            data.kompres.nilaikompre.nilai2_peng2 +
+                            data.kompres.nilaikompre.nilai3_peng2 +
+                            data.kompres.nilaikompre.nilai4_peng2) / 5 : totalPenguji2 = 0;
 
                     let totalPenguji3 = 0
-                    data.nilaikompre ? totalPenguji3 =
-                        data.nilaikompre.nilai1_peng3 + data.nilaikompre.nilai2_peng3 +
-                        data.nilaikompre.nilai3_peng3 + data.nilaikompre.nilai4_peng3 +
-                        data.nilaikompre.nilai5_peng3 : totalPenguji3 = 0;
+                    data.kompres.nilaikompre ? totalPenguji3 =
+                        (data.kompres.nilaikompre.nilai1_peng3 +
+                            data.kompres.nilaikompre.nilai2_peng3 +
+                            data.kompres.nilaikompre.nilai3_peng3 +
+                            data.kompres.nilaikompre.nilai4_peng3) / 5 : totalPenguji3 = 0;
 
                     let totalPem1 = 0
-                    data.nilaikompre ? totalPem1 =
-                        data.nilaikompre.nilai1_pem1 + data.nilaikompre.nilai2_pem1 +
-                        data.nilaikompre.nilai3_pem1 + data.nilaikompre.nilai4_pem1 +
-                        data.nilaikompre.nilai5_pem1 + data.nilaikompre.nilai6_pem1 +
-                        data.nilaikompre.nilai7_pem1 : totalPem1 = 0;
+                    data.kompres.nilaikompre ? totalPem1 =
+                        (data.kompres.nilaikompre.nilai1_pem1 +
+                            data.kompres.nilaikompre.nilai2_pem1 +
+                            data.kompres.nilaikompre.nilai3_pem1 +
+                            data.kompres.nilaikompre.nilai4_pem1) / 5 : totalPem1 = 0;
 
                     let totalPem2 = 0
-                    data.nilaikompre ? totalPem2 =
-                        data.nilaikompre.nilai1_pem2 + data.nilaikompre.nilai2_pem2 +
-                        data.nilaikompre.nilai3_pem2 + data.nilaikompre.nilai4_pem2 +
-                        data.nilaikompre.nilai5_pem2 + data.nilaikompre.nilai6_pem2 +
-                        data.nilaikompre.nilai7_pem2 : totalPem2 = 0;
+                    data.kompres.nilaikompre ? totalPem2 =
+                        (data.kompres.nilaikompre.nilai1_pem2 +
+                            data.kompres.nilaikompre.nilai2_pem2 +
+                            data.kompres.nilaikompre.nilai3_pem2 +
+                            data.kompres.nilaikompre.nilai4_pem2) / 5 : totalPem2 = 0;
 
                     // memasukkan nilai kedalam field
                     $('#totalPenguji1').val(totalPenguji1);

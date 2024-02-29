@@ -52,88 +52,85 @@
                         @if ($users->count() !== 0)
                             @foreach ($users as $index => $user)
                                 @foreach ($user->judul as $judul)
-                                    <tr>
-                                        <td>{{ $index + $users->firstItem() }}</td>
-                                        <td>{{ $user->nim_or_nidn }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $judul->judul }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($judul->kompre[0]->updated_at)->translatedFormat('d F Y') }}
-                                        </td>
-                                        @php
-                                            $nilaisempro =
-                                                ($judul->sempro[0]->nilaisempro->nilai1_pem1 +
-                                                    $judul->sempro[0]->nilaisempro->nilai2_pem1 +
-                                                    $judul->sempro[0]->nilaisempro->nilai3_pem1 +
-                                                    $judul->sempro[0]->nilaisempro->nilai4_pem1 +
-                                                    $judul->sempro[0]->nilaisempro->nilai5_pem1 +
-                                                    $judul->sempro[0]->nilaisempro->nilai6_pem1 +
-                                                    $judul->sempro[0]->nilaisempro->nilai7_pem1 +
-                                                    $judul->sempro[0]->nilaisempro->nilai1_pem2 +
-                                                    $judul->sempro[0]->nilaisempro->nilai2_pem2 +
-                                                    $judul->sempro[0]->nilaisempro->nilai3_pem2 +
-                                                    $judul->sempro[0]->nilaisempro->nilai4_pem2 +
-                                                    $judul->sempro[0]->nilaisempro->nilai5_pem2 +
-                                                    $judul->sempro[0]->nilaisempro->nilai6_pem2 +
-                                                    $judul->sempro[0]->nilaisempro->nilai7_pem2 +
-                                                    $judul->sempro[0]->nilaisempro->nilai1_peng1 +
-                                                    $judul->sempro[0]->nilaisempro->nilai2_peng1 +
-                                                    $judul->sempro[0]->nilaisempro->nilai3_peng1 +
-                                                    $judul->sempro[0]->nilaisempro->nilai4_peng1 +
-                                                    $judul->sempro[0]->nilaisempro->nilai5_peng1 +
-                                                    $judul->sempro[0]->nilaisempro->nilai1_peng2 +
-                                                    $judul->sempro[0]->nilaisempro->nilai2_peng2 +
-                                                    $judul->sempro[0]->nilaisempro->nilai3_peng2 +
-                                                    $judul->sempro[0]->nilaisempro->nilai4_peng2 +
-                                                    $judul->sempro[0]->nilaisempro->nilai5_peng2 +
-                                                    $judul->sempro[0]->nilaisempro->nilai1_peng3 +
-                                                    $judul->sempro[0]->nilaisempro->nilai2_peng3 +
-                                                    $judul->sempro[0]->nilaisempro->nilai3_peng3 +
-                                                    $judul->sempro[0]->nilaisempro->nilai4_peng3 +
-                                                    $judul->sempro[0]->nilaisempro->nilai5_peng3) /
-                                                    5 ??
-                                                0;
-                                            $nilaikompre =
-                                                ($judul->kompre[0]->nilaikompre->nilai1_pem1 +
-                                                    $judul->kompre[0]->nilaikompre->nilai2_pem1 +
-                                                    $judul->kompre[0]->nilaikompre->nilai3_pem1 +
-                                                    $judul->kompre[0]->nilaikompre->nilai4_pem1 +
-                                                    $judul->kompre[0]->nilaikompre->nilai5_pem1 +
-                                                    $judul->kompre[0]->nilaikompre->nilai6_pem1 +
-                                                    $judul->kompre[0]->nilaikompre->nilai7_pem1 +
-                                                    $judul->kompre[0]->nilaikompre->nilai1_pem2 +
-                                                    $judul->kompre[0]->nilaikompre->nilai2_pem2 +
-                                                    $judul->kompre[0]->nilaikompre->nilai3_pem2 +
-                                                    $judul->kompre[0]->nilaikompre->nilai4_pem2 +
-                                                    $judul->kompre[0]->nilaikompre->nilai5_pem2 +
-                                                    $judul->kompre[0]->nilaikompre->nilai6_pem2 +
-                                                    $judul->kompre[0]->nilaikompre->nilai7_pem2 +
-                                                    $judul->kompre[0]->nilaikompre->nilai1_peng1 +
-                                                    $judul->kompre[0]->nilaikompre->nilai2_peng1 +
-                                                    $judul->kompre[0]->nilaikompre->nilai3_peng1 +
-                                                    $judul->kompre[0]->nilaikompre->nilai4_peng1 +
-                                                    $judul->kompre[0]->nilaikompre->nilai5_peng1 +
-                                                    $judul->kompre[0]->nilaikompre->nilai1_peng2 +
-                                                    $judul->kompre[0]->nilaikompre->nilai2_peng2 +
-                                                    $judul->kompre[0]->nilaikompre->nilai3_peng2 +
-                                                    $judul->kompre[0]->nilaikompre->nilai4_peng2 +
-                                                    $judul->kompre[0]->nilaikompre->nilai5_peng2 +
-                                                    $judul->kompre[0]->nilaikompre->nilai1_peng3 +
-                                                    $judul->kompre[0]->nilaikompre->nilai2_peng3 +
-                                                    $judul->kompre[0]->nilaikompre->nilai3_peng3 +
-                                                    $judul->kompre[0]->nilaikompre->nilai4_peng3 +
-                                                    $judul->kompre[0]->nilaikompre->nilai5_peng3) /
-                                                    5 ??
-                                                0;
-                                        @endphp
-                                        <td>
-                                            {{ ($nilaisempro + $nilaikompre) / 2 }}
-                                        </td>
-                                        <td>
-                                            <span class="bg-primary text-white px-3 py-1 rounded">
-                                                {{ $user->status }}
-                                            </span>
-                                        </td>
-                                    </tr>
+                                    @if ($judul->status == 'diterima')
+                                        <tr>
+                                            <td>{{ $index + $users->firstItem() }}</td>
+                                            <td>{{ $user->nim_or_nidn }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $judul->judul }}</td>
+                                            {{ $judul->judul }}
+                                            <td>{{ \Carbon\Carbon::parse($judul->kompre[0]->updated_at)->translatedFormat('d F Y') }}
+                                            </td>
+                                            @php
+                                                $judul->sempro[0]->nilaisempro
+                                                    ? ($nilaisempro =
+                                                        ($judul->sempro[0]->nilaisempro->nilai1_pem1 +
+                                                            $judul->sempro[0]->nilaisempro->nilai2_pem1 +
+                                                            $judul->sempro[0]->nilaisempro->nilai3_pem1 +
+                                                            $judul->sempro[0]->nilaisempro->nilai4_pem1 +
+                                                            $judul->sempro[0]->nilaisempro->nilai5_pem1 +
+                                                            $judul->sempro[0]->nilaisempro->nilai6_pem1 +
+                                                            $judul->sempro[0]->nilaisempro->nilai7_pem1 +
+                                                            $judul->sempro[0]->nilaisempro->nilai1_pem2 +
+                                                            $judul->sempro[0]->nilaisempro->nilai2_pem2 +
+                                                            $judul->sempro[0]->nilaisempro->nilai3_pem2 +
+                                                            $judul->sempro[0]->nilaisempro->nilai4_pem2 +
+                                                            $judul->sempro[0]->nilaisempro->nilai5_pem2 +
+                                                            $judul->sempro[0]->nilaisempro->nilai6_pem2 +
+                                                            $judul->sempro[0]->nilaisempro->nilai7_pem2 +
+                                                            $judul->sempro[0]->nilaisempro->nilai1_peng1 +
+                                                            $judul->sempro[0]->nilaisempro->nilai2_peng1 +
+                                                            $judul->sempro[0]->nilaisempro->nilai3_peng1 +
+                                                            $judul->sempro[0]->nilaisempro->nilai4_peng1 +
+                                                            $judul->sempro[0]->nilaisempro->nilai5_peng1 +
+                                                            $judul->sempro[0]->nilaisempro->nilai1_peng2 +
+                                                            $judul->sempro[0]->nilaisempro->nilai2_peng2 +
+                                                            $judul->sempro[0]->nilaisempro->nilai3_peng2 +
+                                                            $judul->sempro[0]->nilaisempro->nilai4_peng2 +
+                                                            $judul->sempro[0]->nilaisempro->nilai5_peng2 +
+                                                            $judul->sempro[0]->nilaisempro->nilai1_peng3 +
+                                                            $judul->sempro[0]->nilaisempro->nilai2_peng3 +
+                                                            $judul->sempro[0]->nilaisempro->nilai3_peng3 +
+                                                            $judul->sempro[0]->nilaisempro->nilai4_peng3 +
+                                                            $judul->sempro[0]->nilaisempro->nilai5_peng3) /
+                                                        5)
+                                                    : ($nilaisempro = 0);
+
+                                                $judul->kompre[0]->nilaikompre
+                                                    ? ($nilaikompre =
+                                                        ($judul->kompre[0]->nilaikompre->nilai1_pem1 +
+                                                            $judul->kompre[0]->nilaikompre->nilai2_pem1 +
+                                                            $judul->kompre[0]->nilaikompre->nilai3_pem1 +
+                                                            $judul->kompre[0]->nilaikompre->nilai4_pem1 +
+                                                            $judul->kompre[0]->nilaikompre->nilai1_pem2 +
+                                                            $judul->kompre[0]->nilaikompre->nilai2_pem2 +
+                                                            $judul->kompre[0]->nilaikompre->nilai3_pem2 +
+                                                            $judul->kompre[0]->nilaikompre->nilai4_pem2 +
+                                                            $judul->kompre[0]->nilaikompre->nilai1_peng1 +
+                                                            $judul->kompre[0]->nilaikompre->nilai2_peng1 +
+                                                            $judul->kompre[0]->nilaikompre->nilai3_peng1 +
+                                                            $judul->kompre[0]->nilaikompre->nilai4_peng1 +
+                                                            $judul->kompre[0]->nilaikompre->nilai1_peng2 +
+                                                            $judul->kompre[0]->nilaikompre->nilai2_peng2 +
+                                                            $judul->kompre[0]->nilaikompre->nilai3_peng2 +
+                                                            $judul->kompre[0]->nilaikompre->nilai4_peng2 +
+                                                            $judul->kompre[0]->nilaikompre->nilai1_peng3 +
+                                                            $judul->kompre[0]->nilaikompre->nilai2_peng3 +
+                                                            $judul->kompre[0]->nilaikompre->nilai3_peng3 +
+                                                            $judul->kompre[0]->nilaikompre->nilai4_peng3) /
+                                                        25)
+                                                    : ($nilaikompre = 0);
+                                            @endphp
+                                            <td>
+                                                {{ ($nilaisempro + $nilaikompre) / 2 }}
+                                            </td>
+                                            <td>
+                                                <span class="bg-primary text-white px-3 py-1 rounded">
+                                                    {{ $user->status }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             @endforeach
                         @else

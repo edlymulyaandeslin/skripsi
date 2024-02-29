@@ -9,7 +9,26 @@
                     lengkap, silakan lengkapi terlebih dahulu <a href="/manajemen/dokumen">klik disini</a></div>
             @elseif ($kompre->count() != 0)
                 <div class="bg-light rounded h-100 p-4">
-                    <h4 class="mb-4">Daftar Seminar Komprehensif</h4>
+                    <h4>Daftar Seminar Komprehensif</h4>
+
+                    @if ($kompre[0]->status == 'diterima')
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">ACCEPTED!</h4>
+                            <p>Selamat pengajuan seminar proposal kamu diterima, untuk melihat jadwal <a href="/kompre">klik
+                                    disini</a>.
+                            </p>
+                            <hr>
+                            <p class="mb-0">#niceee!</p>
+                        </div>
+                    @else
+                        <div class="alert alert-warning" role="alert">
+                            <h4 class="alert-heading">PENDING!</h4>
+                            <p>Pengajuan kamu sedang kami check dan proses, mohon ditunggu info selanjutnya ya!
+                            </p>
+                            <hr>
+                            <p class="mb-0">Tetap semangat!</p>
+                        </div>
+                    @endif
                     <form action="/kompre/{{ $kompre[0]->id }}" method="post" enctype="multipart/form-data">
                         @method('patch')
                         @csrf
@@ -76,13 +95,10 @@
                         <button type="submit" class="btn btn-primary d-none" id="btnUpdate">Simpan</button>
                     </form>
 
-                    <div style="background-color: #27ae60" class="rounded-1 mt-3 p-4 text-white fst-italic">"Setiap
-                        mahasiswa hanya memiliki satu kesempatan untuk mengajukan Seminar Komprehensif."
-                    </div>
                 </div>
             @else
                 <div class="bg-light rounded h-100 p-4">
-                    <h4 class="mb-4">Daftar Seminar Proposal</h4>
+                    <h4 class="mb-4">Daftar Seminar Komprehensif</h4>
                     <form action="/kompre" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-floating mb-3">

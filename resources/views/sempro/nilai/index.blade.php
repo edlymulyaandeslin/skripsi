@@ -42,6 +42,7 @@
                                         <td>{{ $sempro->judul->mahasiswa->name }}</td>
                                     @endcannot
                                     <td>{{ $sempro->judul->judul }}</td>
+
                                     <td>{{ $sempro->nilaisempro ? ($nilaiPem1 = $sempro->nilaisempro->nilai1_pem1 + $sempro->nilaisempro->nilai2_pem1 + $sempro->nilaisempro->nilai3_pem1 + $sempro->nilaisempro->nilai4_pem1 + $sempro->nilaisempro->nilai5_pem1 + $sempro->nilaisempro->nilai6_pem1 + $sempro->nilaisempro->nilai7_pem1) : ($nilaiPem1 = 0) }}
                                     </td>
                                     <td>{{ $sempro->nilaisempro ? ($nilaiPem2 = $sempro->nilaisempro->nilai1_pem2 + $sempro->nilaisempro->nilai2_pem2 + $sempro->nilaisempro->nilai3_pem2 + $sempro->nilaisempro->nilai4_pem2 + $sempro->nilaisempro->nilai5_pem2 + $sempro->nilaisempro->nilai6_pem2 + $sempro->nilaisempro->nilai7_pem2) : ($nilaiPem2 = 0) }}
@@ -53,7 +54,7 @@
                                     <td>{{ $sempro->nilaisempro ? ($nilaiPenguji3 = $sempro->nilaisempro->nilai1_peng3 + $sempro->nilaisempro->nilai2_peng3 + $sempro->nilaisempro->nilai3_peng3 + $sempro->nilaisempro->nilai4_peng3 + $sempro->nilaisempro->nilai5_peng3) : ($nilaiPenguji3 = 0) }}
                                     </td>
                                     <td>
-                                        {{ number_format(($nilaiPenguji1 + $nilaiPenguji2 + $nilaiPenguji3 + $nilaiPem1 + $nilaiPem2) / 5, 2) }}
+                                        {{ number_format($totalNilai = ($nilaiPenguji1 + $nilaiPenguji2 + $nilaiPenguji3 + $nilaiPem1 + $nilaiPem2) / 5, 2) }}
                                     </td>
 
                                     <td>
@@ -107,6 +108,30 @@
                     of total {{ $sempros->total() }} items
                     {{ $sempros->links() }}
                 </div>
+
+                @can('mahasiswa')
+                    @if ($sempros[0]->status == 'lulus')
+                        <div class="alert alert-success mt-3" role="alert">
+                            <h4 class="alert-heading">Selamat, Kamu Telah Lulus!</h4>
+                            <p>Kamu memperoleh nilai {{ $totalNilai }} dalam seminar proposal. Kamu berhasil melewati
+                                seminar proposal.</p>
+                            <p>Inilah awal dari pencapaian lebih besar. Tetap semangat dan teruskan pencapaian Kamu.
+                            </p>
+                            <hr>
+                            <p>#Nextkomprehensif!</p>
+                        </div>
+                    @elseif ($sempros[0]->status == 'tidak lulus')
+                        <div class="alert alert-danger mt-3" role="alert">
+                            <h4 class="alert-heading">Maaf, Kamu Belum Lulus!</h4>
+                            <p>Kamu memperoleh nilai {{ $totalNilai }} dalam seminar proposal. Kamu belum berhasil
+                                melewati
+                                seminar proposal.</p>
+                            <p>Jangan putus asa! Gunakan pengalaman ini untuk memperbaiki diri dan terus berjuang.</p>
+                            <hr>
+                            <p>Tetap Semangat!</p>
+                        </div>
+                    @endif
+                @endcan
             </div>
         </div>
     </div>

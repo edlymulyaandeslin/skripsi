@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bobot;
 use App\Models\Judul;
 use App\Models\Kompre;
 use App\Models\User;
@@ -23,7 +24,7 @@ class KompreController extends Controller
 
         // admin atau koordinator
         if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
-            $kompres = Kompre::with(['judul', 'judul.mahasiswa'])
+            $kompres = Kompre::with(['judul.mahasiswa'])
                 ->whereNotIn('status', ['lulus'])
                 ->latest()
                 ->paginate(10);
@@ -35,17 +36,16 @@ class KompreController extends Controller
 
         // dosen
         if (auth()->user()->role_id === 3) {
-            $kompres = Kompre::with(['judul', 'judul.mahasiswa'])
+            $kompres = Kompre::with('judul.mahasiswa')
+                ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->whereHas('judul', function ($query) {
-                    $query->where('pembimbing1_id', auth()->user()->id)
+                    $query->orWhere('pembimbing1_id', auth()->user()->id)
                         ->orWhere('pembimbing2_id', auth()->user()->id);
-                })
-                ->orWhere(function ($query) {
+                })->orWhere(function ($query) {
                     $query->where('penguji1_id', auth()->user()->id)
-                        ->orWhere('penguji2_id', auth()->user()->id)
-                        ->orWhere('penguji3_id', auth()->user()->id);
+                        ->where('penguji2_id', auth()->user()->id)
+                        ->where('penguji3_id', auth()->user()->id);
                 })
-                ->whereNotIn('status', ['lulus'])
                 ->latest()
                 ->paginate(10);
 
@@ -55,12 +55,15 @@ class KompreController extends Controller
             ]);
         }
 
-        // mahasiswa
-        $kompres = Kompre::with(['judul', 'judul.mahasiswa'])
+        $kompres = Kompre::with(['judul.mahasiswa'])
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
             ->latest()->paginate(10);
+
+        if ($kompres->count() == 0) {
+            return redirect('/kompre/create');
+        }
 
         return view('kompre.index', [
             'title' => 'E - Skripsi | Komprehensif',

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Bobot;
 use App\Models\Judul;
 use App\Models\Kompre;
 use App\Models\Logbook;
@@ -96,6 +97,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Sayyid Jafar S',
             'email' => 'sayyidkun@gmail.com',
         ]);
+
+        // bobot
+        Bobot::factory(1)->create();
 
         // User::factory(14)->create();
 
