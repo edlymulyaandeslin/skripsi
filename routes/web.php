@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdministrasiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BobotController;
 use App\Http\Controllers\LaporanController;
@@ -130,3 +131,10 @@ Route::resource('/bobot', BobotController::class)->only([
     'edit',
     'update'
 ]);
+
+// administrasi
+Route::get('/adm-seminar', [AdministrasiController::class, 'index']);
+Route::get('/adm-seminar/{id}/pay/{total}', [AdministrasiController::class, 'edit']);
+Route::get('/adm-seminar/create/{id}/{total}', [AdministrasiController::class, 'create']);
+Route::post('/adm-seminar/{id}/{total}', [AdministrasiController::class, 'store']);
+Route::delete('/adm-seminar/{id}', [AdministrasiController::class, 'destroy'])->name('administrasi.destroy');

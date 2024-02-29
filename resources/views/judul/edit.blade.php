@@ -33,12 +33,31 @@
 
                                 @foreach ($dosens as $key => $dosen)
                                     @if (old('pembimbing1_id', $judul->pembimbing1_id) == $dosen->id && $judul->pembimbing1_id !== 0)
+                                        @php
+                                            $jumlahJudulDosen = 0;
+                                        @endphp
+                                        @foreach ($alljuduls as $judul)
+                                            @if ($judul->pembimbing1_id == $dosen->id || $judul->pembimbing2_id == $dosen->id)
+                                                @php
+                                                    $jumlahJudulDosen++;
+                                                @endphp
+                                            @endif
+                                        @endforeach
                                         <option value="{{ $dosen->id }}" selected>
-                                            {{ $dosen->name }}
+                                            {{ $dosen->name }} ({{ $jumlahJudulDosen }})
                                         </option>
                                     @else
-                                        <option value="{{ $dosen->id }}">{{ $dosen->name }}
-
+                                        @php
+                                            $jumlahJudulDosen = 0;
+                                        @endphp
+                                        @foreach ($alljuduls as $judul)
+                                            @if ($judul->pembimbing1_id == $dosen->id || $judul->pembimbing2_id == $dosen->id)
+                                                @php
+                                                    $jumlahJudulDosen++;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        <option value="{{ $dosen->id }}">{{ $dosen->name }} ({{ $jumlahJudulDosen }})
                                         </option>
                                     @endif
                                 @endforeach
@@ -54,15 +73,36 @@
                                 <option selected value="{{ null }}">Pilih</option>
                                 @foreach ($dosens as $dosen)
                                     @if (old('pembimbing2_id', $judul->pembimbing2_id) == $dosen->id && $judul->pembimbing2_id !== 0)
+                                        @php
+                                            $jumlahJudulDosen = 0;
+                                        @endphp
+                                        @foreach ($alljuduls as $judul)
+                                            @if ($judul->pembimbing1_id == $dosen->id || $judul->pembimbing2_id == $dosen->id)
+                                                @php
+                                                    $jumlahJudulDosen++;
+                                                @endphp
+                                            @endif
+                                        @endforeach
                                         <option value="{{ $dosen->id }}" class="d-flex" selected>{{ $dosen->name }}
+                                            ({{ $jumlahJudulDosen }})
                                         </option>
                                     @else
-                                        <option value="{{ $dosen->id }}">{{ $dosen->name }}
+                                        @php
+                                            $jumlahJudulDosen = 0;
+                                        @endphp
+                                        @foreach ($alljuduls as $judul)
+                                            @if ($judul->pembimbing1_id == $dosen->id || $judul->pembimbing2_id == $dosen->id)
+                                                @php
+                                                    $jumlahJudulDosen++;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        <option value="{{ $dosen->id }}">{{ $dosen->name }} ({{ $jumlahJudulDosen }})
                                         </option>
                                     @endif
                                 @endforeach
                             </select>
-                            <label for="floatingSelect">Pemimbing 2</label>
+                            <label for="floatingSelect">Pembimbing 2</label>
                             @error('pembimbing2_id')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror

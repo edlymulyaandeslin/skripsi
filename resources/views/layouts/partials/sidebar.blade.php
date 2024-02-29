@@ -139,6 +139,16 @@
                             Yudisium</a>
                     </div>
                 </div>
+
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ Request::is('adm-seminar*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown"><i class="fa fa-book-open me-2"></i>Administrasi</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="/adm-seminar"
+                            class="nav-item nav-link {{ Request::is('adm-seminar*') ? 'active' : '' }}">Administrasi
+                            Seminar</a>
+                    </div>
+                </div>
             @endcan
 
         </div>
