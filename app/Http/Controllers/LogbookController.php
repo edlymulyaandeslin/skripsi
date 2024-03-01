@@ -31,7 +31,8 @@ class LogbookController extends Controller
                 })
                 ->latest()
                 ->filter(request(['search']))
-                ->paginate(10);
+                ->paginate(10)
+                ->withQueryString();
 
             return view('logbook.index', [
                 'title' => 'E - Skripsi | Bimbingan',
@@ -47,7 +48,8 @@ class LogbookController extends Controller
                 ->where('pembimbing_id', auth()->user()->id)
                 ->latest()
                 ->filter(request(['search']))
-                ->paginate(10);
+                ->paginate(10)
+                ->withQueryString();
 
             return view('logbook.index', [
                 'title' => 'E - Skripsi | Bimbingan',
@@ -60,7 +62,8 @@ class LogbookController extends Controller
                 $query->where('mahasiswa_id', auth()->user()->id);
             })->latest()
             ->filter(request(['search']))
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         // untuk validasi menampilkan btn print bimbingan proposal dan komprehensif
         $logbooksAccProposal = Logbook::with(['judul'])

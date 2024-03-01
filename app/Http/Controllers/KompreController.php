@@ -28,7 +28,9 @@ class KompreController extends Controller
                 ->whereNotIn('status', ['lulus'])
                 ->latest()
                 ->filter(request(['search']))
-                ->paginate(10);
+                ->paginate(10)
+                ->withQueryString();
+
             return view('kompre.index', [
                 'title' => 'E - Skripsi | Komprehensif',
                 'kompres' => $kompres,
@@ -49,7 +51,8 @@ class KompreController extends Controller
                 })
                 ->latest()
                 ->filter(request(['search']))
-                ->paginate(10);
+                ->paginate(10)
+                ->withQueryString();
 
             return view('kompre.index', [
                 'title' => 'E - Skripsi | Komprehensif',
@@ -63,7 +66,8 @@ class KompreController extends Controller
             })
             ->latest()
             ->filter(request(['search']))
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         if ($kompres->count() == 0) {
             return redirect('/kompre/create');

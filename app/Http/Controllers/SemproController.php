@@ -28,7 +28,8 @@ class SemproController extends Controller
                 ->whereNotIn('status', ['lulus'])
                 ->latest()
                 ->filter(request(['search']))
-                ->paginate(10);
+                ->paginate(10)
+                ->withQueryString();
 
             return view('sempro.index', [
                 'title' => 'E - Skripsi | Seminar Proposal',
@@ -49,7 +50,8 @@ class SemproController extends Controller
                 })
                 ->latest()
                 ->filter(request(['search']))
-                ->paginate(10);
+                ->paginate(10)
+                ->withQueryString();
 
             return view('sempro.index', [
                 'title' => 'E - Skripsi | Seminar Proposal',
@@ -63,7 +65,8 @@ class SemproController extends Controller
             })
             ->latest()
             ->filter(request(['search']))
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         if ($sempros->count() == 0) {
             return redirect('/sempro/create');

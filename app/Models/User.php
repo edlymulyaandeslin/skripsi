@@ -85,6 +85,14 @@ class User extends Authenticatable
         });
     }
 
+    // public function scopeCari($query, array $cari)
+    // {
+    //     $query->when($cari['search'] ?? false, function ($query, $search) {
+    //         return $query->where('nim_or_nidn', 'like', '%' . $search . '%')
+    //             ->orWhere('name', 'like', '%' . $search . '%');
+    //     });
+    // }
+
 
     public function role(): BelongsTo
     {

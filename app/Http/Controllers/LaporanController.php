@@ -26,7 +26,8 @@ class LaporanController extends Controller
             })
             ->latest()
             ->filter(request(['search']))
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         return view('report.seminar', [
             'title' => 'E - Skripsi | Seminar',
@@ -38,7 +39,8 @@ class LaporanController extends Controller
         $sempros = Sempro::with(['judul.mahasiswa', 'nilaisempro'])->where('status', 'lulus')
             ->latest()
             ->filter(request(['search']))
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         return view('report.lulus-sempro', [
             'title' => 'Lulus | Seminar Proposal',
@@ -50,7 +52,8 @@ class LaporanController extends Controller
         $kompres = Kompre::with(['judul.mahasiswa', 'nilaikompre'])->where('status', 'lulus')
             ->latest()
             ->filter(request(['search']))
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         return view('report.lulus-kompre', [
             'title' => 'Lulus | Seminar Komprehensif',
@@ -73,7 +76,8 @@ class LaporanController extends Controller
             ->where('role_id', 4)
             ->latest()
             ->filter(request(['search']))
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         if ($users->isNotEmpty()) {
             foreach ($users as $user) {

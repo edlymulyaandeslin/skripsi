@@ -28,7 +28,10 @@ class JudulController extends Controller
             )->whereHas('mahasiswa', function ($query) {
                 $query->where('status', 'active');
             })->whereIn('status', ['diajukan', 'diterima'])
-                ->latest()->filter(request(['search']))->paginate(10);
+                ->latest()
+                ->filter(request(['search']))
+                ->paginate(10)
+                ->withQueryString();
 
             return view('judul.index', [
                 'title' => 'E - Skripsi | Judul',
@@ -46,7 +49,8 @@ class JudulController extends Controller
             })
                 ->latest()
                 ->filter(request(['search']))
-                ->paginate(10);
+                ->paginate(10)
+                ->withQueryString();
 
             return view('judul.index', [
                 'title' => 'E - Skripsi | Judul',
@@ -54,10 +58,12 @@ class JudulController extends Controller
             ]);
         }
 
-        $listjudul = Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])->where('mahasiswa_id', auth()->user()->id)
+        $listjudul = Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])
+            ->where('mahasiswa_id', auth()->user()->id)
             ->latest()
             ->filter(request(['search']))
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         // jika dia mahasiswa tampilkan judul yang dimiliki mahasiswa tersebut mahasiswa
         return view('judul.index', [

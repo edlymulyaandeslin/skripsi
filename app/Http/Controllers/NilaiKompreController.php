@@ -21,7 +21,8 @@ class NilaiKompreController extends Controller
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->latest()
                 ->filter(request(['search']))
-                ->paginate(10);
+                ->paginate(10)
+                ->withQueryString();
 
             return view('kompre.nilai.index', [
                 'title' => 'Seminar Komprehensif | Penilaian',
@@ -46,7 +47,8 @@ class NilaiKompreController extends Controller
                 })
                 ->latest()
                 ->filter(request(['search']))
-                ->paginate(10);
+                ->paginate(10)
+                ->withQueryString();
 
             return view('kompre.nilai.index', [
                 'title' => 'Komprehensif | Penilaian',
@@ -66,7 +68,8 @@ class NilaiKompreController extends Controller
             ->whereNotIn('status', ['diajukan', 'perbaikan'])
             ->latest()
             ->filter(request(['search']))
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         if ($kompres->count() == 0) {
             Alert::info('Info', 'Kamu Belum Mengajukan Seminar Komprehensif');

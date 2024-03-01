@@ -60,6 +60,13 @@
 
                     </tbody>
                 </table>
+                {{-- paginate --}}
+                <div class="col-md-12 d-flex justify-content-between">
+                    Show {{ $kompres->firstItem() ?? 0 }}
+                    to {{ $kompres->lastItem() ?? 0 }} items
+                    of total {{ $kompres->total() }} items
+                    {{ $kompres->links() }}
+                </div>
             </div>
         </div>
     </div>

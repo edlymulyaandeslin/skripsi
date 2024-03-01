@@ -20,7 +20,8 @@ class NilaiSemproController extends Controller
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->latest()
                 ->filter(request(['search']))
-                ->paginate(10);
+                ->paginate(10)
+                ->withQueryString();
 
             return view('sempro.nilai.index', [
                 'title' => 'Seminar Proposal | Penilaian',
@@ -42,7 +43,8 @@ class NilaiSemproController extends Controller
                 })
                 ->latest()
                 ->filter(request(['search']))
-                ->paginate(10);
+                ->paginate(10)
+                ->withQueryString();
 
             return view('sempro.nilai.index', [
                 'title' => 'Seminar Proposal | Penilaian',
@@ -58,7 +60,8 @@ class NilaiSemproController extends Controller
             ->whereNotIn('status', ['diajukan', 'perbaikan'])
             ->latest()
             ->filter(request(['search']))
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         if ($sempros->count() == 0) {
             Alert::info('Info', 'Kamu Belum Mengajukan Seminar Proposal');
