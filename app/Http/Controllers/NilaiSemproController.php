@@ -19,6 +19,7 @@ class NilaiSemproController extends Controller
             $sempros = Sempro::with('judul.mahasiswa', 'nilaisempro')
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->latest()
+                ->filter(request(['search']))
                 ->paginate(10);
 
             return view('sempro.nilai.index', [
@@ -40,6 +41,7 @@ class NilaiSemproController extends Controller
                         ->where('penguji3_id', auth()->user()->id);
                 })
                 ->latest()
+                ->filter(request(['search']))
                 ->paginate(10);
 
             return view('sempro.nilai.index', [
@@ -54,7 +56,9 @@ class NilaiSemproController extends Controller
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
             ->whereNotIn('status', ['diajukan', 'perbaikan'])
-            ->latest()->paginate(10);
+            ->latest()
+            ->filter(request(['search']))
+            ->paginate(10);
 
         if ($sempros->count() == 0) {
             Alert::info('Info', 'Kamu Belum Mengajukan Seminar Proposal');

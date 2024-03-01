@@ -13,6 +13,7 @@ class NilaiSempro extends Model
 
     protected $guarded = ['id'];
 
+
     public function sempro(): BelongsTo
     {
         return $this->belongsTo(Sempro::class, 'sempro_id');

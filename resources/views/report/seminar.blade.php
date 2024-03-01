@@ -7,14 +7,19 @@
 
             <div class="d-flex justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
-                    <form>
-                        <input type="text" placeholder="search" class="form-control">
+                    <form action="/laporan/seminar">
+                        <div class="input-group">
+                            <input type="text" placeholder="search..." class="form-control" name="search"
+                                value="{{ request('search') }}" autofocus>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
                     </form>
                 </div>
                 @can('koordinator')
                     <div>
                         <label for="">Mahasiswa Seminar : </label>
-                        <a href="/cetak/list-mahasiswa-seminar" class="btn btn-danger btn-sm"><i class="fa fa-file-download"></i>
+                        <a href="/cetak/list-mahasiswa-seminar" class="btn btn-danger btn-sm"><i
+                                class="fa fa-file-download"></i>
                             Cetak</a>
                     </div>
                 @endcan

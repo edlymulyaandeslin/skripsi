@@ -24,7 +24,7 @@
                             <th scope="col" colspan="2" style="width: 15%">Sempro</th>
                             <th scope="col" colspan="2" style="width: 15%">Kompre</th>
                             <th scope="col" rowspan="3">Total</th>
-                            <th scope="col" rowspan="3">Bayar</th>
+                            <th scope="col" rowspan="3">Dibayar</th>
                             <th scope="col" rowspan="3">Sisa</th>
                             <th scope="col" rowspan="3">Aksi</th>
                         </tr>
@@ -110,7 +110,9 @@
                                     <td>Rp{{ number_format($sisa = $total - $totalBayar, 0, '.', '.') }}</td>
                                     <td>
                                         <a href="/adm-seminar/{{ $dosen->id }}/pay/{{ $total }}"
-                                            class="btn btn-sm btn-warning"><i class="fa fa-money-bill-wave"></i> Pay</a>
+                                            class="btn btn-sm btn-outline-dark text-warning"><i
+                                                class="fa fa-money-bill-wave"></i>
+                                            Pay</a>
                                     </td>
                                 </tr>
                             @endforeach

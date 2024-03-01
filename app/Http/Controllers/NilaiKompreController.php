@@ -20,6 +20,7 @@ class NilaiKompreController extends Controller
             $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->latest()
+                ->filter(request(['search']))
                 ->paginate(10);
 
             return view('kompre.nilai.index', [
@@ -44,6 +45,7 @@ class NilaiKompreController extends Controller
                         ->where('penguji3_id', auth()->user()->id);
                 })
                 ->latest()
+                ->filter(request(['search']))
                 ->paginate(10);
 
             return view('kompre.nilai.index', [
@@ -63,6 +65,7 @@ class NilaiKompreController extends Controller
             })
             ->whereNotIn('status', ['diajukan', 'perbaikan'])
             ->latest()
+            ->filter(request(['search']))
             ->paginate(10);
 
         if ($kompres->count() == 0) {

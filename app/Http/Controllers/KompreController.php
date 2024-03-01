@@ -27,6 +27,7 @@ class KompreController extends Controller
             $kompres = Kompre::with(['judul.mahasiswa'])
                 ->whereNotIn('status', ['lulus'])
                 ->latest()
+                ->filter(request(['search']))
                 ->paginate(10);
             return view('kompre.index', [
                 'title' => 'E - Skripsi | Komprehensif',
@@ -47,6 +48,7 @@ class KompreController extends Controller
                         ->where('penguji3_id', auth()->user()->id);
                 })
                 ->latest()
+                ->filter(request(['search']))
                 ->paginate(10);
 
             return view('kompre.index', [
@@ -59,7 +61,9 @@ class KompreController extends Controller
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
-            ->latest()->paginate(10);
+            ->latest()
+            ->filter(request(['search']))
+            ->paginate(10);
 
         if ($kompres->count() == 0) {
             return redirect('/kompre/create');

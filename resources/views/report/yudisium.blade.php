@@ -6,9 +6,13 @@
             <h3>Mahasiswa Yudisium</h3>
 
             <div class="d-flex justify-content-between mb-3 mt-1">
-                <div class="col-md-6">
-                    <form>
-                        <input type="text" placeholder="search" class="form-control w-75">
+                <div class="col-md-5">
+                    <form action="/laporan/yudisium">
+                        <div class="input-group">
+                            <input type="text" placeholder="search..." class="form-control" name="search"
+                                value="{{ request('search') }}" autofocus>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
                     </form>
                 </div>
                 @can('koordinator')
@@ -58,7 +62,7 @@
                                             <td>{{ $user->nim_or_nidn }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $judul->judul }}</td>
-                                            {{ $judul->judul }}
+
                                             <td>{{ \Carbon\Carbon::parse($judul->kompre[0]->updated_at)->translatedFormat('d F Y') }}
                                             </td>
                                             @php

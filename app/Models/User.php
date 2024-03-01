@@ -50,6 +50,40 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->where('nim_or_nidn', 'like', '%' . $search . '%')
+                ->orWhere('name', 'like', '%' . $search . '%')
+                ->orWhereHas('judul', function ($query) use ($search) {
+                    $query->where('judul', 'like', '%' . $search . '%')
+                        ->orWhereHas('pembimbing1', function ($query) use ($search) {
+                            $query->where('name', 'like', '%' . $search . '%');
+                        })
+                        ->orWhereHas('pembimbing2', function ($query) use ($search) {
+                            $query->where('name', 'like', '%' . $search . '%');
+                        })
+                        ->orWhereHas('sempro.penguji1', function ($query) use ($search) {
+                            $query->where('name', 'like', '%' . $search . '%');
+                        })
+                        ->orWhereHas('sempro.penguji2', function ($query) use ($search) {
+                            $query->where('name', 'like', '%' . $search . '%');
+                        })
+                        ->orWhereHas('sempro.penguji3', function ($query) use ($search) {
+                            $query->where('name', 'like', '%' . $search . '%');
+                        })
+                        ->orWhereHas('kompre.penguji1', function ($query) use ($search) {
+                            $query->where('name', 'like', '%' . $search . '%');
+                        })
+                        ->orWhereHas('kompre.penguji2', function ($query) use ($search) {
+                            $query->where('name', 'like', '%' . $search . '%');
+                        })
+                        ->orWhereHas('kompre.penguji3', function ($query) use ($search) {
+                            $query->where('name', 'like', '%' . $search . '%');
+                        });
+                });
+        });
+    }
 
 
     public function role(): BelongsTo

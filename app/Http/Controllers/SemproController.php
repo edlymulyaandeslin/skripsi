@@ -27,6 +27,7 @@ class SemproController extends Controller
             $sempros = Sempro::with(['judul', 'judul.mahasiswa'])
                 ->whereNotIn('status', ['lulus'])
                 ->latest()
+                ->filter(request(['search']))
                 ->paginate(10);
 
             return view('sempro.index', [
@@ -47,6 +48,7 @@ class SemproController extends Controller
                         ->where('penguji3_id', auth()->user()->id);
                 })
                 ->latest()
+                ->filter(request(['search']))
                 ->paginate(10);
 
             return view('sempro.index', [
@@ -59,7 +61,9 @@ class SemproController extends Controller
             ->whereHas('judul', function ($query) {
                 $query->where('mahasiswa_id', auth()->user()->id);
             })
-            ->latest()->paginate(10);
+            ->latest()
+            ->filter(request(['search']))
+            ->paginate(10);
 
         if ($sempros->count() == 0) {
             return redirect('/sempro/create');

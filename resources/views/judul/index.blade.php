@@ -7,8 +7,12 @@
 
             <div class="d-flex row justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
-                    <form>
-                        <input type="text" placeholder="search" class="form-control">
+                    <form action="/judul">
+                        <div class="input-group">
+                            <input type="text" placeholder="search..." class="form-control" name="search"
+                                value="{{ request('search') }}" autofocus>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
                     </form>
                 </div>
                 @can('mahasiswa')

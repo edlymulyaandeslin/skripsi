@@ -22,6 +22,7 @@ class MahasiswaSkripsiController extends Controller
                 $query->where('pembimbing1_id', auth()->user()->id)
                     ->orWhere('pembimbing2_id', auth()->user()->id);
             })->latest()
+            ->filter(request(['search']))
             ->paginate(10);
 
 
@@ -39,7 +40,11 @@ class MahasiswaSkripsiController extends Controller
             $query->where('penguji1_id', auth()->user()->id)
                 ->orWhere('penguji2_id', auth()->user()->id)
                 ->orWhere('penguji3_id', auth()->user()->id);
-        })->whereIn('status', ['diterima', 'penilaian'])->latest()->paginate(10);
+        })
+            ->whereIn('status', ['diterima', 'penilaian'])
+            ->latest()
+            ->filter(request(['search']))
+            ->paginate(10);
 
         return view('manajemen.mahasiswa.mahasiswa-uji-sempro', [
             'title' => 'E - Skripsi | Uji Mahasiswa',
@@ -54,7 +59,11 @@ class MahasiswaSkripsiController extends Controller
             $query->where('penguji1_id', auth()->user()->id)
                 ->orWhere('penguji2_id', auth()->user()->id)
                 ->orWhere('penguji3_id', auth()->user()->id);
-        })->whereIn('status', ['diterima', 'penilaian'])->latest()->paginate(10);
+        })
+            ->whereIn('status', ['diterima', 'penilaian'])
+            ->latest()
+            ->filter(request(['search']))
+            ->paginate(10);
 
         return view('manajemen.mahasiswa.mahasiswa-uji-kompre', [
             'title' => 'E - Skripsi | Uji Mahasiswa',

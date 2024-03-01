@@ -12,6 +12,20 @@ class Sempro extends Model
 {
     use HasFactory, HasUuids;
     protected $guarded = ['id'];
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->whereHas('judul', function ($query) use ($search) {
+                $query->where('judul', 'like', '%' . $search . '%')
+                    ->orWhereHas('mahasiswa', function ($query) use ($search) {
+                        $query->where('nim_or_nidn', 'like', '%' . $search . '%')
+                            ->orWhere('name', 'like', '%' . $search . '%');
+                    });
+            });
+        });
+    }
+
     public function judul(): BelongsTo
     {
         return $this->belongsTo(Judul::class, 'judul_id');

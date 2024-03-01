@@ -7,8 +7,12 @@
 
             <div class="d-flex justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
-                    <form>
-                        <input type="text" placeholder="search" class="form-control">
+                    <form action="/laporan/lulus-kompre">
+                        <div class="input-group">
+                            <input type="text" placeholder="search..." class="form-control" name="search"
+                                value="{{ request('search') }}" autofocus>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
                     </form>
                 </div>
                 @can('koordinator')
@@ -45,11 +49,36 @@
                                     </td>
                                     @if ($kompre->nilaikompre)
                                         @php
-                                            $nilaipem1 = ($kompre->nilaikompre->nilai1_pem1 + $kompre->nilaikompre->nilai2_pem1 + $kompre->nilaikompre->nilai3_pem1 + $kompre->nilaikompre->nilai4_pem1) / 5;
-                                            $nilaipem2 = ($kompre->nilaikompre->nilai1_pem2 + $kompre->nilaikompre->nilai2_pem2 + $kompre->nilaikompre->nilai3_pem2 + $kompre->nilaikompre->nilai4_pem2) / 5;
-                                            $nilaipeng1 = ($kompre->nilaikompre->nilai1_peng1 + $kompre->nilaikompre->nilai2_peng1 + $kompre->nilaikompre->nilai3_peng1 + $kompre->nilaikompre->nilai4_peng1) / 5;
-                                            $nilaipeng2 = ($kompre->nilaikompre->nilai1_peng2 + $kompre->nilaikompre->nilai2_peng2 + $kompre->nilaikompre->nilai3_peng2 + $kompre->nilaikompre->nilai4_peng2) / 5;
-                                            $nilaipeng3 = ($kompre->nilaikompre->nilai1_peng3 + $kompre->nilaikompre->nilai2_peng3 + $kompre->nilaikompre->nilai3_peng3 + $kompre->nilaikompre->nilai4_peng3) / 5;
+                                            $nilaipem1 =
+                                                ($kompre->nilaikompre->nilai1_pem1 +
+                                                    $kompre->nilaikompre->nilai2_pem1 +
+                                                    $kompre->nilaikompre->nilai3_pem1 +
+                                                    $kompre->nilaikompre->nilai4_pem1) /
+                                                5;
+                                            $nilaipem2 =
+                                                ($kompre->nilaikompre->nilai1_pem2 +
+                                                    $kompre->nilaikompre->nilai2_pem2 +
+                                                    $kompre->nilaikompre->nilai3_pem2 +
+                                                    $kompre->nilaikompre->nilai4_pem2) /
+                                                5;
+                                            $nilaipeng1 =
+                                                ($kompre->nilaikompre->nilai1_peng1 +
+                                                    $kompre->nilaikompre->nilai2_peng1 +
+                                                    $kompre->nilaikompre->nilai3_peng1 +
+                                                    $kompre->nilaikompre->nilai4_peng1) /
+                                                5;
+                                            $nilaipeng2 =
+                                                ($kompre->nilaikompre->nilai1_peng2 +
+                                                    $kompre->nilaikompre->nilai2_peng2 +
+                                                    $kompre->nilaikompre->nilai3_peng2 +
+                                                    $kompre->nilaikompre->nilai4_peng2) /
+                                                5;
+                                            $nilaipeng3 =
+                                                ($kompre->nilaikompre->nilai1_peng3 +
+                                                    $kompre->nilaikompre->nilai2_peng3 +
+                                                    $kompre->nilaikompre->nilai3_peng3 +
+                                                    $kompre->nilaikompre->nilai4_peng3) /
+                                                5;
                                         @endphp
                                         <td>{{ ($nilaipem1 + $nilaipem2 + $nilaipeng1 + $nilaipeng2 + $nilaipeng3) / 5 }}
                                         </td>

@@ -24,7 +24,9 @@ class LaporanController extends Controller
             ->whereHas('judul', function ($query) {
                 $query->where('status', 'diterima');
             })
-            ->latest()->paginate(10);
+            ->latest()
+            ->filter(request(['search']))
+            ->paginate(10);
 
         return view('report.seminar', [
             'title' => 'E - Skripsi | Seminar',
@@ -33,7 +35,10 @@ class LaporanController extends Controller
     }
     public function lulusSempro()
     {
-        $sempros = Sempro::with(['judul.mahasiswa', 'nilaisempro'])->where('status', 'lulus')->latest()->paginate(10);
+        $sempros = Sempro::with(['judul.mahasiswa', 'nilaisempro'])->where('status', 'lulus')
+            ->latest()
+            ->filter(request(['search']))
+            ->paginate(10);
 
         return view('report.lulus-sempro', [
             'title' => 'Lulus | Seminar Proposal',
@@ -42,7 +47,10 @@ class LaporanController extends Controller
     }
     public function lulusKompre()
     {
-        $kompres = Kompre::with(['judul.mahasiswa', 'nilaikompre'])->where('status', 'lulus')->latest()->paginate(10);
+        $kompres = Kompre::with(['judul.mahasiswa', 'nilaikompre'])->where('status', 'lulus')
+            ->latest()
+            ->filter(request(['search']))
+            ->paginate(10);
 
         return view('report.lulus-kompre', [
             'title' => 'Lulus | Seminar Komprehensif',
@@ -64,6 +72,7 @@ class LaporanController extends Controller
             })
             ->where('role_id', 4)
             ->latest()
+            ->filter(request(['search']))
             ->paginate(10);
 
         if ($users->isNotEmpty()) {
