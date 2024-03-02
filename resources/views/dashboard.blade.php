@@ -29,7 +29,7 @@
                                         dapat
                                         melihat pembimbing 1 dan
                                         2 melalui fitur "lihat" pada kolom aksi)</small></li>
-                                <li>Setelah judul diterima, lakukan bimbingan pada sub-menu Bimbingan.
+                                <li>Setelah judul diterima, lakukan bimbingan proposal pada sub-menu Bimbingan.
                                 </li>
                                 <li>Untuk seminar proposal, pastikan telah memiliki riwayat bimbingan yang memiliki status
                                     "acc proposal"
@@ -38,17 +38,23 @@
                                     perlu menginputkan beberapa persyaratan yang telah ditentukan.</li>
                                 <li>Akses jadwal Seminar Proposal melalui fitur "lihat" di kolom aksi pada sub-menu
                                     seminar proposal. <small>(jika sudah diterima)</small></li>
-                                <li>Seminar Proposal.</li>
-                                <li>Apabila telah melaksanakan seminar, kamu dapat melihat nilai sub-menu penilaian
-                                    seminar proposal</li>
-                                <li>Setelah Seminar Proposal, ajukan logbook komprehensif setelah melakukan bimbingan dengan
-                                    pembimbing.</li>
-                                <li>Untuk mengajukan seminar komprehensif, pastikan telah memiliki riwayat logbook yang
-                                    diaccept minimal 1 kali dan lulus seminar proposal.</li>
-                                <li>Akses jadwal Seminar Komprehensif melalui fitur "show" pada kolom action dalam submenu
-                                    kompre pada
-                                    aplikasi.</li>
-                                <li>Seminar komprehensif akan diapprove oleh koordinator atau mentor.</li>
+                                <li>Pelaksanaan Seminar Proposal.</li>
+                                <li>Apabila telah melaksanakan seminar, kamu dapat melihat nilai pada sub-menu penilaian
+                                    seminar proposal. <small>(selesai)</small></li>
+                                <li>Setelah lulus seminar proposal, lakukan bimbingan komprehensif pada sub-menu Bimbingan.
+                                </li>
+                                <li>Untuk seminar komprehensif, pastikan telah memiliki riwayat bimbingan yang memiliki
+                                    status
+                                    "acc komprehensif"
+                                    sebanyak 2 kali.</li>
+                                <li>Untuk daftar seminar komprehensif dapat di melalui sub-menu pendaftaran komprehensif,
+                                    kamu
+                                    perlu menginputkan beberapa persyaratan yang telah ditentukan.</li>
+                                <li>Akses jadwal seminar komprehensif melalui fitur "lihat" di kolom aksi pada sub-menu
+                                    seminar komprehensif. <small>(jika sudah diterima)</small></li>
+                                <li>Pelaksanaan Seminar Komprehensif.</li>
+                                <li>Apabila telah melaksanakan seminar, kamu dapat melihat nilai pada sub-menu penilaian
+                                    seminar komprehensif. <small>(selesai)</small></li>
 
                             </ol>
                         </div>
@@ -68,16 +74,17 @@
                                 <li>Lihat daftar semua mahasiswa yang sedang dalam bimbingan pada sub-menu mahasiswa.</li>
                                 <li>Periksa judul-judul yang diajukan oleh mahasiswa pada menu pengajuan judul.
                                 </li>
-                                <li>Lakukan approve atau reject untuk logbook yang diajukan mahasiswa pada kolom action di
-                                    menu logbook.</li>
-                                <li>Lakukan approve atau reject untuk presentasi yang diajukan mahasiswa pada kolom action
-                                    di menu presentasi.</li>
+                                <li>Lakukan approve atau reject untuk bimbingan yang diajukan mahasiswa pada kolom aksi di
+                                    sub-menu bimbingan.</li>
+                                <li>Lakukan input nilai untuk mahasiswa sempro dan kompre pada sub-menu penilaian seminar
+                                    proposal atau penilaian seminar komprehensif.</li>
                             </ol>
                             <ol>
                                 <span class="fw-bold">Penguji</span>
-                                <li>Lihat daftar semua judul dan mahasiswa yang akan diuji pada sub-menu uji.</li>
+                                <li>Lihat daftar semua judul dan mahasiswa yang akan diuji pada sub-menu ujian proposal atau
+                                    ujian komprehensif.</li>
 
-                                <li>Lakukan penilaian untuk presentasi yang telah dilakukan mahasiswa pada kolom action
+                                <li>Lakukan penilaian untuk presentasi yang telah dilakukan mahasiswa pada kolom aksi
                                     di menu penilaian.</li>
                             </ol>
                         </div>
@@ -93,11 +100,11 @@
                     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <ol>
-                                <li>Tambahkan dosen baru ke dalam sistem.</li>
-                                <li>Setelah mahasiswa mengajukan judul, lakukan approve atau reject pada kolom action di
-                                    menu pengajuan judul.</li>
-                                <li>Setelah mahasiswa mengajukan presentasi, lakukan approve atau reject pada kolom action
-                                    di menu presentasi.</li>
+                                <li>Verifikasi judul yang diajukan mahasiswa pada sub-menu Judul.</li>
+                                <li>Verifikasi pengajuan seminar proposal mahasiswa pada sub-menu seminar proposal.</li>
+                                <li>Verifikasi pengajuan seminar komprehensif mahasiswa pada sub-menu seminar komprehensif.
+                                </li>
+                                <li>Cetak Laporan</li>
                             </ol>
                         </div>
                     </div>
