@@ -5,17 +5,19 @@
         <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
             <h3>Penilaian Seminar Proposal</h3>
 
-            <div class="d-flex justify-content-between mb-3 mt-1">
-                <div class="col-md-5">
-                    <form action="/nilai/sempro">
-                        <div class="input-group">
-                            <input type="text" placeholder="search..." class="form-control" name="search"
-                                value="{{ request('search') }}" autofocus>
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
-                    </form>
+            @cannot('mahasiswa')
+                <div class="d-flex justify-content-between mb-3 mt-1">
+                    <div class="col-md-5">
+                        <form action="/nilai/sempro">
+                            <div class="input-group">
+                                <input type="text" placeholder="search..." class="form-control" name="search"
+                                    value="{{ request('search') }}" autofocus>
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            @endcannot
 
             <div class="table-responsive">
                 <table class="table">

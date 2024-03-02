@@ -51,13 +51,13 @@
                                             <td rowspan="3">{{ $judul->judul }}</td>
                                             <td>{{ $judul->pembimbing1->name }}</td>
 
-                                            @if ($judul->sempro[0]->status == 'diterima')
+                                            @if ($judul->sempro[0]->status == 'diterima' || $judul->sempro[0]->status == 'penilaian')
                                                 <td>{{ $judul->sempro[0]->penguji1->name }}</td>
                                                 <td rowspan="3">
                                                     {{ $judul->sempro[0]->tanggal_seminar ? \Carbon\Carbon::parse($judul->sempro[0]->tanggal_seminar)->translatedFormat('d F Y') : '-' }}
                                                 </td>
                                                 <td rowspan="3">Proposal</td>
-                                            @elseif ($judul->kompre[0]->status == 'diterima')
+                                            @elseif ($judul->kompre[0]->status == 'diterima' || $judul->kompre[0]->status == 'penilaian')
                                                 <td>{{ $judul->kompre[0]->penguji1->name }}</td>
                                                 <td rowspan="3">
                                                     {{ $judul->kompre[0]->tanggal_seminar ? \Carbon\Carbon::parse($judul->kompre[0]->tanggal_seminar)->translatedFormat('d F Y') : '-' }}
@@ -69,18 +69,18 @@
                                         <tr>
                                             <td>{{ $judul->pembimbing2->name }}</td>
 
-                                            @if ($judul->sempro[0]->status == 'diterima')
+                                            @if ($judul->sempro[0]->status == 'diterima' || $judul->sempro[0]->status == 'penilaian')
                                                 <td>{{ $judul->sempro[0]->penguji2->name }}</td>
-                                            @elseif ($judul->kompre[0]->status == 'diterima')
+                                            @elseif ($judul->kompre[0]->status == 'diterima' || $judul->kompre[0]->status == 'penilaian')
                                                 <td>{{ $judul->kompre[0]->penguji2->name }}</td>
                                             @endif
 
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            @if ($judul->sempro[0]->status == 'diterima')
+                                            @if ($judul->sempro[0]->status == 'diterima' || $judul->sempro[0]->status == 'penilaian')
                                                 <td>{{ $judul->sempro[0]->penguji3->name }}</td>
-                                            @elseif ($judul->kompre[0]->status == 'diterima')
+                                            @elseif ($judul->kompre[0]->status == 'diterima' || $judul->kompre[0]->status == 'penilaian')
                                                 <td>{{ $judul->kompre[0]->penguji3->name }}</td>
                                             @endif
                                         </tr>

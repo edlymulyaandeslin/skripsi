@@ -23,7 +23,7 @@
 
                     <div class="form-floating mb-3">
                         <input type="date" name="tanggal_seminar" class="form-control"
-                            value="{{ $kompre->tanggal_seminar }}" required>
+                            value="{{ $kompre->tanggal_seminar }}">
                         <label for="#">Tanggal Seminar</label>
                         @error('tanggal_seminar')
                             <p class="text-danger">{{ $message }}</p>
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="time" name="jam" class="form-control" value="{{ $kompre->jam }}" required>
+                        <input type="time" name="jam" class="form-control" value="{{ $kompre->jam }}">
                         <label for="#">Jam</label>
                         @error('jam')
                             <p class="text-danger">{{ $message }}</p>
@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="text" name="ruang" class="form-control" value="{{ $kompre->ruang }}" required>
+                        <input type="text" name="ruang" class="form-control" value="{{ $kompre->ruang }}">
                         <label for="#">Ruang</label>
                         @error('ruang')
                             <p class="text-danger">{{ $message }}</p>
@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-select @error('penguji1_id') is-invalid @enderror" name="penguji1_id" required>
+                        <select class="form-select @error('penguji1_id') is-invalid @enderror" name="penguji1_id">
                             <option selected value="{{ null }}">Pilih</option>
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji1_id', $kompre->penguji1_id) == $dosen->id)
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-select @error('penguji2_id') is-invalid @enderror" name="penguji2_id" required>
+                        <select class="form-select @error('penguji2_id') is-invalid @enderror" name="penguji2_id">
                             <option selected value="{{ null }}">Pilih</option>
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji2_id', $kompre->penguji2_id) == $dosen->id)
@@ -101,7 +101,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-select @error('penguji3_id') is-invalid @enderror" name="penguji3_id" required>
+                        <select class="form-select @error('penguji3_id') is-invalid @enderror" name="penguji3_id">
                             <option selected value="{{ null }}">Pilih</option>
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji3_id', $kompre->penguji3_id) == $dosen->id)

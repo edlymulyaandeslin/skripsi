@@ -16,9 +16,9 @@ class LaporanController extends Controller
             'judul.kompre.penguji1', 'judul.kompre.penguji2', 'judul.kompre.penguji3'
         ])->where(function ($query) {
             $query->orWhereHas('judul.sempro', function ($query) {
-                $query->where('status', 'diterima');
+                $query->whereIn('status', ['diterima', 'penilaian']);
             })->orWhereHas('judul.kompre', function ($query) {
-                $query->where('status', 'diterima');
+                $query->whereIn('status', ['diterima', 'penilaian']);
             });
         })->where('role_id', 4)
             ->whereHas('judul', function ($query) {

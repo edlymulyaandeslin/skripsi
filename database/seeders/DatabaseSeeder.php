@@ -45,6 +45,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Edly Mulya Andeslin',
             'email' => 'edlymulyaandeslin@gmail.com',
         ]);
+
         // koordinator
         User::factory()->create([
             'role_id' => 2,
@@ -78,22 +79,29 @@ class DatabaseSeeder extends Seeder
             'name' => 'Hendri Maradona M.Kom',
             'email' => 'hendrimaradona@gmail.com',
         ]);
+        User::factory()->create([
+            'role_id' => 3,
+            'nim_or_nidn' => 80005,
+            'name' => 'Kiki Yasdomi M.Kom',
+            'email' => 'kikiyasdomi@gmail.com',
+        ]);
+
         // mahasiswa
         User::factory()->create([
             'role_id' => 4,
-            'nim_or_nidn' => 80005,
+            'nim_or_nidn' => 2036181,
             'name' => 'Jesyca Michel',
             'email' => 'jesycamichel@gmail.com',
         ]);
         User::factory()->create([
             'role_id' => 4,
-            'nim_or_nidn' => 80006,
+            'nim_or_nidn' => 2036180,
             'name' => 'Muhammad Ridho',
             'email' => 'ridhokun@gmail.com',
         ]);
         User::factory()->create([
             'role_id' => 4,
-            'nim_or_nidn' => 80008,
+            'nim_or_nidn' => 2036182,
             'name' => 'Sayyid Jafar S',
             'email' => 'sayyidkun@gmail.com',
         ]);

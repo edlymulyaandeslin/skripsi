@@ -28,7 +28,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai1_peng1" class="form-control"
-                                value="{{ old('nilai1_peng1', $kompre->nilaikompre->nilai1_peng1 ?? null) }}">
+                                value="{{ old('nilai1_peng1', $kompre->nilaikompre->nilai1_peng1 ?? null) }}" required>
                             <label>Penguasaan Penelitian</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot1 }})</small>
                             @error('nilai1_peng1')
@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai2_peng1" class="form-control"
-                                value="{{ old('nilai2_peng1', $kompre->nilaikompre->nilai2_peng1 ?? null) }}">
+                                value="{{ old('nilai2_peng1', $kompre->nilaikompre->nilai2_peng1 ?? null) }}" required>
                             <label>Segi Ilmiah Tulisan</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot2 }})</small>
                             @error('nilai2_peng1')
@@ -46,7 +46,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai3_peng1" class="form-control"
-                                value="{{ old('nilai3_peng1', $kompre->nilaikompre->nilai3_peng1 ?? null) }}">
+                                value="{{ old('nilai3_peng1', $kompre->nilaikompre->nilai3_peng1 ?? null) }}" required>
                             <label>Kemampuan Penyajian</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot3 }})</small>
                             @error('nilai3_peng1')
@@ -55,7 +55,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai4_peng1" class="form-control"
-                                value="{{ old('nilai4_peng1', $kompre->nilaikompre->nilai4_peng1 ?? null) }}">
+                                value="{{ old('nilai4_peng1', $kompre->nilaikompre->nilai4_peng1 ?? null) }}" required>
                             <label>Kemampuan Berdiskusi</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot4 }})</small>
                             @error('nilai4_peng1')
@@ -93,7 +93,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai1_peng2" class="form-control"
-                                value="{{ old('nilai1_peng2', $kompre->nilaikompre->nilai1_peng2 ?? null) }}">
+                                value="{{ old('nilai1_peng2', $kompre->nilaikompre->nilai1_peng2 ?? null) }}" required>
                             <label>Penguasaan Penelitian</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot1 }})</small>
                             @error('nilai1_peng2')
@@ -102,7 +102,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai2_peng2" class="form-control"
-                                value="{{ old('nilai2_peng2', $kompre->nilaikompre->nilai2_peng2 ?? null) }}">
+                                value="{{ old('nilai2_peng2', $kompre->nilaikompre->nilai2_peng2 ?? null) }}" required>
                             <label>Segi Ilmiah Tulisan</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot2 }})</small>
                             @error('nilai2_peng2')
@@ -111,7 +111,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai3_peng2" class="form-control"
-                                value="{{ old('nilai3_peng2', $kompre->nilaikompre->nilai3_peng2 ?? null) }}">
+                                value="{{ old('nilai3_peng2', $kompre->nilaikompre->nilai3_peng2 ?? null) }}" required>
                             <label>Kemampuan Penyajian</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot3 }})</small>
                             @error('nilai3_peng2')
@@ -120,7 +120,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai4_peng2" class="form-control"
-                                value="{{ old('nilai4_peng2', $kompre->nilaikompre->nilai4_peng2 ?? null) }}">
+                                value="{{ old('nilai4_peng2', $kompre->nilaikompre->nilai4_peng2 ?? null) }}" required>
                             <label>Kemampuan Berdiskusi</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot4 }})</small>
                             @error('nilai4_peng2')
@@ -158,7 +158,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai1_peng3" class="form-control"
-                                value="{{ old('nilai1_peng3', $kompre->nilaikompre->nilai1_peng3 ?? null) }}">
+                                value="{{ old('nilai1_peng3', $kompre->nilaikompre->nilai1_peng3 ?? null) }}" required>
                             <label>Penguasaan Penelitian</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot1 }})</small>
                             @error('nilai1_peng3')
@@ -167,7 +167,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai2_peng3" class="form-control"
-                                value="{{ old('nilai2_peng3', $kompre->nilaikompre->nilai2_peng3 ?? null) }}">
+                                value="{{ old('nilai2_peng3', $kompre->nilaikompre->nilai2_peng3 ?? null) }}" required>
                             <label>Segi Ilmiah Tulisan</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot2 }})</small>
                             @error('nilai2_peng3')
@@ -176,7 +176,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai3_peng3" class="form-control"
-                                value="{{ old('nilai3_peng3', $kompre->nilaikompre->nilai3_peng3 ?? null) }}">
+                                value="{{ old('nilai3_peng3', $kompre->nilaikompre->nilai3_peng3 ?? null) }}" required>
                             <label>Kemampuan Penyajian</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot3 }})</small>
                             @error('nilai3_peng3')
@@ -185,7 +185,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai4_peng3" class="form-control"
-                                value="{{ old('nilai4_peng3', $kompre->nilaikompre->nilai4_peng3 ?? null) }}">
+                                value="{{ old('nilai4_peng3', $kompre->nilaikompre->nilai4_peng3 ?? null) }}" required>
                             <label>Kemampuan Berdiskusi</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot4 }})</small>
                             @error('nilai4_peng3')
@@ -224,7 +224,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai1_pem1" class="form-control"
-                                value="{{ old('nilai1_pem1', $kompre->nilaikompre->nilai1_pem1 ?? null) }}">
+                                value="{{ old('nilai1_pem1', $kompre->nilaikompre->nilai1_pem1 ?? null) }}" required>
                             <label>Penguasaan Penelitian</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot1 }})</small>
                             @error('nilai1_pem1')
@@ -234,7 +234,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai2_pem1" class="form-control"
-                                value="{{ old('nilai2_pem1', $kompre->nilaikompre->nilai2_pem1 ?? null) }}">
+                                value="{{ old('nilai2_pem1', $kompre->nilaikompre->nilai2_pem1 ?? null) }}" required>
                             <label>Segi Ilmiah Tulisan</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot2 }})</small>
                             @error('nilai2_pem1')
@@ -244,7 +244,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai3_pem1" class="form-control"
-                                value="{{ old('nilai3_pem1', $kompre->nilaikompre->nilai3_pem1 ?? null) }}">
+                                value="{{ old('nilai3_pem1', $kompre->nilaikompre->nilai3_pem1 ?? null) }}" required>
                             <label>Kemampuan Penyajian</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot3 }})</small>
                             @error('nilai3_pem1')
@@ -254,7 +254,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai4_pem1" class="form-control"
-                                value="{{ old('nilai4_pem1', $kompre->nilaikompre->nilai4_pem1 ?? null) }}">
+                                value="{{ old('nilai4_pem1', $kompre->nilaikompre->nilai4_pem1 ?? null) }}" required>
                             <label>Kemampuan Berdiskusi</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot4 }})</small>
                             @error('nilai4_pem1')
@@ -294,7 +294,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai1_pem2" class="form-control"
-                                value="{{ old('nilai1_pem2', $kompre->nilaikompre->nilai1_pem2 ?? null) }}">
+                                value="{{ old('nilai1_pem2', $kompre->nilaikompre->nilai1_pem2 ?? null) }}" required>
                             <label>Penguasaan Penelitian</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot1 }})</small>
                             @error('nilai1_pem2')
@@ -304,7 +304,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai2_pem2" class="form-control"
-                                value="{{ old('nilai2_pem2', $kompre->nilaikompre->nilai2_pem2 ?? null) }}">
+                                value="{{ old('nilai2_pem2', $kompre->nilaikompre->nilai2_pem2 ?? null) }}" required>
                             <label>Segi Ilmiah Tulisan</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot2 }})</small>
                             @error('nilai2_pem2')
@@ -314,7 +314,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai3_pem2" class="form-control"
-                                value="{{ old('nilai3_pem2', $kompre->nilaikompre->nilai3_pem2 ?? null) }}">
+                                value="{{ old('nilai3_pem2', $kompre->nilaikompre->nilai3_pem2 ?? null) }}" required>
                             <label>Kemampuan Penyajian</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot3 }})</small>
                             @error('nilai3_pem2')
@@ -324,7 +324,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai4_pem2" class="form-control"
-                                value="{{ old('nilai4_pem2', $kompre->nilaikompre->nilai4_pem2 ?? null) }}">
+                                value="{{ old('nilai4_pem2', $kompre->nilaikompre->nilai4_pem2 ?? null) }}" required>
                             <label>Kemampuan Berdiskusi</label>
                             <small class="fw-bold ms-2">10 - 100 (x{{ $bobots->bobot4 }})</small>
                             @error('nilai4_pem2')

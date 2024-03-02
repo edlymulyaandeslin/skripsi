@@ -25,14 +25,22 @@
                     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <ol>
-                                <li>Lakukan pengajuan judul projek.</li>
-                                <li>Setelah judul diterima, ajukan logbook setelah melakukan bimbingan dengan pembimbing.
+                                <li>Lakukan pengajuan 3 judul skripsi pada sub-menu Judul. <small>(apabila diterima kamu
+                                        dapat
+                                        melihat pembimbing 1 dan
+                                        2 melalui fitur "lihat" pada kolom aksi)</small></li>
+                                <li>Setelah judul diterima, lakukan bimbingan pada sub-menu Bimbingan.
                                 </li>
-                                <li>Untuk mengajukan seminar proposal, pastikan telah memiliki riwayat logbook yang diaccept
-                                    minimal 1 kali.</li>
-                                <li>Akses jadwal Seminar Proposal melalui fitur "show" pada kolom action dalam submenu
-                                    sempro pada aplikasi.</li>
-                                <li>Seminar proposal akan diapprove oleh koordinator atau mentor.</li>
+                                <li>Untuk seminar proposal, pastikan telah memiliki riwayat bimbingan yang memiliki status
+                                    "acc proposal"
+                                    sebanyak 2 kali.</li>
+                                <li>Untuk daftar seminar proposal dapat di melalui sub-menu pendaftaran proposal, kamu
+                                    perlu menginputkan beberapa persyaratan yang telah ditentukan.</li>
+                                <li>Akses jadwal Seminar Proposal melalui fitur "lihat" di kolom aksi pada sub-menu
+                                    seminar proposal. <small>(jika sudah diterima)</small></li>
+                                <li>Seminar Proposal.</li>
+                                <li>Apabila telah melaksanakan seminar, kamu dapat melihat nilai sub-menu penilaian
+                                    seminar proposal</li>
                                 <li>Setelah Seminar Proposal, ajukan logbook komprehensif setelah melakukan bimbingan dengan
                                     pembimbing.</li>
                                 <li>Untuk mengajukan seminar komprehensif, pastikan telah memiliki riwayat logbook yang

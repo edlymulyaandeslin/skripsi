@@ -6,15 +6,18 @@
             <h3>Penilaian Seminar Komprehensif</h3>
 
             <div class="d-flex justify-content-between mb-3 mt-1">
-                <div class="col-md-5">
-                    <form action="/nilai/kompre">
-                        <div class="input-group">
-                            <input type="text" placeholder="search..." class="form-control" name="search"
-                                value="{{ request('search') }}" autofocus>
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
-                    </form>
-                </div>
+                @cannot('mahasiswa')
+                    <div class="col-md-5">
+                        <form action="/nilai/kompre">
+                            <div class="input-group">
+                                <input type="text" placeholder="search..." class="form-control" name="search"
+                                    value="{{ request('search') }}" autofocus>
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                @endcannot
+
                 @can('koordinator')
                     <div>
                         <a href="/bobot/{{ $bobot->id }}/edit" class="btn btn-sm btn-dark">Atur Bobot Nilai</a>

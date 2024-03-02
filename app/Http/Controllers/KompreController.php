@@ -41,13 +41,16 @@ class KompreController extends Controller
         if (auth()->user()->role_id === 3) {
             $kompres = Kompre::with('judul.mahasiswa')
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
-                ->whereHas('judul', function ($query) {
-                    $query->orWhere('pembimbing1_id', auth()->user()->id)
-                        ->orWhere('pembimbing2_id', auth()->user()->id);
-                })->orWhere(function ($query) {
+                ->where(function ($query) {
                     $query->where('penguji1_id', auth()->user()->id)
-                        ->where('penguji2_id', auth()->user()->id)
-                        ->where('penguji3_id', auth()->user()->id);
+                        ->orWhere('penguji2_id', auth()->user()->id)
+                        ->orWhere('penguji3_id', auth()->user()->id)
+                        ->orWhere(function ($query) {
+                            $query->whereHas('judul', function ($subquery) {
+                                $subquery->where('pembimbing1_id', auth()->user()->id)
+                                    ->orWhere('pembimbing2_id', auth()->user()->id);
+                            });
+                        });
                 })
                 ->latest()
                 ->filter(request(['search']))

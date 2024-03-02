@@ -14,17 +14,19 @@
             <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">
                 <h3>Seminar Proposal</h3>
 
-                <div class="d-flex justify-content-between mb-3 mt-1">
-                    <div class="col-md-5">
-                        <form action="/sempro">
-                            <div class="input-group">
-                                <input type="text" placeholder="search..." class="form-control" name="search"
-                                    value="{{ request('search') }}" autofocus>
-                                <button type="submit" class="btn btn-primary">Search</button>
-                            </div>
-                        </form>
+                @cannot('mahasiswa')
+                    <div class="d-flex justify-content-between mb-3 mt-1">
+                        <div class="col-md-5">
+                            <form action="/sempro">
+                                <div class="input-group">
+                                    <input type="text" placeholder="search..." class="form-control" name="search"
+                                        value="{{ request('search') }}" autofocus>
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                @endcannot
 
                 <div class="table-responsive">
                     <table class="table">
@@ -152,7 +154,7 @@
                                 $sempros[0]->status == 'tidak lulus')
                             <div class="alert alert-info mt-3" role="alert">
                                 <h4 class="alert-heading">Informasi!</h4>
-                                <p>Untuk melihat penilaian seminar kamu <a href="/nilai/kompre">klik disini</a>.
+                                <p>Untuk melihat penilaian seminar kamu <a href="/nilai/sempro">klik disini</a>.
                                 </p>
                             </div>
                         @endif
