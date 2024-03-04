@@ -177,10 +177,15 @@ class KompreController extends Controller
         // akses koordinator
         $this->authorize('update', $kompre);
 
+        $dosens = User::where('role_id', 3)->latest()->get();
+        $allkompre = Kompre::where('status', 'diterima')->latest()->get();
+
+
         return view('kompre.edit', [
             'title' => 'Komprehensif | Verifikasi',
             'kompre' => $kompre->load('judul'),
-            'dosens' => User::where('role_id', 3)->latest()->get()
+            'dosens' => $dosens,
+            'allkompre' => $allkompre
         ]);
     }
 

@@ -173,10 +173,15 @@ class SemproController extends Controller
         // akses koordinator
         $this->authorize('update', $sempro);
 
+        $dosens = User::where('role_id', 3)->latest()->get();
+        $allsempro = Sempro::where('status', 'diterima')->latest()->get();
+
+
         return view('sempro.edit', [
             'title' => 'Seminar Proposal | Verifikasi',
             'sempro' => $sempro->load('judul'),
-            'dosens' => User::where('role_id', 3)->latest()->get()
+            'dosens' => $dosens,
+            'allsempro' => $allsempro
         ]);
     }
 

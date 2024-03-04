@@ -30,7 +30,9 @@
                             <th scope="col" rowspan="3">Total</th>
                             <th scope="col" rowspan="3">Dibayar</th>
                             <th scope="col" rowspan="3">Sisa</th>
-                            <th scope="col" rowspan="3">Aksi</th>
+                            @can('koordinator')
+                                <th scope="col" rowspan="3">Aksi</th>
+                            @endcan
                         </tr>
                         <tr class="text-center align-middle">
                             <th scope="col">Pembimbing</th>
@@ -112,12 +114,15 @@
                                     @endphp
                                     <td>-Rp{{ number_format($totalBayar, 0, '.', '.') }}</td>
                                     <td>Rp{{ number_format($sisa = $total - $totalBayar, 0, '.', '.') }}</td>
-                                    <td>
-                                        <a href="/adm-seminar/{{ $dosen->id }}/pay/{{ $total }}"
-                                            class="btn btn-sm btn-outline-dark text-warning"><i
-                                                class="fa fa-money-bill-wave"></i>
-                                            Pay</a>
-                                    </td>
+
+                                    @can('koordinator')
+                                        <td>
+                                            <a href="/adm-seminar/{{ $dosen->id }}/pay/{{ $total }}"
+                                                class="btn btn-sm btn-outline-dark text-warning"><i
+                                                    class="fa fa-money-bill-wave"></i>
+                                                Pay</a>
+                                        </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                         @else

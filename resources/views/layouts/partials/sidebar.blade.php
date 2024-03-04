@@ -139,7 +139,9 @@
                             Yudisium</a>
                     </div>
                 </div>
+            @endcan
 
+            @cannot('mahasiswa')
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle {{ Request::is('adm-seminar*') ? 'active' : '' }}"
                         data-bs-toggle="dropdown"><i class="fa fa-book-open me-2"></i>Administrasi</a>
@@ -149,7 +151,7 @@
                             Seminar</a>
                     </div>
                 </div>
-            @endcan
+            @endcannot
 
         </div>
     </nav>

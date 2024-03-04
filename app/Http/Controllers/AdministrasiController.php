@@ -13,7 +13,14 @@ class AdministrasiController extends Controller
 {
     public function index()
     {
-        $dosens = User::where('role_id', 3)->latest()->filter(request(['search']))->paginate(10)->withQueryString();
+        $this->authorize('viewAny', Administrasi::class);
+
+        if (auth()->user()->role_id == 3) {
+            $dosens = User::where('role_id', 3)->where('id', auth()->user()->id)->latest()->filter(request(['search']))->paginate(10)->withQueryString();
+        } else {
+            $dosens = User::where('role_id', 3)->latest()->filter(request(['search']))->paginate(10)->withQueryString();
+        }
+
         $sempros = Sempro::with(['judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2'])->where('status', 'lulus')->latest()->get();
         $kompres = Kompre::with(['judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2'])->where('status', 'lulus')->latest()->get();
         $administrasi = Administrasi::with(['dosen'])->latest()->get();

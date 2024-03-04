@@ -130,11 +130,11 @@ Route::prefix('cetak')->group(function () {
 Route::resource('/bobot', BobotController::class)->only([
     'edit',
     'update'
-]);
+])->middleware('koordinator');
 
-// administrasi
+// Administrasi
 Route::get('/adm-seminar', [AdministrasiController::class, 'index']);
-Route::get('/adm-seminar/{id}/pay/{total}', [AdministrasiController::class, 'edit']);
-Route::get('/adm-seminar/create/{id}/{total}', [AdministrasiController::class, 'create']);
-Route::post('/adm-seminar/{id}/{total}', [AdministrasiController::class, 'store']);
-Route::delete('/adm-seminar/{id}', [AdministrasiController::class, 'destroy'])->name('administrasi.destroy');
+Route::get('/adm-seminar/{id}/pay/{total}', [AdministrasiController::class, 'edit'])->middleware('koordinator');
+Route::get('/adm-seminar/create/{id}/{total}', [AdministrasiController::class, 'create'])->middleware('koordinator');
+Route::post('/adm-seminar/{id}/{total}', [AdministrasiController::class, 'store'])->middleware('koordinator');
+Route::delete('/adm-seminar/{id}', [AdministrasiController::class, 'destroy'])->name('administrasi.destroy')->middleware('koordinator');

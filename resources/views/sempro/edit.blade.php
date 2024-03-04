@@ -51,7 +51,19 @@
                             <option selected value="{{ null }}">Pilih</option>
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji1_id', $sempro->penguji1_id) == $dosen->id)
-                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                    @php
+                                        $jumlahPengujiSempro = 0;
+                                    @endphp
+                                    @foreach ($allsempro as $sempro)
+                                        @if ($sempro->penguji1_id == $dosen->id || $sempro->penguji2_id == $dosen->id || $sempro->penguji3_id == $dosen->id)
+                                            @php
+                                                $jumlahPengujiSempro++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}
+                                        ({{ $jumlahPengujiSempro }})
+                                    </option>
                                 @elseif($sempro->judul->pembimbing1_id == $dosen->id)
                                     <option style="background-color: #7f8fa6" class="text-white"
                                         value="{{ $dosen->id }}" disabled>
@@ -63,7 +75,18 @@
                                         {{ $dosen->name }} (pembimbing 2)
                                     </option>
                                 @else
-                                    <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
+                                    @php
+                                        $jumlahPengujiSempro = 0;
+                                    @endphp
+                                    @foreach ($allsempro as $sempro)
+                                        @if ($sempro->penguji1_id == $dosen->id || $sempro->penguji2_id == $dosen->id || $sempro->penguji3_id == $dosen->id)
+                                            @php
+                                                $jumlahPengujiSempro++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <option value="{{ $dosen->id }}">{{ $dosen->name }} ({{ $jumlahPengujiSempro }})
+                                    </option>
                                 @endif
                             @endforeach
                         </select>
@@ -78,7 +101,19 @@
                             <option selected value="{{ null }}">Pilih</option>
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji2_id', $sempro->penguji2_id) == $dosen->id)
-                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                    @php
+                                        $jumlahPengujiSempro = 0;
+                                    @endphp
+                                    @foreach ($allsempro as $sempro)
+                                        @if ($sempro->penguji1_id == $dosen->id || $sempro->penguji2_id == $dosen->id || $sempro->penguji3_id == $dosen->id)
+                                            @php
+                                                $jumlahPengujiSempro++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}
+                                        ({{ $jumlahPengujiSempro }})
+                                    </option>
                                 @elseif($sempro->judul->pembimbing1_id == $dosen->id)
                                     <option style="background-color: #7f8fa6" class="text-white"
                                         value="{{ $dosen->id }}" disabled>
@@ -90,7 +125,18 @@
                                         {{ $dosen->name }} (pembimbing 2)
                                     </option>
                                 @else
-                                    <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
+                                    @php
+                                        $jumlahPengujiSempro = 0;
+                                    @endphp
+                                    @foreach ($allsempro as $sempro)
+                                        @if ($sempro->penguji1_id == $dosen->id || $sempro->penguji2_id == $dosen->id || $sempro->penguji3_id == $dosen->id)
+                                            @php
+                                                $jumlahPengujiSempro++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <option value="{{ $dosen->id }}">{{ $dosen->name }} ({{ $jumlahPengujiSempro }})
+                                    </option>
                                 @endif
                             @endforeach
                         </select>
@@ -105,7 +151,19 @@
                             <option selected value="{{ null }}">Pilih</option>
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji3_id', $sempro->penguji3_id) == $dosen->id)
-                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                    @php
+                                        $jumlahPengujiSempro = 0;
+                                    @endphp
+                                    @foreach ($allsempro as $sempro)
+                                        @if ($sempro->penguji1_id == $dosen->id || $sempro->penguji2_id == $dosen->id || $sempro->penguji3_id == $dosen->id)
+                                            @php
+                                                $jumlahPengujiSempro++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}
+                                        ({{ $jumlahPengujiSempro }})
+                                    </option>
                                 @elseif($sempro->judul->pembimbing1_id == $dosen->id)
                                     <option style="background-color: #7f8fa6" class="text-white"
                                         value="{{ $dosen->id }}" disabled>
@@ -117,7 +175,18 @@
                                         {{ $dosen->name }} (pembimbing 2)
                                     </option>
                                 @else
-                                    <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
+                                    @php
+                                        $jumlahPengujiSempro = 0;
+                                    @endphp
+                                    @foreach ($allsempro as $sempro)
+                                        @if ($sempro->penguji1_id == $dosen->id || $sempro->penguji2_id == $dosen->id || $sempro->penguji3_id == $dosen->id)
+                                            @php
+                                                $jumlahPengujiSempro++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <option value="{{ $dosen->id }}">{{ $dosen->name }} ({{ $jumlahPengujiSempro }})
+                                    </option>
                                 @endif
                             @endforeach
                         </select>

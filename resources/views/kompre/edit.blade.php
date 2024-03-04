@@ -51,7 +51,19 @@
                             <option selected value="{{ null }}">Pilih</option>
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji1_id', $kompre->penguji1_id) == $dosen->id)
-                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                    @php
+                                        $jumlahPengujiKompre = 0;
+                                    @endphp
+                                    @foreach ($allkompre as $kompre)
+                                        @if ($kompre->penguji1_id == $dosen->id || $kompre->penguji2_id == $dosen->id || $kompre->penguji3_id == $dosen->id)
+                                            @php
+                                                $jumlahPengujiKompre++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}
+                                        ({{ $jumlahPengujiKompre }})
+                                    </option>
                                 @elseif($kompre->judul->pembimbing1_id == $dosen->id)
                                     <option style="background-color: #7f8fa6" class="text-white"
                                         value="{{ $dosen->id }}" disabled>
@@ -63,7 +75,18 @@
                                         {{ $dosen->name }} (pembimbing 2)
                                     </option>
                                 @else
-                                    <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
+                                    @php
+                                        $jumlahPengujiKompre = 0;
+                                    @endphp
+                                    @foreach ($allkompre as $kompre)
+                                        @if ($kompre->penguji1_id == $dosen->id || $kompre->penguji2_id == $dosen->id || $kompre->penguji3_id == $dosen->id)
+                                            @php
+                                                $jumlahPengujiKompre++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <option value="{{ $dosen->id }}">{{ $dosen->name }} ({{ $jumlahPengujiKompre }})
+                                    </option>
                                 @endif
                             @endforeach
                         </select>
@@ -78,7 +101,19 @@
                             <option selected value="{{ null }}">Pilih</option>
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji2_id', $kompre->penguji2_id) == $dosen->id)
-                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                    @php
+                                        $jumlahPengujiKompre = 0;
+                                    @endphp
+                                    @foreach ($allkompre as $kompre)
+                                        @if ($kompre->penguji1_id == $dosen->id || $kompre->penguji2_id == $dosen->id || $kompre->penguji3_id == $dosen->id)
+                                            @php
+                                                $jumlahPengujiKompre++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}
+                                        ({{ $jumlahPengujiKompre }})
+                                    </option>
                                 @elseif($kompre->judul->pembimbing1_id == $dosen->id)
                                     <option style="background-color: #7f8fa6" class="text-white"
                                         value="{{ $dosen->id }}" disabled>
@@ -90,7 +125,18 @@
                                         {{ $dosen->name }} (pembimbing 2)
                                     </option>
                                 @else
-                                    <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
+                                    @php
+                                        $jumlahPengujiKompre = 0;
+                                    @endphp
+                                    @foreach ($allkompre as $kompre)
+                                        @if ($kompre->penguji1_id == $dosen->id || $kompre->penguji2_id == $dosen->id || $kompre->penguji3_id == $dosen->id)
+                                            @php
+                                                $jumlahPengujiKompre++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <option value="{{ $dosen->id }}">{{ $dosen->name }} ({{ $jumlahPengujiKompre }})
+                                    </option>
                                 @endif
                             @endforeach
                         </select>
@@ -105,7 +151,19 @@
                             <option selected value="{{ null }}">Pilih</option>
                             @foreach ($dosens as $dosen)
                                 @if (old('penguji3_id', $kompre->penguji3_id) == $dosen->id)
-                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}</option>
+                                    @php
+                                        $jumlahPengujiKompre = 0;
+                                    @endphp
+                                    @foreach ($allkompre as $kompre)
+                                        @if ($kompre->penguji1_id == $dosen->id || $kompre->penguji2_id == $dosen->id || $kompre->penguji3_id == $dosen->id)
+                                            @php
+                                                $jumlahPengujiKompre++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <option value="{{ $dosen->id }}" selected>{{ $dosen->name }}
+                                        ({{ $jumlahPengujiKompre }})
+                                    </option>
                                 @elseif($kompre->judul->pembimbing1_id == $dosen->id)
                                     <option style="background-color: #7f8fa6" class="text-white"
                                         value="{{ $dosen->id }}" disabled>
@@ -117,7 +175,18 @@
                                         {{ $dosen->name }} (pembimbing 2)
                                     </option>
                                 @else
-                                    <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
+                                    @php
+                                        $jumlahPengujiKompre = 0;
+                                    @endphp
+                                    @foreach ($allkompre as $kompre)
+                                        @if ($kompre->penguji1_id == $dosen->id || $kompre->penguji2_id == $dosen->id || $kompre->penguji3_id == $dosen->id)
+                                            @php
+                                                $jumlahPengujiKompre++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <option value="{{ $dosen->id }}">{{ $dosen->name }} ({{ $jumlahPengujiKompre }})
+                                    </option>
                                 @endif
                             @endforeach
                         </select>
