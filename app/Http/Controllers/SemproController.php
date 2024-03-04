@@ -174,7 +174,7 @@ class SemproController extends Controller
         $this->authorize('update', $sempro);
 
         $dosens = User::where('role_id', 3)->latest()->get();
-        $allsempro = Sempro::where('status', 'diterima')->latest()->get();
+        $allsempro = Sempro::whereIn('status', ['diterima', 'penilaian'])->latest()->get();
 
 
         return view('sempro.edit', [

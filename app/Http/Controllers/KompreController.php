@@ -178,7 +178,7 @@ class KompreController extends Controller
         $this->authorize('update', $kompre);
 
         $dosens = User::where('role_id', 3)->latest()->get();
-        $allkompre = Kompre::where('status', 'diterima')->latest()->get();
+        $allkompre = Kompre::whereIn('status', ['diterima', 'penilaian'])->latest()->get();
 
 
         return view('kompre.edit', [
