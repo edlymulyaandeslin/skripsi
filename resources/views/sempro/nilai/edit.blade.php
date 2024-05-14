@@ -324,7 +324,7 @@
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai6_pem1" class="form-control"
                                 value="{{ old('nilai6_pem1', $sempro->nilaisempro->nilai6_pem1 ?? null) }}">
-                            <label>Kemandirian dalam penyusunal proposal</label>
+                            <label>Kemandirian dalam penyusunan proposal</label>
                             <small class="fw-bold ms-2">0 - 20</small>
                             @error('nilai6_pem1')
                                 <p class="text-danger">{{ $message }}</p>
@@ -417,7 +417,7 @@
                         <div class="form-floating mb-3">
                             <input type="number" name="nilai6_pem2" class="form-control"
                                 value="{{ old('nilai6_pem2', $sempro->nilaisempro->nilai6_pem2 ?? null) }}">
-                            <label>Kemandirian dalam penyusunal proposal</label>
+                            <label>Kemandirian dalam penyusunan proposal</label>
                             <small class="fw-bold ms-2">0 - 20</small>
                             @error('nilai6_pem2')
                                 <p class="text-danger">{{ $message }}</p>

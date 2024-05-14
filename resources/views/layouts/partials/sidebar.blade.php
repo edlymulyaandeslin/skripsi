@@ -141,17 +141,17 @@
                 </div>
             @endcan
 
-            @cannot('mahasiswa')
+            @unless (auth()->user()->can('admin') || auth()->user()->can('mahasiswa'))
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle {{ Request::is('adm-seminar*') ? 'active' : '' }}"
-                        data-bs-toggle="dropdown"><i class="fa fa-book-open me-2"></i>Administrasi</a>
+                        data-bs-toggle="dropdown"><i class="fa fa-coins me-2"></i>Administrasi</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="/adm-seminar"
                             class="nav-item nav-link {{ Request::is('adm-seminar*') ? 'active' : '' }}">Administrasi
                             Seminar</a>
                     </div>
                 </div>
-            @endcannot
+            @endunless
 
         </div>
     </nav>

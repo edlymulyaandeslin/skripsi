@@ -106,7 +106,7 @@ Route::middleware('koordinator')->prefix('laporan')->group(function () {
 
 Route::prefix('cetak')->group(function () {
     // cetak lembar bimbingan
-    Route::get('/bimbingan-proposal/download/pdf', [CetakController::class, 'cetak_bproposal'])->middleware('mahasiswa');
+    Route::get('/bimbingan-proposal/download/pdf', [CetakController::class, 'cetak_bproposal']);
     Route::get('/bimbingan-kompre/download/pdf', [CetakController::class, 'cetak_bkompre'])->middleware('mahasiswa');
 
     // BERITA ACARA SEMPRO

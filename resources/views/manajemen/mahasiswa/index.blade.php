@@ -12,7 +12,7 @@
                     </form>
                 </div>
                 <div>
-                    <a href="{{ route('mahasiswa.create') }}" class="btn btn-sm btn-primary">Mahasiswa baru
+                    <a href="{{ route('mahasiswa.create') }}" class="btn btn-sm btn-primary">Buat akun
                         <i class="fa fa-plus"></i></a>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                                     <td>{{ $mahasiswa->name }}</td>
                                     <td>
                                         <span
-                                            class="bg-{{ $mahasiswa->status == 'active' ? 'success' : 'danger' }} text-white px-3 py-1 rounded">
+                                            class="bg-{{ $mahasiswa->status == 'active' ? 'success' : 'primary' }} text-white px-3 py-1 rounded">
                                             {{ $mahasiswa->status }}
                                         </span>
                                     </td>

@@ -133,7 +133,9 @@ class JudulController extends Controller
         $this->authorize('update', $judul);
 
         $dosens = User::where('role_id', 3)->latest()->get();
-        $alljudul = Judul::where('status', 'diterima')->latest()->get();
+        $alljudul = Judul::with('mahasiswa')->whereHas('mahasiswa', function ($query) {
+            $query->where('status', 'active');
+        })->where('status', 'diterima')->latest()->get();
 
         return view('judul.edit', [
             'title' => 'Judul | Verifikasi',

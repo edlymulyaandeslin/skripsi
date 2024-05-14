@@ -12,7 +12,7 @@
                     </form>
                 </div>
                 <div>
-                    <a href="{{ route('koordinator.create') }}" class="btn btn-sm btn-primary">Koordinator baru <i
+                    <a href="{{ route('koordinator.create') }}" class="btn btn-sm btn-primary">Buat Akun <i
                             class="fa fa-plus"></i></a>
                 </div>
 

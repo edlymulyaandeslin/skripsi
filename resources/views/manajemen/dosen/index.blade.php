@@ -12,7 +12,7 @@
                     </form>
                 </div>
                 <div>
-                    <a href="{{ route('dosen.create') }}" class="btn btn-sm btn-primary">Dosen baru <i
+                    <a href="{{ route('dosen.create') }}" class="btn btn-sm btn-primary">Buat Akun <i
                             class="fa fa-plus"></i></a>
                 </div>
             </div>
