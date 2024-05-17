@@ -8,7 +8,6 @@
                 <p>Pengajuan kamu sedang kami check dan proses, mohon ditunggu info selanjutnya ya!
                 </p>
                 <hr>
-                <p class="mb-0">Tetap semangat!</p>
             </div>
         @else
             <div class="col-md-12 bg-light rounded h-100 p-4 d-flex flex-column">

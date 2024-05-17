@@ -16,6 +16,7 @@ use App\Http\Controllers\MahasiswaSkripsiController;
 use App\Http\Controllers\NilaiKompreController;
 use App\Http\Controllers\NilaiSemproController;
 use App\Http\Controllers\ProfileUpdate;
+use App\Http\Controllers\RekapJudulController;
 use App\Http\Controllers\SemproController;
 use Illuminate\Support\Facades\Route;
 
@@ -102,6 +103,9 @@ Route::middleware('koordinator')->prefix('laporan')->group(function () {
     Route::get('/lulus-sempro', [LaporanController::class, 'lulusSempro']);
     Route::get('/lulus-kompre', [LaporanController::class, 'lulusKompre']);
     Route::get('/yudisium', [LaporanController::class, 'yudisium']);
+
+    // rekap judul
+    Route::get('/rekap-judul', [LaporanController::class, 'rekapJudul']);
 });
 
 Route::prefix('cetak')->group(function () {

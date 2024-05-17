@@ -31,6 +31,7 @@ class ProfileUpdate extends Controller
         $rules = [
             'name' => 'required|max:50',
             'foto_profil' => 'image|file|max:1024',
+            'tahun_ajaran' => 'required'
         ];
 
         $customMessage = [];
@@ -58,9 +59,7 @@ class ProfileUpdate extends Controller
         if ($request->filled('alamat')) {
             $rules['alamat'] = 'required|max:50';
         }
-        if ($request->filled('angkatan')) {
-            $rules['angkatan'] = 'required|numeric|min:2019|max:' . date('Y');
-        }
+
         if ($request->filled('password')) {
             $rules['password'] = 'required|min:8|max:255';
         }

@@ -17,9 +17,12 @@ class Judul extends Model
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
             return $query->where('judul', 'like', '%' . $search . '%')
-                ->orWhereHas('mahasiswa', function ($query) use ($search) {
-                    $query->where('nim_or_nidn', 'like', '%' . $search . '%')
-                        ->orWhere('name', 'like', '%' . $search . '%');
+                ->orWhere(function ($query) use ($search) {
+                    $query->whereHas('mahasiswa', function ($query) use ($search) {
+                        $query->where('nim_or_nidn', 'like', '%' . $search . '%')
+                            ->orWhere('name', 'like', '%' . $search . '%')
+                            ->orWhere('tahun_ajaran', 'like', '%' . $search . '%');
+                    });
                 });
         });
     }

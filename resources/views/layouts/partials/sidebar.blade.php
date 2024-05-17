@@ -124,6 +124,9 @@
                     <a href="#" class="nav-link dropdown-toggle {{ Request::is('laporan*') ? 'active' : '' }}"
                         data-bs-toggle="dropdown"><i class="fa fa-book-open me-2"></i>Laporan</a>
                     <div class="dropdown-menu bg-transparent border-0">
+                        <a href="/laporan/rekap-judul"
+                            class="nav-item nav-link {{ Request::is('laporan/rekap-judul*') ? 'active' : '' }}">Rekap
+                            Judul</a>
                         <a href="/laporan/seminar"
                             class="nav-item nav-link {{ Request::is('laporan/seminar*') ? 'active' : '' }}">Mahasiswa
                             Seminar</a>

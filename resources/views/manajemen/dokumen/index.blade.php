@@ -27,6 +27,7 @@
                         @endif
 
                         @csrf
+
                         <input type="hidden" value="{{ $user->id }}" name="mahasiswa_id">
 
                         <div class="row">
@@ -37,10 +38,9 @@
                                                 class="text-danger">*</span></label>
                                         <input type="file" class="form-control @error('krs') is-invalid @enderror"
                                             name="krs" value="{{ old('krs') }}">
-                                        <small>Unggah krs dengan format .Pdf</small>
+                                        <small>Unggah krs dengan format .pdf</small>
                                         <br>
-                                        <small>Notes: Jika ada kesalahan. Anda dapat mengunggahnya
-                                            kembali.</small>
+
                                     </div>
                                     <div class="col">
                                         @if ($user->dokumen)
@@ -66,10 +66,9 @@
                                         <input type="file"
                                             class="form-control @error('transkip_nilai') is-invalid @enderror"
                                             name="transkip_nilai" value="{{ old('transkip_nilai') }}">
-                                        <small>Unggah transkrip nilai dengan format .Pdf</small>
+                                        <small>Unggah transkrip nilai dengan format .pdf</small>
                                         <br>
-                                        <small>Notes: Jika ada kesalahan. Anda dapat mengunggahnya
-                                            kembali.</small>
+
                                     </div>
                                     <div class="col">
                                         @if ($user->dokumen)
@@ -88,6 +87,7 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
+
                                 <div class="mb-3 row">
                                     <div class="col-md-8">
                                         <label for="hadir_seminar" class="form-label">Hadir Seminar<span
@@ -95,10 +95,9 @@
                                         <input type="file"
                                             class="form-control @error('hadir_seminar') is-invalid @enderror"
                                             name="hadir_seminar" value="{{ old('hadir_seminar') }}">
-                                        <small>Unggah bukti hadir seminar/sidang dengan format .Pdf</small>
+                                        <small>Unggah bukti hadir seminar/sidang dengan format .pdf</small>
                                         <br>
-                                        <small>Notes: Jika ada kesalahan. Anda dapat mengunggahnya
-                                            kembali.</small>
+
                                     </div>
                                     <div class="col">
                                         @if ($user->dokumen)
@@ -117,6 +116,8 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
+                                <small class="fw-bold">Notes: Jika ada kesalahan upload. Anda dapat mengunggahnya
+                                    kembali.</small>
                             </div>
                         </div>
 

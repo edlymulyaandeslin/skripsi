@@ -177,11 +177,11 @@
 
                                 @can('mahasiswa')
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control @error('angkatan') is-invalid @enderror"
-                                            name="angkatan" placeholder="angkatan"
-                                            value="{{ old('angkatan', $user->angkatan ?? ' ') }}">
-                                        <label for="floatingInput">Angkatan</label>
-                                        @error('angkatan')
+                                        <input type="text" class="form-control @error('tahun_ajaran') is-invalid @enderror"
+                                            name="tahun_ajaran" placeholder="tahun_ajaran"
+                                            value="{{ old('tahun_ajaran', $user->tahun_ajaran ?? \Carbon\Carbon::now()->format('Y') - 1 . '/' . \Carbon\Carbon::now()->format('Y')) }}">
+                                        <label for="floatingInput">Tahun Ajaran</label>
+                                        @error('tahun_ajaran')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>

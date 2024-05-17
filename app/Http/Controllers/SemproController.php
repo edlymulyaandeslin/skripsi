@@ -100,9 +100,11 @@ class SemproController extends Controller
         // find judul berdasarkan logbook dengan status acc proposal
         $juduls = Judul::withCount(['logbook as acc_proposal_count' => function ($query) {
             $query->where('status', 'acc proposal')->where('kategori', 'proposal');
-        }])->with(['mahasiswa', 'mahasiswa.dokumen', 'logbook'])->whereHas('logbook', function ($query) {
-            $query->where('status', 'acc proposal');
-        })->where('mahasiswa_id', auth()->user()->id)
+        }])->with(['mahasiswa.dokumen', 'logbook'])
+            // ->whereHas('logbook', function ($query) {
+            //     $query->where('status', 'acc proposal');
+            // })
+            ->where('mahasiswa_id', auth()->user()->id)
             ->having('acc_proposal_count', '>=', 2)
             ->latest()
             ->get();
@@ -142,7 +144,9 @@ class SemproController extends Controller
         $lembarbimbingan = 'document_' . str()->random(10) . '.' . $request->file('lembar_bimbingan')->extension();
         $validateData['lembar_bimbingan'] = $request->file('lembar_bimbingan')->storeAs('doc-bimbingan', $lembarbimbingan);
 
-        Sempro::where('status', 'tidak lulus')->get()->each(function ($sempro) {
+        Sempro::whereHas('judul', function ($query) {
+            $query->where('mahasiswa_id', auth()->user()->id);
+        })->where('status', 'tidak lulus')->get()->each(function ($sempro) {
             Storage::delete($sempro->pembayaran);
             Storage::delete($sempro->lembar_bimbingan);
             $sempro->delete();

@@ -41,6 +41,7 @@ class MahasiswaController extends Controller
             'nim_or_nidn.min' => 'The nim field must be at least 5 characters.',
             'nim_or_nidn.max' => 'The nim field must not be greater than 8 characters.',
         ]);
+        $validateData['tahun_ajaran'] = date('Y') - 1 . '/' . date('Y');
 
         $validateData['password'] = bcrypt($validateData['password']);
 

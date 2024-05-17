@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('tanggal_lahir')->nullable();
             $table->string('alamat')->nullable();
             $table->string('no_hp')->nullable();
-            $table->integer('angkatan')->nullable();
+            $table->string('tahun_ajaran')->nullable();
             $table->enum('status', ['active', 'lulus'])->default('active');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

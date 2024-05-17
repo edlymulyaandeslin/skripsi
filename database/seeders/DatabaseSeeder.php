@@ -53,6 +53,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Urfi Utami M.Kom',
             'email' => 'urfiutami@gmail.com',
         ]);
+
         // dosen
         User::factory()->create([
             'role_id' => 3,

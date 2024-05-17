@@ -159,6 +159,9 @@ class JudulController extends Controller
         $rules = [
             'status' => 'required',
         ];
+        if ($request->filled('judul')) {
+            $rules['judul'] = 'required';
+        }
         if ($request->filled('pembimbing1_id')) {
             $rules['pembimbing1_id'] = 'required';
         }

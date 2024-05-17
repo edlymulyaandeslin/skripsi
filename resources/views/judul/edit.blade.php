@@ -11,7 +11,7 @@
                         @csrf
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control @error('judul') is-invalid @enderror" id="floatingInput"
-                                placeholder="judul" name="judul" value="{{ old('judul', $judul->judul) }}" readonly>
+                                placeholder="judul" name="judul" value="{{ old('judul', $judul->judul) }}">
                             <label for="judul">Judul</label>
                             @error('judul')
                                 <p class="text-danger">{{ $message }}</p>
@@ -31,13 +31,13 @@
                             <select class="form-select @error('pembimbing1_id') is-invalid @enderror" name="pembimbing1_id">
                                 <option selected value="{{ null }}">Pilih</option>
 
-                                @foreach ($dosens as $key => $dosen)
-                                    @if (old('pembimbing1_id', $judul->pembimbing1_id) == $dosen->id && $judul->pembimbing1_id !== 0)
+                                @foreach ($dosens as $dosen)
+                                    @if (old('pembimbing1_id', $judul->pembimbing1_id) == $dosen->id && $judul->pembimbing1_id != null)
                                         @php
                                             $jumlahJudulDosen = 0;
                                         @endphp
-                                        @foreach ($alljuduls as $judul)
-                                            @if ($judul->pembimbing1_id == $dosen->id || $judul->pembimbing2_id == $dosen->id)
+                                        @foreach ($alljuduls as $judull)
+                                            @if ($judull->pembimbing1_id == $dosen->id || $judull->pembimbing2_id == $dosen->id)
                                                 @php
                                                     $jumlahJudulDosen++;
                                                 @endphp
@@ -50,8 +50,8 @@
                                         @php
                                             $jumlahJudulDosen = 0;
                                         @endphp
-                                        @foreach ($alljuduls as $judul)
-                                            @if ($judul->pembimbing1_id == $dosen->id || $judul->pembimbing2_id == $dosen->id)
+                                        @foreach ($alljuduls as $judull)
+                                            @if ($judull->pembimbing1_id == $dosen->id || $judull->pembimbing2_id == $dosen->id)
                                                 @php
                                                     $jumlahJudulDosen++;
                                                 @endphp
@@ -61,6 +61,7 @@
                                         </option>
                                     @endif
                                 @endforeach
+
                             </select>
                             <label for="floatingSelect">Pembimbing 1</label>
                             @error('pembimbing1_id')
@@ -71,13 +72,14 @@
                         <div class="form-floating mb-3">
                             <select class="form-select @error('pembimbing2_id') is-invalid @enderror" name="pembimbing2_id">
                                 <option selected value="{{ null }}">Pilih</option>
+
                                 @foreach ($dosens as $dosen)
-                                    @if (old('pembimbing2_id', $judul->pembimbing2_id) == $dosen->id && $judul->pembimbing2_id !== 0)
+                                    @if (old('pembimbing2_id', $judul->pembimbing2_id) == $dosen->id && $judul->pembimbing2_id != null)
                                         @php
                                             $jumlahJudulDosen = 0;
                                         @endphp
-                                        @foreach ($alljuduls as $judul)
-                                            @if ($judul->pembimbing1_id == $dosen->id || $judul->pembimbing2_id == $dosen->id)
+                                        @foreach ($alljuduls as $judull)
+                                            @if ($judull->pembimbing1_id == $dosen->id || $judull->pembimbing2_id == $dosen->id)
                                                 @php
                                                     $jumlahJudulDosen++;
                                                 @endphp
@@ -90,8 +92,8 @@
                                         @php
                                             $jumlahJudulDosen = 0;
                                         @endphp
-                                        @foreach ($alljuduls as $judul)
-                                            @if ($judul->pembimbing1_id == $dosen->id || $judul->pembimbing2_id == $dosen->id)
+                                        @foreach ($alljuduls as $judull)
+                                            @if ($judull->pembimbing1_id == $dosen->id || $judull->pembimbing2_id == $dosen->id)
                                                 @php
                                                     $jumlahJudulDosen++;
                                                 @endphp
@@ -101,6 +103,7 @@
                                         </option>
                                     @endif
                                 @endforeach
+
                             </select>
                             <label for="floatingSelect">Pembimbing 2</label>
                             @error('pembimbing2_id')

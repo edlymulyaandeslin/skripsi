@@ -10,7 +10,6 @@
                     <p>Untuk pendaftaran seminar proposal kamu harus mengupload beberapa dokumen tambahan, detailnya <a
                             href="/manajemen/dokumen">Klik disini</a></p>
                     <hr>
-                    <p class="mb-0">#Keepspiritkids!</p>
                 </div>
             @elseif ($sempro->count() != 0)
                 <div class="bg-light rounded h-100 p-4">
@@ -23,7 +22,6 @@
                                     disini</a>.
                             </p>
                             <hr>
-                            <p class="mb-0">#niceee!</p>
                         </div>
                     @else
                         <div class="alert alert-warning" role="alert">
@@ -31,7 +29,6 @@
                             <p>Pengajuan kamu sedang kami check dan proses, mohon ditunggu info selanjutnya ya!
                             </p>
                             <hr>
-                            <p class="mb-0">Tetap semangat!</p>
                         </div>
                     @endif
 
@@ -98,7 +95,7 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary d-none" id="btnUpdate">Simpan</button>
+                        <button type="submit" class="btn btn-primary d-none" id="btnUpdate">Daftar</button>
                     </form>
 
                 </div>
@@ -146,7 +143,7 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Daftar</button>
                     </form>
                 </div>
             @endif

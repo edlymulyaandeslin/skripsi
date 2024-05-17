@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Judul;
 use App\Models\Kompre;
 use App\Models\Sempro;
 use App\Models\User;
 
 class LaporanController extends Controller
 {
+    public function rekapJudul()
+    {
+        $judulAcc = Judul::with('mahasiswa')->where('status', 'diterima')->filter(request(['search']))->paginate(10)->withQueryString();
+
+        return view('report.rekap-judul', [
+            'title' => 'E - Skripsi | Rekap Judul',
+            'juduls' => $judulAcc
+        ]);
+    }
+
     public function seminar()
     {
         $users = User::with([
