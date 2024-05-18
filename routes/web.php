@@ -16,9 +16,10 @@ use App\Http\Controllers\MahasiswaSkripsiController;
 use App\Http\Controllers\NilaiKompreController;
 use App\Http\Controllers\NilaiSemproController;
 use App\Http\Controllers\ProfileUpdate;
-use App\Http\Controllers\RekapJudulController;
 use App\Http\Controllers\SemproController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,7 +94,6 @@ Route::prefix('auth')->group(function () {
     // route login
     route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
     route::post('/login', [AuthController::class, 'authenticate']);
-
     // route logout
     route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 });
@@ -128,6 +128,9 @@ Route::prefix('cetak')->group(function () {
 
     // Cetak List mahasiswa lulus yudisium
     Route::post('/yudisium', [CetakController::class, 'cetak_yudisium'])->middleware('koordinator');
+
+    // Cetak List judul yang sudah diacc
+    Route::get('/list-judul', [CetakController::class, 'cetak_listJudul'])->middleware('koordinator');
 });
 
 // setting bobot

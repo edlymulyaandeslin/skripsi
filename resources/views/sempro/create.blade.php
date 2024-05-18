@@ -15,18 +15,25 @@
                 <div class="bg-light rounded h-100 p-4">
                     <h4>Daftar Seminar Proposal</h4>
 
-                    @if ($sempro[0]->status == 'diterima')
-                        <div class="alert alert-success" role="alert">
-                            <h4 class="alert-heading">ACCEPTED!</h4>
-                            <p>Selamat pengajuan seminar proposal kamu diterima, untuk melihat jadwal <a href="/sempro">klik
-                                    disini</a>.
+                    @if ($sempro[0]->status == 'diajukan')
+                        <div class="alert alert-warning" role="alert">
+                            <h4 class="alert-heading">PENDING!</h4>
+                            <p>Pengajuan kamu sedang kami check dan proses, mohon ditunggu info selanjutnya ya!
+                            </p>
+                            <hr>
+                        </div>
+                    @elseif ($sempro[0]->status == 'perbaikan')
+                        <div class="alert alert-warning" role="alert">
+                            <h4 class="alert-heading">DOCUMENT IMPROVEMENTS!</h4>
+                            <p>Silakan cek dokumen yang harus di perbaiki, dan lakukan upload ulang!
                             </p>
                             <hr>
                         </div>
                     @else
-                        <div class="alert alert-warning" role="alert">
-                            <h4 class="alert-heading">PENDING!</h4>
-                            <p>Pengajuan kamu sedang kami check dan proses, mohon ditunggu info selanjutnya ya!
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">ACCEPTED!</h4>
+                            <p>Selamat pengajuan seminar proposal kamu diterima, untuk melihat jadwal <a href="/sempro">klik
+                                    disini</a>.
                             </p>
                             <hr>
                         </div>
@@ -95,7 +102,7 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary d-none" id="btnUpdate">Daftar</button>
+                        <button type="submit" class="btn btn-primary d-none" id="btnUpdate">Update</button>
                     </form>
 
                 </div>

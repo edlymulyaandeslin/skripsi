@@ -54,8 +54,8 @@
                                     @php
                                         $jumlahPengujiKompre = 0;
                                     @endphp
-                                    @foreach ($allkompre as $kompre)
-                                        @if ($kompre->penguji1_id == $dosen->id || $kompre->penguji2_id == $dosen->id || $kompre->penguji3_id == $dosen->id)
+                                    @foreach ($allkompre as $kompree)
+                                        @if ($kompree->penguji1_id == $dosen->id || $kompree->penguji2_id == $dosen->id || $kompree->penguji3_id == $dosen->id)
                                             @php
                                                 $jumlahPengujiKompre++;
                                             @endphp
@@ -78,8 +78,8 @@
                                     @php
                                         $jumlahPengujiKompre = 0;
                                     @endphp
-                                    @foreach ($allkompre as $kompre)
-                                        @if ($kompre->penguji1_id == $dosen->id || $kompre->penguji2_id == $dosen->id || $kompre->penguji3_id == $dosen->id)
+                                    @foreach ($allkompre as $kompree)
+                                        @if ($kompree->penguji1_id == $dosen->id || $kompree->penguji2_id == $dosen->id || $kompree->penguji3_id == $dosen->id)
                                             @php
                                                 $jumlahPengujiKompre++;
                                             @endphp
@@ -104,8 +104,8 @@
                                     @php
                                         $jumlahPengujiKompre = 0;
                                     @endphp
-                                    @foreach ($allkompre as $kompre)
-                                        @if ($kompre->penguji1_id == $dosen->id || $kompre->penguji2_id == $dosen->id || $kompre->penguji3_id == $dosen->id)
+                                    @foreach ($allkompre as $kompree)
+                                        @if ($kompree->penguji1_id == $dosen->id || $kompree->penguji2_id == $dosen->id || $kompree->penguji3_id == $dosen->id)
                                             @php
                                                 $jumlahPengujiKompre++;
                                             @endphp
@@ -128,8 +128,8 @@
                                     @php
                                         $jumlahPengujiKompre = 0;
                                     @endphp
-                                    @foreach ($allkompre as $kompre)
-                                        @if ($kompre->penguji1_id == $dosen->id || $kompre->penguji2_id == $dosen->id || $kompre->penguji3_id == $dosen->id)
+                                    @foreach ($allkompre as $kompree)
+                                        @if ($kompree->penguji1_id == $dosen->id || $kompree->penguji2_id == $dosen->id || $kompree->penguji3_id == $dosen->id)
                                             @php
                                                 $jumlahPengujiKompre++;
                                             @endphp
@@ -154,8 +154,8 @@
                                     @php
                                         $jumlahPengujiKompre = 0;
                                     @endphp
-                                    @foreach ($allkompre as $kompre)
-                                        @if ($kompre->penguji1_id == $dosen->id || $kompre->penguji2_id == $dosen->id || $kompre->penguji3_id == $dosen->id)
+                                    @foreach ($allkompre as $kompree)
+                                        @if ($kompree->penguji1_id == $dosen->id || $kompree->penguji2_id == $dosen->id || $kompree->penguji3_id == $dosen->id)
                                             @php
                                                 $jumlahPengujiKompre++;
                                             @endphp
@@ -178,8 +178,8 @@
                                     @php
                                         $jumlahPengujiKompre = 0;
                                     @endphp
-                                    @foreach ($allkompre as $kompre)
-                                        @if ($kompre->penguji1_id == $dosen->id || $kompre->penguji2_id == $dosen->id || $kompre->penguji3_id == $dosen->id)
+                                    @foreach ($allkompre as $kompree)
+                                        @if ($kompree->penguji1_id == $dosen->id || $kompree->penguji2_id == $dosen->id || $kompree->penguji3_id == $dosen->id)
                                             @php
                                                 $jumlahPengujiKompre++;
                                             @endphp

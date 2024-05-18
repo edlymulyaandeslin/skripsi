@@ -19,8 +19,7 @@
                 @can('koordinator')
                     <div>
                         <label for="">Mahasiswa Seminar : </label>
-                        <a href="/cetak/list-mahasiswa-seminar" class="btn btn-danger btn-sm"><i
-                                class="fa fa-file-download"></i>
+                        <a href="/cetak/list-judul" class="btn btn-danger btn-sm"><i class="fa fa-file-download"></i>
                             Cetak</a>
                     </div>
                 @endcan

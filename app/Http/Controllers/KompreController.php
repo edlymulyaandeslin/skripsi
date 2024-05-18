@@ -146,7 +146,9 @@ class KompreController extends Controller
         $lembarbimbingan = 'document_' . str()->random(10) . '.' . $request->file('lembar_bimbingan')->extension();
         $validateData['lembar_bimbingan'] = $request->file('lembar_bimbingan')->storeAs('doc-bimbingan', $lembarbimbingan);
 
-        Kompre::where('status', 'tidak lulus')->get()->each(function ($kompre) {
+        Kompre::whereHas('judul', function ($query) {
+            $query->where('mahasiswa_id', auth()->user()->id);
+        })->where('status', 'tidak lulus')->get()->each(function ($kompre) {
             Storage::delete($kompre->pembayaran);
             Storage::delete($kompre->lembar_bimbingan);
             $kompre->delete();

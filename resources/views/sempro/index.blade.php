@@ -254,7 +254,6 @@
                         <div class="mb-3">
                             <label for="krs" class="form-label">KRS</label>
                             <a href="#" id="krs" class="form-control">Download</a>
-
                         </div>
                         <div class="mb-3">
                             <label for="transkipnilai" class="form-label">Transkip Nilai</label>
@@ -281,6 +280,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('script')
@@ -292,7 +292,6 @@
                 $.get(judulUrl, function(data) {
                     $('#semproView').modal('show');
 
-                    console.log(data)
                     $('#mahasiswa').val(data.judul.mahasiswa.name);
 
                     $('#judul').val(data.judul.judul);
@@ -318,8 +317,6 @@
 
                     $('#status').val(data.status);
 
-
-
                     data.penguji1 ? $('#penguji1').val(data.penguji1.name) : $('#penguji1').val(
                         '-');
                     data.penguji2 ? $('#penguji2').val(data.penguji2.name) : $('#penguji2').val(
@@ -332,7 +329,7 @@
                     data.judul.pembimbing2 ? $('#pembimbing2').val(data.judul.pembimbing2.name) : $(
                         '#pembimbing2').val('-');
 
-
+                    // Update URL di link untuk preview PDF
                     $('#krs').attr('href', 'storage/' + data.judul.mahasiswa.dokumen.krs);
                     $('#transkipnilai').attr('href', 'storage/' + data.judul.mahasiswa.dokumen
                         .transkip_nilai);
@@ -340,8 +337,6 @@
                         .hadir_seminar);
                     $('#lembarbimbingan').attr('href', 'storage/' + data.lembar_bimbingan);
                     $('#pembayaran').attr('href', 'storage/' + data.pembayaran);
-
-
                 })
             })
         })

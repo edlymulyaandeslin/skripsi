@@ -460,6 +460,10 @@ class NilaiKompreController extends Controller
             $kompre->update([
                 'status' => 'lulus',
             ]);
+
+            $kompre->judul->mahasiswa->update([
+                'status' => 'lulus'
+            ]);
         } else {
             $kompre->update([
                 'status' => 'tidak lulus',

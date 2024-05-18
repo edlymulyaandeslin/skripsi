@@ -71,13 +71,6 @@ class CetakController extends Controller
     {
         $kompre->load(['judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2', 'penguji1', 'penguji2', 'penguji3', 'nilaikompre']);
 
-        // return view('cetak.berita-acara-kompre', [
-        //     'title' => 'SEMINAR KOMPREHENSIF',
-        //     'kompre' => $kompre,
-        //     'kaprodi' => User::where('role_id', 3)->where('posisi', 'kaprodi')->get(),
-        //     'bobot' => Bobot::first()
-        // ]);
-
         $data = [
             'title' => 'SEMINAR KOMPREHENSIF',
             'kompre' => $kompre,
@@ -182,14 +175,11 @@ class CetakController extends Controller
             'judul.kompre.penguji1', 'judul.kompre.penguji2', 'judul.kompre.penguji3'
         ])
             ->where(function ($query) use ($tanggalAwal, $tanggalAkhir) {
-                $query->whereHas('judul.sempro', function ($query) {
-                    $query->where('status', 'lulus');
-                })
-                    ->whereHas('judul.kompre', function ($query) use ($tanggalAwal, $tanggalAkhir) {
-                        $query->where('status', 'lulus')
-                            ->whereBetween('updated_at', [$tanggalAwal, $tanggalAkhir]);
-                    });
+                $query->whereHas('judul.kompre', function ($query) use ($tanggalAwal, $tanggalAkhir) {
+                    $query->whereBetween('updated_at', [$tanggalAwal, $tanggalAkhir]);
+                });
             })->where('role_id', 4)
+            ->where('status', 'lulus')
             ->latest()
             ->get();
 
@@ -208,4 +198,25 @@ class CetakController extends Controller
         return $pdf->download('mahasiswa-yudisium.pdf');
     }
     // end list mahasiswa lulus yudisium
+
+    // start list judul acc
+    public function cetak_listJudul()
+    {
+        $listJudul = session('list-judul');
+
+        if ($listJudul->count() == 0) {
+            Alert::info('Info', 'Tidak ada rekap judul pada periode ini');
+            return back();
+        }
+
+        $data = [
+            'title' => 'Rekap Judul',
+            'juduls' => $listJudul,
+        ];
+
+        $pdf = Pdf::loadView('cetak.list-rekap-judul', $data);
+        return $pdf->download('rekap-judul.pdf');
+    }
+    // end list judul acc
+
 }

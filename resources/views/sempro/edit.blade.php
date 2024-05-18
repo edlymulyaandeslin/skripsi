@@ -54,8 +54,8 @@
                                     @php
                                         $jumlahPengujiSempro = 0;
                                     @endphp
-                                    @foreach ($allsempro as $sempro)
-                                        @if ($sempro->penguji1_id == $dosen->id || $sempro->penguji2_id == $dosen->id || $sempro->penguji3_id == $dosen->id)
+                                    @foreach ($allsempro as $semproo)
+                                        @if ($semproo->penguji1_id == $dosen->id || $semproo->penguji2_id == $dosen->id || $semproo->penguji3_id == $dosen->id)
                                             @php
                                                 $jumlahPengujiSempro++;
                                             @endphp
@@ -78,8 +78,8 @@
                                     @php
                                         $jumlahPengujiSempro = 0;
                                     @endphp
-                                    @foreach ($allsempro as $sempro)
-                                        @if ($sempro->penguji1_id == $dosen->id || $sempro->penguji2_id == $dosen->id || $sempro->penguji3_id == $dosen->id)
+                                    @foreach ($allsempro as $semproo)
+                                        @if ($semproo->penguji1_id == $dosen->id || $semproo->penguji2_id == $dosen->id || $semproo->penguji3_id == $dosen->id)
                                             @php
                                                 $jumlahPengujiSempro++;
                                             @endphp
@@ -104,8 +104,8 @@
                                     @php
                                         $jumlahPengujiSempro = 0;
                                     @endphp
-                                    @foreach ($allsempro as $sempro)
-                                        @if ($sempro->penguji1_id == $dosen->id || $sempro->penguji2_id == $dosen->id || $sempro->penguji3_id == $dosen->id)
+                                    @foreach ($allsempro as $semproo)
+                                        @if ($semproo->penguji1_id == $dosen->id || $semproo->penguji2_id == $dosen->id || $semproo->penguji3_id == $dosen->id)
                                             @php
                                                 $jumlahPengujiSempro++;
                                             @endphp
@@ -128,8 +128,8 @@
                                     @php
                                         $jumlahPengujiSempro = 0;
                                     @endphp
-                                    @foreach ($allsempro as $sempro)
-                                        @if ($sempro->penguji1_id == $dosen->id || $sempro->penguji2_id == $dosen->id || $sempro->penguji3_id == $dosen->id)
+                                    @foreach ($allsempro as $semproo)
+                                        @if ($semproo->penguji1_id == $dosen->id || $semproo->penguji2_id == $dosen->id || $semproo->penguji3_id == $dosen->id)
                                             @php
                                                 $jumlahPengujiSempro++;
                                             @endphp
@@ -154,8 +154,8 @@
                                     @php
                                         $jumlahPengujiSempro = 0;
                                     @endphp
-                                    @foreach ($allsempro as $sempro)
-                                        @if ($sempro->penguji1_id == $dosen->id || $sempro->penguji2_id == $dosen->id || $sempro->penguji3_id == $dosen->id)
+                                    @foreach ($allsempro as $semproo)
+                                        @if ($semproo->penguji1_id == $dosen->id || $semproo->penguji2_id == $dosen->id || $semproo->penguji3_id == $dosen->id)
                                             @php
                                                 $jumlahPengujiSempro++;
                                             @endphp
@@ -178,8 +178,8 @@
                                     @php
                                         $jumlahPengujiSempro = 0;
                                     @endphp
-                                    @foreach ($allsempro as $sempro)
-                                        @if ($sempro->penguji1_id == $dosen->id || $sempro->penguji2_id == $dosen->id || $sempro->penguji3_id == $dosen->id)
+                                    @foreach ($allsempro as $semproo)
+                                        @if ($semproo->penguji1_id == $dosen->id || $semproo->penguji2_id == $dosen->id || $semproo->penguji3_id == $dosen->id)
                                             @php
                                                 $jumlahPengujiSempro++;
                                             @endphp

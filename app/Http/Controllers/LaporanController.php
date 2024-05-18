@@ -11,6 +11,11 @@ class LaporanController extends Controller
 {
     public function rekapJudul()
     {
+
+        $judulAccSess = Judul::with('mahasiswa')->where('status', 'diterima')->filter(request(['search']))->latest()->get();
+
+        session(['list-judul' => $judulAccSess]);
+
         $judulAcc = Judul::with('mahasiswa')->where('status', 'diterima')->filter(request(['search']))->paginate(10)->withQueryString();
 
         return view('report.rekap-judul', [
@@ -77,24 +82,12 @@ class LaporanController extends Controller
             'judul.pembimbing1', 'judul.pembimbing2',
             'judul.sempro.penguji1', 'judul.sempro.penguji2', 'judul.sempro.penguji3',
             'judul.kompre.penguji1', 'judul.kompre.penguji2', 'judul.kompre.penguji3'
-        ])
-            ->whereHas('judul.sempro', function ($query) {
-                $query->where('status', 'lulus');
-            })
-            ->whereHas('judul.kompre', function ($query) {
-                $query->where('status', 'lulus');
-            })
-            ->where('role_id', 4)
+        ])->where('role_id', 4)
+            ->where('status', 'lulus')
             ->latest()
             ->filter(request(['search']))
             ->paginate(10)
             ->withQueryString();
-
-        if ($users->isNotEmpty()) {
-            foreach ($users as $user) {
-                $user->update(['status' => 'lulus']);
-            }
-        }
 
         return view('report.yudisium', [
             'title' => 'E - Skripsi | Yudisium',

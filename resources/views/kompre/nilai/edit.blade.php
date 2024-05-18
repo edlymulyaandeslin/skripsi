@@ -336,7 +336,7 @@
                     </form>
                 </div>
             </div>
-            end form nilai pembimbing2
+            {{-- end form nilai pembimbing2 --}}
         @else
             <div class="col-md-12">
                 <div class="alert alert-warning" role="alert">
