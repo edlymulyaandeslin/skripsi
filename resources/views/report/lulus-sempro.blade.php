@@ -15,13 +15,13 @@
                         </div>
                     </form>
                 </div>
-                @can('koordinator')
+                {{-- @can('koordinator')
                     <div>
                         <label for="">Lulus Sempro :</label>
                         <a href="/cetak/lulus-sempro" class="btn btn-danger btn-sm"><i class="fa fa-file-download"></i>
                             Cetak</a>
                     </div>
-                @endcan
+                @endcan --}}
             </div>
 
             <div class="table-responsive">

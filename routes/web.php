@@ -123,8 +123,8 @@ Route::prefix('cetak')->group(function () {
     Route::get('/list-mahasiswa-seminar', [CetakController::class, 'cetak_listMahasiswaSeminar'])->middleware('koordinator');
 
     // Cetak List mahasiswa lulus sempro
-    Route::get('/lulus-sempro', [CetakController::class, 'cetak_lulusSempro'])->middleware('koordinator');
-    Route::get('/lulus-kompre', [CetakController::class, 'cetak_lulusKompre'])->middleware('koordinator');
+    // Route::get('/lulus-sempro', [CetakController::class, 'cetak_lulusSempro'])->middleware('koordinator');
+    // Route::get('/lulus-kompre', [CetakController::class, 'cetak_lulusKompre'])->middleware('koordinator');
 
     // Cetak List mahasiswa lulus yudisium
     Route::post('/yudisium', [CetakController::class, 'cetak_yudisium'])->middleware('koordinator');
