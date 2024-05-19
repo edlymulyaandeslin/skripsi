@@ -15,13 +15,28 @@
                         </div>
                     </form>
                 </div>
-                {{-- @can('koordinator')
-                    <div>
-                        <label for="">Lulus Kompre :</label>
-                        <a href="/cetak/lulus-kompre" class="btn btn-danger btn-sm"><i class="fa fa-file-download"></i>
-                            Cetak</a>
+                @can('koordinator')
+                    <div class="col-md-4">
+                        <form action="/cetak/lulus-kompre" class="d-flex flex-column gap-2" method="post">
+                            @csrf
+                            <div class="d-flex gap-2">
+                                <div class="w-100">
+                                    <label for="">Tanggal</label>
+                                    <input type="date" class="form-control" name="tanggalAwal"
+                                        value="{{ old('tanggalAwal') }}" required>
+                                </div>
+                                <div class="w-100">
+                                    <label for="">Sampai</label>
+                                    <input type="date" class="form-control" name="tanggalAkhir"
+                                        value="{{ old('tanggalAkhir') }}" required>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-file-download"></i>
+                                Cetak</button>
+                        </form>
                     </div>
-                @endcan --}}
+                @endcan
             </div>
 
             <div class="table-responsive">

@@ -16,12 +16,12 @@
                     </form>
                 </div>
                 @can('koordinator')
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <form action="/cetak/yudisium" class="d-flex flex-column gap-2" method="post">
                             @csrf
                             <div class="d-flex gap-2">
                                 <div class="w-100">
-                                    <label for="">Periode</label>
+                                    <label for="">Tanggal</label>
                                     <input type="date" class="form-control" name="tanggalAwal"
                                         value="{{ old('tanggalAwal') }}" required>
                                 </div>
