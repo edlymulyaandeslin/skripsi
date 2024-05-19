@@ -192,7 +192,7 @@ class CetakController extends Controller
         }
 
         $users = User::with([
-            'judul.kompre'
+            'judul.kompre.nilaikompre', 'judul.sempro.nilaisempro'
         ])
             ->where('role_id', 4)
             ->where('status', 'lulus')

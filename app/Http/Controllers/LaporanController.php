@@ -79,9 +79,7 @@ class LaporanController extends Controller
     public function yudisium()
     {
         $users = User::with([
-            'judul.pembimbing1', 'judul.pembimbing2',
-            'judul.sempro.penguji1', 'judul.sempro.penguji2', 'judul.sempro.penguji3',
-            'judul.kompre.penguji1', 'judul.kompre.penguji2', 'judul.kompre.penguji3'
+            'judul.kompre.nilaikompre', 'judul.sempro.nilaisempro'
         ])->where('role_id', 4)
             ->where('status', 'lulus')
             ->latest()

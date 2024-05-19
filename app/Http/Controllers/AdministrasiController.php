@@ -21,9 +21,9 @@ class AdministrasiController extends Controller
             $dosens = User::where('role_id', 3)->latest()->filter(request(['search']))->paginate(10)->withQueryString();
         }
 
-        $sempros = Sempro::with(['judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2'])->where('status', 'lulus')->latest()->get();
-        $kompres = Kompre::with(['judul.mahasiswa', 'judul.pembimbing1', 'judul.pembimbing2'])->where('status', 'lulus')->latest()->get();
-        $administrasi = Administrasi::with(['dosen'])->latest()->get();
+        $sempros = Sempro::with(['judul'])->where('status', 'lulus')->latest()->get();
+        $kompres = Kompre::with(['judul'])->where('status', 'lulus')->latest()->get();
+        $administrasi = Administrasi::latest()->get();
 
         return view('administrasi.index', [
             'title' => 'Administrasi',
@@ -79,8 +79,7 @@ class AdministrasiController extends Controller
     {
         $dosen = User::find($id);
 
-        $administrasi = Administrasi::with('dosen')
-            ->where('dosen_id', $id)
+        $administrasi = Administrasi::where('dosen_id', $id)
             ->latest()->paginate(10);
 
         return view('administrasi.edit', [
