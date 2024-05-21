@@ -116,23 +116,12 @@ class CetakController extends Controller
 
 
     // list mahasiswa lulus sempro
-    public function cetak_lulusSempro(Request $request)
+    public function cetak_lulusSempro()
     {
-        $tanggalAwal = $request->tanggalAwal;
-        $tanggalAkhir = $request->tanggalAkhir;
-
-        if ($tanggalAwal > $tanggalAkhir) {
-            Alert::warning('Warning', 'Tanggal Awal Tidak Boleh Lebih Besar Daripada Tanggal Akhir');
-            return back();
-        }
-
-        $sempros = Sempro::with(['judul.mahasiswa', 'nilaisempro'])
-            ->where('status', 'lulus')
-            ->whereBetween('tanggal_seminar', [$tanggalAwal, $tanggalAkhir])
-            ->latest()->get();
+        $sempros = session('lulus-sempro');
 
         if ($sempros->count() == 0) {
-            Alert::info('Info', 'Tidak Ada Mahasiswa Pada Tanggal Yang Di Pilih');
+            Alert::info('Info', 'Tidak Ada Mahasiswa Pada Periode ini');
             return back();
         }
 
@@ -149,20 +138,9 @@ class CetakController extends Controller
 
 
     // list mahasiswa lulus kompre
-    public function cetak_lulusKompre(Request $request)
+    public function cetak_lulusKompre()
     {
-        $tanggalAwal = $request->tanggalAwal;
-        $tanggalAkhir = $request->tanggalAkhir;
-
-        if ($tanggalAwal > $tanggalAkhir) {
-            Alert::warning('Warning', 'Tanggal Awal Tidak Boleh Lebih Besar Daripada Tanggal Akhir');
-            return back();
-        }
-
-        $kompres = Kompre::with(['judul.mahasiswa', 'nilaikompre'])
-            ->where('status', 'lulus')
-            ->whereBetween('tanggal_seminar', [$tanggalAwal, $tanggalAkhir])
-            ->latest()->get();
+        $kompres = session('lulus-kompre');
 
         if ($kompres->count() == 0) {
             Alert::info('Info', 'Tidak Ada Mahasiswa Pada Tanggal Yang Di Pilih');

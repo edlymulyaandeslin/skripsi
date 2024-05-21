@@ -65,6 +65,7 @@
                                     <th>Judul</th>
                                     <th style="width: 18%">Tanggal Seminar</th>
                                     <th style="width: 10%">Nilai</th>
+                                    <th style="width: 15%">Tahun Ajaran</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody">
@@ -102,6 +103,7 @@
                                                     25
                                                 : 0 }}
                                             </td>
+                                            <td>{{ $kompre->judul->mahasiswa->tahun_ajaran ?? '-' }}</td>
                                         </tr>
                                     @endforeach
                                 @else

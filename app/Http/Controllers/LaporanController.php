@@ -52,6 +52,13 @@ class LaporanController extends Controller
     }
     public function lulusSempro()
     {
+        $semproLulusSess = Sempro::with(['judul.mahasiswa', 'nilaisempro'])->where('status', 'lulus')
+            ->latest()
+            ->filter(request(['search']))
+            ->get();
+
+        session(['lulus-sempro' => $semproLulusSess]);
+
         $sempros = Sempro::with(['judul.mahasiswa', 'nilaisempro'])->where('status', 'lulus')
             ->latest()
             ->filter(request(['search']))
@@ -65,6 +72,13 @@ class LaporanController extends Controller
     }
     public function lulusKompre()
     {
+        $kompreLulusSess = Kompre::with(['judul.mahasiswa', 'nilaikompre'])->where('status', 'lulus')
+            ->latest()
+            ->filter(request(['search']))
+            ->get();
+
+        session(['lulus-kompre' => $kompreLulusSess]);
+
         $kompres = Kompre::with(['judul.mahasiswa', 'nilaikompre'])->where('status', 'lulus')
             ->latest()
             ->filter(request(['search']))

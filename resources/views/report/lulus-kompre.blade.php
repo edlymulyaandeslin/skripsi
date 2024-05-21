@@ -16,25 +16,9 @@
                     </form>
                 </div>
                 @can('koordinator')
-                    <div class="col-md-4">
-                        <form action="/cetak/lulus-kompre" class="d-flex flex-column gap-2" method="post">
-                            @csrf
-                            <div class="d-flex gap-2">
-                                <div class="w-100">
-                                    <label for="">Tanggal</label>
-                                    <input type="date" class="form-control" name="tanggalAwal"
-                                        value="{{ old('tanggalAwal') }}" required>
-                                </div>
-                                <div class="w-100">
-                                    <label for="">Sampai</label>
-                                    <input type="date" class="form-control" name="tanggalAkhir"
-                                        value="{{ old('tanggalAkhir') }}" required>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-file-download"></i>
-                                Cetak</button>
-                        </form>
+                    <div>
+                        <a href="/cetak/lulus-kompre" class="btn btn-danger btn-sm"><i class="fa fa-file-download"></i>
+                            Cetak</a>
                     </div>
                 @endcan
             </div>
@@ -49,6 +33,7 @@
                             <th scope="col">Judul</th>
                             <th scope="col">Tanggal Seminar</th>
                             <th scope="col">Nilai</th>
+                            <th scope="col">Tahun Ajaran</th>
                             <th scope="col">Berita Acara</th>
                         </tr>
                     </thead>
@@ -100,6 +85,7 @@
                                     @else
                                         <td>{{ 0 }}</td>
                                     @endif
+                                    <td>{{ $kompre->judul->mahasiswa->tahun_ajaran }}</td>
 
                                     <td>
                                         <a href="/cetak/berita-acara-kompre/{{ $kompre->id }}/download/pdf">

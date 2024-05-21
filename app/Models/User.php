@@ -81,17 +81,12 @@ class User extends Authenticatable
                         ->orWhereHas('kompre.penguji3', function ($query) use ($search) {
                             $query->where('name', 'like', '%' . $search . '%');
                         });
-                });
+                })
+                ->orWhere('tahun_ajaran', 'like', '%' . $search . '%');
         });
     }
 
-    // public function scopeCari($query, array $cari)
-    // {
-    //     $query->when($cari['search'] ?? false, function ($query, $search) {
-    //         return $query->where('nim_or_nidn', 'like', '%' . $search . '%')
-    //             ->orWhere('name', 'like', '%' . $search . '%');
-    //     });
-    // }
+
 
 
     public function role(): BelongsTo

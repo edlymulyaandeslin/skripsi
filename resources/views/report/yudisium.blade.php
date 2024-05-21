@@ -49,6 +49,7 @@
                             <th scope="col">Judul</th>
                             <th scope="col">Tanggal Lulus</th>
                             <th scope="col">Nilai</th>
+                            <th scope="col">Tahun Ajaran</th>
                             <th scope="col">Status</th>
                         </tr>
                     </thead>
@@ -128,6 +129,7 @@
                                             <td>
                                                 {{ ($nilaisempro + $nilaikompre) / 2 }}
                                             </td>
+                                            <td>{{ $judul->mahasiswa->tahun_ajaran }}</td>
                                             <td>
                                                 <span class="bg-primary text-white px-3 py-1 rounded">
                                                     {{ $user->status }}

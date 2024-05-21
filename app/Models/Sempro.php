@@ -20,7 +20,8 @@ class Sempro extends Model
                 $query->where('judul', 'like', '%' . $search . '%')
                     ->orWhereHas('mahasiswa', function ($query) use ($search) {
                         $query->where('nim_or_nidn', 'like', '%' . $search . '%')
-                            ->orWhere('name', 'like', '%' . $search . '%');
+                            ->orWhere('name', 'like', '%' . $search . '%')
+                            ->orWhere('tahun_ajaran', 'like', '%' . $search . '%');
                     });
             });
         });

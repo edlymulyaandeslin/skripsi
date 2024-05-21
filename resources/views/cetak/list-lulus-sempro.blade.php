@@ -65,6 +65,7 @@
                                     <th>Judul</th>
                                     <th style="width: 18%">Tanggal Seminar</th>
                                     <th style="width: 10%">Nilai</th>
+                                    <th style="width: 15%">Tahun Ajaran</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody">
@@ -112,6 +113,7 @@
                                                     5
                                                 : 0 }}
                                             </td>
+                                            <td>{{ $sempro->judul->mahasiswa->tahun_ajaran ?? '-' }}</td>
                                         </tr>
                                     @endforeach
                                 @else
