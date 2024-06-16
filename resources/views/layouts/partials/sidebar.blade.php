@@ -20,7 +20,8 @@
                 <h6 class="mb-0">{{ auth()->user()->name }}</h6>
                 <span>{{ auth()->user()->role->name }}</span>
                 <br>
-                @unless (auth()->user()->can('admin') || auth()->user()->can('koordinator'))
+
+                @unless (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
                     <span>{{ auth()->user()->role_id === 4 ? 'NIM. ' : 'NIDN. ' }}{{ auth()->user()->nim_or_nidn }}</span>
                 @endunless
 
@@ -30,15 +31,15 @@
         <div class="navbar-nav w-100">
             <a href="/" class="nav-item nav-link {{ Request::is('/*') ? 'active' : '' }}"><i
                     class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-            {{-- @if (auth()->user()->dokumen != null) --}}
+
             <a href="{{ route('judul.index') }}"
                 class="nav-item nav-link {{ Request::is('judul*') ? 'active' : '' }} "><i
                     class="fa fa-book me-2"></i>Judul</a>
 
-            @cannot('koordinator')
+            @unless (auth()->user()->role_id == 2)
                 <a href="/logbook" class="nav-item nav-link {{ Request::is('logbook*') ? 'active' : '' }}"><i
                         class="fa fa-book-open me-2"></i>Bimbingan</a>
-            @endcannot
+            @endunless
 
             <div class="nav-item dropdown">
                 <a href="#"
@@ -46,18 +47,18 @@
                     data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Sempro</a>
                 <div class="dropdown-menu bg-transparent border-0">
 
-                    @can('mahasiswa')
-                        <a href="/sempro/create"
+                    @if (auth()->user()->role_id == 4)
+                        <a href="{{ route('sempro.create') }}"
                             class="nav-item nav-link {{ Request::is('sempro/create') ? 'active' : '' }}">Pendaftaran
                             Proposal</a>
-                    @endcan
+                    @endif
 
-                    <a href="/sempro"
+                    <a href="{{ route('sempro.index') }}"
                         class="nav-item nav-link {{ Request::is('sempro*') && !Request::is('sempro/create') ? 'active' : '' }}">
                         Seminar Proposal</a>
 
-                    <a href="/nilai/sempro"
-                        class="nav-item nav-link {{ Request::is('nilai/sempro*') ? 'active' : '' }}">Penilaian
+                    <a href="{{ route('nilai-sempro.index') }}"
+                        class="nav-item nav-link {{ Request::is('nilai-sempro*') ? 'active' : '' }}">Penilaian
                         Seminar Proposal</a>
 
                 </div>
@@ -69,23 +70,23 @@
                     data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Kompre</a>
                 <div class="dropdown-menu bg-transparent border-0">
 
-                    @can('mahasiswa')
-                        <a href="/kompre/create"
+                    @if (auth()->user()->role_id == 4)
+                        <a href="{{ route('kompre.create') }}"
                             class="nav-item nav-link {{ Request::is('kompre/create') ? 'active' : '' }}">Pendaftaran
                             Komprehensif</a>
-                    @endcan
+                    @endif
 
-                    <a href="/kompre"
+                    <a href="{{ route('kompre.index') }}"
                         class="nav-item nav-link {{ Request::is('kompre*') && !Request::is('kompre/create') ? 'active' : '' }}">Seminar
                         Komprehensif</a>
 
-                    <a href="/nilai/kompre"
+                    <a href="{{ route('nilai-kompre.index') }}"
                         class="nav-item nav-link {{ Request::is('nilai/kompre*') ? 'active' : '' }}">Penilaian Seminar
                         Komprehensif</a>
                 </div>
             </div>
 
-            @can('admin')
+            @if (auth()->user()->role_id == 1)
                 <div class="nav-item dropdown">
                     <a href="#"
                         class="nav-link dropdown-toggle {{ Request::is('manajemen*') && !Request::is(['manajemen/profile*', 'manajemen/dokumen*']) ? 'active' : '' }}"
@@ -99,9 +100,9 @@
                             class="nav-item nav-link {{ Request::is('manajemen/dosen*') ? 'active' : '' }}">Dosen</a>
                     </div>
                 </div>
-            @endcan
+            @endif
 
-            @can('dosen')
+            @if (auth()->user()->role_id == 3)
                 <div class="nav-item dropdown">
                     <a href="#"
                         class="nav-link dropdown-toggle {{ Request::is('mahasiswa-bimbingan*') || Request::is('mahasiswa-uji-sempro*') || Request::is('mahasiswa-uji-kompre*') ? 'active' : '' }}"
@@ -117,9 +118,9 @@
                             Komprehensif</a>
                     </div>
                 </div>
-            @endcan
+            @endif
 
-            @can('koordinator')
+            @if (auth()->user()->role_id == 2)
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle {{ Request::is('laporan*') ? 'active' : '' }}"
                         data-bs-toggle="dropdown"><i class="fa fa-book-open me-2"></i>Laporan</a>
@@ -142,9 +143,9 @@
                             Yudisium</a>
                     </div>
                 </div>
-            @endcan
+            @endif
 
-            @unless (auth()->user()->can('admin') || auth()->user()->can('mahasiswa'))
+            @unless (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle {{ Request::is('adm-seminar*') ? 'active' : '' }}"
                         data-bs-toggle="dropdown"><i class="fa fa-coins me-2"></i>Administrasi</a>

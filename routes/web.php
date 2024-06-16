@@ -18,8 +18,7 @@ use App\Http\Controllers\NilaiSemproController;
 use App\Http\Controllers\ProfileUpdate;
 use App\Http\Controllers\SemproController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Response;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,116 +31,102 @@ use Illuminate\Support\Facades\Response;
 |
 */
 
-// dashboard
-Route::get('/', function () {
-    return view('dashboard', [
-        'title' => 'E - Skripsi'
-    ]);
-})->middleware('auth');
-
-// fitur judul
-Route::resource('/judul', JudulController::class)->middleware('auth');
-
-// fitur logbook
-Route::resource('/logbook', LogbookController::class)->middleware('auth');
-
-// fitur sempro dan penilaian
-Route::resource('/sempro', SemproController::class)->middleware('auth');
-Route::resource('/nilai/sempro', NilaiSemproController::class)->names([
-    'show' => 'nilai.sempro.show',
-    'store' => 'nilai.sempro.store',
-    'update' => 'nilai.sempro.update',
-])->except(['create', 'destroy'])->middleware('auth');
-
-// fitur kompre dan penilaian
-Route::resource('/kompre', KompreController::class)->middleware('auth');
-Route::resource('/nilai/kompre', NilaiKompreController::class)->names([
-    'show' => 'nilai.kompre.show',
-    'store' => 'nilai.kompre.store',
-    'update' => 'nilai.kompre.update',
-])->except(['create', 'destroy']);
-
-// fitur mahasiswa pada halaman dosen
-Route::get('/mahasiswa-bimbingan', [MahasiswaSkripsiController::class, 'bimbingan'])->middleware('auth');
-Route::get('/mahasiswa-uji-sempro', [MahasiswaSkripsiController::class, 'sempro'])->middleware('auth');
-Route::get('/mahasiswa-uji-kompre', [MahasiswaSkripsiController::class, 'kompre'])->middleware('auth');
-Route::get('/mahasiswa-skripsi/{user}', [MahasiswaSkripsiController::class, 'show'])->middleware('auth');
-
-// route manajemen users pada halaman admin
-Route::middleware('auth')->prefix('manajemen')->group(function () {
-    // route manajemen mahasiswa
-    Route::resource('/mahasiswa', MahasiswaController::class)->middleware('admin');
-
-    // route manajemen koordinator
-    Route::resource('/koordinator', KoordinatorController::class)->middleware('admin');
-
-    // route manajemen dosen
-    Route::resource('/dosen', DosenController::class)->middleware('admin');
-
-    // route profile update
-    Route::get('/profile/{user}', [ProfileUpdate::class, 'index']);
-    Route::get('/profile/{user}/edit', [ProfileUpdate::class, 'edit']);
-    Route::patch('/profile/{user}', [ProfileUpdate::class, 'update']);
-
-    Route::resource('/dokumen', DokumenController::class)->names([
-        'destroy' => 'dokumen.reset'
-    ])->middleware('mahasiswa');
-});
-
-
 // route authenticate
 Route::prefix('auth')->group(function () {
-    // route login
     route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
-    route::post('/login', [AuthController::class, 'authenticate']);
-    // route logout
-    route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+    route::post('/login', [AuthController::class, 'authenticate'])->middleware('guest');
+    route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 });
 
-Route::middleware('koordinator')->prefix('laporan')->group(function () {
-    Route::get('/seminar', [LaporanController::class, 'seminar']);
-    Route::get('/lulus-sempro', [LaporanController::class, 'lulusSempro']);
-    Route::get('/lulus-kompre', [LaporanController::class, 'lulusKompre']);
-    Route::get('/yudisium', [LaporanController::class, 'yudisium']);
+Route::middleware('auth')->group(function () {
+    // dashboard
+    Route::get('/', function () {
+        return view('dashboard', [
+            'title' => 'E - Skripsi'
+        ]);
+    });
 
-    // rekap judul
-    Route::get('/rekap-judul', [LaporanController::class, 'rekapJudul']);
+    Route::resource('/judul', JudulController::class);
+
+    Route::resource('/logbook', LogbookController::class);
+
+    Route::resource('/sempro', SemproController::class);
+
+    Route::resource('/nilai-sempro', NilaiSemproController::class)->except(['create', 'destroy']);
+
+    Route::resource('/kompre', KompreController::class);
+
+    Route::resource('/nilai-kompre', NilaiKompreController::class)->except(['create', 'destroy']);
+
+    Route::get('/mahasiswa-bimbingan', [MahasiswaSkripsiController::class, 'bimbingan']);
+
+    Route::get('/mahasiswa-uji-sempro', [MahasiswaSkripsiController::class, 'sempro']);
+
+    Route::get('/mahasiswa-uji-kompre', [MahasiswaSkripsiController::class, 'kompre']);
+
+    Route::get('/mahasiswa-skripsi/{user}', [MahasiswaSkripsiController::class, 'show']);
+
+    Route::prefix('manajemen')->group(function () {
+        // route update profile
+        Route::get('/profile/{user}', [ProfileUpdate::class, 'index']);
+        Route::get('/profile/{user}/edit', [ProfileUpdate::class, 'edit']);
+        Route::patch('/profile/{user}', [ProfileUpdate::class, 'update']);
+    });
 });
 
-Route::prefix('cetak')->group(function () {
+// route manajemen users pada halaman admin
+Route::middleware('admin')->prefix('manajemen')->group(function () {
+    // route manajemen mahasiswa
+    Route::resource('/mahasiswa', MahasiswaController::class);
+    // route manajemen koordinator
+    Route::resource('/koordinator', KoordinatorController::class);
+    // route manajemen dosen
+    Route::resource('/dosen', DosenController::class);
+});
+
+Route::middleware('mahasiswa')->group(function () {
+    Route::resource('manajemen/dokumen', DokumenController::class)->names([
+        'destroy' => 'dokumen.reset'
+    ]);
+
     // cetak lembar bimbingan
-    Route::get('/bimbingan-proposal/download/pdf', [CetakController::class, 'cetak_bproposal']);
-    Route::get('/bimbingan-kompre/download/pdf', [CetakController::class, 'cetak_bkompre'])->middleware('mahasiswa');
-
-    // BERITA ACARA SEMPRO
-    Route::get('/berita-acara-sempro/{sempro}/download/pdf', [CetakController::class, 'cetak_bAcaraSempro'])->middleware('koordinator');
-
-    // BERITA ACARA KOMPRE
-    Route::get('/berita-acara-kompre/{kompre}/download/pdf', [CetakController::class, 'cetak_bAcaraKompre'])->middleware('koordinator');
-
-    // Cetak List Mahasiswa seminar
-    Route::get('/list-mahasiswa-seminar', [CetakController::class, 'cetak_listMahasiswaSeminar'])->middleware('koordinator');
-
-    // Cetak List mahasiswa lulus sempro
-    Route::get('/lulus-sempro', [CetakController::class, 'cetak_lulusSempro'])->middleware('koordinator');
-    Route::get('/lulus-kompre', [CetakController::class, 'cetak_lulusKompre'])->middleware('koordinator');
-
-    // Cetak List mahasiswa lulus yudisium
-    Route::post('/yudisium', [CetakController::class, 'cetak_yudisium'])->middleware('koordinator');
-
-    // Cetak List judul yang sudah diacc
-    Route::get('/list-judul', [CetakController::class, 'cetak_listJudul'])->middleware('koordinator');
+    Route::get('cetak/bimbingan-proposal/download/pdf', [CetakController::class, 'cetak_bproposal']);
+    Route::get('cetak/bimbingan-kompre/download/pdf', [CetakController::class, 'cetak_bkompre']);
 });
 
-// setting bobot
-Route::resource('/bobot', BobotController::class)->only([
-    'edit',
-    'update'
-])->middleware('koordinator');
 
-// Administrasi
+Route::middleware('koordinator')->group(function () {
+    // laporan
+    Route::prefix('laporan')->group(function () {
+        Route::get('/seminar', [LaporanController::class, 'seminar']);
+        Route::get('/lulus-sempro', [LaporanController::class, 'lulusSempro']);
+        Route::get('/lulus-kompre', [LaporanController::class, 'lulusKompre']);
+        Route::get('/yudisium', [LaporanController::class, 'yudisium']);
+        Route::get('/rekap-judul', [LaporanController::class, 'rekapJudul']);
+    });
+
+    // cetak laporan
+    Route::prefix('cetak')->group(function () {
+        Route::get('/berita-acara-sempro/{sempro}/download/pdf', [CetakController::class, 'cetak_bAcaraSempro']);
+        Route::get('/berita-acara-kompre/{kompre}/download/pdf', [CetakController::class, 'cetak_bAcaraKompre']);
+        Route::get('/list-mahasiswa-seminar', [CetakController::class, 'cetak_listMahasiswaSeminar']);
+        Route::get('/lulus-sempro', [CetakController::class, 'cetak_lulusSempro']);
+        Route::get('/lulus-kompre', [CetakController::class, 'cetak_lulusKompre']);
+        Route::post('/yudisium', [CetakController::class, 'cetak_yudisium']);
+        Route::get('/list-judul', [CetakController::class, 'cetak_listJudul']);
+    });
+
+    // setting bobot
+    Route::resource('/bobot', BobotController::class)->only([
+        'edit',
+        'update'
+    ]);
+
+    // Administrasi
+    Route::get('/adm-seminar/{id}/pay/{total}', [AdministrasiController::class, 'edit']);
+    Route::get('/adm-seminar/create/{id}/{total}', [AdministrasiController::class, 'create']);
+    Route::post('/adm-seminar/{id}/{total}', [AdministrasiController::class, 'store']);
+    Route::delete('/adm-seminar/{id}', [AdministrasiController::class, 'destroy'])->name('administrasi.destroy');
+});
+
 Route::get('/adm-seminar', [AdministrasiController::class, 'index']);
-Route::get('/adm-seminar/{id}/pay/{total}', [AdministrasiController::class, 'edit'])->middleware('koordinator');
-Route::get('/adm-seminar/create/{id}/{total}', [AdministrasiController::class, 'create'])->middleware('koordinator');
-Route::post('/adm-seminar/{id}/{total}', [AdministrasiController::class, 'store'])->middleware('koordinator');
-Route::delete('/adm-seminar/{id}', [AdministrasiController::class, 'destroy'])->name('administrasi.destroy')->middleware('koordinator');

@@ -13,7 +13,7 @@ class LogbookPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role_id !== 2;
+        return $user->role_id != 2;
     }
 
     /**
