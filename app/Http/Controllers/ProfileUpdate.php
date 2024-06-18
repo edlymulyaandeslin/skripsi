@@ -69,10 +69,6 @@ class ProfileUpdate extends Controller
 
         $validateData = $request->validate($rules, $customMessage);
 
-        if ($request->filled('no_hp')) {
-            $validateData['no_hp'] = intval($validateData['no_hp']);
-        }
-
         if ($request->file('foto_profil')) {
             if ($request->oldProfil) {
                 Storage::delete($request->oldProfil);

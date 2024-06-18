@@ -49,8 +49,8 @@ class DatabaseSeeder extends Seeder
         // koordinator
         User::factory()->create([
             'role_id' => 2,
-            'nim_or_nidn' => 82,
-            'name' => 'Urfi Utami M.Kom',
+            'nim_or_nidn' => 88888,
+            'name' => 'Urfi Utami',
             'email' => 'urfiutami@gmail.com',
         ]);
 
@@ -86,19 +86,25 @@ class DatabaseSeeder extends Seeder
             'name' => 'Kiki Yasdomi M.Kom',
             'email' => 'kikiyasdomi@gmail.com',
         ]);
+        User::factory()->create([
+            'role_id' => 3,
+            'nim_or_nidn' => 80006,
+            'name' => 'Urfi Utami M.Kom',
+            'email' => 'urfi@gmail.com',
+        ]);
 
         // mahasiswa
-        User::factory()->create([
-            'role_id' => 4,
-            'nim_or_nidn' => 2036181,
-            'name' => 'Jesyca Michel',
-            'email' => 'jesycamichel@gmail.com',
-        ]);
         User::factory()->create([
             'role_id' => 4,
             'nim_or_nidn' => 2036180,
             'name' => 'Muhammad Ridho',
             'email' => 'ridhokun@gmail.com',
+        ]);
+        User::factory()->create([
+            'role_id' => 4,
+            'nim_or_nidn' => 2036181,
+            'name' => 'Jesyca Michel',
+            'email' => 'jesycamichel@gmail.com',
         ]);
         User::factory()->create([
             'role_id' => 4,

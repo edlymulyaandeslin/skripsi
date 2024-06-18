@@ -90,10 +90,10 @@ class CetakController extends Controller
         $users = User::with(['judul.pembimbing1', 'judul.pembimbing2', 'judul.sempro.penguji1', 'judul.sempro.penguji2', 'judul.sempro.penguji3', 'judul.kompre.penguji1', 'judul.kompre.penguji2', 'judul.kompre.penguji3'])
             ->where(function ($query) {
                 $query->orWhereHas('judul.sempro', function ($query) {
-                    $query->where('status', 'diterima');
+                    $query->whereIn('status', ['diterima', 'penilaian']);
                 })
                     ->orWhereHas('judul.kompre', function ($query) {
-                        $query->where('status', 'diterima');
+                        $query->whereIn('status', ['diterima', 'penilaian']);
                     });
             })->where('role_id', 4)
             ->latest()->get();
