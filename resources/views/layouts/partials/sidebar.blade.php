@@ -29,7 +29,7 @@
         </div>
 
         <div class="navbar-nav w-100">
-            <a href="/" class="nav-item nav-link {{ Request::is('/*') ? 'active' : '' }}"><i
+            <a href="/" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}"><i
                     class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
 
             <a href="{{ route('judul.index') }}"
@@ -43,7 +43,7 @@
 
             <div class="nav-item dropdown">
                 <a href="#"
-                    class="nav-link dropdown-toggle {{ Request::is('sempro*') || Request::is('nilai/sempro*') ? 'active' : '' }}"
+                    class="nav-link dropdown-toggle {{ Request::is('sempro*') || Request::is('nilai-sempro*') ? 'active' : '' }}"
                     data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Sempro</a>
                 <div class="dropdown-menu bg-transparent border-0">
 
@@ -66,7 +66,7 @@
 
             <div class="nav-item dropdown">
                 <a href="#"
-                    class="nav-link dropdown-toggle {{ Request::is('kompre*') || Request::is('nilai/kompre*') ? 'active' : '' }}"
+                    class="nav-link dropdown-toggle {{ Request::is('kompre*') || Request::is('nilai-kompre*') ? 'active' : '' }}"
                     data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Kompre</a>
                 <div class="dropdown-menu bg-transparent border-0">
 
@@ -81,7 +81,7 @@
                         Komprehensif</a>
 
                     <a href="{{ route('nilai-kompre.index') }}"
-                        class="nav-item nav-link {{ Request::is('nilai/kompre*') ? 'active' : '' }}">Penilaian Seminar
+                        class="nav-item nav-link {{ Request::is('nilai-kompre*') ? 'active' : '' }}">Penilaian Seminar
                         Komprehensif</a>
                 </div>
             </div>

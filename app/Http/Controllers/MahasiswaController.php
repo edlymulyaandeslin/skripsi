@@ -51,7 +51,7 @@ class MahasiswaController extends Controller
 
         Alert::success('Berhasil', 'Mahasiswa Telah Ditambahkan');
 
-        return redirect('/manajemen/mahasiswa');
+        return redirect(route('mahasiswa.index'));
     }
 
     public function show(User $user, $id)
@@ -99,7 +99,7 @@ class MahasiswaController extends Controller
 
         Alert::success('Berhasil', 'Data Mahasiswa Diperbarui');
 
-        return redirect('/manajemen/mahasiswa');
+        return redirect(route('mahasiswa.index'));
     }
     public function destroy(User $user, $id)
     {
@@ -108,6 +108,6 @@ class MahasiswaController extends Controller
 
         Alert::success('Berhasil', 'Mahasiswa Telah Dihapus');
 
-        return redirect('/manajemen/mahasiswa');
+        return redirect(route('mahasiswa.index'));
     }
 }

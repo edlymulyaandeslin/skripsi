@@ -81,6 +81,6 @@ class ProfileUpdate extends Controller
 
         Alert::success('Berhasil', 'Profile Berhasil Diupdate');
 
-        return redirect('/manajemen/profile/' . $user->id);
+        return redirect(route('profile.user', $user->id));
     }
 }

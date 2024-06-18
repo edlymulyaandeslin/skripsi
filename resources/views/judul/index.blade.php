@@ -15,6 +15,7 @@
                         </div>
                     </form>
                 </div>
+
                 @can('mahasiswa')
                     <div class="col-md-5 d-flex align-items-end justify-content-end">
                         <a href="{{ route('judul.create') }}" class="btn btn-sm btn-primary">Ajukan Judul <i

@@ -51,7 +51,7 @@
                                         <input type="number" class="form-control @error('nim_or_nidn') is-invalid @enderror"
                                             name="nim_or_nidn" placeholder="NIM"
                                             value="{{ old('nim_or_nidn', $user->nim_or_nidn) }}" disabled>
-                                        <label for="floatingInput">NIM</label>
+                                        <label for="floatingInput">{{ auth()->user()->role_id !== 4 ? 'NIDN' : 'NIM' }}</label>
                                         @error('nim_or_nidn')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -61,8 +61,7 @@
                                 @can('admin')
                                     <div class="form-floating mb-3">
                                         <input type="number" class="form-control @error('nim_or_nidn') is-invalid @enderror"
-                                            name="nim_or_nidn" placeholder="NIM"
-                                            value="{{ old('nim_or_nidn', $user->nim_or_nidn) }}">
+                                            name="nim_or_nidn" value="{{ old('nim_or_nidn', $user->nim_or_nidn) }}">
                                         <label for="floatingInput">{{ auth()->user()->role_id !== 4 ? 'NIDN' : 'NIM' }}</label>
                                         @error('nim_or_nidn')
                                             <p class="text-danger">{{ $message }}</p>

@@ -13,28 +13,22 @@ class NilaiKompreController extends Controller
 
     public function index()
     {
+        $bobot = "";
+        $kompres = "";
         // admin dan koordinator
-        if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
+        if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
             $bobot = Bobot::first();
-
             $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->latest()
                 ->filter(request(['search']))
                 ->paginate(10)
                 ->withQueryString();
-
-            return view('kompre.nilai.index', [
-                'title' => 'Seminar Komprehensif | Penilaian',
-                'kompres' => $kompres,
-                'bobot' => $bobot
-            ]);
         }
 
         // dosen
-        if (auth()->user()->role_id === 3) {
+        if (auth()->user()->role_id == 3) {
             $bobot = Bobot::first();
-
             $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->where(function ($query) {
@@ -52,38 +46,31 @@ class NilaiKompreController extends Controller
                 ->filter(request(['search']))
                 ->paginate(10)
                 ->withQueryString();
-
-            return view('kompre.nilai.index', [
-                'title' => 'Komprehensif | Penilaian',
-                'kompres' => $kompres,
-                'bobot' => $bobot
-
-            ]);
         }
 
         // mahasiswa
-        $bobot = Bobot::first();
+        if (auth()->user()->role_id == 3) {
+            $bobot = Bobot::first();
+            $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
+                ->whereHas('judul', function ($query) {
+                    $query->where('mahasiswa_id', auth()->user()->id);
+                })
+                ->whereNotIn('status', ['diajukan', 'perbaikan'])
+                ->latest()
+                ->filter(request(['search']))
+                ->paginate(10)
+                ->withQueryString();
 
-        $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
-            ->whereHas('judul', function ($query) {
-                $query->where('mahasiswa_id', auth()->user()->id);
-            })
-            ->whereNotIn('status', ['diajukan', 'perbaikan'])
-            ->latest()
-            ->filter(request(['search']))
-            ->paginate(10)
-            ->withQueryString();
-
-        if ($kompres->count() == 0) {
-            Alert::info('Info', 'Kamu Belum Mengajukan Seminar Komprehensif');
-            return redirect()->route('kompre.create');
+            if ($kompres->count() == 0) {
+                Alert::info('Info', 'Kamu Belum Mengajukan Seminar Komprehensif');
+                return redirect()->route('kompre.create');
+            }
         }
 
         return view('kompre.nilai.index', [
             'title' => 'Komprehensif | Penilaian',
             'kompres' => $kompres,
             'bobot' => $bobot
-
         ]);
     }
 
@@ -243,12 +230,11 @@ class NilaiKompreController extends Controller
             $validateData['nilai4_pem2'] = $validateData['nilai4_pem2'] * $bobot->bobot4;
         }
 
-
         NilaiKompre::create($validateData);
 
         Alert::success('Berhasil', 'Input Nilai Seminar Komprehensif');
 
-        return redirect('/nilai/kompre');
+        return redirect(route('nilai-kompre.index'));
     }
 
 
@@ -472,6 +458,6 @@ class NilaiKompreController extends Controller
 
         Alert::success('Berhasil', 'Input Nilai Seminar Komprehensif');
 
-        return redirect('/nilai/kompre');
+        return redirect(route('nilai-kompre.index'));
     }
 }

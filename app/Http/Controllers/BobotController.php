@@ -34,6 +34,6 @@ class BobotController extends Controller
         $bobot->update($validateData);
 
         Alert::success('Berhasil', 'Bobot Nilai Diterapkan');
-        return redirect('/nilai/kompre');
+        return redirect(route('nilai-kompre.index'));
     }
 }

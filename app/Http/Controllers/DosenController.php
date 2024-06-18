@@ -51,7 +51,7 @@ class DosenController extends Controller
 
         Alert::success('Berhasil', 'Dosen Telah Ditambahkan');
 
-        return redirect('/manajemen/dosen');
+        return redirect(route('dosen.index'));
     }
 
     public function show(User $user, $id)
@@ -98,7 +98,7 @@ class DosenController extends Controller
 
         Alert::success('Berhasil', 'Data Dosen Diperbarui');
 
-        return redirect('/manajemen/dosen');
+        return redirect(route('dosen.index'));
     }
     public function destroy(User $user, $id)
     {
@@ -106,6 +106,6 @@ class DosenController extends Controller
 
         Alert::success('Berhasil', 'Dosen Telah Dihapus');
 
-        return redirect('/manajemen/dosen');
+        return redirect(route('dosen.index'));
     }
 }

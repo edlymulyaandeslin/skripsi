@@ -14,23 +14,19 @@ class NilaiSemproController extends Controller
      */
     public function index()
     {
+        $sempros = "";
         // admin dan koordinator
-        if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
+        if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
             $sempros = Sempro::with('judul.mahasiswa', 'nilaisempro')
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->latest()
                 ->filter(request(['search']))
                 ->paginate(10)
                 ->withQueryString();
-
-            return view('sempro.nilai.index', [
-                'title' => 'Seminar Proposal | Penilaian',
-                'sempros' => $sempros,
-            ]);
         }
 
         // dosen
-        if (auth()->user()->role_id === 3) {
+        if (auth()->user()->role_id == 3) {
             $sempros = Sempro::with('judul.mahasiswa', 'nilaisempro')
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->where(function ($query) {
@@ -48,28 +44,26 @@ class NilaiSemproController extends Controller
                 ->filter(request(['search']))
                 ->paginate(10)
                 ->withQueryString();
-
-            return view('sempro.nilai.index', [
-                'title' => 'Seminar Proposal | Penilaian',
-                'sempros' => $sempros,
-            ]);
         }
 
         // mahasiswa
-        $sempros = Sempro::with('judul.mahasiswa', 'nilaisempro')
-            ->whereHas('judul', function ($query) {
-                $query->where('mahasiswa_id', auth()->user()->id);
-            })
-            ->whereNotIn('status', ['diajukan', 'perbaikan'])
-            ->latest()
-            ->filter(request(['search']))
-            ->paginate(10)
-            ->withQueryString();
+        if (auth()->user()->role_id == 4) {
+            $sempros = Sempro::with('judul.mahasiswa', 'nilaisempro')
+                ->whereHas('judul', function ($query) {
+                    $query->where('mahasiswa_id', auth()->user()->id);
+                })
+                ->whereNotIn('status', ['diajukan', 'perbaikan'])
+                ->latest()
+                ->filter(request(['search']))
+                ->paginate(10)
+                ->withQueryString();
 
-        if ($sempros->count() == 0) {
-            Alert::info('Info', 'Kamu Belum Mengajukan Seminar Proposal');
-            return redirect()->route('sempro.create');
+            if ($sempros->count() == 0) {
+                Alert::info('Info', 'Kamu Belum Mengajukan Seminar Proposal');
+                return redirect()->route('sempro.create');
+            }
         }
+
         return view('sempro.nilai.index', [
             'title' => 'Seminar Proposal | Penilaian',
             'sempros' => $sempros,
@@ -194,7 +188,7 @@ class NilaiSemproController extends Controller
 
         Alert::success('Berhasil', 'Input Nilai Seminar Proposal');
 
-        return redirect('/nilai/sempro');
+        return redirect(route('nilai-sempro.index'));
     }
 
     public function show(Sempro $sempro)
@@ -364,6 +358,6 @@ class NilaiSemproController extends Controller
 
         Alert::success('Berhasil', 'Input Nilai Seminar Proposal');
 
-        return redirect('/nilai/sempro');
+        return redirect(route('nilai-sempro.index'));
     }
 }

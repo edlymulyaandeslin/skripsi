@@ -22,23 +22,19 @@ class KompreController extends Controller
         $text = "Kamu Yakin Ingin Membatalkan?";
         confirmDelete($title, $text);
 
+        $kompres = "";
         // admin atau koordinator
-        if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
+        if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
             $kompres = Kompre::with(['judul.mahasiswa'])
                 ->whereNotIn('status', ['lulus'])
                 ->latest()
                 ->filter(request(['search']))
                 ->paginate(10)
                 ->withQueryString();
-
-            return view('kompre.index', [
-                'title' => 'E - Skripsi | Komprehensif',
-                'kompres' => $kompres,
-            ]);
         }
 
         // dosen
-        if (auth()->user()->role_id === 3) {
+        if (auth()->user()->role_id == 3) {
             $kompres = Kompre::with('judul.mahasiswa')
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->where(function ($query) {
@@ -56,24 +52,21 @@ class KompreController extends Controller
                 ->filter(request(['search']))
                 ->paginate(10)
                 ->withQueryString();
-
-            return view('kompre.index', [
-                'title' => 'E - Skripsi | Komprehensif',
-                'kompres' => $kompres,
-            ]);
         }
 
-        $kompres = Kompre::with(['judul.mahasiswa'])
-            ->whereHas('judul', function ($query) {
-                $query->where('mahasiswa_id', auth()->user()->id);
-            })
-            ->latest()
-            ->filter(request(['search']))
-            ->paginate(10)
-            ->withQueryString();
+        if (auth()->user()->role_id == 4) {
+            $kompres = Kompre::with(['judul.mahasiswa'])
+                ->whereHas('judul', function ($query) {
+                    $query->where('mahasiswa_id', auth()->user()->id);
+                })
+                ->latest()
+                ->filter(request(['search']))
+                ->paginate(10)
+                ->withQueryString();
 
-        if ($kompres->count() == 0) {
-            return redirect('/kompre/create');
+            if ($kompres->count() == 0) {
+                return redirect(route('kompre.create'));
+            }
         }
 
         return view('kompre.index', [
@@ -111,9 +104,10 @@ class KompreController extends Controller
             ->having('acc_komprehensif_count', '>=', 2)
             ->latest()
             ->get();
+
         if ($juduls->count() == 0) {
             Alert::warning('Info', 'Anda Harus Lulus Seminar Proposal dan Selesaikan Bimbingan Komprehensif');
-            return redirect('/logbook');
+            return redirect(route('logbook.index'));
         }
 
         $dokumen = auth()->user()->dokumen;
@@ -158,7 +152,7 @@ class KompreController extends Controller
 
         Alert::success('Berhasil', 'Seminar Komprehensif Telah Diajukan');
 
-        return redirect('/kompre');
+        return redirect(route('kompre.index'));
     }
 
     /**
@@ -182,7 +176,6 @@ class KompreController extends Controller
         $dosens = User::where('role_id', 3)->latest()->get();
         $allkompre = Kompre::whereIn('status', ['diterima', 'penilaian'])->latest()->get();
 
-
         return view('kompre.edit', [
             'title' => 'Komprehensif | Verifikasi',
             'kompre' => $kompre->load('judul'),
@@ -196,7 +189,6 @@ class KompreController extends Controller
      */
     public function update(Request $request, Kompre $kompre)
     {
-
         $rules = [];
 
         if ($request->input('tanggal_seminar')) {
@@ -262,7 +254,7 @@ class KompreController extends Controller
 
         Alert::success('Berhasil', 'Verifikasi Seminar Komprehensif');
 
-        return redirect('/kompre');
+        return redirect(route('kompre.index'));
     }
 
     /**
@@ -281,6 +273,6 @@ class KompreController extends Controller
 
         Alert::success('Berhasil', 'Pengajuan Seminar Komprehensif Dibatalkan');
 
-        return redirect('/kompre');
+        return redirect(route('kompre.index'));
     }
 }

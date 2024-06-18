@@ -62,9 +62,9 @@
                                     {{ session('error') }}
                                 </div>
                             @endif
-                            <form action="/auth/login" method="post">
-                                @csrf
 
+                            <form action="{{ route('login.auth') }}" method="POST">
+                                @csrf
                                 <div class="form-floating mb-4">
                                     <input type="number"
                                         class="form-control @error('nim_or_nidn') is-invalid @enderror"
@@ -90,7 +90,6 @@
                                                 id="remember" value="{{ old('remember') ? 'checked' : '' }}" />
                                             Remember me</label>
                                     </div>
-
                                 </div>
                                 <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
                             </form>

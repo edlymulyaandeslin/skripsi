@@ -29,7 +29,7 @@ class JudulPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role_id === 4;
+        return $user->role_id == 4;
     }
 
     /**
@@ -37,7 +37,7 @@ class JudulPolicy
      */
     public function update(User $user, Judul $judul): bool
     {
-        return $user->role_id === 2;
+        return $user->role_id == 2;
     }
 
     /**

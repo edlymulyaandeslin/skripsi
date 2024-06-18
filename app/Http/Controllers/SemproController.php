@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Judul;
 use App\Models\Kompre;
 use App\Models\Sempro;
-use App\Models\TeamPenguji;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -23,21 +22,18 @@ class SemproController extends Controller
         $text = "Kamu yakin ingin membatalkan?";
         confirmDelete($title, $text);
 
-        if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2) {
+        $sempros = "";
+
+        if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
             $sempros = Sempro::with(['judul', 'judul.mahasiswa'])
                 ->whereNotIn('status', ['lulus'])
                 ->latest()
                 ->filter(request(['search']))
                 ->paginate(10)
                 ->withQueryString();
-
-            return view('sempro.index', [
-                'title' => 'E - Skripsi | Seminar Proposal',
-                'sempros' => $sempros,
-            ]);
         }
 
-        if (auth()->user()->role_id === 3) {
+        if (auth()->user()->role_id == 3) {
             $sempros = Sempro::with('judul.mahasiswa')
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->where(function ($query) {
@@ -55,24 +51,21 @@ class SemproController extends Controller
                 ->filter(request(['search']))
                 ->paginate(10)
                 ->withQueryString();
-
-            return view('sempro.index', [
-                'title' => 'E - Skripsi | Seminar Proposal',
-                'sempros' => $sempros,
-            ]);
         }
 
-        $sempros = Sempro::with(['judul', 'judul.mahasiswa'])
-            ->whereHas('judul', function ($query) {
-                $query->where('mahasiswa_id', auth()->user()->id);
-            })
-            ->latest()
-            ->filter(request(['search']))
-            ->paginate(10)
-            ->withQueryString();
+        if (auth()->user()->role_id == 4) {
+            $sempros = Sempro::with(['judul', 'judul.mahasiswa'])
+                ->whereHas('judul', function ($query) {
+                    $query->where('mahasiswa_id', auth()->user()->id);
+                })
+                ->latest()
+                ->filter(request(['search']))
+                ->paginate(10)
+                ->withQueryString();
 
-        if ($sempros->count() == 0) {
-            return redirect('/sempro/create');
+            if ($sempros->count() == 0) {
+                return redirect(route('sempro.create'));
+            }
         }
 
         return view('sempro.index', [
@@ -101,9 +94,6 @@ class SemproController extends Controller
         $juduls = Judul::withCount(['logbook as acc_proposal_count' => function ($query) {
             $query->where('status', 'acc proposal')->where('kategori', 'proposal');
         }])->with(['mahasiswa.dokumen', 'logbook'])
-            // ->whereHas('logbook', function ($query) {
-            //     $query->where('status', 'acc proposal');
-            // })
             ->where('mahasiswa_id', auth()->user()->id)
             ->having('acc_proposal_count', '>=', 2)
             ->latest()
@@ -111,7 +101,7 @@ class SemproController extends Controller
 
         if ($juduls->count() == 0) {
             Alert::warning('Info', 'Mohon Selesaikan Bimbingan Sebelum Mengajukan Seminar Proposal');
-            return redirect('/logbook');
+            return redirect(route('logbook.index'));
         }
 
         $dokumen = auth()->user()->dokumen;
@@ -156,7 +146,7 @@ class SemproController extends Controller
 
         Alert::success('Berhasil', 'Seminar Proposal Telah Diajukan');
 
-        return redirect('/sempro');
+        return redirect(route('sempro.index'));
     }
 
     /**
@@ -258,7 +248,7 @@ class SemproController extends Controller
 
         Alert::success('Berhasil', 'Verifikasi Seminar Proposal');
 
-        return redirect('/sempro');
+        return redirect(route('sempro.index'));
     }
 
     /**
@@ -286,6 +276,6 @@ class SemproController extends Controller
 
         Alert::success('Berhasil', 'Pengajuan Seminar Proposal Dibatalkan');
 
-        return redirect('/sempro');
+        return redirect(route('sempro.index'));
     }
 }

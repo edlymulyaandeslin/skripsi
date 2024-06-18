@@ -29,7 +29,7 @@ class LogbookPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role_id === 4;
+        return $user->role_id == 4;
     }
 
     /**
@@ -37,7 +37,7 @@ class LogbookPolicy
      */
     public function update(User $user, Logbook $logbook): bool
     {
-        return $user->id === $logbook->pembimbing_id;
+        return $user->id == $logbook->pembimbing_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class LogbookPolicy
      */
     public function delete(User $user, Logbook $logbook): bool
     {
-        return $user->id === $logbook->judul->mahasiswa_id;
+        return $user->id == $logbook->judul->mahasiswa_id;
     }
 
     /**

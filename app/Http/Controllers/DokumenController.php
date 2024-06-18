@@ -51,7 +51,7 @@ class DokumenController extends Controller
 
         Alert::success('Berhasil', 'Dokumen telah diupload');
 
-        return redirect('/manajemen/dokumen');
+        return redirect(route('dokumen.index'));
     }
 
 
@@ -105,7 +105,7 @@ class DokumenController extends Controller
 
         Alert::success('Berhasil', 'Dokumen telah diupload');
 
-        return redirect('/manajemen/dokumen');
+        return redirect(route('dokumen.index'));
     }
 
     /**
@@ -128,6 +128,6 @@ class DokumenController extends Controller
 
         Alert::success('Berhasil', 'Dokumen telah reset');
 
-        return redirect('/manajemen/dokumen');
+        return redirect(route('dokumen.index'));
     }
 }

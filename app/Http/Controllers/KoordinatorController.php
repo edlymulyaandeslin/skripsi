@@ -50,7 +50,7 @@ class KoordinatorController extends Controller
 
         Alert::success('Berhasil', 'Koordinator Telah Ditambahkan');
 
-        return redirect('/manajemen/koordinator');
+        return redirect(route('koordinator.index'));
     }
 
     public function show(User $user, $id)
@@ -97,7 +97,7 @@ class KoordinatorController extends Controller
 
         Alert::success('Berhasil', 'Data Koordinator Diperbarui');
 
-        return redirect('/manajemen/koordinator');
+        return redirect(route('koordinator.index'));
     }
     public function destroy(User $user, $id)
     {
@@ -105,6 +105,6 @@ class KoordinatorController extends Controller
 
         Alert::success('Berhasil', 'Koordinator Telah Dihapus');
 
-        return redirect('/manajemen/koordinator');
+        return redirect(route('koordinator.index'));
     }
 }

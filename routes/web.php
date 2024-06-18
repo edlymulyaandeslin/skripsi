@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 // route authenticate
 Route::prefix('auth')->group(function () {
     route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
-    route::post('/login', [AuthController::class, 'authenticate'])->middleware('guest');
+    route::post('/login', [AuthController::class, 'authenticate'])->name('login.auth')->middleware('guest');
     route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 });
 
@@ -68,8 +68,8 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('manajemen')->group(function () {
         // route update profile
-        Route::get('/profile/{user}', [ProfileUpdate::class, 'index']);
-        Route::get('/profile/{user}/edit', [ProfileUpdate::class, 'edit']);
+        Route::get('/profile/{user}', [ProfileUpdate::class, 'index'])->name('profile.user');
+        Route::get('/profile/{user}/edit', [ProfileUpdate::class, 'edit'])->name('profile.user.edit');
         Route::patch('/profile/{user}', [ProfileUpdate::class, 'update']);
     });
 });
@@ -85,9 +85,7 @@ Route::middleware('admin')->prefix('manajemen')->group(function () {
 });
 
 Route::middleware('mahasiswa')->group(function () {
-    Route::resource('manajemen/dokumen', DokumenController::class)->names([
-        'destroy' => 'dokumen.reset'
-    ]);
+    Route::resource('manajemen/dokumen', DokumenController::class);
 
     // cetak lembar bimbingan
     Route::get('cetak/bimbingan-proposal/download/pdf', [CetakController::class, 'cetak_bproposal']);

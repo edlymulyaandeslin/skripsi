@@ -29,7 +29,7 @@ class SemproPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role_id === 4;
+        return $user->role_id == 4;
     }
 
     /**
@@ -37,7 +37,7 @@ class SemproPolicy
      */
     public function update(User $user, Sempro $sempro): bool
     {
-        return $user->role_id === 2;
+        return $user->role_id == 2;
     }
 
     /**
@@ -45,7 +45,7 @@ class SemproPolicy
      */
     public function delete(User $user, Sempro $sempro): bool
     {
-        return $user->id === $sempro->judul->mahasiswa_id;
+        return $user->id == $sempro->judul->mahasiswa_id;
     }
 
     /**

@@ -21,6 +21,8 @@ class JudulController extends Controller
         $text = "Kamu yakin ingin membatalkan?";
         confirmDelete($title, $text);
 
+        $listjudul = "";
+
         // jika dia admin atau koordinator tampilkan semua judul
         if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
             $listjudul = Judul::with(
@@ -32,11 +34,6 @@ class JudulController extends Controller
                 ->filter(request(['search']))
                 ->paginate(10)
                 ->withQueryString();
-
-            return view('judul.index', [
-                'title' => 'E - Skripsi | Judul',
-                'listjudul' => $listjudul,
-            ]);
         }
 
         // jika dia dosen tampilkan berdasarkan dia sebagai pembimbing
@@ -51,21 +48,18 @@ class JudulController extends Controller
                 ->filter(request(['search']))
                 ->paginate(10)
                 ->withQueryString();
-
-            return view('judul.index', [
-                'title' => 'E - Skripsi | Judul',
-                'listjudul' => $listjudul,
-            ]);
         }
 
-        $listjudul = Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])
-            ->where('mahasiswa_id', auth()->user()->id)
-            ->latest()
-            ->filter(request(['search']))
-            ->paginate(10)
-            ->withQueryString();
+        // jika mahasiswa
+        if (auth()->user()->role_id == 4) {
+            $listjudul = Judul::with(['mahasiswa', 'pembimbing1', 'pembimbing2', 'logbook'])
+                ->where('mahasiswa_id', auth()->user()->id)
+                ->latest()
+                ->filter(request(['search']))
+                ->paginate(10)
+                ->withQueryString();
+        }
 
-        // jika dia mahasiswa tampilkan judul yang dimiliki mahasiswa tersebut mahasiswa
         return view('judul.index', [
             'title' => 'E - Skripsi | Judul',
             'listjudul' => $listjudul,
@@ -84,7 +78,7 @@ class JudulController extends Controller
 
         if ($judul->count() >= 3) {
             Alert::error('Opsss', 'Pengajuan Judul Hanya Dapat Dilakukan 3 Kali');
-            return redirect('/judul');
+            return redirect(route('judul.index'));
         }
 
         return view('judul.create', [
@@ -111,7 +105,7 @@ class JudulController extends Controller
 
         Alert::success('Berhasil', 'Judul Telah Diajukan');
 
-        return redirect('/judul');
+        return redirect(route('judul.index'));
     }
 
     /**
@@ -154,7 +148,6 @@ class JudulController extends Controller
         $this->authorize('update', $judul);
 
         $mahasiswaId = $judul->mahasiswa_id;
-
 
         $rules = [
             'status' => 'required',
@@ -201,7 +194,7 @@ class JudulController extends Controller
 
         Alert::success('Berhasil', 'Verifikasi Judul');
 
-        return redirect('/judul');
+        return redirect(route('judul.index'));
     }
 
     /**
@@ -232,6 +225,6 @@ class JudulController extends Controller
 
         Alert::success('Berhasil', 'Pengajuan Judul Dibatalkan');
 
-        return redirect('/judul');
+        return redirect(route('judul.index'));
     }
 }

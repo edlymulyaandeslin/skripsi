@@ -38,9 +38,7 @@ class LogbookController extends Controller
                 'title' => 'E - Skripsi | Bimbingan',
                 'logbooks' => $logbooks
             ]);
-        }
-
-        if (auth()->user()->role_id == 3) {
+        } else if (auth()->user()->role_id == 3) {
             $logbooks = Logbook::with(['judul', 'judul.mahasiswa'])
                 ->whereHas('judul.mahasiswa', function ($query) {
                     $query->where('status', 'active');
@@ -55,35 +53,35 @@ class LogbookController extends Controller
                 'title' => 'E - Skripsi | Bimbingan',
                 'logbooks' => $logbooks
             ]);
+        } else {
+            $logbooks = Logbook::with(['judul', 'pembimbing'])
+                ->whereHas('judul', function ($query) {
+                    $query->where('mahasiswa_id', auth()->user()->id);
+                })->latest()
+                ->filter(request(['search']))
+                ->paginate(10)
+                ->withQueryString();
+
+            // untuk validasi menampilkan btn print bimbingan proposal dan komprehensif
+            $logbooksAccProposal = Logbook::with(['judul'])
+                ->whereHas('judul', function ($query) {
+                    $query->where('mahasiswa_id', auth()->user()->id);
+                })
+                ->where('status', 'acc proposal')->latest()->get();
+
+            $logbooksAccKomprehensif = Logbook::with(['judul'])
+                ->whereHas('judul', function ($query) {
+                    $query->where('mahasiswa_id', auth()->user()->id);
+                })
+                ->where('status', 'acc komprehensif')->latest()->get();
+
+            return view('logbook.index', [
+                'title' => 'E - Skripsi | Bimbingan',
+                'logbooks' => $logbooks,
+                'accProposal' => $logbooksAccProposal,
+                'accKomprehensif' => $logbooksAccKomprehensif
+            ]);
         }
-
-        $logbooks = Logbook::with(['judul', 'pembimbing'])
-            ->whereHas('judul', function ($query) {
-                $query->where('mahasiswa_id', auth()->user()->id);
-            })->latest()
-            ->filter(request(['search']))
-            ->paginate(10)
-            ->withQueryString();
-
-        // untuk validasi menampilkan btn print bimbingan proposal dan komprehensif
-        $logbooksAccProposal = Logbook::with(['judul'])
-            ->whereHas('judul', function ($query) {
-                $query->where('mahasiswa_id', auth()->user()->id);
-            })
-            ->where('status', 'acc proposal')->latest()->get();
-
-        $logbooksAccKomprehensif = Logbook::with(['judul'])
-            ->whereHas('judul', function ($query) {
-                $query->where('mahasiswa_id', auth()->user()->id);
-            })
-            ->where('status', 'acc komprehensif')->latest()->get();
-
-        return view('logbook.index', [
-            'title' => 'E - Skripsi | Bimbingan',
-            'logbooks' => $logbooks,
-            'accProposal' => $logbooksAccProposal,
-            'accKomprehensif' => $logbooksAccKomprehensif
-        ]);
     }
 
     /**
@@ -97,7 +95,7 @@ class LogbookController extends Controller
 
         if ($juduls->count() == 0) {
             Alert::error('Opsss', 'Belum ada judul yang diterima');
-            return redirect('/logbook');
+            return redirect(route('logbook.index'));
         }
         return view('logbook.create', [
             'title' => 'Bimbingan | Pengajuan',
@@ -128,7 +126,7 @@ class LogbookController extends Controller
 
         Alert::success('Berhasil', 'Bimbingan Telah Diajukan');
 
-        return redirect('/logbook');
+        return redirect(route('logbook.index'));
     }
 
     /**
@@ -153,7 +151,6 @@ class LogbookController extends Controller
             'title' => 'Bimbingan | Verifikasi',
             'logbook' => $logbook->load('judul'),
             'juduls' => Judul::where('status', 'diterima')->latest()->get(),
-
         ]);
     }
 
@@ -179,7 +176,7 @@ class LogbookController extends Controller
 
         Alert::success('Berhasil', 'Verifikasi Bimbingan');
 
-        return redirect('/logbook');
+        return redirect(route('logbook.index'));
     }
 
     /**
@@ -198,6 +195,6 @@ class LogbookController extends Controller
 
         Alert::success('Berhasil', 'Bimbingan Telah Dibatalkan');
 
-        return redirect('/logbook');
+        return redirect(route('logbook.index'));
     }
 }
