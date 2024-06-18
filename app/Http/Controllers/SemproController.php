@@ -184,8 +184,6 @@ class SemproController extends Controller
      */
     public function update(Request $request, Sempro $sempro)
     {
-        // akses koordinator
-        $this->authorize('update', $sempro);
 
         $rules = [];
 

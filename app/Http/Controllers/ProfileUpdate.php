@@ -30,8 +30,6 @@ class ProfileUpdate extends Controller
 
         $rules = [
             'name' => 'required|max:50',
-            'foto_profil' => 'image|file|max:1024',
-            'tahun_ajaran' => 'required'
         ];
 
         $customMessage = [];
@@ -39,6 +37,9 @@ class ProfileUpdate extends Controller
         if ($request->filled('nim_or_nidn')) {
             $rules['nim_or_nidn'] = 'required|min:5|max:13|unique:users,nim_or_nidn,' . $user->id;
             $customMessage['nim_or_nidn.unique'] = 'The NIND has been taken already.';
+        }
+        if ($request->filled('foto_profil')) {
+            $rules['foto_profil'] = 'image|file|max:1024';
         }
         if ($request->filled('jenis_kelamin')) {
             $rules['jenis_kelamin'] = 'required';
@@ -59,7 +60,9 @@ class ProfileUpdate extends Controller
         if ($request->filled('alamat')) {
             $rules['alamat'] = 'required|max:50';
         }
-
+        if ($request->filled('tahun_ajaran')) {
+            $rules['tahun_ajaran'] = 'required';
+        }
         if ($request->filled('password')) {
             $rules['password'] = 'required|min:8|max:255';
         }

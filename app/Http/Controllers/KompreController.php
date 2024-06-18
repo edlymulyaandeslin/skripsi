@@ -189,8 +189,6 @@ class KompreController extends Controller
      */
     public function update(Request $request, Kompre $kompre)
     {
-        // akses koordinator
-        $this->authorize('update', $kompre);
         $rules = [];
 
         if ($request->input('tanggal_seminar')) {
