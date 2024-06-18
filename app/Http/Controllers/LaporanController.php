@@ -96,8 +96,8 @@ class LaporanController extends Controller
             'judul.kompre.nilaikompre', 'judul.sempro.nilaisempro'
         ])->where('role_id', 4)
             ->where('status', 'lulus')
-            ->latest()
             ->filter(request(['search']))
+            ->orderBy('updated_at', 'desc')
             ->paginate(10)
             ->withQueryString();
 
