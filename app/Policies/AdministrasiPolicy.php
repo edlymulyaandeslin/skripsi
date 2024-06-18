@@ -13,7 +13,7 @@ class AdministrasiPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role_id === 2 || $user->role_id === 3;
+        return $user->role_id == 2 || $user->role_id == 3;
     }
 
     /**

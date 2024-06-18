@@ -15,6 +15,8 @@ class AdministrasiController extends Controller
     {
         $this->authorize('viewAny', Administrasi::class);
 
+        $dosens = "";
+
         if (auth()->user()->role_id == 3) {
             $dosens = User::where('role_id', 3)->where('id', auth()->user()->id)->latest()->filter(request(['search']))->paginate(10)->withQueryString();
         } else {

@@ -37,7 +37,7 @@ class NilaiKomprePolicy
      */
     public function update(User $user): bool
     {
-        return $user->role_id === 3;
+        return $user->role_id == 3;
     }
 
     /**

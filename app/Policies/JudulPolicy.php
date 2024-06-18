@@ -45,7 +45,7 @@ class JudulPolicy
      */
     public function delete(User $user, Judul $judul): bool
     {
-        return $user->id === $judul->mahasiswa_id;
+        return $user->id == $judul->mahasiswa_id;
     }
 
     /**
