@@ -42,8 +42,8 @@
             </div>
 
             <div>
-                <a href="/adm-seminar/create/{{ $dosen->id }}/{{ $totalbayar }}"
-                    class="btn btn-sm btn-warning text-white"><i class="fa fa-money-bill-wave"></i>
+                <a href="{{ route('adm.create', [$dosen->id, $totalbayar]) }}" class="btn btn-sm btn-warning text-white"><i
+                        class="fa fa-money-bill-wave"></i>
                     Bayar</a>
             </div>
 
@@ -70,7 +70,7 @@
                                         Rp{{ number_format($adm->bayar, 0, '.', '.') }}
                                     </td>
                                     <td class="text-center">
-                                        <form action="/adm-seminar/{{ $adm->id }}" method="post">
+                                        <form action="{{ route('adm.destroy', $adm->id) }}" method="post">
                                             @method('delete')
                                             @csrf
                                             <button type="submit" class="btn btn-sm btn-danger"

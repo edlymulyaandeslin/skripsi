@@ -191,17 +191,20 @@ class NilaiSemproController extends Controller
         return redirect(route('nilai-sempro.index'));
     }
 
-    public function show(Sempro $sempro)
+    public function show($id)
     {
-        $sempros = $sempro->load(['judul.mahasiswa', 'nilaisempro']);
+        $sempro = Sempro::find($id);
+        $sempro = $sempro->load(['judul.mahasiswa', 'nilaisempro']);
 
-        return response()->json($sempros);
+        return response()->json($sempro);
     }
 
-    public function edit(Sempro $sempro, NilaiSempro $nilaisempro)
+    public function edit($idSempro)
     {
-        // akses sesuai pembimbing dan penguji
-        $this->authorize('update', $nilaisempro);
+        // akses dosen
+        $this->authorize('update', NilaiSempro::class);
+
+        $sempro = Sempro::find($idSempro);
 
         return view('sempro.nilai.edit', [
             'title' => 'Seminar Proposal | Input Nilai',
@@ -210,14 +213,15 @@ class NilaiSemproController extends Controller
     }
 
 
-    public function update(Request $request, $id, NilaiSempro $nilaisempro)
+    public function update(Request $request, $id)
     {
-        // akses sesuai pembimbing dan penguji
-        $this->authorize('update', $nilaisempro);
+        // akses dosen
+        $this->authorize('update', NilaiSempro::class);
 
         $rules = [
             'sempro_id' => 'required',
         ];
+
         // input nilai form penguji 1
         if ($request->filled('nilai1_peng1')) {
             $rules['nilai1_peng1'] = 'required|numeric|min:0|max:25';

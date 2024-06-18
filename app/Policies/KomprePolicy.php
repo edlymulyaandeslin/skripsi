@@ -35,7 +35,7 @@ class KomprePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Kompre $kompre): bool
+    public function update(User $user): bool
     {
         return $user->role_id === 2;
     }
@@ -45,7 +45,7 @@ class KomprePolicy
      */
     public function delete(User $user, Kompre $kompre): bool
     {
-        return $user->id === $kompre->judul->mahasiswa_id;
+        return $user->role_id == 2;
     }
 
     /**

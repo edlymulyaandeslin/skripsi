@@ -184,6 +184,9 @@ class SemproController extends Controller
      */
     public function update(Request $request, Sempro $sempro)
     {
+        // akses koordinator
+        $this->authorize('update', $sempro);
+
         $rules = [];
 
         if ($request->input('tanggal_seminar')) {
@@ -256,15 +259,12 @@ class SemproController extends Controller
      */
     public function destroy(Sempro $sempro)
     {
-        // akses mahasiswa
+        // akses koordinator
         $this->authorize('delete', $sempro);
 
-        $semproId = $sempro->id;
-
-        $judul = Judul::whereHas('sempro', function ($query) use ($semproId) {
-            $query->where('id', $semproId);
+        $judul = Judul::whereHas('sempro', function ($query) use ($sempro) {
+            $query->where('id', $sempro->id);
         })->first();
-
 
         if ($sempro->pembayaran) {
             Storage::delete($sempro->pembayaran);
@@ -274,7 +274,7 @@ class SemproController extends Controller
 
         Kompre::where('judul_id', $judul->id)->delete();
 
-        Alert::success('Berhasil', 'Pengajuan Seminar Proposal Dibatalkan');
+        Alert::success('Berhasil', 'Seminar Proposal Dihapus');
 
         return redirect(route('sempro.index'));
     }

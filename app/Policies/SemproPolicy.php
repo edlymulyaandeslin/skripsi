@@ -43,9 +43,9 @@ class SemproPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Sempro $sempro): bool
+    public function delete(User $user): bool
     {
-        return $user->id == $sempro->judul->mahasiswa_id;
+        return $user->role_id == 2;
     }
 
     /**

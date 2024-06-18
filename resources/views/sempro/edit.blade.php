@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Update Seminar Proposal</h4>
-                <form action="/sempro/{{ $sempro->id }}" method="post">
+                <form action="{{ route('sempro.update', $sempro->id) }}" method="post">
                     @method('patch')
                     @csrf
                     <div class="form-floating mb-3">

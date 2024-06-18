@@ -6,7 +6,8 @@
         <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Bayar</h4>
-                <form action="/adm-seminar/{{ $dosen->id }}/{{ $totalbayar }}" method="post">
+                {{-- <form action="/adm-seminar/{{ $dosen->id }}/{{ $totalbayar }}" method="post"> --}}
+                <form action="{{ route('adm.store', [$dosen->id, $totalbayar]) }}" method="post">
                     @csrf
                     <div class="w-50">
                         <div class="form-floating mb-3">

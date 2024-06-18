@@ -13,11 +13,11 @@ class NilaiKompreController extends Controller
 
     public function index()
     {
-        $bobot = "";
         $kompres = "";
+        $bobot = Bobot::first();
+
         // admin dan koordinator
         if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
-            $bobot = Bobot::first();
             $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->latest()
@@ -28,7 +28,6 @@ class NilaiKompreController extends Controller
 
         // dosen
         if (auth()->user()->role_id == 3) {
-            $bobot = Bobot::first();
             $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
                 ->whereNotIn('status', ['diajukan', 'perbaikan', 'lulus'])
                 ->where(function ($query) {
@@ -49,8 +48,7 @@ class NilaiKompreController extends Controller
         }
 
         // mahasiswa
-        if (auth()->user()->role_id == 3) {
-            $bobot = Bobot::first();
+        if (auth()->user()->role_id == 4) {
             $kompres = Kompre::with('judul.mahasiswa', 'nilaikompre')
                 ->whereHas('judul', function ($query) {
                     $query->where('mahasiswa_id', auth()->user()->id);
@@ -237,10 +235,12 @@ class NilaiKompreController extends Controller
         return redirect(route('nilai-kompre.index'));
     }
 
-
-    public function show(Kompre $kompre)
+    public function show($id)
     {
+        $kompre = Kompre::find($id);
+
         $kompres = $kompre->load(['judul', 'judul.mahasiswa', 'penguji1', 'penguji2', 'penguji3', 'nilaikompre']);
+
         $bobot = Bobot::first();
 
         $data = [
@@ -252,10 +252,12 @@ class NilaiKompreController extends Controller
     }
 
 
-    public function edit(Kompre $kompre, NilaiKompre $nilaikompre)
+    public function edit($id)
     {
         // akses sesuai pembimbing dan penguji
-        $this->authorize('update', $nilaikompre);
+        $this->authorize('update', NilaiKompre::class);
+
+        $kompre = Kompre::find($id);
 
         return view('kompre.nilai.edit', [
             'title' => 'Komprehensif | Input Nilai',
@@ -264,10 +266,10 @@ class NilaiKompreController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id, NilaiKompre $nilaikompre)
+    public function update(Request $request, $id)
     {
         // akses sesuai pembimbing dan penguji
-        $this->authorize('update', $nilaikompre);
+        $this->authorize('update', NilaiKompre::class);
 
         $rules = [
             'kompre_id' => 'required',

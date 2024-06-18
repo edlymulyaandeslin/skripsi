@@ -8,7 +8,7 @@
             @cannot('mahasiswa')
                 <div class="d-flex justify-content-between mb-3 mt-1">
                     <div class="col-md-5">
-                        <form action="/nilai/sempro">
+                        <form action="{{ route('nilai-sempro.index') }}">
                             <div class="input-group">
                                 <input type="text" placeholder="search..." class="form-control" name="search"
                                     value="{{ request('search') }}" autofocus>
@@ -73,13 +73,14 @@
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <a href="javascript:void(0)" id="show-nilaisempro"
-                                                            data-url="{{ route('nilai.sempro.show', $sempro->id) }}"
+                                                            data-url="{{ route('nilai-sempro.show', $sempro->id) }}"
                                                             class="dropdown-item"><i class="bi bi-search text-info"></i>
                                                             Lihat</a>
                                                     </li>
 
                                                     <li>
-                                                        <a class="dropdown-item" href="/nilai/sempro/{{ $sempro->id }}/edit">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('nilai-sempro.edit', $sempro->id) }}">
                                                             <i class="bi bi-pencil-square text-warning"></i>
                                                             Input Nilai
                                                         </a>
@@ -89,10 +90,9 @@
                                             </div>
                                         @endcan
 
-                                        {{-- <li>{{ $sempro->ruang }}</li> --}}
                                         @cannot('dosen')
                                             <a href="javascript:void(0)" id="show-nilaisempro"
-                                                data-url="{{ route('nilai.sempro.show', $sempro->id) }}"
+                                                data-url="{{ route('nilai-sempro.show', $sempro->id) }}"
                                                 class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
                                             </a>
                                         @endcannot
@@ -394,10 +394,10 @@
             $('body').on('click', '#show-nilaisempro', function() {
 
                 let judulUrl = $(this).data('url');
+
                 $.get(judulUrl, function(data) {
                     $('#nilaisemproView').modal('show');
 
-                    console.log(data)
                     $('#mahasiswa').val(data.judul.mahasiswa.name);
 
                     $('#judul').val(data.judul.judul);

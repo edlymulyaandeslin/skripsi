@@ -28,14 +28,16 @@
                     @else
                         <div class="alert alert-success" role="alert">
                             <h4 class="alert-heading">ACCEPTED!</h4>
-                            <p>Selamat pengajuan seminar proposal kamu diterima, untuk melihat jadwal <a href="/kompre">klik
+                            <p>Selamat pengajuan seminar proposal kamu diterima, untuk melihat jadwal <a
+                                    href="{{ route('kompre.index') }}">klik
                                     disini</a>.
                             </p>
                             <hr>
                         </div>
                     @endif
 
-                    <form action="/kompre/{{ $kompre[0]->id }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('kompre.update', $kompre[0]->id) }}" method="post"
+                        enctype="multipart/form-data">
                         @method('patch')
                         @csrf
                         <div class="form-floating mb-3">
@@ -105,7 +107,7 @@
             @else
                 <div class="bg-light rounded h-100 p-4">
                     <h4 class="mb-4">Daftar Seminar Komprehensif</h4>
-                    <form action="/kompre" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('kompre.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-floating mb-3">
                             <select class="form-select @error('judul_id') is-invalid @enderror" id="form-file"

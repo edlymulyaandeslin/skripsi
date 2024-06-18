@@ -37,7 +37,8 @@
                     class="fa fa-book me-2"></i>Judul</a>
 
             @unless (auth()->user()->role_id == 2)
-                <a href="/logbook" class="nav-item nav-link {{ Request::is('logbook*') ? 'active' : '' }}"><i
+                <a href="{{ route('logbook.index') }}"
+                    class="nav-item nav-link {{ Request::is('logbook*') ? 'active' : '' }}"><i
                         class="fa fa-book-open me-2"></i>Bimbingan</a>
             @endunless
 
@@ -92,11 +93,11 @@
                         class="nav-link dropdown-toggle {{ Request::is('manajemen*') && !Request::is(['manajemen/profile*', 'manajemen/dokumen*']) ? 'active' : '' }}"
                         data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a href="/manajemen/mahasiswa"
+                        <a href="{{ route('mahasiswa.index') }}"
                             class="nav-item nav-link {{ Request::is('manajemen/mahasiswa*') ? 'active' : '' }}">Mahasiswa</a>
-                        <a href="/manajemen/koordinator"
+                        <a href="{{ route('koordinator.index') }}"
                             class="nav-item nav-link {{ Request::is('manajemen/koordinator*') ? 'active' : '' }}">Koordinator</a>
-                        <a href="/manajemen/dosen"
+                        <a href="{{ route('dosen.index') }}"
                             class="nav-item nav-link {{ Request::is('manajemen/dosen*') ? 'active' : '' }}">Dosen</a>
                     </div>
                 </div>
@@ -150,7 +151,7 @@
                     <a href="#" class="nav-link dropdown-toggle {{ Request::is('adm-seminar*') ? 'active' : '' }}"
                         data-bs-toggle="dropdown"><i class="fa fa-coins me-2"></i>Administrasi</a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a href="/adm-seminar"
+                        <a href="{{ route('adm') }}"
                             class="nav-item nav-link {{ Request::is('adm-seminar*') ? 'active' : '' }}">Administrasi
                             Seminar</a>
                     </div>

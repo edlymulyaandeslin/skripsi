@@ -35,7 +35,7 @@ class NilaiKomprePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, NilaiKompre $nilaiKompre): bool
+    public function update(User $user): bool
     {
         return $user->role_id === 3;
     }

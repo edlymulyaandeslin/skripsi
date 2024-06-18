@@ -9,7 +9,7 @@
                     <h4 class="mb-4">Nilai Seminar Komprehensif</h4>
                     <h6>Penguji 1 : {{ $kompre->penguji1->name ?? '' }}</h6>
                     <form
-                        action="{{ $kompre->nilaikompre !== null ? route('nilai.kompre.update', $kompre->nilaikompre->id) : route('nilai.kompre.store') }} "
+                        action="{{ $kompre->nilaikompre !== null ? route('nilai-kompre.update', $kompre->nilaikompre->id) : route('nilai-kompre.store') }} "
                         method="post">
                         @if ($kompre->nilaikompre !== null)
                             @method('patch')
@@ -75,7 +75,7 @@
                     <h4 class="mb-4">Nilai Seminar Komprehensif</h4>
                     <h6>Penguji 2 : {{ $kompre->penguji2->name ?? '' }}</h6>
                     <form
-                        action="{{ $kompre->nilaikompre !== null ? route('nilai.kompre.update', $kompre->nilaikompre->id) : route('nilai.kompre.store') }} "
+                        action="{{ $kompre->nilaikompre !== null ? route('nilai-kompre.update', $kompre->nilaikompre->id) : route('nilai-kompre.store') }} "
                         method="post">
                         @if ($kompre->nilaikompre !== null)
                             @method('patch')
@@ -140,7 +140,7 @@
                     <h4 class="mb-4">Nilai Seminar Komprehensif</h4>
                     <h6>Penguji 3 : {{ $kompre->penguji3->name ?? '' }}</h6>
                     <form
-                        action="{{ $kompre->nilaikompre !== null ? route('nilai.kompre.update', $kompre->nilaikompre->id) : route('nilai.kompre.store') }} "
+                        action="{{ $kompre->nilaikompre !== null ? route('nilai-kompre.update', $kompre->nilaikompre->id) : route('nilai-kompre.store') }} "
                         method="post">
                         @if ($kompre->nilaikompre !== null)
                             @method('patch')
@@ -205,7 +205,7 @@
                     <h4 class="mb-4">Nilai Seminar Komprehensif</h4>
                     <h6>Pembimbing 1 : {{ $kompre->judul->pembimbing1->name ?? '' }}</h6>
                     <form
-                        action="{{ $kompre->nilaikompre !== null ? route('nilai.kompre.update', $kompre->nilaikompre->id) : route('nilai.kompre.store') }} "
+                        action="{{ $kompre->nilaikompre !== null ? route('nilai-kompre.update', $kompre->nilaikompre->id) : route('nilai-kompre.store') }} "
                         method="post">
                         @if ($kompre->nilaikompre !== null)
                             @method('patch')
@@ -274,7 +274,7 @@
                     <h4 class="mb-4">Nilai Seminar Komprehensif</h4>
                     <h6>Pembimbing 2 : {{ $kompre->judul->pembimbing2->name ?? '' }}</h6>
                     <form
-                        action="{{ $kompre->nilaikompre !== null ? route('nilai.kompre.update', $kompre->nilaikompre->id) : route('nilai.kompre.store') }} "
+                        action="{{ $kompre->nilaikompre !== null ? route('nilai-kompre.update', $kompre->nilaikompre->id) : route('nilai-kompre.store') }} "
                         method="post">
                         @if ($kompre->nilaikompre !== null)
                             @method('patch')
@@ -339,11 +339,8 @@
             {{-- end form nilai pembimbing2 --}}
         @else
             <div class="col-md-12">
-                <div class="alert alert-warning" role="alert">
-                    <h4 class="alert-heading">Warning!</h4>
-                    <p>Kamu SIAPA?
-                    </p>
-                    <hr>
+                <div class="bg-light rounded h-100 p-4 fst-italic fw-bolder">
+                    Anda hanya dapat memberikan nilai kepada mahasiswa yang dibimbing atau diuji
                 </div>
             </div>
         @endif

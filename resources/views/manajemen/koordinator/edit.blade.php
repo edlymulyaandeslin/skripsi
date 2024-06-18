@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Update Data Koordinator</h4>
-                <form action="/manajemen/koordinator/{{ $koordinator->id }}" method="post" class="row">
+                <form action="{{ route('koordinator.update', $koordinator->id) }}" method="post" class="row">
                     @method('patch')
                     @csrf
                     <div class="col">

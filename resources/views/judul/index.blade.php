@@ -7,7 +7,7 @@
 
             <div class="d-flex row justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
-                    <form action="/judul">
+                    <form action="{{ route('judul.index') }}">
                         <div class="input-group">
                             <input type="text" placeholder="search..." class="form-control" name="search"
                                 value="{{ request('search') }}" autofocus>
@@ -74,7 +74,7 @@
 
                                                     @can('koordinator')
                                                         <li>
-                                                            <a class="dropdown-item" href="/judul/{{ $judul->id }}/edit">
+                                                            <a class="dropdown-item" href="{{ route('judul.edit', $judul->id) }}">
                                                                 <i class="bi bi-pencil-square text-warning"></i>
                                                                 Verifikasi
                                                             </a>

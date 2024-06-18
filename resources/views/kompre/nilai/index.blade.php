@@ -8,7 +8,7 @@
             <div class="d-flex justify-content-between mb-3 mt-1">
                 @cannot('mahasiswa')
                     <div class="col-md-5">
-                        <form action="/nilai/kompre">
+                        <form action="{{ route('nilai-kompre.index') }}">
                             <div class="input-group">
                                 <input type="text" placeholder="search..." class="form-control" name="search"
                                     value="{{ request('search') }}" autofocus>
@@ -20,7 +20,7 @@
 
                 @can('koordinator')
                     <div>
-                        <a href="/bobot/{{ $bobot->id }}/edit" class="btn btn-sm btn-dark">Atur Bobot Nilai</a>
+                        <a href="{{ route('bobot.edit', $bobot->id) }}" class="btn btn-sm btn-dark">Atur Bobot Nilai</a>
                     </div>
                 @endcan
             </div>
@@ -77,13 +77,14 @@
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <a href="javascript:void(0)" id="show-nilaikompre"
-                                                            data-url="{{ route('nilai.kompre.show', $kompre->id) }}"
+                                                            data-url="{{ route('nilai-kompre.show', $kompre->id) }}"
                                                             class="dropdown-item"><i class="bi bi-search text-info"></i>
                                                             Lihat</a>
                                                     </li>
 
                                                     <li>
-                                                        <a class="dropdown-item" href="/nilai/kompre/{{ $kompre->id }}/edit">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('nilai-kompre.edit', $kompre->id) }}">
                                                             <i class="bi bi-pencil-square text-warning"></i>
                                                             Input Nilai
                                                         </a>
@@ -94,7 +95,7 @@
 
                                         @cannot('dosen')
                                             <a href="javascript:void(0)" id="show-nilaikompre"
-                                                data-url="{{ route('nilai.kompre.show', $kompre->id) }}"
+                                                data-url="{{ route('nilai-kompre.show', $kompre->id) }}"
                                                 class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
                                             </a>
                                         @endcannot

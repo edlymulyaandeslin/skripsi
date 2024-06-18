@@ -22,7 +22,6 @@ class JudulController extends Controller
         confirmDelete($title, $text);
 
         $listjudul = "";
-
         // jika dia admin atau koordinator tampilkan semua judul
         if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
             $listjudul = Judul::with(
@@ -69,10 +68,10 @@ class JudulController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Judul $judul)
+    public function create()
     {
         // akses mahasiswa
-        $this->authorize('create', $judul);
+        $this->authorize('create', Judul::class);
 
         $judul = Judul::where('mahasiswa_id', auth()->user()->id)->latest()->get();
 

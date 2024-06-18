@@ -8,7 +8,7 @@
 
             <div class="d-flex row justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
-                    <form action="/adm-seminar">
+                    <form action="{{ route('adm') }}">
                         <div class="input-group">
                             <input type="text" placeholder="search..." class="form-control" name="search"
                                 value="{{ request('search') }}" autofocus>
@@ -117,7 +117,7 @@
 
                                     @can('koordinator')
                                         <td>
-                                            <a href="/adm-seminar/{{ $dosen->id }}/pay/{{ $total }}"
+                                            <a href="{{ route('adm.pay', [$dosen->id, $total]) }}"
                                                 class="btn btn-sm btn-outline-dark text-warning"><i
                                                     class="fa fa-money-bill-wave"></i>
                                                 Pay</a>

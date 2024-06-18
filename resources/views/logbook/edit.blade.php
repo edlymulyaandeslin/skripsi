@@ -6,11 +6,10 @@
         <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Verifikasi Bimbingan</h4>
-                <form action="/logbook/{{ $logbook->id }}" method="post">
+                <form action="{{ route('logbook.update', $logbook->id) }}" method="post">
                     @method('patch')
                     @csrf
                     <div class="form-floating mb-3">
-                        {{-- <input type="hidden" value="{{ $logbook->judul->id }}" name="judul_id"> --}}
                         <select class="form-select @error('judul_id') is-invalid @enderror" id="floatingSelect" name="judul_id"
                             disabled>
                             <option selected value="{{ null }}">Pilih</option>

@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Detail Bimbingan</h4>
-                <form action="/logbook" method="post" enctype="multipart/form-data">
+                <form action="{{ route('logbook.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-floating mb-3">
                         <select class="form-select @error('judul_id') is-invalid @enderror" id="floatingSelect"

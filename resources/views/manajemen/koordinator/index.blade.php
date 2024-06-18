@@ -11,11 +11,11 @@
                         <input type="text" placeholder="search" class="form-control">
                     </form>
                 </div>
+
                 <div>
                     <a href="{{ route('koordinator.create') }}" class="btn btn-sm btn-primary">Buat Akun <i
                             class="fa fa-plus"></i></a>
                 </div>
-
             </div>
 
             <div class="table-responsive">
@@ -58,7 +58,7 @@
 
                                                 <li>
                                                     <a class="dropdown-item"
-                                                        href="/manajemen/koordinator/{{ $koordinator->id }}/edit">
+                                                        href="{{ route('koordinator.edit', $koordinator->id) }}">
                                                         <i class="bi bi-pencil-square text-warning"></i>
                                                         Edit
                                                     </a>

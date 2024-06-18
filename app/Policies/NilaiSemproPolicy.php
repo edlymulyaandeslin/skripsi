@@ -35,9 +35,8 @@ class NilaiSemproPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, NilaiSempro $nilaisempro): bool
+    public function update(User $user): bool
     {
-
         return $user->role_id === 3;
     }
 

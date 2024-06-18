@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Isi Data Koordinator</h4>
-                <form action="/manajemen/koordinator" method="post" class="row">
+                <form action="{{ route('koordinator.store') }}" method="post" class="row">
                     @csrf
                     <div class="col">
                         <div class="form-floating mb-3">

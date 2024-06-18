@@ -52,11 +52,11 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/sempro', SemproController::class);
 
-    Route::resource('/nilai-sempro', NilaiSemproController::class)->except(['create', 'destroy']);
+    Route::resource('/nilai-sempro', NilaiSemproController::class);
 
     Route::resource('/kompre', KompreController::class);
 
-    Route::resource('/nilai-kompre', NilaiKompreController::class)->except(['create', 'destroy']);
+    Route::resource('/nilai-kompre', NilaiKompreController::class);
 
     Route::get('/mahasiswa-bimbingan', [MahasiswaSkripsiController::class, 'bimbingan']);
 
@@ -96,11 +96,11 @@ Route::middleware('mahasiswa')->group(function () {
 Route::middleware('koordinator')->group(function () {
     // laporan
     Route::prefix('laporan')->group(function () {
-        Route::get('/seminar', [LaporanController::class, 'seminar']);
-        Route::get('/lulus-sempro', [LaporanController::class, 'lulusSempro']);
-        Route::get('/lulus-kompre', [LaporanController::class, 'lulusKompre']);
-        Route::get('/yudisium', [LaporanController::class, 'yudisium']);
-        Route::get('/rekap-judul', [LaporanController::class, 'rekapJudul']);
+        Route::get('/seminar', [LaporanController::class, 'seminar'])->name('seminar');
+        Route::get('/lulus-sempro', [LaporanController::class, 'lulusSempro'])->name('lulus-sempro');
+        Route::get('/lulus-kompre', [LaporanController::class, 'lulusKompre'])->name('lulus-kompre');
+        Route::get('/yudisium', [LaporanController::class, 'yudisium'])->name('yudisium');
+        Route::get('/rekap-judul', [LaporanController::class, 'rekapJudul'])->name('rekap-judul');
     });
 
     // cetak laporan
@@ -121,10 +121,10 @@ Route::middleware('koordinator')->group(function () {
     ]);
 
     // Administrasi
-    Route::get('/adm-seminar/{id}/pay/{total}', [AdministrasiController::class, 'edit']);
-    Route::get('/adm-seminar/create/{id}/{total}', [AdministrasiController::class, 'create']);
-    Route::post('/adm-seminar/{id}/{total}', [AdministrasiController::class, 'store']);
-    Route::delete('/adm-seminar/{id}', [AdministrasiController::class, 'destroy'])->name('administrasi.destroy');
+    Route::get('/adm-seminar/{id}/pay/{total}', [AdministrasiController::class, 'edit'])->name('adm.pay');
+    Route::get('/adm-seminar/create/{id}/{total}', [AdministrasiController::class, 'create'])->name('adm.create');
+    Route::post('/adm-seminar/{id}/{total}', [AdministrasiController::class, 'store'])->name('adm.store');
+    Route::delete('/adm-seminar/{id}', [AdministrasiController::class, 'destroy'])->name('adm.destroy');
 });
 
-Route::get('/adm-seminar', [AdministrasiController::class, 'index']);
+Route::get('/adm-seminar', [AdministrasiController::class, 'index'])->name('adm');

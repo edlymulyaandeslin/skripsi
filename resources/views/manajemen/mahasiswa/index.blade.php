@@ -57,7 +57,7 @@
 
                                                 <li>
                                                     <a class="dropdown-item"
-                                                        href="/manajemen/mahasiswa/{{ $mahasiswa->id }}/edit">
+                                                        href="{{ route('mahasiswa.edit', $mahasiswa->id) }}">
                                                         <i class="bi bi-pencil-square text-warning"></i>
                                                         Ubah
                                                     </a>

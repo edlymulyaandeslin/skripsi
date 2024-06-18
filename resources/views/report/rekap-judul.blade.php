@@ -7,7 +7,7 @@
 
             <div class="d-flex justify-content-between mb-3 mt-1">
                 <div class="col-md-5">
-                    <form action="/laporan/rekap-judul" method="GET">
+                    <form action="{{ route('rekap-judul') }}">
                         <div class="input-group">
                             <input type="text" placeholder="search..." class="form-control" name="search"
                                 value="{{ request('search') }}" autofocus>

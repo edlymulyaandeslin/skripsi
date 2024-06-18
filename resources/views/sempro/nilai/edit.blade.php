@@ -9,7 +9,7 @@
                     <h4 class="mb-4">Nilai Seminar Proposal</h4>
                     <h6>Penguji 1 : {{ $sempro->penguji1->name ?? '' }}</h6>
                     <form
-                        action="{{ $sempro->nilaisempro !== null ? route('nilai.sempro.update', $sempro->nilaisempro->id) : route('nilai.sempro.store') }} "
+                        action="{{ $sempro->nilaisempro !== null ? route('nilai-sempro.update', $sempro->nilaisempro->id) : route('nilai-sempro.store') }}"
                         method="post">
                         @if ($sempro->nilaisempro !== null)
                             @method('patch')
@@ -93,7 +93,7 @@
                     <h4 class="mb-4">Nilai Seminar Proposal</h4>
                     <h6>Penguji 2 : {{ $sempro->penguji2->name ?? '' }}</h6>
                     <form
-                        action="{{ $sempro->nilaisempro !== null ? route('nilai.sempro.update', $sempro->nilaisempro->id) : route('nilai.sempro.store') }} "
+                        action="{{ $sempro->nilaisempro !== null ? route('nilai-sempro.update', $sempro->nilaisempro->id) : route('nilai-sempro.store') }} "
                         method="post">
                         @if ($sempro->nilaisempro !== null)
                             @method('patch')
@@ -176,7 +176,7 @@
                     <h4 class="mb-4">Nilai Seminar Proposal</h4>
                     <h6>Penguji 3 : {{ $sempro->penguji3->name ?? '' }}</h6>
                     <form
-                        action="{{ $sempro->nilaisempro !== null ? route('nilai.sempro.update', $sempro->nilaisempro->id) : route('nilai.sempro.store') }} "
+                        action="{{ $sempro->nilaisempro !== null ? route('nilai-sempro.update', $sempro->nilaisempro->id) : route('nilai-sempro.store') }} "
                         method="post">
                         @if ($sempro->nilaisempro !== null)
                             @method('patch')
@@ -259,7 +259,7 @@
                     <h4 class="mb-4">Nilai Seminar Proposal</h4>
                     <h6>Pembimbing 1 : {{ $sempro->judul->pembimbing1->name ?? '' }}</h6>
                     <form
-                        action="{{ $sempro->nilaisempro !== null ? route('nilai.sempro.update', $sempro->nilaisempro->id) : route('nilai.sempro.store') }} "
+                        action="{{ $sempro->nilaisempro !== null ? route('nilai-sempro.update', $sempro->nilaisempro->id) : route('nilai-sempro.store') }} "
                         method="post">
                         @if ($sempro->nilaisempro !== null)
                             @method('patch')
@@ -352,7 +352,7 @@
                     <h4 class="mb-4">Nilai Seminar Proposal</h4>
                     <h6>Pembimbing 2 : {{ $sempro->judul->pembimbing2->name ?? '' }}</h6>
                     <form
-                        action="{{ $sempro->nilaisempro !== null ? route('nilai.sempro.update', $sempro->nilaisempro->id) : route('nilai.sempro.store') }} "
+                        action="{{ $sempro->nilaisempro !== null ? route('nilai-sempro.update', $sempro->nilaisempro->id) : route('nilai-sempro.store') }} "
                         method="post">
                         @if ($sempro->nilaisempro !== null)
                             @method('patch')

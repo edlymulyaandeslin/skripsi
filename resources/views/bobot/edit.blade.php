@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Atur Bobot Nilai Komprehensif</h4>
-                <form action="/bobot/{{ $bobot->id }}" method="post">
+                <form action="{{ route('bobot.update', $bobot->id) }}" method="post">
                     @method('patch')
                     @csrf
                     <div class="w-50">

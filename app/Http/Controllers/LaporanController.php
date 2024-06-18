@@ -16,7 +16,7 @@ class LaporanController extends Controller
 
         session(['list-judul' => $judulAccSess]);
 
-        $judulAcc = Judul::with('mahasiswa')->where('status', 'diterima')->filter(request(['search']))->paginate(10)->withQueryString();
+        $judulAcc = Judul::with('mahasiswa')->where('status', 'diterima')->filter(request(['search']))->latest()->paginate(10)->withQueryString();
 
         return view('report.rekap-judul', [
             'title' => 'E - Skripsi | Rekap Judul',

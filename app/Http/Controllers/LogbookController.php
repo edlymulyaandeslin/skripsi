@@ -91,6 +91,7 @@ class LogbookController extends Controller
     {
         // akses mahasiswa
         $this->authorize('create', Logbook::class);
+
         $juduls = Judul::with('mahasiswa', 'pembimbing1', 'pembimbing2')->where('status', 'diterima')->where('mahasiswa_id', auth()->user()->id)->latest()->get();
 
         if ($juduls->count() == 0) {

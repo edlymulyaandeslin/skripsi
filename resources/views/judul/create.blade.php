@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Isi Detail Judul</h4>
-                <form action="/judul" method="post">
+                <form action="{{ route('judul.store') }}" method="post">
                     @csrf
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control @error('judul') is-invalid @enderror" id="floatingInput"

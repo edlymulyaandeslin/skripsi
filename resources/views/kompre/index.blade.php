@@ -16,7 +16,7 @@
                 @cannot('mahasiswa')
                     <div class="d-flex justify-content-between mb-3 mt-1">
                         <div class="col-md-5">
-                            <form action="/kompre">
+                            <form action="{{ route('kompre.index') }}">
                                 <div class="input-group">
                                     <input type="text" placeholder="search..." class="form-control" name="search"
                                         value="{{ request('search') }}" autofocus>
@@ -73,14 +73,15 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <a href="javascript:void(0)" id="show-kompre"
-                                                                data-url="/kompre/{{ $kompre->id }}" class="dropdown-item"><i
-                                                                    class="bi bi-search text-info"></i>
+                                                                data-url="{{ route('kompre.show', $kompre->id) }}"
+                                                                class="dropdown-item"><i class="bi bi-search text-info"></i>
                                                                 Lihat</a>
                                                         </li>
 
                                                         @can('koordinator')
                                                             <li>
-                                                                <a class="dropdown-item" href="/kompre/{{ $kompre->id }}/edit">
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('kompre.edit', $kompre->id) }}">
                                                                     <i class="bi bi-pencil-square text-warning"></i>
                                                                     Verifikasi
                                                                 </a>
@@ -91,15 +92,7 @@
                                                             <hr class="dropdown-divider">
                                                         </li>
 
-                                                        @if ($kompre->status == 'diajukan')
-                                                            @can('mahasiswa')
-                                                                <li>
-                                                                    <a href="{{ route('kompre.destroy', $kompre->id) }}"class="dropdown-item"
-                                                                        data-confirm-delete="true"><i
-                                                                            class="bi bi-trash-fill text-danger"></i> Batalkan</a>
-                                                                </li>
-                                                            @endcan
-                                                        @elseif($kompre->status == 'tidak lulus')
+                                                        @if ($kompre->status == 'tidak lulus')
                                                             @can('koordinator')
                                                                 <li>
                                                                     <a href="{{ route('kompre.destroy', $kompre->id) }}"class="dropdown-item"
@@ -117,7 +110,7 @@
 
                                             @unless (auth()->user()->can('mahasiswa') || auth()->user()->can('koordinator'))
                                                 <a href="javascript:void(0)" id="show-kompre"
-                                                    data-url="/kompre/{{ $kompre->id }}"
+                                                    data-url="{{ route('kompre.show', $kompre->id) }}}}"
                                                     class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
                                                 </a>
                                             @endunless
@@ -147,7 +140,8 @@
                                 $kompres[0]->status == 'tidak lulus')
                             <div class="alert alert-info mt-3" role="alert">
                                 <h4 class="alert-heading">Informasi!</h4>
-                                <p>Untuk melihat penilaian seminar kamu <a href="/nilai/kompre">klik disini</a>.
+                                <p>Untuk melihat penilaian seminar kamu <a href="{{ route('nilai-kompre.index') }}">klik
+                                        disini</a>.
                                 </p>
                             </div>
                         @endif

@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="bg-light rounded h-100 p-4">
                 <h4 class="mb-4">Update Seminar Komprehensif</h4>
-                <form action="/kompre/{{ $kompre->id }}" method="post">
+                <form action="{{ route('kompre.update', $kompre->id) }}" method="post">
                     @method('patch')
                     @csrf
                     <div class="form-floating mb-3">

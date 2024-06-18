@@ -189,6 +189,8 @@ class KompreController extends Controller
      */
     public function update(Request $request, Kompre $kompre)
     {
+        // akses koordinator
+        $this->authorize('update', $kompre);
         $rules = [];
 
         if ($request->input('tanggal_seminar')) {
@@ -262,7 +264,7 @@ class KompreController extends Controller
      */
     public function destroy(Kompre $kompre)
     {
-        // akses mahasiswa
+        // akses koordinator
         $this->authorize('delete', $kompre);
 
         if ($kompre->pembayaran) {
@@ -271,7 +273,7 @@ class KompreController extends Controller
 
         $kompre->delete();
 
-        Alert::success('Berhasil', 'Pengajuan Seminar Komprehensif Dibatalkan');
+        Alert::success('Berhasil', 'Seminar Komprehensif Dihapus');
 
         return redirect(route('kompre.index'));
     }

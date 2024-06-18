@@ -56,8 +56,7 @@
                                                 </li>
 
                                                 <li>
-                                                    <a class="dropdown-item"
-                                                        href="/manajemen/dosen/{{ $dosen->id }}/edit">
+                                                    <a class="dropdown-item" href="{{ route('dosen.edit', $dosen->id) }}">
                                                         <i class="bi bi-pencil-square text-warning"></i>
                                                         Edit
                                                     </a>
@@ -72,7 +71,6 @@
                                                         data-confirm-delete="true"><i
                                                             class="bi bi-trash-fill text-danger"></i> Hapus</a>
                                                 </li>
-
                                             </ul>
                                         </div>
                                     </td>

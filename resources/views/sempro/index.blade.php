@@ -16,7 +16,7 @@
                 @cannot('mahasiswa')
                     <div class="d-flex justify-content-between mb-3 mt-1">
                         <div class="col-md-5">
-                            <form action="/sempro">
+                            <form action="{{ route('sempro.index') }}">
                                 <div class="input-group">
                                     <input type="text" placeholder="search..." class="form-control" name="search"
                                         value="{{ request('search') }}" autofocus>
@@ -72,14 +72,15 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <a href="javascript:void(0)" id="show-sempro"
-                                                                data-url="/sempro/{{ $sempro->id }}" class="dropdown-item"><i
-                                                                    class="bi bi-search text-info"></i>
+                                                                data-url="{{ route('sempro.show', $sempro->id) }}"
+                                                                class="dropdown-item"><i class="bi bi-search text-info"></i>
                                                                 Lihat</a>
                                                         </li>
 
                                                         @can('koordinator')
                                                             <li>
-                                                                <a class="dropdown-item" href="/sempro/{{ $sempro->id }}/edit">
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('sempro.edit', $sempro->id) }}">
                                                                     <i class="bi bi-pencil-square text-warning"></i>
                                                                     Verifikasi
                                                                 </a>
@@ -90,15 +91,7 @@
                                                             <hr class="dropdown-divider">
                                                         </li>
 
-                                                        @if ($sempro->status == 'diajukan')
-                                                            @can('mahasiswa')
-                                                                <li>
-                                                                    <a href="{{ route('sempro.destroy', $sempro->id) }}"
-                                                                        class="dropdown-item" data-confirm-delete="true"><i
-                                                                            class="bi bi-trash-fill text-danger"></i> Batalkan</a>
-                                                                </li>
-                                                            @endcan
-                                                        @elseif($sempro->status == 'tidak lulus')
+                                                        @if ($sempro->status == 'tidak lulus')
                                                             @can('koordinator')
                                                                 <li>
                                                                     <a href="{{ route('sempro.destroy', $sempro->id) }}"
@@ -116,11 +109,10 @@
 
                                             @unless (auth()->user()->can('mahasiswa') || auth()->user()->can('koordinator'))
                                                 <a href="javascript:void(0)" id="show-sempro"
-                                                    data-url="/sempro/{{ $sempro->id }}"
+                                                    data-url="{{ route('sempro.show', $sempro->id) }}"
                                                     class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill"></i>
                                                 </a>
                                             @endunless
-
                                         </td>
                                     </tr>
                                 @endforeach
@@ -153,7 +145,8 @@
                                 $sempros[0]->status == 'tidak lulus')
                             <div class="alert alert-info mt-3" role="alert">
                                 <h4 class="alert-heading">Informasi!</h4>
-                                <p>Untuk melihat penilaian seminar kamu <a href="/nilai/sempro">klik disini</a>.
+                                <p>Untuk melihat penilaian seminar kamu <a href="{{ route('nilai-sempro.index') }}">klik
+                                        disini</a>.
                                 </p>
                             </div>
                         @endif
