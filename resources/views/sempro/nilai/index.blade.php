@@ -483,36 +483,35 @@
 
                     // perhitungan total nilai
                     let totalPenguji1 = 0
-                    data.nilaisempro ? totalPenguji1 =
-                        data.nilaisempro.nilai1_peng1 + data.nilaisempro.nilai2_peng1 +
-                        data.nilaisempro.nilai3_peng1 + data.nilaisempro.nilai4_peng1 +
-                        data.nilaisempro.nilai5_peng1 : totalPenguji1 = 0;
-
                     let totalPenguji2 = 0
-                    data.nilaisempro ? totalPenguji2 =
-                        data.nilaisempro.nilai1_peng2 + data.nilaisempro.nilai2_peng2 +
-                        data.nilaisempro.nilai3_peng2 + data.nilaisempro.nilai4_peng2 +
-                        data.nilaisempro.nilai5_peng2 : totalPenguji2 = 0;
-
                     let totalPenguji3 = 0
-                    data.nilaisempro ? totalPenguji3 =
-                        data.nilaisempro.nilai1_peng3 + data.nilaisempro.nilai2_peng3 +
-                        data.nilaisempro.nilai3_peng3 + data.nilaisempro.nilai4_peng3 +
-                        data.nilaisempro.nilai5_peng3 : totalPenguji3 = 0;
-
                     let totalPem1 = 0
-                    data.nilaisempro ? totalPem1 =
-                        data.nilaisempro.nilai1_pem1 + data.nilaisempro.nilai2_pem1 +
-                        data.nilaisempro.nilai3_pem1 + data.nilaisempro.nilai4_pem1 +
-                        data.nilaisempro.nilai5_pem1 + data.nilaisempro.nilai6_pem1 +
-                        data.nilaisempro.nilai7_pem1 : totalPem1 = 0;
-
                     let totalPem2 = 0
-                    data.nilaisempro ? totalPem2 =
-                        data.nilaisempro.nilai1_pem2 + data.nilaisempro.nilai2_pem2 +
-                        data.nilaisempro.nilai3_pem2 + data.nilaisempro.nilai4_pem2 +
-                        data.nilaisempro.nilai5_pem2 + data.nilaisempro.nilai6_pem2 +
-                        data.nilaisempro.nilai7_pem2 : totalPem2 = 0;
+
+                    if (data.nilaisempro) {
+                        totalPenguji1 = data.nilaisempro.nilai1_peng1 + data.nilaisempro
+                            .nilai2_peng1 + data.nilaisempro.nilai3_peng1 + data.nilaisempro
+                            .nilai4_peng1 + data.nilaisempro.nilai5_peng1
+
+                        totalPenguji2 = data.nilaisempro.nilai1_peng2 + data.nilaisempro
+                            .nilai2_peng2 + data.nilaisempro.nilai3_peng2 + data.nilaisempro
+                            .nilai4_peng2 + data.nilaisempro.nilai5_peng2
+
+                        totalPenguji3 = data.nilaisempro.nilai1_peng3 + data.nilaisempro
+                            .nilai2_peng3 + data.nilaisempro.nilai3_peng3 + data.nilaisempro
+                            .nilai4_peng3 + data.nilaisempro.nilai5_peng3
+
+                        totalPem1 = data.nilaisempro.nilai1_pem1 + data.nilaisempro.nilai2_pem1 +
+                            data.nilaisempro.nilai3_pem1 + data.nilaisempro.nilai4_pem1 +
+                            data.nilaisempro.nilai5_pem1 + data.nilaisempro.nilai6_pem1 +
+                            data.nilaisempro.nilai7_pem1
+
+                        totalPem2 = data.nilaisempro.nilai1_pem2 + data.nilaisempro.nilai2_pem2 +
+                            data.nilaisempro.nilai3_pem2 + data.nilaisempro.nilai4_pem2 +
+                            data.nilaisempro.nilai5_pem2 + data.nilaisempro.nilai6_pem2 +
+                            data.nilaisempro.nilai7_pem2
+                    }
+
 
                     // memasukkan nilai kedalam field
                     $('#totalPenguji1').val(totalPenguji1);
@@ -523,8 +522,7 @@
 
                     let ratarata = (totalPenguji1 + totalPenguji2 + totalPenguji3 + totalPem1 +
                         totalPem2) / 5;
-                    ratarata != 0 ? $('#rata-rata').val(ratarata.toFixed(2)) :
-                        $('#rata-rata').val('0.00');
+                    $('#rata-rata').val(ratarata.toFixed(2))
                 })
             })
         })
